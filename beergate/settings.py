@@ -32,6 +32,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['beergate.herokuapp.com', 'localhost']
 
+ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 # Application definition
 
@@ -44,6 +45,7 @@ INSTALLED_APPS = [
     'cloudinary_storage',
     'django.contrib.staticfiles',
     'cloudinary',
+    'ckeditor',
     'reviews',
 ]
 

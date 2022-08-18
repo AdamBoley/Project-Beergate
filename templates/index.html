@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Beer Reviews -->
+        <div class="col-12 mt-3 left">
+            <div class="row">
+                {% for review in object_list %}
+                    <div class="col-md-3">
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <div class="image-container">
+                                    {% if "placeholder" in review.image.url %}
+                                        <img src="../static/images/bg1.jpg" alt="default image" class="card-img-top">
+                                    {% else %}
+                                        <img src="{{ review.image.url }}" alt="" class="card-img-top">
+                                    {% endif %}
+                                    <div class="image-flash">
+                                        <p>Author: {{ review.author }}</p>
+                                    </div>
+                                </div>
+                                <a href="{% url 'review' review.pk %}" class="post-link">
+                                    <!-- This calls the third path in urlpatterns in blog/urls.py -->
+                                    <!-- 'beer_review_single' is the name in the respective url path in urls.py -->
+                                    <h2 class="card-title">{{ review.name }}</h2>
+                                </a>
+                                
+                                <hr>
+                                <p class="card-text text-muted h6">
+                                    {{ review.timstamp }}
+                                    <i class="far fa-thumbs-up"></i>
+                                    {{ review.number_of_upvotes }}
+                                    <i class="far fa-thumbs-down"></i>
+                                    {{ review.number_of_downvotes }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                {% if forloop.counter|divisibleby:4 %}
+                </div>
+                <div class="row">
+                
+                {% endif %}
+
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    {% if is_paginated %}
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-centre">
+                {% if page_obj.has_previous %}
+                    <li>
+                        <a href="?page={{ page_obj.previous_page_number }}" class="page-link">Previous</a>
+                    </li>
+                {% endif %}
+                {% if page_obj.has_next %}
+                    <li>
+                        <a href="?page={{ page_obj.next_page_number }}" class="page-link">Next</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    {% endif %}
+</div>
+
+
+
+{% endblock%}
