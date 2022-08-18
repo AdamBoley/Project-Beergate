@@ -42,7 +42,7 @@ class BeerReviewSingle(View):
         queryset = Review.objects.filter(approved=True)
         # beer_review = get_object_or_404(queryset, slug=slug)
         review = get_object_or_404(queryset, pk=pk)
-        comments = review.comments.filter(approved=True).order_by('created_on')
+        comments = review.comments.filter(approved=True).order_by('timestamp')
         upvoted = False
         downvoted = False
         if review.upvotes.filter(id=self.request.user.id).exists():
@@ -55,7 +55,7 @@ class BeerReviewSingle(View):
         if comment_form.is_valid():
             comment_form.instance.author = request.user
             comment = comment_form.save(commit=False)
-            comment.beer_review = review
+            comment.review = review
             comment.save()
         else:
             comment_form = CommentForm()
