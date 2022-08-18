@@ -112,7 +112,7 @@ class Comment(models.Model):
     """
     review = models.ForeignKey(Review, on_delete=models.CASCADE, related_name="comments")
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    content = models.TextField()
+    content = RichTextField()
     timestamp = models.DateTimeField(auto_now_add=True)
     upvotes = models.ManyToManyField(User, related_name='comment_upvotes', blank=True)
     downvotes = models.ManyToManyField(User, related_name='comment_downvotes', blank=True)
