@@ -369,7 +369,7 @@ To do:
 
 - implement an exclusivity feature - if a user upvotes, remove their downvote, if user downvotes, remove their upvote so that they cannot do both at the same time
 - Review generic placeholder image - it is too small
-- Rework Bootstrap card structure for index.html, beer_review_single.html and user_review.html
+- Rework Bootstrap card structure for index.html, review.html and user_review.html
 - Provide a consistent aspect ratio for post images
 - Background image not displaying on deployed site - may be caused by DISABLE_COLLECTSTATIC = 1 config var in Heroku
 - Add higher-level AllAuth functionality - social media sign in, password complexity, confirmation emails, etc
@@ -377,9 +377,22 @@ To do:
 - For the admin backend, add a disapprove method, so that several previously-approved reviews can be made inactive at the same time, much like several unapproved reviews can be approved at the same time. 
 - [Implement a search bar function](https://learndjango.com/tutorials/django-search-tutorial)
 - Extend User model to include a profile picture and other information - display this on the navbar and below each beer review
+- move pagination next button to right hand side of the page
+- implement functionality to allow users to update, edit and delete their posts
+- use `{% block title %}{% endblock %}` control statements to provide custom titles for html pages
 
 Later:
 - implement upvotes / downvotes feature for Comments - on hold
+
+To consider:
+- The UpdateReviewView and update_review page that allow users to update their reviews redirect back to the review.html page with the updated content
+- this could prove to be a vulnerability for malicious users - i.e they pose as honest users and submit a seemingly plausible review, then update it with malicious content
+- therefore, should updates set reviews back to false so that I must re-approve them? 
+- this is vulnerability, but a post method in the update view creates a new record
+- This may actually be a feature to prevent malicious attacks - the old, innocuous record that was updated remains, whilst the new record is unapproved
+- Then the admin user can then delete malicious records
+- And if the update is genuine, the admin user simply switches out the records
+- It's a feature not a bug as the old saying goes!
 
 
 For a user-written beer review form:
@@ -472,6 +485,16 @@ Within Comment(unchanged):
 
 19/8/22:
 When designing the user review form that allows users to submit their own beer reviews, and implementing the backend code to handle this, I noted that the form was not uploading images that had been attached in the image field. A Django blog walkthrough video on Youtube suggested using an ImageField, and then storing images directly in the repository. Whilst I considered that this might be an acceptable work-around, I concluded that it would not for extensibility reasons. Many users uploading many images would bloat that directory. I then found [Cloudinary's documentation on image uploading](https://cloudinary.com/documentation/django_image_and_video_upload). I determined that I already had most of the pieces in place, though their code snippets pre-suppose the use of function-based views. Merely adding `{% load cloudinary %}` to the HTML file, and adding `request.FILES` to the post method of the UserReview View was sufficient to get this working. A database entry with name `image upload test` is testament to this - this entry's image was uploaded using the form, not via the admin backend, though I have disapproved it since the image is poorly-sized. 
+
+
+# development Choices
+
+19/8/22:
+To create the functionality that allows users to update posts, major changes were made to the views.py file, per [this series of django tutorials](https://www.youtube.com/playlist?list=PLCC34OHNcOtr025c1kHSPrnP18YPB-NFi)
+
+UserReview was renamed to AddReviewView, and was changed to use the CreateView generic view, which allowed me to remove the get method (currently commented out)
+
+A new view called UpdateReviewView was created, using the generic UpdateView. Get and post methods exist in this view, but are commented out. The get method is probably unnecessary, but the post method may be, but it currently creates a duplicate record. 
 
 # Testing
 

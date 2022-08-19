@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
 from ckeditor.fields import RichTextField
+from django.urls import reverse
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 # last two are for validation - see Django documentation on valudation
@@ -65,6 +66,12 @@ class Review(models.Model):
         reviewed and the name of the review
         """
         return f"A review of {self.name} by {self.author}"
+
+    def get_absolute_url(self):
+        """
+        Specify redirection url
+        """
+        return reverse('review', args=[self.pk])
 
     def description(self):
         """

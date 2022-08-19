@@ -5,7 +5,7 @@ from .models import Review, Comment
 class BeerReviewAdmin(admin.ModelAdmin):
 
     list_filter = ('approved', 'timestamp', 'brewery', 'type', 'author')
-    list_display = ('name', 'type', 'brewery', 'timestamp', 'approved',)
+    list_display = ('name', 'type', 'brewery', 'timestamp', 'approved', 'author')
     search_fields = ['name', 'brewery', 'type', 'colour', 'hops', 'alcohol', 'content']
     actions = ['approve_beer_review']
 
