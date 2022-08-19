@@ -10,7 +10,13 @@
         <h5 class="card-title">{{ review.name }}</h5>
         <h6 class="card-subtitle mb-2 text-muted">{{ review.description }}</h6>
         <p>
-            {{ review.author }}
+            By: {{ review.author }}
+        </p>
+        <p>
+            Author ID: {{ review.author.id }}
+        </p>
+        <p>
+            Current user ID: {{ user.id }}
         </p>
         <p>
             {{ review.created_on }}
@@ -171,12 +177,23 @@
             <div class="card">
                 <a href="{% url 'home' %}">Back</a>
             </div>
-            <div class="card">
-                <a href="{% url 'update_review' review.pk %}">Edit</a>
-            </div>
-            <div class="card">
-                <a href="{% url 'delete_review' review.pk %}">Delete</a>
-            </div>
+            {% if user.is_authenticated %}
+                {% if user.id == review.author.id %}
+                    <div class="card">
+                        This is your beer review, so you may update or delete it using the buttons below
+                    </div>
+                    <div class="card">
+                        <a href="{% url 'update_review' review.pk %}">Edit</a>
+                    </div>
+                    <div class="card">
+                        <a href="{% url 'delete_review' review.pk %}">Delete</a>
+                    </div>
+                {% else %}
+                    <p>
+                        You are not the author of this post, so you may not update or delete it
+                    </p>
+                {% endif %}
+            {% endif %}
         </div>
     </div>
 </div>

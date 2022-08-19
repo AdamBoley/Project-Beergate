@@ -28,6 +28,10 @@
                                 {% csrf_token %}
                                 <button type="submit" class="btn btn-signup btn-lg">Submit</button>
                             </form>
+                        {% else %}
+                            <div class="card-text">
+                                <p>You are logged out. Please <a href="{% url 'account_login' %}">login</a> to post a beer review</p>
+                            </div>
                         {% endif %}
                     {% endif %}
                 </div>

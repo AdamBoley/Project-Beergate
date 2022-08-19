@@ -11,23 +11,35 @@
                 <div class="card-body">
                     {% if updated %}
                         <div class="alert alert-success" role="alert">
-                            Your review has been updated and is awaiting re-approval
+                            Your review has been updated
+                             <!-- and is awaiting re-approval -->
+                             <!-- Note - awaiting fix for being able to mark updated reviews as unapproved -->
                             <a href="{% url 'home' %}">Go back to the home page</a>
                         </div>
                     {% else %}
                         {% if user.is_authenticated %}
-                            <h3>
-                                Update your review
-                            </h3>
-                            <p>
-                                Posting as: {{ user.username }}
-                            </p>
-                            <form method="POST" style="margin-top: 1.3em;" enctype="multipart/form-data">
-                                {{ form.media }}
-                                {{ form.as_p }}
-                                {% csrf_token %}
-                                <button type="submit" class="btn btn-signup btn-lg">Update</button>
-                            </form>
+                            {% if user.id == review.author.id %}
+                                <h3>
+                                    Update your review
+                                </h3>
+                                <p>
+                                    Posting as: {{ user.username }}
+                                </p>
+                                <form method="POST" style="margin-top: 1.3em;" enctype="multipart/form-data">
+                                    {{ form.media }}
+                                    {{ form.as_p }}
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-signup btn-lg">Update</button>
+                                </form>
+                            {% else %}
+                                <p>
+                                    You are not the author of this post, so you may not update it. Click <a href="{% url 'home' %}">here</a> to go back to the home page
+                                </p>
+                            {% endif %}
+                        {% else %}
+                            <div class="card-text">
+                                <p>You are logged out. Please <a href="{% url 'account_login' %}">login</a> to update your beer review</p>
+                            </div>
                         {% endif %}
                     {% endif %}
                 </div>

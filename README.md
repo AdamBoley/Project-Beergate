@@ -386,12 +386,14 @@ To do:
 Later:
 - implement upvotes / downvotes feature for Comments - on hold
 - move review deletion link in review.html to a bootstrap modal, so that it becomes more difficult to delete reviews / or they cannot be deleted by accident
+- mimic an excerpt on the index cards with `{{ review.content|slice:":100" }}` to show the first 100 characters - fancy formatting in those first 100 characters could prove problematic, but test this first
 
 To consider:
 - The UpdateReviewView and update_review page that allow users to update their reviews redirect back to the review.html page with the updated content
 - this could prove to be a vulnerability for malicious users - i.e they pose as honest users and submit a seemingly plausible review, then update it with malicious content
 - therefore, should updates set reviews back to false so that I must re-approve them? 
 - this is vulnerability, but a post method in the update view creates a new record
+- Martin agrees
 - This may actually be a feature to prevent malicious attacks - the old, innocuous record that was updated remains, whilst the new record is unapproved
 - Then the admin user can then delete malicious records
 - And if the update is genuine, the admin user simply switches out the records
@@ -487,17 +489,22 @@ Within Comment(unchanged):
 
 
 19/8/22:
-When designing the user review form that allows users to submit their own beer reviews, and implementing the backend code to handle this, I noted that the form was not uploading images that had been attached in the image field. A Django blog walkthrough video on Youtube suggested using an ImageField, and then storing images directly in the repository. Whilst I considered that this might be an acceptable work-around, I concluded that it would not for extensibility reasons. Many users uploading many images would bloat that directory. I then found [Cloudinary's documentation on image uploading](https://cloudinary.com/documentation/django_image_and_video_upload). I determined that I already had most of the pieces in place, though their code snippets pre-suppose the use of function-based views. Merely adding `{% load cloudinary %}` to the HTML file, and adding `request.FILES` to the post method of the UserReview View was sufficient to get this working. A database entry with name `image upload test` is testament to this - this entry's image was uploaded using the form, not via the admin backend, though I have disapproved it since the image is poorly-sized. 
+When designing the user review form that allows users to submit their own beer reviews, and implementing the backend code to handle this, I noted that the form was not uploading images that had been attached in the image field. A Django blog walkthrough video on Youtube suggested using an ImageField, and then storing images directly in the repository. Whilst I considered that this might be an acceptable work-around, I concluded that it would not for extensibility reasons. Many users uploading many images would bloat that directory. I then found [Cloudinary's documentation on image uploading](https://cloudinary.com/documentation/django_image_and_video_upload). I determined that I already had most of the pieces in place, though their code snippets pre-suppose the use of function-based views. Merely adding `{% load cloudinary %}` to the HTML file, and adding `request.FILES` to the post method of the AddReviewView view was sufficient to get this working. A database entry with name `image upload test` is testament to this - this entry's image was uploaded using the form, not via the admin backend, though I have disapproved it since the image is poorly-sized. 
+
+19/8/22:
+After implementing the functionality to update and delete posts, I was researching ways to limit only the user of a post to edit or delete it. In doing so, I came across a potential vulnerability - a logged in user may duplicate their tab and then using that second tab, navigate to the user_review, update_review and delete_review pages. If they then log out using the first tab and refresh the second tab, that second tab remains on those pages, effectively giving a logged-out user continued access to functionality that only logged in users should have. Fortunately, I already had `{% if user.is_authenticated %}` control statements in these pages, so that if a user tries the above work-around, the content will not display. It is possible that a user might do this accidentally, so I added text and links to the login page if the user is not authenticated. 
+
+A similar issue was noted when adding the Jinja templating language code that only allows a user to update or delete a review if they are the author of it. Determining if a user owns a review, and is therefore eligible to update or delete it was simple - I merely added `{% if user.id == review.author.id %}` control statements to the pages. To fix the vulnerability, I added this control statement to the update_review and delete_review files as well, with some text and a link back to the homepage. 
 
 
-# development Choices
+# Development Choices
 
 19/8/22:
 To create the functionality that allows users to update posts, major changes were made to the views.py file, per [this series of django tutorials](https://www.youtube.com/playlist?list=PLCC34OHNcOtr025c1kHSPrnP18YPB-NFi)
 
 UserReview was renamed to AddReviewView, and was changed to use the CreateView generic view, which allowed me to remove the get method (currently commented out)
 
-A new view called UpdateReviewView was created, using the generic UpdateView. Get and post methods exist in this view, but are commented out. The get method is probably unnecessary, but the post method may be, but it currently creates a duplicate record. 
+A new view called UpdateReviewView was created, using the generic UpdateView. Get and post methods exist in this view, but are commented out. The get method is probably unnecessary, but the post method may be necessary, but it currently creates a duplicate record. 
 
 # Testing
 

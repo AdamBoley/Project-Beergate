@@ -16,17 +16,27 @@
                         </div>
                     {% else %}
                         {% if user.is_authenticated %}
-                            <h3>
-                                Delete {{ review.name }}
-                            </h3>
-                            <p>
-                                Deleting as: {{ user.username }}
-                                <!-- Probably best to delete this -->
-                            </p>
-                            <form method="POST" style="margin-top: 1.3em;">
-                                {% csrf_token %}
-                                <button type="submit" class="btn btn-signup btn-lg">Delete</button>
-                            </form>
+                            {% if user.id == review.author.id %}
+                                <h3>
+                                    Delete {{ review.name }}
+                                </h3>
+                                <p>
+                                    Deleting as: {{ user.username }}
+                                    <!-- Probably best to delete this -->
+                                </p>
+                                <form method="POST" style="margin-top: 1.3em;">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-signup btn-lg">Delete</button>
+                                </form>
+                            {% else %}
+                                <p>
+                                    You are not the author of this post, so you may not delete it. Click <a href="{% url 'home' %}">here</a> to go back to the home page
+                                </p>
+                            {% endif %}
+                        {% else %}
+                            <div class="card-text">
+                                <p>You are logged out. Please <a href="{% url 'account_login' %}">login</a> to delete your review</p>
+                            </div>
                         {% endif %}
                     {% endif %}
                 </div>
