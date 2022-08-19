@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load cloudinary %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-body">
+                    {% if updated %}
+                        <div class="alert alert-success" role="alert">
+                            Your review has been updated and is awaiting re-approval
+                            <a href="{% url 'home' %}">Go back to the home page</a>
+                        </div>
+                    {% else %}
+                        {% if user.is_authenticated %}
+                            <h3>
+                                Delete {{ review.name }}
+                            </h3>
+                            <p>
+                                Deleting as: {{ user.username }}
+                                <!-- Probably best to delete this -->
+                            </p>
+                            <form method="POST" style="margin-top: 1.3em;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-signup btn-lg">Delete</button>
+                            </form>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

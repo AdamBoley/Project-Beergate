@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, reverse
 from django.views import generic, View
 from django.http import HttpResponseRedirect
+from django.urls import reverse, reverse_lazy
 from .models import Review, Comment
 from .forms import CommentForm, UserReviewForm
 
@@ -153,6 +154,12 @@ class UpdateReviewView(generic.UpdateView):
 
     # This post method appears to create a new duplicate record that is set to false, without setting the old record to false as well
     # see readme for further discussion of malicious users
+
+
+class DeleteReviewView(generic.DeleteView):
+    model = Review
+    template_name = 'delete_review.html'
+    success_url = reverse_lazy('home')
 
 
 class ReviewUpvote(View):

@@ -364,6 +364,8 @@ Done:
 - If a user attempts to submit a duplicate review - i.e same author and same beer name, an error is thrown. Need something to handle this - done thanks to move to display by primary key
 - It does appear that when uploading a post from the site that a slug is not automatically generated - no longer an issue as slug removed
 - Find fix to the problem on images not uploading - use cloudinary image upload(https://cloudinary.com/documentation/django_image_and_video_upload) - fixed and documented
+- implement functionality to allow users to update, and delete their posts - both done, full CRUD functionality
+
 
 To do:
 
@@ -378,11 +380,12 @@ To do:
 - [Implement a search bar function](https://learndjango.com/tutorials/django-search-tutorial)
 - Extend User model to include a profile picture and other information - display this on the navbar and below each beer review
 - move pagination next button to right hand side of the page
-- implement functionality to allow users to update, edit and delete their posts
+
 - use `{% block title %}{% endblock %}` control statements to provide custom titles for html pages
 
 Later:
 - implement upvotes / downvotes feature for Comments - on hold
+- move review deletion link in review.html to a bootstrap modal, so that it becomes more difficult to delete reviews / or they cannot be deleted by accident
 
 To consider:
 - The UpdateReviewView and update_review page that allow users to update their reviews redirect back to the review.html page with the updated content
