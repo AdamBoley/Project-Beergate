@@ -360,25 +360,27 @@ I foresee two methods by which a user could make a post:
 Done:
 - implement upvotes / downvotes feature for Beer Reviews - done 
 - Implement a Summernote content field or other rich text editor for user-generated posts - done using CKeditor
+- Look into an error displayed when creating a new account. Account appeared to be created successfully (I was able to log in with it), but got a Django error page with Error 111 Connection Refused - No longer a problem
+- If a user attempts to submit a duplicate review - i.e same author and same beer name, an error is thrown. Need something to handle this - done thanks to move to display by primary key
+- It does appear that when uploading a post from the site that a slug is not automatically generated - no longer an issue as slug removed
+- Find fix to the problem on images not uploading - use cloudinary image upload(https://cloudinary.com/documentation/django_image_and_video_upload) - fixed and documented
 
 To do:
 
-- implement upvotes / downvotes feature for Comments - on hold
 - implement an exclusivity feature - if a user upvotes, remove their downvote, if user downvotes, remove their upvote so that they cannot do both at the same time
 - Review generic placeholder image - it is too small
 - Rework Bootstrap card structure for index.html, beer_review_single.html and user_review.html
 - Provide a consistent aspect ratio for post images
-- Background image not displaying on deployed site - may be fixed by downgrade to Django 3.2 and STATIC_URL variable in settings.py. Update when pushed to Heroku
+- Background image not displaying on deployed site - may be caused by DISABLE_COLLECTSTATIC = 1 config var in Heroku
 - Add higher-level AllAuth functionality - social media sign in, password complexity, confirmation emails, etc
 - Style AllAuth templates - sign-in, sign-up, login, logout, etc
-- Look into an error displayed when creating a new account. Account appeared to be created successfully (I was able to log in with it), but got a Django error page with Error 111 Connection Refused
 - For the admin backend, add a disapprove method, so that several previously-approved reviews can be made inactive at the same time, much like several unapproved reviews can be approved at the same time. 
-- Find fix to the problem on images not uploading properly - use ImageField
-
 - [Implement a search bar function](https://learndjango.com/tutorials/django-search-tutorial)
 - Extend User model to include a profile picture and other information - display this on the navbar and below each beer review
-- If a user attempts to submit a duplicate review - i.e same author and same beer name, an error is thrown. Need something to handle this
-- It does appear that when uploading a post from the site that a slug is not automatically generated
+
+Later:
+- implement upvotes / downvotes feature for Comments - on hold
+
 
 For a user-written beer review form:
 - need a completed BeerReviewForm in forms.py - done
@@ -466,6 +468,10 @@ Within Comment(unchanged):
 - beer_review changed to review
 - created_on changed to timestamp
 - references to such changed in views and templates
+
+
+19/8/22:
+When designing the user review form that allows users to submit their own beer reviews, and implementing the backend code to handle this, I noted that the form was not uploading images that had been attached in the image field. A Django blog walkthrough video on Youtube suggested using an ImageField, and then storing images directly in the repository. Whilst I considered that this might be an acceptable work-around, I concluded that it would not for extensibility reasons. Many users uploading many images would bloat that directory. I then found [Cloudinary's documentation on image uploading](https://cloudinary.com/documentation/django_image_and_video_upload). I determined that I already had most of the pieces in place, though their code snippets pre-suppose the use of function-based views. Merely adding `{% load cloudinary %}` to the HTML file, and adding `request.FILES` to the post method of the UserReview View was sufficient to get this working. A database entry with name `image upload test` is testament to this - this entry's image was uploaded using the form, not via the admin backend, though I have disapproved it since the image is poorly-sized. 
 
 # Testing
 

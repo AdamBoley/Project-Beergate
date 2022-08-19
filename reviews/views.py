@@ -90,7 +90,7 @@ class UserReview(View):
         )
 
     def post(self, request, *args, **kwargs):
-        user_review_form = UserReviewForm(data=request.POST)
+        user_review_form = UserReviewForm(request.POST, request.FILES)
 
         if user_review_form.is_valid():
             user_review_form.instance.author = request.user
