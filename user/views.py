@@ -1,6 +1,5 @@
-from django.shortcuts import render
-from allauth.account.views import LoginView, SignupView
-from .forms import UserLoginForm, UserSignupForm
+from allauth.account.views import LoginView, SignupView, PasswordChangeView, EmailView, PasswordSetView, PasswordResetView, PasswordResetFromKeyView
+from .forms import UserLoginForm, UserSignupForm, UserChangePasswordForm, UserAddEmailForm, UserSetPasswordForm, UserResetPasswordForm, UserResetPasswordKeyForm
 
 
 class UserLoginView(LoginView):
@@ -13,3 +12,27 @@ class UserSignupView(SignupView):
 
     form_class = UserSignupForm
     template_name = 'account/signup.html'
+
+
+class UserPasswordChangeView(PasswordChangeView):
+
+    form_class = UserChangePasswordForm
+    template_name = 'account/password_change.html'
+
+
+class UserAddEmailView(EmailView):
+
+    form_class = UserAddEmailForm
+    template_name = 'account/email.html'
+
+
+class UserPasswordSetView(PasswordSetView):
+
+    form_class = UserSetPasswordForm()
+    template_name = 'account/password_set.html'
+
+
+class UserPasswordResetFromKey(PasswordResetFromKeyView):
+
+    form_class = UserResetPasswordKeyForm()
+    template_name = 'account/password_reset_from_key.html'

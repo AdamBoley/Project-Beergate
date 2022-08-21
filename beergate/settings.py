@@ -127,6 +127,11 @@ AUTH_PASSWORD_VALIDATORS = [
 ACCOUNT_FORMS = {
     'login': 'user.forms.UserLoginForm',
     'signup': 'user.forms.UserSignupForm',
+    'change_password': 'user.forms.UserChangePasswordForm',
+    'add_email': 'user.forms.UserAddEmailForm',
+    'set_password': 'user.forms.UserSetPasswordForm',
+    'reset_password': 'user.forms.UserResetPasswordForm',
+    'reset_password_from_key': 'user.forms.UserResetPasswordKeyForm',
 }
 
 # Internationalization

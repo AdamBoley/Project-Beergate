@@ -375,6 +375,7 @@ Done:
         - In that, add a forms.py and a urls.py
         - in forms.py, import the AllAuth LoginForm and SignupForm
         - create custom UserLoginForm and UserSignupForm, and use them to extend the LoginForm and SignupForm respectively
+        - in settings.py, override standard AllAuth forms using the ACCOUNT_FORMS variable
         - Per [this Medium article](https://gavinwiener.medium.com/modifying-django-allauth-forms-6eb19e77ef56), add code to apply widgets to form fields that add the Bootstrap CSS form-control class
         - Import these custom forms into user/views.py
         - Create UserLoginView and UserSignupView, which extend the AllAuth LoginView and SignupView
@@ -383,6 +384,12 @@ Done:
 
 
 To do:
+- Style additional AllAuth forms with Bootstrap:
+    - email
+    - password_reset_from_key
+    - password_reset
+    - password_set
+
 - [Implement a search bar function](https://learndjango.com/tutorials/django-search-tutorial)
 - Review generic placeholder image - it is too small
 - Rework Bootstrap card structure for index.html, review.html and user_review.html
@@ -568,3 +575,18 @@ CK Editor for rich text fields
 # Credits
 
 Gemma from Tutor support, for helping to fix the issue with being unable to access the user_review.html page. 
+
+Django Documentation
+
+AllAuth Documentation
+
+Cloudinary documentation
+
+StackOverflow 
+
+Codemy Django walkthrough - https://www.youtube.com/playlist?list=PLCC34OHNcOtr025c1kHSPrnP18YPB-NFi
+For:
+- introducing CreateView, UpdateView and DeleteView generic views
+- introducing the CK Editor rich text editor
+
+Medium article on apply widgets to AllAuth templates - https://gavinwiener.medium.com/modifying-django-allauth-forms-6eb19e77ef56
