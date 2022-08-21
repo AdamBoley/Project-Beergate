@@ -32,7 +32,13 @@ class UserPasswordSetView(PasswordSetView):
     template_name = 'account/password_set.html'
 
 
-class UserPasswordResetFromKey(PasswordResetFromKeyView):
+class UserPasswordResetView(PasswordResetView):
+
+    form_class = UserResetPasswordForm()
+    template = 'account/password_reset.html'
+
+
+class UserPasswordResetFromKeyView(PasswordResetFromKeyView):
 
     form_class = UserResetPasswordKeyForm()
     template_name = 'account/password_reset_from_key.html'
