@@ -366,20 +366,30 @@ Done:
 - Find fix to the problem on images not uploading - use cloudinary image upload(https://cloudinary.com/documentation/django_image_and_video_upload) - fixed and documented
 - implement functionality to allow users to update, and delete their posts - both done, full CRUD functionality
 - For the admin backend, add a disapprove method, so that several previously-approved reviews can be made inactive at the same time, much like several unapproved reviews can be approved at the same time.
+- implement an exclusivity feature - if a user upvotes, remove their downvote, if user downvotes, remove their upvote so that they cannot do both at the same time
+
+- Style AllAuth forms with Bootstrap - done
+    - Steps:
+        - Start new app called 'user'
+        - add 'user' to beergate/settings.py INSTALLED_APPS
+        - In that, add a forms.py and a urls.py
+        - in forms.py, import the AllAuth LoginForm and SignupForm
+        - create custom UserLoginForm and UserSignupForm, and use them to extend the LoginForm and SignupForm respectively
+        - Per [this Medium article](https://gavinwiener.medium.com/modifying-django-allauth-forms-6eb19e77ef56), add code to apply widgets to form fields that add the Bootstrap CSS form-control class
+        - Import these custom forms into user/views.py
+        - Create UserLoginView and UserSignupView, which extend the AllAuth LoginView and SignupView
+        - assign these views the relevant form_class and template_name, being sure to prefix the template with account/, since the templates are located in the account directory
+
 
 
 To do:
-
-- implement an exclusivity feature - if a user upvotes, remove their downvote, if user downvotes, remove their upvote so that they cannot do both at the same time
-- related to above - use the checking thing to check if a user is the post's author - if so, remove/disable the upvote button, or trigger it automatically. If clicked, open a modal that tells the user that they cannot like their own posts, and prompts them to update or delete it
+- [Implement a search bar function](https://learndjango.com/tutorials/django-search-tutorial)
 - Review generic placeholder image - it is too small
 - Rework Bootstrap card structure for index.html, review.html and user_review.html
 - Provide a consistent aspect ratio for post images
 - Background image not displaying on deployed site - may be caused by DISABLE_COLLECTSTATIC = 1 config var in Heroku
-- Add higher-level AllAuth functionality - social media sign in, password complexity, confirmation emails, etc
-- Style AllAuth templates - sign-in, sign-up, login, logout, etc
-- [Implement a search bar function](https://learndjango.com/tutorials/django-search-tutorial)
-- Extend User model to include a profile picture and other information - display this on the navbar and below each beer review
+- Style AllAuth templates - sign-in, sign-up, login, logout,
+- add `logged in as: {{ user.username }}` to base.html somewhere, so the user can confirm that they are logged in
 - move pagination next button to right hand side of the page
 - use `{% block title %}{% endblock %}` control statements to provide custom titles for html pages
 - look into automated testing, if necessary
@@ -388,6 +398,10 @@ Later:
 - implement upvotes / downvotes feature for Comments - on hold
 - move review deletion link in review.html to a bootstrap modal, so that it becomes more difficult to delete reviews / or they cannot be deleted by accident
 - mimic an excerpt on the index cards with `{{ review.content|slice:":100" }}` to show the first 100 characters - fancy formatting in those first 100 characters could prove problematic, but test this first
+- related to above - use the checking thing to check if a user is the post's author - if so, remove/disable the upvote button, or trigger it automatically. If clicked, open a modal that tells the user that they cannot like their own posts, and prompts them to update or delete it
+- Extend User model to include a profile picture and other information - display this on the navbar and below each beer review
+- Add higher-level AllAuth functionality - social media sign in, password complexity, confirmation emails, etc
+
 
 To consider:
 - The UpdateReviewView and update_review page that allow users to update their reviews redirect back to the review.html page with the updated content
@@ -493,12 +507,12 @@ Within Comment(unchanged):
 When designing the user review form that allows users to submit their own beer reviews, and implementing the backend code to handle this, I noted that the form was not uploading images that had been attached in the image field. A Django blog walkthrough video on Youtube suggested using an ImageField, and then storing images directly in the repository. Whilst I considered that this might be an acceptable work-around, I concluded that it would not for extensibility reasons. Many users uploading many images would bloat that directory. I then found [Cloudinary's documentation on image uploading](https://cloudinary.com/documentation/django_image_and_video_upload). I determined that I already had most of the pieces in place, though their code snippets pre-suppose the use of function-based views. Merely adding `{% load cloudinary %}` to the HTML file, and adding `request.FILES` to the post method of the AddReviewView view was sufficient to get this working. A database entry with name `image upload test` is testament to this - this entry's image was uploaded using the form, not via the admin backend, though I have disapproved it since the image is poorly-sized. 
 
 19/8/22:
-After implementing the functionality to update and delete posts, I was researching ways to limit only the user of a post to edit or delete it. In doing so, I came across a potential vulnerability - a logged in user may duplicate their tab and then using that second tab, navigate to the user_review, update_review and delete_review pages. If they then log out using the first tab and refresh the second tab, that second tab remains on those pages, effectively giving a logged-out user continued access to functionality that only logged in users should have. Fortunately, I already had `{% if user.is_authenticated %}` control statements in these pages, so that if a user tries the above work-around, the content will not display. It is possible that a user might do this accidentally, so I added text and links to the login page if the user is not authenticated. 
+After implementing the functionality to update and delete posts, I was researching ways to limit only the user of a post to edit or delete it. In doing so, I came across a potential vulnerability - a logged in user may duplicate their tab and then using that second tab, navigate to the user_review, update_review and delete_review pages. If they then log out using the first tab and refresh the second tab, that second tab remains on those pages, effectively giving a logged-out user continued access to functionality that only logged in users should have. Fortunately, I already had `{% if user.is_authenticated %}` control statements in these pages, so that if a user tries the above work-around, the content will not display. It is possible that a user might do this accidentally, so I added text and links to the login page if the user is not authenticated. This is also intended to tweak-off a malicious user. 
 
 A similar issue was noted when adding the Jinja templating language code that only allows a user to update or delete a review if they are the author of it. Determining if a user owns a review, and is therefore eligible to update or delete it was simple - I merely added `{% if user.id == review.author.id %}` control statements to the pages. To fix the vulnerability, I added this control statement to the update_review and delete_review files as well, with some text and a link back to the homepage. 
 
 21/8/22:
-When I implemented the upvote and downvote features, they were independent of each other. This allowed a user to both upvote and downvote a beer review, which is plainly non-sensical. To rectify this, I considered removing the views and urls that control upvoting and downvoting, and replacing them with a single view for both actions. I then realised that I could simply modify the existing views so that if a user's upvote is added and if a downvote by that same user exists, then the downvote is removed, and vice-versa - if a user's downvote is added and an upvote by that same user exists, then the upvote is removed. These modifications proved remarkably easy to implement - requiring a single IF conditional within the extant ELSE block. Simple testing confirmed that the modifications worked as intended - a vote was extant, clicking the button for the opposite vote removed the extant vote when the opposite vote was added. 
+When I implemented the upvote and downvote features, they were independent of each other. This allowed a user to both upvote and downvote a beer review, which is plainly non-sensical. To rectify this, I considered removing the views and urls that control upvoting and downvoting, and replacing them with a single view for both actions. I then realised that I could simply modify the existing views so that if a user's upvote is added and if a downvote by that same user exists, then the downvote is removed, and vice-versa - if a user's downvote is added and an upvote by that same user exists, then the upvote is removed. These modifications proved remarkably easy to implement - requiring a single IF conditional within the extant ELSE block. Simple testing confirmed that the modifications worked as intended - a vote was extant, clicking the button for the opposite vote removed the extant vote when the opposite vote was added.
 
 
 # Development Choices
@@ -509,6 +523,12 @@ To create the functionality that allows users to update posts, major changes wer
 UserReview was renamed to AddReviewView, and was changed to use the CreateView generic view, which allowed me to remove the get method (currently commented out)
 
 A new view called UpdateReviewView was created, using the generic UpdateView. Get and post methods exist in this view, but are commented out. The get method is probably unnecessary, but the post method may be necessary, but it currently creates a duplicate record. 
+
+
+# Local Clone / How you can use this code
+
+`pip3 install -r requirements.txt`
+
 
 # Testing
 
@@ -531,8 +551,6 @@ PyTest
 
 Slack
 <br>
-LucidChart
-<br>
 Django
 <br>
 AllAuth
@@ -544,6 +562,8 @@ Gitpod
 Heroku
 <br>
 Cloudinary
+<br>
+CK Editor for rich text fields
 
 # Credits
 

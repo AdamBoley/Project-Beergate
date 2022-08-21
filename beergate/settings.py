@@ -50,7 +50,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'cloudinary',
     'ckeditor',
+    'crispy_forms',
     'reviews',
+    'user',
 ]
 
 SITE_ID = 1
@@ -121,6 +123,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+
+ACCOUNT_FORMS = {
+    'login': 'user.forms.UserLoginForm',
+    'signup': 'user.forms.UserSignupForm',
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
