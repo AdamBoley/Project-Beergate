@@ -169,9 +169,14 @@ class ReviewUpvote(View):
 
         if review.upvotes.filter(id=request.user.id).exists():
             review.upvotes.remove(request.user)
+            # if upvote exists, remove it
 
         else:
             review.upvotes.add(request.user)
+            # if no upvote, add an upvote
+            if review.downvotes.filter(id=request.user.id).exists():
+                review.downvotes.remove(request.user)
+                # if a downvote exists, remove it when adding a downvote
 
         return HttpResponseRedirect(reverse('review', args=[pk]))
 
@@ -183,10 +188,13 @@ class ReviewDownvote(View):
 
         if review.downvotes.filter(id=request.user.id).exists():
             review.downvotes.remove(request.user)
+            # if downvotes exists, remove it
 
         else:
             review.downvotes.add(request.user)
+            # if no downvotes, add a downvote
+            if review.upvotes.filter(id=request.user.id).exists():
+                review.upvotes.remove(request.user)
+                # if an upvote exists, remove it when adding a downvote
 
         return HttpResponseRedirect(reverse('review', args=[pk]))
-
-

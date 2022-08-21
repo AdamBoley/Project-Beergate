@@ -365,23 +365,24 @@ Done:
 - It does appear that when uploading a post from the site that a slug is not automatically generated - no longer an issue as slug removed
 - Find fix to the problem on images not uploading - use cloudinary image upload(https://cloudinary.com/documentation/django_image_and_video_upload) - fixed and documented
 - implement functionality to allow users to update, and delete their posts - both done, full CRUD functionality
+- For the admin backend, add a disapprove method, so that several previously-approved reviews can be made inactive at the same time, much like several unapproved reviews can be approved at the same time.
 
 
 To do:
 
 - implement an exclusivity feature - if a user upvotes, remove their downvote, if user downvotes, remove their upvote so that they cannot do both at the same time
+- related to above - use the checking thing to check if a user is the post's author - if so, remove/disable the upvote button, or trigger it automatically. If clicked, open a modal that tells the user that they cannot like their own posts, and prompts them to update or delete it
 - Review generic placeholder image - it is too small
 - Rework Bootstrap card structure for index.html, review.html and user_review.html
 - Provide a consistent aspect ratio for post images
 - Background image not displaying on deployed site - may be caused by DISABLE_COLLECTSTATIC = 1 config var in Heroku
 - Add higher-level AllAuth functionality - social media sign in, password complexity, confirmation emails, etc
 - Style AllAuth templates - sign-in, sign-up, login, logout, etc
-- For the admin backend, add a disapprove method, so that several previously-approved reviews can be made inactive at the same time, much like several unapproved reviews can be approved at the same time. 
 - [Implement a search bar function](https://learndjango.com/tutorials/django-search-tutorial)
 - Extend User model to include a profile picture and other information - display this on the navbar and below each beer review
 - move pagination next button to right hand side of the page
-
 - use `{% block title %}{% endblock %}` control statements to provide custom titles for html pages
+- look into automated testing, if necessary
 
 Later:
 - implement upvotes / downvotes feature for Comments - on hold
@@ -495,6 +496,9 @@ When designing the user review form that allows users to submit their own beer r
 After implementing the functionality to update and delete posts, I was researching ways to limit only the user of a post to edit or delete it. In doing so, I came across a potential vulnerability - a logged in user may duplicate their tab and then using that second tab, navigate to the user_review, update_review and delete_review pages. If they then log out using the first tab and refresh the second tab, that second tab remains on those pages, effectively giving a logged-out user continued access to functionality that only logged in users should have. Fortunately, I already had `{% if user.is_authenticated %}` control statements in these pages, so that if a user tries the above work-around, the content will not display. It is possible that a user might do this accidentally, so I added text and links to the login page if the user is not authenticated. 
 
 A similar issue was noted when adding the Jinja templating language code that only allows a user to update or delete a review if they are the author of it. Determining if a user owns a review, and is therefore eligible to update or delete it was simple - I merely added `{% if user.id == review.author.id %}` control statements to the pages. To fix the vulnerability, I added this control statement to the update_review and delete_review files as well, with some text and a link back to the homepage. 
+
+21/8/22:
+When I implemented the upvote and downvote features, they were independent of each other. This allowed a user to both upvote and downvote a beer review, which is plainly non-sensical. To rectify this, I considered removing the views and urls that control upvoting and downvoting, and replacing them with a single view for both actions. I then realised that I could simply modify the existing views so that if a user's upvote is added and if a downvote by that same user exists, then the downvote is removed, and vice-versa - if a user's downvote is added and an upvote by that same user exists, then the upvote is removed. These modifications proved remarkably easy to implement - requiring a single IF conditional within the extant ELSE block. Simple testing confirmed that the modifications worked as intended - a vote was extant, clicking the button for the opposite vote removed the extant vote when the opposite vote was added. 
 
 
 # Development Choices
