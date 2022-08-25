@@ -390,22 +390,23 @@ Done:
     - plus AllAuth templates without forms
 
 - Implement modal for delete_review.html so that a user must manually confirm deletion - done
+- [Implement a search bar function](https://learndjango.com/tutorials/django-search-tutorial) - done
+- add `logged in as: {{ user.username }}` to base.html somewhere, so the user can confirm that they are logged in
+
 
 To do:
-- [Implement a search bar function](https://learndjango.com/tutorials/django-search-tutorial)
+- AllAuth functionality - Set Password is unnecessary, Add Email does not work - https://www.youtube.com/watch?v=d9aCpxQfnOg
 - Review generic placeholder image - it is too small
 - Rework Bootstrap card structure for index.html, review.html and user_review.html
 - Provide a consistent aspect ratio for post images
 - Background image not displaying on deployed site - may be caused by DISABLE_COLLECTSTATIC = 1 config var in Heroku
 - Style AllAuth templates - sign-in, sign-up, login, logout,
-- add `logged in as: {{ user.username }}` to base.html somewhere, so the user can confirm that they are logged in
 - move pagination next button to right hand side of the page
 - use `{% block title %}{% endblock %}` control statements to provide custom titles for html pages
 - look into automated testing, if necessary
 
 Later:
 - implement upvotes / downvotes feature for Comments - on hold
-- move review deletion link in review.html to a bootstrap modal, so that it becomes more difficult to delete reviews / or they cannot be deleted by accident
 - mimic an excerpt on the index cards with `{{ review.content|slice:":100" }}` to show the first 100 characters - fancy formatting in those first 100 characters could prove problematic, but test this first
 - related to above - use the checking thing to check if a user is the post's author - if so, remove/disable the upvote button, or trigger it automatically. If clicked, open a modal that tells the user that they cannot like their own posts, and prompts them to update or delete it
 - Extend User model to include a profile picture and other information - display this on the navbar and below each beer review
