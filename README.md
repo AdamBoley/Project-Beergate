@@ -389,6 +389,7 @@ Done:
     - password_set
     - plus AllAuth templates without forms
 
+- Implement modal for delete_review.html so that a user must manually confirm deletion - done
 
 To do:
 - [Implement a search bar function](https://learndjango.com/tutorials/django-search-tutorial)
@@ -531,6 +532,9 @@ To create the functionality that allows users to update posts, major changes wer
 UserReview was renamed to AddReviewView, and was changed to use the CreateView generic view, which allowed me to remove the get method (currently commented out)
 
 A new view called UpdateReviewView was created, using the generic UpdateView. Get and post methods exist in this view, but are commented out. The get method is probably unnecessary, but the post method may be necessary, but it currently creates a duplicate record. 
+
+25/8/22:
+When implementing the modal for the delete_review page, I found that when the close button was placed outside of the form that it was mis-aligned with the button to confirm the deletion. Rather than try to manual align the buttons with custom CSS that might produce unexpected results for different viewports, I solved this problem by placing the button within the form element. This does not appear to have any unintended side-effects. 
 
 
 # Local Clone / How you can use this code
