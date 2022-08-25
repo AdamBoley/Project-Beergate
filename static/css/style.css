@@ -14,3 +14,7 @@ main {
 .username {
     margin-right: 2em;
 }
+
+.card-inner {
+    margin: 2em;
+}
