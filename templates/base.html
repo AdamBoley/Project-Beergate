@@ -86,8 +86,8 @@
                     Perhaps use this to contain a link to the order form is the user is not logged in?
                     -->
                 </ul>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <form class="d-flex" role="search" action="{% url 'search_results' %}" method="GET">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
                     <button class="btn btn-outline-success" type="submit">Find a beer</button>
                 </form>
             </div>

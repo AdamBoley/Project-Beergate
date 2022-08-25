@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from .models import Review, Comment
 from .forms import CommentForm, UserReviewForm
+from django.db.models import Q
 
 
 class ReviewList(generic.ListView):
@@ -72,6 +73,23 @@ class BeerReviewSingle(View):
                 "comment_form": CommentForm()
             }
         )
+
+
+class SearchResultsView(generic.ListView):
+    model = Review
+    template_name = 'search_results.html'
+
+    def get_queryset(self):
+        query = self.request.GET.get('search')
+        object_list = Review.objects.filter(
+            Q(name__icontains=query)
+            | Q(brewery__icontains=query)
+            | Q(type__icontains=query)
+            | Q(colour__icontains=query)
+            | Q(hops__icontains=query)
+            | Q(keywords__icontains=query)
+            )
+        return object_list
 
 
 class AddReviewView(generic.CreateView):
