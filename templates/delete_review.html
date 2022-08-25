@@ -9,22 +9,12 @@
         <div class="col-md-8 offset-md-2">
             <div class="card">
                 <div class="card-body">
-                    
-                    {% if updated %}
-                        <div class="alert alert-success" role="alert">
-                            Your review has been updated and is awaiting re-approval
-                            <a href="{% url 'home' %}">Go back to the home page</a>
-                        </div>
-                    {% else %}
+                    <div class="card-inner">
                         {% if user.is_authenticated %}
                             {% if user.id == review.author.id %}
                                 <h3>
                                     Delete {{ review.name }}
                                 </h3>
-                                <p>
-                                    Deleting as: {{ user.username }}
-                                    <!-- Probably best to delete this -->
-                                </p>
                                 <button type="button" data-bs-toggle="modal" data-bs-target="#delete"  class="btn btn-signup btn-lg">Delete review</button>
                             {% else %}
                                 <p>
@@ -36,7 +26,7 @@
                                 <p>You are logged out. Please <a href="{% url 'account_login' %}">login</a> to delete your review</p>
                             </div>
                         {% endif %}
-                    {% endif %}
+                    </div>
                 </div>
             </div>
         </div>
@@ -46,7 +36,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
+                <h5 class="modal-title">Confirm deletion?</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -57,7 +47,7 @@
                 <form method="POST" style="margin-top: 1.3em;">
                     {% csrf_token %}
                     <button type="button" class="btn btn-signup btn-lg" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-signup btn-lg">Delete</button>
+                    <button type="submit" class="btn btn-signup btn-lg">Delete Review</button>
                 </form>
             </div>
         </div>

@@ -17,4 +17,11 @@ main {
 
 .card-inner {
     margin: 2em;
+    max-height: 80vh;
+}
+
+.card-inner-large {
+    margin: 2em;
+    overflow-y: scroll;
+    max-height: 80vh;
 }

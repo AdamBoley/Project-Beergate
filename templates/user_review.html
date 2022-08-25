@@ -4,37 +4,40 @@
 
 {% load cloudinary %}
 
-<div class="container">
+<div class="container-fluid">
     <div class="row">
         <div class="col-md-8 offset-md-2">
             <div class="card">
-                <div class="card-body">
-                    {% if reviewed %}
-                        <div class="alert alert-success" role="alert">
-                            Your review has been submitted and is awaiting approval
-                            <a href="{% url 'home' %}">Go back to the home page</a>
-                        </div>
-                    {% else %}
-                        {% if user.is_authenticated %}
-                            <h3>
-                                Leave a beer review of your own
-                            </h3>
-                            <p>
-                                Posting as: {{ user.username }}
-                            </p>
-                            <form method="POST" style="margin-top: 1.3em;" enctype="multipart/form-data">
-                                {{ form.media }}
-                                {{ form.as_p }}
-                                {% csrf_token %}
-                                <button type="submit" class="btn btn-signup btn-lg">Submit</button>
-                            </form>
-                        {% else %}
-                            <div class="card-text">
-                                <p>You are logged out. Please <a href="{% url 'account_login' %}">login</a> to post a beer review</p>
+                <div class="card-inner-large">
+                    <div class="card-body">
+                        {% if reviewed %}
+                            <div class="alert alert-success" role="alert">
+                                Your review has been submitted and is awaiting approval
+                                <a href="{% url 'home' %}">Go back to the home page</a>
                             </div>
+                        {% else %}
+                            {% if user.is_authenticated %}
+                                <h3>
+                                    Leave a beer review of your own
+                                </h3>
+                                <p>
+                                    Posting as: {{ user.username }}
+                                </p>
+                                <form method="POST" style="margin-top: 1.3em;" enctype="multipart/form-data">
+                                    {{ form.media }}
+                                    {{ form.as_p }}
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-signup btn-lg">Submit</button>
+                                </form>
+                            {% else %}
+                                <div class="card-text">
+                                    <p>You are logged out. Please <a href="{% url 'account_login' %}">login</a> to post a beer review</p>
+                                </div>
+                            {% endif %}
                         {% endif %}
-                    {% endif %}
+                    </div>
                 </div>
+                
             </div>
         </div>
     </div>
