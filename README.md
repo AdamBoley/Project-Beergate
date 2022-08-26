@@ -547,6 +547,9 @@ A new view called UpdateReviewView was created, using the generic UpdateView. Ge
 25/8/22:
 When implementing the modal for the delete_review page, I found that when the close button was placed outside of the form that it was mis-aligned with the button to confirm the deletion. Rather than try to manual align the buttons with custom CSS that might produce unexpected results for different viewports, I solved this problem by placing the button within the form element. This does not appear to have any unintended side-effects. 
 
+26/8/22:
+When implementing the functionality to allow a user to view their own reviews, I found [this StackOverflow question](https://stackoverflow.com/questions/44693599/django-user-posts-to-be-filtered-from-all-posts-and-displayed-in-user-profile) useful, as it mentioned being able to filter the Reviews table by `author=request.user` and display the results. 
+
 
 # Local Clone / How you can use this code
 
