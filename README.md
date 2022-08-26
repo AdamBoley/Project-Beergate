@@ -392,18 +392,23 @@ Done:
 - Implement modal for delete_review.html so that a user must manually confirm deletion - done
 - [Implement a search bar function](https://learndjango.com/tutorials/django-search-tutorial) - done
 - add `logged in as: {{ user.username }}` to base.html somewhere, so the user can confirm that they are logged in
+- Implement functionality to allow a user to see their own reviews - done
+
+In progress:
+- Rework Bootstrap card structure for index.html, review.html and user_review.html
+- Style AllAuth templates - sign-in, sign-up, login, logout, email, password, etc - 
 
 
 To do:
-- AllAuth functionality - Set Password is unnecessary, Add Email does not work - https://www.youtube.com/watch?v=d9aCpxQfnOg
+- Find a way to list all of a particular user's posts for easy access
 - Review generic placeholder image - it is too small
-- Rework Bootstrap card structure for index.html, review.html and user_review.html
 - Provide a consistent aspect ratio for post images
 - Background image not displaying on deployed site - may be caused by DISABLE_COLLECTSTATIC = 1 config var in Heroku
-- Style AllAuth templates - sign-in, sign-up, login, logout,
 - move pagination next button to right hand side of the page
 - use `{% block title %}{% endblock %}` control statements to provide custom titles for html pages
 - look into automated testing, if necessary
+- Add screenshots of all pages to Readme
+- Upload wireframes to readme
 
 Later:
 - implement upvotes / downvotes feature for Comments - on hold
@@ -411,6 +416,7 @@ Later:
 - related to above - use the checking thing to check if a user is the post's author - if so, remove/disable the upvote button, or trigger it automatically. If clicked, open a modal that tells the user that they cannot like their own posts, and prompts them to update or delete it
 - Extend User model to include a profile picture and other information - display this on the navbar and below each beer review
 - Add higher-level AllAuth functionality - social media sign in, password complexity, confirmation emails, etc
+- Modify UserSignUpForm in user/forms.py to include additional first_name and last_name fields - https://www.youtube.com/watch?v=d9aCpxQfnOg @ 4.57
 
 
 To consider:
@@ -524,6 +530,10 @@ A similar issue was noted when adding the Jinja templating language code that on
 21/8/22:
 When I implemented the upvote and downvote features, they were independent of each other. This allowed a user to both upvote and downvote a beer review, which is plainly non-sensical. To rectify this, I considered removing the views and urls that control upvoting and downvoting, and replacing them with a single view for both actions. I then realised that I could simply modify the existing views so that if a user's upvote is added and if a downvote by that same user exists, then the downvote is removed, and vice-versa - if a user's downvote is added and an upvote by that same user exists, then the upvote is removed. These modifications proved remarkably easy to implement - requiring a single IF conditional within the extant ELSE block. Simple testing confirmed that the modifications worked as intended - a vote was extant, clicking the button for the opposite vote removed the extant vote when the opposite vote was added.
 
+26/8/22:
+When I added the AllAuth functionality for resetting passwords and adding email addresses, testing revealed that these functions did not work, with a Django error page being generated. [This video](https://www.youtube.com/watch?v=d9aCpxQfnOg), as well as the AllAuth documentation referenced therein, fixed the bugs. 
+
+Django SMTP backend
 
 # Development Choices
 

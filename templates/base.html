@@ -35,12 +35,18 @@
                     </li> -->
                     {% if user.is_authenticated %}
                     <li class="nav-item btn">
+                        <a class="nav-link" href="{% url 'add_review' %}">Leave a review</a>
+                    </li>
+                    <li class="nav-item btn">
+                        <a class="nav-link" href="{% url 'user_reviews' %}">My reviews</a>
+                    </li>
+                    <li class="nav-item btn">
                         <a class="nav-link" href="{% url 'account_logout' %}">Logout</a>
                     </li>
                     <li class="nav-item btn">
-                        <a class="nav-link" href="{% url 'user_review' %}">Leave a review</a>
+                        <a class="nav-link" href="{% url 'account_change_password' %}">Change Password</a>
                     </li>
-                    <li class="nav-item dropdown btn">
+                    <!-- <li class="nav-item dropdown btn">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             Account actions
@@ -68,10 +74,8 @@
                                 <a class="dropdown-item" href="{% url 'account_email' %}">Add Email Address</a>
                             </li>
                         </ul>
-                    </li>
-                    <!-- <li class="nav-item">
-                        <a class="nav-link disabled active">Logged in as: {{ user.username }}</a>
                     </li> -->
+                    
                     {% else %}
                     <li class="nav-item btn">
                         <a class="nav-link" href="{% url 'account_signup' %}">Register</a>
@@ -79,17 +83,23 @@
                     <li class="nav-item btn">
                         <a class="nav-link" href="{% url 'account_login' %}">Login</a>
                     </li>
-                    <li class="nav-item btn">
+                    <!-- <li class="nav-item btn">
                         <a href="{% url 'account_reset_password' %}" class="nav-link">Reset Password</a>
-                    </li>
+                    </li> -->
                     
                     {% endif %}
                     
                    
                 </ul>
-                <div class="username">
-                    Logged in as: {{ user.username }}
-                </div>
+                {% if user.is_authenticated %}
+                    <div class="username">
+                        Logged in as: {{ user.username }}
+                    </div>
+                {% else %}
+                    <div class="username">
+                        You are not logged in
+                    </div>
+                {% endif %}
                 <form class="d-flex" role="search" action="{% url 'search_results' %}" method="GET">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
                     <button class="btn btn-outline-success" type="submit">Find a beer</button>

@@ -92,11 +92,26 @@ class SearchResultsView(generic.ListView):
         return object_list
 
 
+class UserReviewsView(generic.ListView):
+    model = Review
+    template_name = 'user_reviews.html'
+
+    def get(self, request, *args, **kwargs):
+        queryset = Review.objects.filter(author=request.user)
+        return render(
+            request,
+            "user_reviews.html",
+            {
+                "object_list": queryset
+            }
+        )
+
+
 class AddReviewView(generic.CreateView):
 
     model = Review
     form_class = UserReviewForm
-    template_name = 'user_review.html'
+    template_name = 'add_review.html'
 
     # def get(self, request, *args, **kwargs):
     #     return render(
