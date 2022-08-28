@@ -55,8 +55,13 @@ main {
     color: rgb(37, 37, 37);
 }
 
-.card-hover:hover {
-    border: 2px solid grey;
+.index-image-container {
+    height: 450px;
+}
+
+.index-image-container img {
+    max-height: 400px;
+    /* max-width: 420px; */
 }
 
 .page-link {
