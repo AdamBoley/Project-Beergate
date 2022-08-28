@@ -21,8 +21,10 @@
                         </div>
                     {% empty %}
                         <div class="card">
-                            <p>You have not written any reviews</p>
-                            <p>Click <a href="{% url 'add_review' %}">here</a> to write one</p>
+                            <div class="card-inner">
+                                <p>You have not written any reviews</p>
+                                <p>Click <a href="{% url 'add_review' %}">here</a> to write one</p>
+                            </div>
                         </div>
                     {% endfor %}
                 </div>

@@ -21,7 +21,10 @@
                         </div>
                     {% empty %}
                         <div class="card">
-                            Your search returned no results
+                            <div class="card-inner">
+                                <p>Your search returned no results</p>
+                                <p>Click <a href="{% url 'home' %}">here</a> to go back to the homepage</p>
+                            </div>
                         </div>
                     {% endfor %}
                 </div>

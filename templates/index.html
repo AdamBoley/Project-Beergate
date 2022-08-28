@@ -4,42 +4,39 @@
 
 <div class="container-fluid">
     <div class="row">
-        <!-- Beer Reviews -->
         <div class="col-12 mt-3 left">
             <div class="row">
                 {% for review in object_list %}
                     <div class="col-md-3">
                         <div class="card mb-4">
-                            <div class="card-body">
-                                <div class="image-container">
-                                    {% if "placeholder" in review.image.url %}
-                                        <img src="../static/images/bg1.jpg" alt="default image" class="card-img-top">
-                                    {% else %}
-                                        <img src="{{ review.image.url }}" alt="" class="card-img-top">
-                                    {% endif %}
-                                    <div class="image-flash">
-                                        <p>Author: {{ review.author }}</p>
+                            <a href="{% url 'review' review.pk %}" class="post-link index-review-link">
+                                <div class="card-body">
+                                    <div class="image-container">
+                                        {% if "placeholder" in review.image.url %}
+                                            <img src="../static/images/bg1.jpg" alt="default image" class="card-img-top">
+                                        {% else %}
+                                            <img src="{{ review.image.url }}" alt="" class="card-img-top">
+                                        {% endif %}
+                                        <div class="image-flash">
+                                            <p>Author: {{ review.author }}</p>
+                                        </div>
                                     </div>
-                                </div>
-                                <a href="{% url 'review' review.pk %}" class="post-link index-review-link">
+                                    <!-- <a href="{% url 'review' review.pk %}" class="post-link index-review-link"></a> -->
                                     <h2 class="card-title">{{ review.name }}</h2>
-                                </a>
-                                
-                                <hr>
-                                <div class="card-text text-muted h6">
-                                    <div class="index-timestamp-container">
-                                        {{ review.timestamp|date }}
+                                    <hr>
+                                    <div class="card-text text-muted h6 meta-data-container">
+                                        <div class="index-timestamp-container">
+                                            {{ review.timestamp|date }}
+                                        </div>
+                                        <div class="index-votes-container">
+                                            <i class="far fa-thumbs-up"></i>
+                                            {{ review.review_upvotes }}
+                                            <i class="far fa-thumbs-down"></i>
+                                            {{ review.review_downvotes }}
+                                        </div>
                                     </div>
-                                    <div class="index-votes-container">
-                                        <i class="far fa-thumbs-up"></i>
-                                        {{ review.review_upvotes }}
-                                        <i class="far fa-thumbs-down"></i>
-                                        {{ review.review_downvotes }}
-                                    </div>
-                                    
                                 </div>
-                                
-                            </div>
+                            </a>
                         </div>
                     </div>
                 {% if forloop.counter|divisibleby:4 %}

@@ -14,8 +14,8 @@
                     <div class="card-body">
                         {% if reviewed %}
                             <div class="alert alert-success" role="alert">
-                                Your review has been submitted and is awaiting approval
-                                <a href="{% url 'home' %}">Go back to the home page</a>
+                                <p>Your review has been submitted and is awaiting approval</p>
+                                <p>Click <a href="{% url 'home' %}">here</a> to go back to the homepage</p>
                             </div>
                         {% else %}
                             {% if user.is_authenticated %}

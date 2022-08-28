@@ -48,12 +48,12 @@ main {
 
 .index-review-link {
     text-decoration: none;
-    color: gray;
+    color: rgb(88, 88, 88);
 }
 
 .index-review-link:hover {
-    text-decoration: underline;
-    color: gray;
+    /* text-decoration: underline; */
+    color: rgb(37, 37, 37);
 }
 
 .page-link {
@@ -62,4 +62,8 @@ main {
 
 .page-link:hover {
     color: black;
+}
+
+.meta-data-container {
+    height: 1.5em;
 }
