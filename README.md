@@ -393,19 +393,19 @@ Done:
 - [Implement a search bar function](https://learndjango.com/tutorials/django-search-tutorial) - done
 - add `logged in as: {{ user.username }}` to base.html somewhere, so the user can confirm that they are logged in
 - Implement functionality to allow a user to see their own reviews - done
+- use `{% block title %}{% endblock %}` control statements to provide custom titles for html pages - done
+- Find a way to list all of a particular user's posts for easy access - done
 
 In progress:
-- Rework Bootstrap card structure for index.html, review.html and user_review.html
+- Review and update Bootstrap card structure for non-AllAuth templates
 - Style AllAuth templates - sign-in, sign-up, login, logout, email, password, etc - 
 
 
 To do:
-- Find a way to list all of a particular user's posts for easy access
 - Review generic placeholder image - it is too small
 - Provide a consistent aspect ratio for post images
 - Background image not displaying on deployed site - may be caused by DISABLE_COLLECTSTATIC = 1 config var in Heroku
 - move pagination next button to right hand side of the page
-- use `{% block title %}{% endblock %}` control statements to provide custom titles for html pages
 - look into automated testing, if necessary
 - Add screenshots of all pages to Readme
 - Upload wireframes to readme

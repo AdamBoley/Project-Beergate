@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}{% trans "My Reviews" %}{% endblock %}
+{% block title %}My Reviews{% endblock %}
 
 {% block content %}
 
@@ -18,7 +18,11 @@
                                 </a>
                                 <p>By: {{ review.author }}</p>
                             </div>
-                            
+                        </div>
+                    {% empty %}
+                        <div class="card">
+                            <p>You have not written any reviews</p>
+                            <p>Click <a href="{% url 'add_review' %}">here</a> to write one</p>
                         </div>
                     {% endfor %}
                 </div>

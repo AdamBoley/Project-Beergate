@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}{% trans "Search Results" %}{% endblock %}
+{% block title %}Search Results{% endblock %}
 
 {% block content %}
 
@@ -18,7 +18,10 @@
                                 </a>
                                 <p>By: {{ review.author }}</p>
                             </div>
-                            
+                        </div>
+                    {% empty %}
+                        <div class="card">
+                            Your search returned no results
                         </div>
                     {% endfor %}
                 </div>

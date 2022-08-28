@@ -21,20 +21,24 @@
                                         <p>Author: {{ review.author }}</p>
                                     </div>
                                 </div>
-                                <a href="{% url 'review' review.pk %}" class="post-link">
-                                    <!-- This calls the third path in urlpatterns in blog/urls.py -->
-                                    <!-- 'beer_review_single' is the name in the respective url path in urls.py -->
+                                <a href="{% url 'review' review.pk %}" class="post-link index-review-link">
                                     <h2 class="card-title">{{ review.name }}</h2>
                                 </a>
                                 
                                 <hr>
-                                <p class="card-text text-muted h6">
-                                    {{ review.timestamp }}
-                                    <i class="far fa-thumbs-up"></i>
-                                    {{ review.review_upvotes }}
-                                    <i class="far fa-thumbs-down"></i>
-                                    {{ review.review_downvotes }}
-                                </p>
+                                <div class="card-text text-muted h6">
+                                    <div class="index-timestamp-container">
+                                        {{ review.timestamp|date }}
+                                    </div>
+                                    <div class="index-votes-container">
+                                        <i class="far fa-thumbs-up"></i>
+                                        {{ review.review_upvotes }}
+                                        <i class="far fa-thumbs-down"></i>
+                                        {{ review.review_downvotes }}
+                                    </div>
+                                    
+                                </div>
+                                
                             </div>
                         </div>
                     </div>

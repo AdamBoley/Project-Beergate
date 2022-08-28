@@ -25,3 +25,41 @@ main {
     overflow-y: auto;
     max-height: 80vh;
 }
+
+.votes-container {
+    width: 200px;
+}
+
+.upvotes-container, .index-timestamp-container {
+    float: left;
+}
+
+.downvotes-container, .index-votes-container {
+    float: right;
+}
+
+.float-clear {
+    clear: both;
+}
+
+.comments {
+    padding: 10px;
+}
+
+.index-review-link {
+    text-decoration: none;
+    color: gray;
+}
+
+.index-review-link:hover {
+    text-decoration: underline;
+    color: gray;
+}
+
+.page-link {
+    color: black;
+}
+
+.page-link:hover {
+    color: black;
+}

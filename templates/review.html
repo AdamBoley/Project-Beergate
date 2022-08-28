@@ -16,82 +16,96 @@
                         <h5 class="card-title">{{ review.name }}</h5>
                         <h6 class="card-subtitle mb-2 text-muted">{{ review.description }}</h6>
                         <p>
-                            By: {{ review.author }}
-                        </p>
-                        <!-- <p>
-                            Author ID: {{ review.author.id }}
+                            Review by: {{ review.author }} on {{ review.timestamp|date }} at {{ review.timestamp|time }}
                         </p>
                         <p>
-                            Current user ID: {{ user.id }}
-                        </p> -->
-                        <p>
-                            {{ review.created_on }}
+                            {{ review.short_description }}
                         </p>
-                        <p class="card-text">
+                        <p>
+                            Aroma: {{ review.aroma }}
+                        </p>
+                        <p>
+                            Appearance: {{ review.appearance }}
+                        </p>
+                        <p>
+                            Taste: {{ review.taste }}
+                        </p>
+                        <p>
+                            Aftertaste: {{ review.aftertaste }}
+                        </p>
+                        <p>
+                            Average score: {{ review.average_score }}
+                        </p>
+                        <div class="card-text">
+                            <h5>Review</h5>
                             {{ review.content |safe }}
-                        </p>
-                        <div>
-                            {% if user.is_authenticated %}
-                                <form action="{% url 'review_upvote' review.pk %}" method="POST">
-
-                                    {% csrf_token %}
-                                    
-                                    {% if upvoted %}
-                                        <button type="submit" name="review_id" value="{{ review.pk }}" class="">
-                                            <i class="fas fa-thumbs-up"></i>
-                                        </button>
-                                    {% else %}
-                                        <button type="submit" name="review_id" value="{{ review.pk }}" class="">
-                                            <i class="far fa-thumbs-up"></i>
-                                        </button>    
-
-                                    {%  endif %}
-                                </form>
-                            {% else %}
-                                <i class="far fa-thumbs-up"></i>
-
-                            {% endif %}
-
-                            <span>{{ review.review_upvotes }}</span>
                         </div>
-                        <div>
-                            {% if user.is_authenticated %}
-                                <form action="{% url 'review_downvote' review.pk %}" method="POST">
+                        <div class="votes-container">
+                            <div class="upvotes-container">
+                                {% if user.is_authenticated %}
+                                    <form action="{% url 'review_upvote' review.pk %}" method="POST">
 
-                                    {% csrf_token %}
-                                    
-                                    {% if downvoted %}
-                                        <button type="submit" name="beer_review_id" value="{{ review.pk }}" class="">
-                                            <i class="fas fa-thumbs-down"></i>
-                                        </button>
-                                    {% else %}
-                                        <button type="submit" name="beer_review_id" value="{{ review.pk }}" class="">
-                                            <i class="far fa-thumbs-down"></i>
-                                        </button>    
+                                        {% csrf_token %}
+                                        
+                                        {% if upvoted %}
+                                            <button type="submit" name="review_id" value="{{ review.pk }}" class="btn">
+                                                <i class="fas fa-thumbs-up"></i>
+                                            </button>
+                                            <strong><span>{{ review.review_upvotes }}</span></strong>
+                                        {% else %}
+                                            <button type="submit" name="review_id" value="{{ review.pk }}" class="btn">
+                                                <i class="far fa-thumbs-up"></i>
+                                            </button>
+                                            <strong><span>{{ review.review_upvotes }}</span></strong>
+                                        {%  endif %}
+                                    </form>
+                                {% else %}
+                                    <i class="far fa-thumbs-up"></i>
+                                    <strong><span>{{ review.review_upvotes }}</span></strong>
+                                {% endif %}
+                            </div>
 
-                                    {%  endif %}
-                                </form>
-                            {% else %}
-                                <i class="far fa-thumbs-down"></i>
+                            <div class="downvotes-container">
+                                {% if user.is_authenticated %}
+                                    <form action="{% url 'review_downvote' review.pk %}" method="POST">
 
-                            {% endif %}
-
-                            <span>{{ review.review_downvotes }}</span>
+                                        {% csrf_token %}
+                                        
+                                        {% if downvoted %}
+                                            <button type="submit" name="beer_review_id" value="{{ review.pk }}" class="btn">
+                                                <i class="fas fa-thumbs-down"></i>
+                                            </button>
+                                            <strong><span>{{ review.review_downvotes }}</span></strong>
+                                        {% else %}
+                                            <button type="submit" name="beer_review_id" value="{{ review.pk }}" class="btn">
+                                                <i class="far fa-thumbs-down"></i>
+                                            </button>
+                                            <strong><span>{{ review.review_downvotes }}</span></strong>
+                                        {%  endif %}
+                                    </form>
+                                {% else %}
+                                    <i class="far fa-thumbs-down"></i>
+                                    <strong><span>{{ review.review_downvotes }}</span></strong>
+                                {% endif %}
+                            </div>
                         </div>
+                        
+                        <div class="float-clear"></div>
 
-                        <div>
+                        <!-- <div>
                             {% with comments.count as total_comments %}
-                                <strong class="text-secondary"><i class="far fa-comments"></i>
+                                <strong class="text-secondary">
+                                    <i class="far fa-comments"></i>
                                     {{ total_comments }}
                                 </strong>
                             {% endwith %}
-                        </div>
+                        </div> -->
                         <div class="row">
                             <div class="col card mb-4 mt-3">
                                 <h3>Comments:</h3>
                                 <div class="card-body">
                                     {% for comment in comments %}
-                                        <div class="comments" style="padding: 10px;">
+                                        <div class="comments">
                                             <p class="font-weight-bold">
                                                 {{ comment.author }}
                                                 <span class=" text-muted font-weight-normal">
@@ -100,6 +114,10 @@
                                                 wrote:
                                             </p>
                                             {{ comment.content | linebreaks }}
+                                        </div>
+                                    {% empty %}
+                                        <div>
+                                            No comments yet
                                         </div>
                                     {% endfor %}
                                 </div>
