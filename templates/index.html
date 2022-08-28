@@ -8,7 +8,7 @@
             <div class="row">
                 {% for review in object_list %}
                     <div class="col-md-3">
-                        <div class="card mb-4">
+                        <div class="card mb-4 card-hover">
                             <a href="{% url 'review' review.pk %}" class="post-link index-review-link">
                                 <div class="card-body">
                                     <div class="image-container">
@@ -21,7 +21,6 @@
                                             <p>Author: {{ review.author }}</p>
                                         </div>
                                     </div>
-                                    <!-- <a href="{% url 'review' review.pk %}" class="post-link index-review-link"></a> -->
                                     <h2 class="card-title">{{ review.name }}</h2>
                                     <hr>
                                     <div class="card-text text-muted h6 meta-data-container">

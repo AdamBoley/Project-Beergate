@@ -52,8 +52,11 @@ main {
 }
 
 .index-review-link:hover {
-    /* text-decoration: underline; */
     color: rgb(37, 37, 37);
+}
+
+.card-hover:hover {
+    border: 2px solid grey;
 }
 
 .page-link {
