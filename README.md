@@ -395,6 +395,10 @@ Done:
 - Implement functionality to allow a user to see their own reviews - done
 - use `{% block title %}{% endblock %}` control statements to provide custom titles for html pages - done
 - Find a way to list all of a particular user's posts for easy access - done
+- Background image not displaying on deployed site - done, documented in bugs section
+- Review generic placeholder image - done, new image will much greater resolution used which is better for the review.html page
+- Provide a consistent aspect ratio for post images - done by sizing the image-container element using bootstrap classes
+
 
 In progress:
 - Review and update Bootstrap card structure for non-AllAuth templates
@@ -402,14 +406,12 @@ In progress:
 
 
 To do:
-- Review generic placeholder image - it is too small
-- Provide a consistent aspect ratio for post images
-- Background image not displaying on deployed site - may be caused by DISABLE_COLLECTSTATIC = 1 config var in Heroku
-- move pagination next button to right hand side of the page
+- Find and apply a favicon
 - look into automated testing, if necessary
 - Add screenshots of all pages to Readme
 - Upload wireframes to readme
-- Find and apply a favicon
+- Rework documentation
+- Modify Reviews so that they have realistic content, not just Lorem Ipsum bulk text
 
 Later:
 - implement upvotes / downvotes feature for Comments - on hold
@@ -620,3 +622,5 @@ For:
 - introducing the CK Editor rich text editor
 
 Medium article on apply widgets to AllAuth templates - https://gavinwiener.medium.com/modifying-django-allauth-forms-6eb19e77ef56
+
+The HTML class 'opaque-overlay' and the associated CSS style rules, which is used to darken off the main background image, was taken verbatim from [bootstrap-experimentation](https://github.com/AdamBoley/bootstrap-experimentation), the repository set up to code along with the Code Institute Building With Bootstap videos. 

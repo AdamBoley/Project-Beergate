@@ -1,7 +1,7 @@
 main {
     height: 100vh;
-    /* background: url(/static/images/bg2.jpg) no-repeat center center fixed; */
     background: url(https://res.cloudinary.com/adamboley/image/upload/v1661792894/bg2_oq8m1s.jpg) no-repeat center center fixed;
+    /* opacity: 60%; */
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -10,6 +10,20 @@ main {
     align-items: center;
     justify-content: center;
     position: relative;
+}
+
+.opaque-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 0;
+}
+
+.navbar, .navbar-expand-lg {
+    z-index: 1;
 }
 
 .username {
