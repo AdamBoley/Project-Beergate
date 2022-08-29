@@ -1,6 +1,7 @@
 main {
     height: 100vh;
-    background: url(/static/images/bg2.jpg) no-repeat center center fixed;
+    /* background: url(/static/images/bg2.jpg) no-repeat center center fixed; */
+    background: url(https://res.cloudinary.com/adamboley/image/upload/v1661792894/bg2_oq8m1s.jpg) no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
