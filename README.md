@@ -531,7 +531,11 @@ A similar issue was noted when adding the Jinja templating language code that on
 When I implemented the upvote and downvote features, they were independent of each other. This allowed a user to both upvote and downvote a beer review, which is plainly non-sensical. To rectify this, I considered removing the views and urls that control upvoting and downvoting, and replacing them with a single view for both actions. I then realised that I could simply modify the existing views so that if a user's upvote is added and if a downvote by that same user exists, then the downvote is removed, and vice-versa - if a user's downvote is added and an upvote by that same user exists, then the upvote is removed. These modifications proved remarkably easy to implement - requiring a single IF conditional within the extant ELSE block. Simple testing confirmed that the modifications worked as intended - a vote was extant, clicking the button for the opposite vote removed the extant vote when the opposite vote was added.
 
 26/8/22:
-When I added the AllAuth functionality for resetting passwords and adding email addresses, testing revealed that these functions did not work, with a Django error page being generated. [This video](https://www.youtube.com/watch?v=d9aCpxQfnOg), as well as the AllAuth documentation referenced therein, fixed the bugs. 
+When I added the AllAuth functionality for resetting passwords and adding email addresses, testing revealed that these functions did not work, with a Django error page being generated. [This video](https://www.youtube.com/watch?v=d9aCpxQfnOg) was found. However, pending guidance on if this level of AllAuth functionality was necessary, links to these pages were removed from the navbar. 
+
+28/8/22 - 29/8/22:
+A noted bug with uploaded images was that they were neither centered nor had a uniform size. This was eventually solved by using the max-height and max-width CSS style rules. 
+Further investigation on different viewport sizes proved that this had been the wrong approach - I had been fighting against Bootstap, rather than using it. I solved this by implementing a container and row arrangement within each Review card within which to place the images. This proved effective, as it centered and sized the images appropriately for all viewport sizes.
 
 Django SMTP backend
 
@@ -551,8 +555,7 @@ When implementing the modal for the delete_review page, I found that when the cl
 When implementing the functionality to allow a user to view their own reviews, I found [this StackOverflow question](https://stackoverflow.com/questions/44693599/django-user-posts-to-be-filtered-from-all-posts-and-displayed-in-user-profile) useful, as it mentioned being able to filter the Reviews table by `author=request.user` and display the results. 
 
 28/8/22:
-A noted bug with uploaded images was that they were neither centered nor had a uniform size. This was eventually solved by using the max-height and max-width CSS style rules. 
-Further investigation on different viewport sizes proved that this had been the wrong approach - I had been fighting against Bootstap, rather than using it. I solved this by implementing a container and row arrangement within each Review card within which to place the images. This proved effective, as it centered and sized the images appropriately for all viewport sizes. 
+ 
 
 
 # Local Clone / How you can use this code

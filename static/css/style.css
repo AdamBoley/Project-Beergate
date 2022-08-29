@@ -1,6 +1,6 @@
 main {
     height: 100vh;
-    background: url(../images/bg2.jpg) no-repeat center center fixed;
+    background: url(/static/images/bg2.jpg) no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -62,6 +62,7 @@ main {
 .index-image-container img {
     max-height: 400px;
     /* max-width: 420px; */
+    border-radius: 2%;
 }
 
 .page-link {
