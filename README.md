@@ -409,6 +409,7 @@ To do:
 - look into automated testing, if necessary
 - Add screenshots of all pages to Readme
 - Upload wireframes to readme
+- Find and apply a favicon
 
 Later:
 - implement upvotes / downvotes feature for Comments - on hold
