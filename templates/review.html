@@ -9,7 +9,11 @@
             <div class="card">
                 <div class="card-inner-large">
                     <div class="image-container">
-                        <img src="{{ review.image.url }}" class="card-img-top" alt="image of {{ review.name }}">
+                        {% if "placeholder" in review.image.url %}
+                            <img src="https://res.cloudinary.com/adamboley/image/upload/v1661792893/bg1_miae21.jpg" alt="default image" class="card-img-top">
+                        {% else %}
+                            <img src="{{ review.image.url }}" alt="" class="card-img-top">
+                        {% endif %}
                     </div>
                     
                     <div class="card-body">
