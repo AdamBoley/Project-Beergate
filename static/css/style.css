@@ -1,11 +1,11 @@
 main {
-    height: 100vh;
-    background: url(https://res.cloudinary.com/adamboley/image/upload/v1661792894/bg2_oq8m1s.jpg) no-repeat center center fixed;
-    /* opacity: 60%; */
+    background-image: url(https://res.cloudinary.com/adamboley/image/upload/v1661792894/bg2_oq8m1s.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
-    background-size: cover;
     display: flex;
     align-items: center;
     justify-content: center;

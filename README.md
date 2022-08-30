@@ -406,6 +406,12 @@ In progress:
 
 
 To do:
+- Remove need for scrolling after upvote / downvote page reload - https://stackoverflow.com/questions/64456417/django-redirect-view-after-liking-without-scrolling
+- Not all cards displaying on mobile devices:
+    - remove style rule for main element that fixes height to 100vh - done, all posts now display on mobile-size devices
+    - Tablets still problematic - first posts hidden as with mobile devices before removal of fixed height 
+    - on PC size screens there is a large white space below the main background image
+    - Custom media queries?
 - Find and apply a favicon
 - look into automated testing, if necessary
 - Add screenshots of all pages to Readme
