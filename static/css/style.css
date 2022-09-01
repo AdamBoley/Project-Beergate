@@ -1,3 +1,19 @@
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgb(223, 223, 223);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgb(170, 170, 170);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(116, 116, 116);
+}
+
 body {
     background-image: url(https://res.cloudinary.com/adamboley/image/upload/v1661792894/bg2_oq8m1s.jpg);
     background-repeat: no-repeat;

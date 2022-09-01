@@ -408,8 +408,8 @@ In progress:
     - add_review - try to centre the rich-text editor box
     - update_review - increase width and set overflow-x to none, use same layout as add_review
     - delete_review - add link to update it instead, add upvotes / downvotes count
-    - user_reviews - add images, more meta-data
-    - search_results - add images, more meta-data
+    - user_reviews - done
+    - search_results - done
 - Style AllAuth templates - sign-in, sign-up, login, logout, email, password, etc - 
 
 
