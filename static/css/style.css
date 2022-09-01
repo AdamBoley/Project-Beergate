@@ -40,7 +40,7 @@ main {
     width: 200px;
 }
 
-.upvotes-container, .index-timestamp-container {
+.upvotes-container, .index-timestamp-container{
     float: left;
 }
 
@@ -85,4 +85,35 @@ main {
 
 .meta-data-container {
     height: 1.5em;
+}
+
+/* Search results style rule */
+.search-result {
+    text-decoration: none;
+}
+
+.search-results-name {
+    text-decoration: underline;
+}
+
+.search-results-text {
+    color: black;
+}
+
+.search-results-image {
+    float: left;
+    width: 20%;
+}
+
+.search-results-image img {
+    width: 100%;
+}
+
+.search-results-info {
+    float: right;
+    width: 80%;
+}
+
+.search-results-votes {
+    color: black;
 }

@@ -398,20 +398,24 @@ Done:
 - Background image not displaying on deployed site - done, documented in bugs section
 - Review generic placeholder image - done, new image will much greater resolution used which is better for the review.html page
 - Provide a consistent aspect ratio for post images - done by sizing the image-container element using bootstrap classes
-
+- Not all cards displaying on mobile devices - done by reworking html structure and css rules
 
 In progress:
-- Review and update Bootstrap card structure for non-AllAuth templates
+- Review and update Bootstrap card structure for non-AllAuth templates:
+    - base / navbar - logged-in note for collapsed navbars
+    - index
+    - review - main image is rather large so reduce size, centre comment rich-text field
+    - add_review - try to centre the rich-text editor box
+    - update_review - increase width and set overflow-x to none, use same layout as add_review
+    - delete_review - add link to update it instead, add upvotes / downvotes count
+    - user_reviews - add images, more meta-data
+    - search_results - add images, more meta-data
 - Style AllAuth templates - sign-in, sign-up, login, logout, email, password, etc - 
 
 
 To do:
 - Remove need for scrolling after upvote / downvote page reload - https://stackoverflow.com/questions/64456417/django-redirect-view-after-liking-without-scrolling
-- Not all cards displaying on mobile devices:
-    - remove style rule for main element that fixes height to 100vh - done, all posts now display on mobile-size devices
-    - Tablets still problematic - first posts hidden as with mobile devices before removal of fixed height 
-    - on PC size screens there is a large white space below the main background image
-    - Custom media queries?
+
 - Find and apply a favicon
 - look into automated testing, if necessary
 - Add screenshots of all pages to Readme
