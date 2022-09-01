@@ -408,8 +408,8 @@ In progress:
         - main image is rather large so reduce size - done
         - centre comment rich-text field - more difficult
     - add_review - try to centre the rich-text editor box
-    - update_review - increase width and set overflow-x to none, use same layout as add_review
-    - delete_review - add link to update it instead, add upvotes / downvotes count
+    - update_review - increase width, use same layout as add_review - done
+    - delete_review - add link to update the review - done
     - user_reviews - done
     - search_results - done
 - Style AllAuth templates - sign-in, sign-up, login, logout, email, password, etc - 
