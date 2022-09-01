@@ -553,6 +553,9 @@ Further investigation on different viewport sizes proved that this had been the 
 29/8/22:
 Until this point, the background image for the application and the placeholder image had been served from the local repository. When DEBUG = True and running a local development server, this worked fine. However, with DEBUG = False and viewing the deployed app on Heroku, the background image and placeholder image failed to display. I noted from the Django Blog walkthrough videos that Django is designed to serve images via a CDN, not locally. At this point, I realised that Cloudinary is a CDN, and hence that I could use it to serve my background and placeholder images for the deployed app. When Debug was turned off and the app was deployed, the background and placeholder images displayed as expected. 
 
+31/8/22 - 1/9/22:
+The main background image caused problems when the app was viewed on mobile devices, with all of the first review and most of the second hidden. I determined that this was due to the main background image being applied to the `<main>` element in base.html. When changed to apply to the body element, the navbar moved. I determined that this was because the ruleset included the display: flex and align-items: center style rules which govern the layout of each page. Separating the ruleset out so that the display rules were applied to the `main` element and the background image style rules were applied to the `body` element solved this problem. I also removed the previously-applied `opaque-overlay` class selector, instead folding the style rules contained therein into the `main` selector. These changes solved the problem, allowing all of the reviews to be displayed on mobile devices with a fully-darkened background image as intended. 
+
 Django SMTP backend
 
 # Development Choices
@@ -570,7 +573,10 @@ When implementing the modal for the delete_review page, I found that when the cl
 26/8/22:
 When implementing the functionality to allow a user to view their own reviews, I found [this StackOverflow question](https://stackoverflow.com/questions/44693599/django-user-posts-to-be-filtered-from-all-posts-and-displayed-in-user-profile) useful, as it mentioned being able to filter the Reviews table by `author=request.user` and display the results. 
 
-28/8/22:
+
+## Favicon
+
+I decided to apply a pair of beer glasses as this app's favicon. Beer is the main theme of the app so this favicon seemed appropriate. The favicon was generated using the Clinking Beer Mugs emoji from the [Favicon.io](https://favicon.io/emoji-favicons/) favicon generator. 
  
 
 
@@ -633,6 +639,10 @@ For:
 
 Medium article on apply widgets to AllAuth templates - https://gavinwiener.medium.com/modifying-django-allauth-forms-6eb19e77ef56
 
-The HTML class 'opaque-overlay' and the associated CSS style rules, which is used to darken off the main background image, was taken verbatim from [bootstrap-experimentation](https://github.com/AdamBoley/bootstrap-experimentation), the repository set up to code along with the Code Institute Building With Bootstap videos. 
+The idea of darkening off the main background image is not original and was taken from [bootstrap-experimentation](https://github.com/AdamBoley/bootstrap-experimentation), the repository set up to code along with the Code Institute Building With Bootstap videos. A different method had to be used to implement this, but the walkthrough videos gave the idea.
 
 https://www.w3schools.com/howto/howto_css_custom_scrollbar.asp - for a custom scrollbar
+
+https://stackoverflow.com/questions/21938028/how-can-i-get-a-favicon-to-show-up-in-my-django-app - for applying a favicon to a Django project
+
+https://favicon.io/ - for generating a favicon
