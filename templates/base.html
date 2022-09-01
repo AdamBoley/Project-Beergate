@@ -88,7 +88,6 @@
                     </li> -->
                     
                     {% endif %}
-                    
                    
                 </ul>
                 {% if user.is_authenticated %}
@@ -108,17 +107,12 @@
         </div>
     </nav>
 
-
     <main class="flex-shrink-0">
-        <div class="opaque-overlay">&nbsp;</div>
         {% block content %}
             <!-- Content Goes here -->
         {% endblock content %}
     </main>
 
-
-    
-    
 </body>
 
 </html>
