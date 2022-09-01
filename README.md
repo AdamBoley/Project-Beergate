@@ -415,7 +415,7 @@ In progress:
 
 To do:
 - Remove need for scrolling after upvote / downvote page reload - https://stackoverflow.com/questions/64456417/django-redirect-view-after-liking-without-scrolling
-
+- Add additional classes to forms.py widgets to control input element widths
 - Find and apply a favicon
 - look into automated testing, if necessary
 - Add screenshots of all pages to Readme

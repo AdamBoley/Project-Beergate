@@ -11,13 +11,34 @@
                 <div class="card-inner-large">
                     <h3>My reviews:</h3>
                     {% for review in object_list %}
-                        <div class="card">
-                            <div class="card-inner">
-                                <a href="{% url 'review' review.pk %}" class="post-link">
-                                    <h4>{{ review.name }}</h4>
-                                </a>
-                                <p>By: {{ review.author }}</p>
-                            </div>
+                        <div class="card search-result-card">
+                            <a href="{% url 'review' review.pk %}" class="post-link search-result">
+                                <div class="search-results-image">
+                                    {% if "placeholder" in review.image.url %}
+                                        <img src="https://res.cloudinary.com/adamboley/image/upload/v1661792893/bg3_zfwcad.webp">
+                                    {% else %}
+                                        <img src="{{ review.image.url }}" alt="">
+                                    {% endif %}
+                                </div>
+                                <div class="search-results-info">
+                                    <h4 class="search-results-name">{{ review.name }}</h4>
+                                
+                                    <p class="search-results-text">By: {{ review.author }}</p>
+
+                                    <p class="search-results-text">Posted on: {{ review.timestamp|date }}</p>
+
+                                    <p class="search-results-votes">
+                                        <i class="far fa-thumbs-up"></i>
+                                        {{ review.review_upvotes }}
+                                    </p>
+                                    <p class="search-results-votes">
+                                        <i class="far fa-thumbs-down"></i>
+                                        {{ review.review_downvotes }}
+                                    </p>
+
+                                </div>
+
+                            </a>
                         </div>
                     {% empty %}
                         <div class="card">
