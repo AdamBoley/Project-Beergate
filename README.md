@@ -404,7 +404,9 @@ In progress:
 - Review and update Bootstrap card structure for non-AllAuth templates:
     - base / navbar - logged-in note for collapsed navbars
     - index
-    - review - main image is rather large so reduce size, centre comment rich-text field
+    - review 
+        - main image is rather large so reduce size - done
+        - centre comment rich-text field - more difficult
     - add_review - try to centre the rich-text editor box
     - update_review - increase width and set overflow-x to none, use same layout as add_review
     - delete_review - add link to update it instead, add upvotes / downvotes count
