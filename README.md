@@ -634,3 +634,5 @@ For:
 Medium article on apply widgets to AllAuth templates - https://gavinwiener.medium.com/modifying-django-allauth-forms-6eb19e77ef56
 
 The HTML class 'opaque-overlay' and the associated CSS style rules, which is used to darken off the main background image, was taken verbatim from [bootstrap-experimentation](https://github.com/AdamBoley/bootstrap-experimentation), the repository set up to code along with the Code Institute Building With Bootstap videos. 
+
+https://www.w3schools.com/howto/howto_css_custom_scrollbar.asp - for a custom scrollbar

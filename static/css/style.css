@@ -52,6 +52,10 @@ main {
     max-height: 80vh;
 }
 
+.review-image-container {
+    max-width: 80%;
+}
+
 .votes-container {
     width: 200px;
 }

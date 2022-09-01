@@ -8,12 +8,14 @@
         <div class="col-md-8 offset-md-2">
             <div class="card">
                 <div class="card-inner-large">
-                    <div class="image-container">
-                        {% if "placeholder" in review.image.url %}
-                            <img src="https://res.cloudinary.com/adamboley/image/upload/v1661792893/bg3_zfwcad.webp" alt="default image" class="card-img-top">
-                        {% else %}
-                            <img src="{{ review.image.url }}" alt="" class="card-img-top">
-                        {% endif %}
+                    <div class="row">
+                        <div class="col-10 offset-1 col-md-8 offset-md-2 col-lg-4 offset-lg-4">
+                            {% if "placeholder" in review.image.url %}
+                                <img src="https://res.cloudinary.com/adamboley/image/upload/v1661792893/bg3_zfwcad.webp" alt="default image" class="card-img-top">
+                            {% else %}
+                                <img src="{{ review.image.url }}" alt="" class="card-img-top">
+                            {% endif %}
+                        </div>
                     </div>
                     
                     <div class="card-body">
