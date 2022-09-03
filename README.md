@@ -413,13 +413,33 @@ In progress:
     - user_reviews - done
     - search_results - done
 - Style AllAuth templates - sign-in, sign-up, login, logout, email, password, etc - 
-
+- Fix bug related to UpdateReviewView creating a new record
 
 To do:
+From Second call:
+- Remove unused AllAuth URLS in urls.py, keep views and templates
+- Add settings.py booleans to enhance security
+- Larger, bolder, more prominent font on navbar
+- Implement Django HoneyPot:
+    - install 
+    - set ADMIN_HONEYPOT_EMAIL_ADMINS = False
+    - Modify Admin URLS
+
+- ensure all templating language is properly indented
+- Apply bootstrap to search results and user reviews page
+- remove all extraneous / commented-out code
+- Harmonise login, log out, signup to sign-in, sign-out and sign-up
+- Implement tests from Django-Experimentation repo
+- add class and method docstrings
+
+Readme:
+- Soundly note change to new repository thanks to summernote editor
+- Testing section for exhaustive manual testing
+- Note removal of AllAuth Urls, and retention of views, forms and template for future work
+
 - Remove need for scrolling after upvote / downvote page reload - https://stackoverflow.com/questions/64456417/django-redirect-view-after-liking-without-scrolling
 - Add additional classes to forms.py widgets to control input element widths
 - Find and apply a favicon
-- look into automated testing, if necessary
 - Add screenshots of all pages to Readme
 - Upload wireframes to readme
 - Rework documentation
@@ -432,18 +452,6 @@ Later:
 - Extend User model to include a profile picture and other information - display this on the navbar and below each beer review
 - Add higher-level AllAuth functionality - social media sign in, password complexity, confirmation emails, etc
 - Modify UserSignUpForm in user/forms.py to include additional first_name and last_name fields - https://www.youtube.com/watch?v=d9aCpxQfnOg @ 4.57
-
-
-To consider:
-- The UpdateReviewView and update_review page that allow users to update their reviews redirect back to the review.html page with the updated content
-- this could prove to be a vulnerability for malicious users - i.e they pose as honest users and submit a seemingly plausible review, then update it with malicious content
-- therefore, should updates set reviews back to false so that I must re-approve them? 
-- this is vulnerability, but a post method in the update view creates a new record
-- Martin agrees
-- This may actually be a feature to prevent malicious attacks - the old, innocuous record that was updated remains, whilst the new record is unapproved
-- Then the admin user can then delete malicious records
-- And if the update is genuine, the admin user simply switches out the records
-- It's a feature not a bug as the old saying goes!
 
 
 For a user-written beer review form:
@@ -558,7 +566,12 @@ Until this point, the background image for the application and the placeholder i
 31/8/22 - 1/9/22:
 The main background image caused problems when the app was viewed on mobile devices, with all of the first review and most of the second hidden. I determined that this was due to the main background image being applied to the `<main>` element in base.html. When changed to apply to the body element, the navbar moved. I determined that this was because the ruleset included the display: flex and align-items: center style rules which govern the layout of each page. Separating the ruleset out so that the display rules were applied to the `main` element and the background image style rules were applied to the `body` element solved this problem. I also removed the previously-applied `opaque-overlay` class selector, instead folding the style rules contained therein into the `main` selector. These changes solved the problem, allowing all of the reviews to be displayed on mobile devices with a fully-darkened background image as intended. 
 
-Django SMTP backend
+3/9/22:
+When I initially implemented the UpdateReviewView to enable a user to update their own Reviews on the front-end, it occurred to me that a malicious user could exploit the fact that when a review is updated, it is not automatically disapproved. In order to do so, a malicious user would need to pose as a normal user and submit a seemingly-genuine beer review that would likely be approved without issue. Then, said malicious user could simply update their review with their malicious content, and it would be unlikely that an administrator would see this in order to remove it. I ran this past both my Mentor and an experienced software developer friend of mine, and both agreed that this was a potential vulnerability. 
+
+An initial solution involved using a post method inside the UpdateReviewView, however I noted that this actually had the effect of creating a new record with the updated content. For a time I considered that this was an acceptable solution - since the new record would be automatically disapproved, any malicious content would not be visible and could be safely removed by an administrator. However, this new record also did not have an image attached, which would require an image to be added by the administrator. If the user was replacing the image, this would have been problematic. 
+
+I spent a long time searching for a solution, and I found several StackOverflow questions that point to the creation of a duplicate record when using the generic UpdateView being a common issue. I eventually found [this Reddit post](https://www.reddit.com/r/django/comments/8jkh5t/updateview_creates_new_items_in_the_db_instead_of/), in which the author answers their own question. The author's use-case appears to be slightly different from mine, but it is sufficiently similar that I was able to appropriate most of their code. With a few adjustments, notably adding `user_update_form.instance.approved = False` and altering the return statement to render the `update_review.html` page with the Updated flag set to True, I was able to update a record and then see the confirmation message. When I went to the index page, I noted that the record I had updated was absent. I then checked the admin panel and noted that the record had been automatically unapproved. When I accessed that record, I noted that the update I had made appeared. When I approved the record and visited the index page, the record was visible. When I clicked on the card to visit the detail page, the updated content was visible. This was immensely satisfying. Best of all, since the record is being updated, the image remains unchanged and does not default to the placeholder. 
 
 # Development Choices
 
@@ -648,3 +661,5 @@ https://www.w3schools.com/howto/howto_css_custom_scrollbar.asp - for a custom sc
 https://stackoverflow.com/questions/21938028/how-can-i-get-a-favicon-to-show-up-in-my-django-app - for applying a favicon to a Django project
 
 https://favicon.io/ - for generating a favicon
+
+https://www.reddit.com/r/django/comments/8jkh5t/updateview_creates_new_items_in_the_db_instead_of/ - for providing the basis of the solution to automatically disapproving updated records

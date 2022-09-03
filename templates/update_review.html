@@ -14,10 +14,8 @@
                     <div class="card-body">
                         {% if updated %}
                             <div class="alert alert-success" role="alert">
-                                Your review has been updated
-                                <!-- and is awaiting re-approval -->
-                                <!-- Note - awaiting fix for being able to mark updated reviews as unapproved -->
-                                <a href="{% url 'home' %}">Go back to the home page</a>
+                                <p>Your review has been updated and must be re-approved by an administator</p>
+                                <p>Click <a href="{% url 'home' %}">here</a> to back to the home page</p>
                             </div>
                         {% else %}
                             {% if user.is_authenticated %}
@@ -32,7 +30,7 @@
                                         {{ form.media }}
                                         {{ form.as_p }}
                                         {% csrf_token %}
-                                        <button type="submit" class="btn btn-signup btn-lg">Update</button>
+                                        <button type="submit" class="btn btn-signup btn-lg" value="Update">Update</button>
                                     </form>
                                 {% else %}
                                     <p>

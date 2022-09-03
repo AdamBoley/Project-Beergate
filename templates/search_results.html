@@ -12,6 +12,10 @@
                     <h3>Search Results:</h3>
                     {% for review in object_list %}
                         <div class="card search-result-card">
+                            <!-- bootstrap these cards - give each a row, assign the image 3 cols and the info 9 cols -->
+                            <!-- For smaller devices, assign the image and info to separate rows, hidden on larger devices -->
+                            <!-- Use display property - d -->
+                            <!-- Or perhaps d-inline and d-block? -->
                             <a href="{% url 'review' review.pk %}" class="post-link search-result">
                                 <div class="search-results-image">
                                     {% if "placeholder" in review.image.url %}

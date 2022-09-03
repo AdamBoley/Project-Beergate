@@ -155,38 +155,33 @@ class UpdateReviewView(generic.UpdateView):
     template_name = 'update_review.html'
     form_class = UserReviewForm
 
-    # def get(self, request, *args, **kwargs):
-    #     return render(
-    #         request,
-    #         "update_review.html",
-    #         {
-    #             "update_review_form": UserReviewForm(),
-    #             "updated": False
-    #         }
-    #     )
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form_class = self.get_form_class()
+        user_update_form = self.get_form(form_class)
+        return self.render_to_response(self.get_context_data(form=user_update_form))
 
-    # def post(self, request, *args, **kwargs):
-    #     user_review_form = UserReviewForm(request.POST, request.FILES)
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form_class = self.get_form_class()
+        user_update_form = self.get_form(form_class)
 
-    #     if user_review_form.is_valid():
-    #         user_review_form.instance.author = request.user
-    #         user_review_form.instance.approved = False
-    #         user_review = user_review_form.save(commit=False)
-    #         user_review.save()
-    #     else:
-    #         user_review_form = UserReviewForm()
+        if user_update_form.is_valid():
+            user_update_form.instance.approved = False
+            return self.form_valid(user_update_form, request)
+        return self.form_invalid(user_update_form)
 
-    #     return render(
-    #         request,
-    #         "update_review.html",
-    #         {
-    #             "update_review_form": UserReviewForm(),
-    #             "updated": True
-    #         }
-    #     )
+    def form_valid(self, user_update_form, request):
+        self.object = user_update_form.save()
 
-    # This post method appears to create a new duplicate record that is set to false, without setting the old record to false as well
-    # see readme for further discussion of malicious users
+        return render(
+            request,
+            "update_review.html",
+            {
+                "update_review_form": UserReviewForm(),
+                "updated": True
+            }
+        )
 
 
 class DeleteReviewView(generic.DeleteView):
