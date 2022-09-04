@@ -32,6 +32,9 @@ DEBUG = True
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
 ALLOWED_HOSTS = ['beergate.herokuapp.com', 'localhost']
 
 ACCOUNT_EMAIL_VERIFICATION = 'none'
