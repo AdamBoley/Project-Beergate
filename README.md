@@ -588,13 +588,14 @@ When implementing the modal for the delete_review page, I found that when the cl
 26/8/22:
 When implementing the functionality to allow a user to view their own reviews, I found [this StackOverflow question](https://stackoverflow.com/questions/44693599/django-user-posts-to-be-filtered-from-all-posts-and-displayed-in-user-profile) useful, as it mentioned being able to filter the Reviews table by `author=request.user` and display the results. 
 
+4/9/22:
+During the course of this projects' development, my Mentor emphasised the importance of security and defensive programming against malicious users. As part of this, the [Django Admin Honeypot](https://django-admin-honeypot.readthedocs.io/en/latest/index.html) library was installed. This package provides a fake admin login page, the idea being that if an attacker knows that this project uses Django, they might navigate to the login page by appending `/admin` to the URL, as is convention for Django projects, and then try to break through the password defense to access the admin panel. From there, an attacker could cause terrible damage to the project. With this package installed and configured, the URL ending in `/admin` points to a decoy page whose form will not work, even if the correct credentials are supplied. The actual admin panel login page is located at the URL ending in `/beergate-admin`, where the correct superuse credentials may be supplied to access the admin panel. 
+
 
 ## Favicon
 
 I decided to apply a pair of beer glasses as this app's favicon. Beer is the main theme of the app so this favicon seemed appropriate. The favicon was generated using the Clinking Beer Mugs emoji from the [Favicon.io](https://favicon.io/emoji-favicons/) favicon generator. 
  
-
-
 # Local Clone / How you can use this code
 
 `pip3 install -r requirements.txt`

@@ -36,6 +36,10 @@ ALLOWED_HOSTS = ['beergate.herokuapp.com', 'localhost']
 
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 
+# Honeypot
+
+ADMIN_HONEYPOT_EMAIL_ADMINS = False
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -53,6 +57,7 @@ INSTALLED_APPS = [
     'cloudinary',
     'ckeditor',
     'crispy_forms',
+    'admin_honeypot',
     'reviews',
     'user',
 ]

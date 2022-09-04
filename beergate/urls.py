@@ -17,7 +17,8 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', include('admin_honeypot.urls', namespace='admin_honeypot')),
+    path('beergate-admin/', admin.site.urls),
     path('', include('reviews.urls'), name='reviews_urls'),
     path('accounts/', include('allauth.urls')),
     path('user/', include('user.urls')),
