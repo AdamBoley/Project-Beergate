@@ -399,6 +399,9 @@ Done:
 - Review generic placeholder image - done, new image will much greater resolution used which is better for the review.html page
 - Provide a consistent aspect ratio for post images - done by sizing the image-container element using bootstrap classes
 - Not all cards displaying on mobile devices - done by reworking html structure and css rules
+- Fix bug related to UpdateReviewView creating a new record - done
+- Implement Django HoneyPot - done
+- Add settings.py booleans to enhance security - done
 
 In progress:
 - Review and update Bootstrap card structure for non-AllAuth templates:
@@ -410,27 +413,28 @@ In progress:
     - add_review - try to centre the rich-text editor box
     - update_review - increase width, use same layout as add_review - done
     - delete_review - add link to update the review - done
-    - user_reviews - done
-    - search_results - done
+    - user_reviews - in progress
+    - search_results - in progress
 - Style AllAuth templates - sign-in, sign-up, login, logout, email, password, etc - 
-- Fix bug related to UpdateReviewView creating a new record
+
+Note regarding search_results and user_reviews:
+The mobile view displays at 576px
+However, horizontal phones will use the >576px width
+vertical phones top out at about 412px, so apply cols and offsets to satisfy this, and note these observations fully
+The major exception is the Surface Duo, which is a hybrid tablet/phone
 
 To do:
 From Second call:
 - Remove unused AllAuth URLS in urls.py, keep views and templates
-- Add settings.py booleans to enhance security
 - Larger, bolder, more prominent font on navbar
-- Implement Django HoneyPot:
-    - install 
-    - set ADMIN_HONEYPOT_EMAIL_ADMINS = False
-    - Modify Admin URLS
-
 - ensure all templating language is properly indented
 - Apply bootstrap to search results and user reviews page
 - remove all extraneous / commented-out code
 - Harmonise login, log out, signup to sign-in, sign-out and sign-up
 - Implement tests from Django-Experimentation repo
 - add class and method docstrings
+
+- IMPORTANT - CKeditor rich text field not displaying on mobile devices
 
 Readme:
 - Soundly note change to new repository thanks to summernote editor
@@ -610,6 +614,9 @@ The `CSRF_COOKIE_SECURE` marks the CSRF cookie as secure, so that it may only be
 The `SESSION_COOKIE_SECURE` setting marks session cookies as secure, so they may only be sent over an HTTPS connection. Django specifically recommends adding this setting, so I did so. 
 
 When the `SECURE_SSL_REDIRECT` and `SECURE_HSTS_SECONDS` were added, I was unable to access the localhost development server. To resume development, I was forced to build a new workspace, install all dependencies again and reconstruct the env.py file. Hence, only the `CSRF_COOKIE_SECURE` and `SECURE_HSTS_SECONDS` settings were retained. 
+
+5/9/22:
+Styling the user_review and search_results pages proved difficult for mobile devices. I initially attempted to stack the images above the information about a beer review within each card. However, on smaller screen sizes the images became mis-aligned. After some thought, I removed the images for screen sizes of less than 576px, the smallest Bootstrap breakpoint. This has the added benefit of reducing the sizes of the cards on mobile devices, which makes scrolling through a large number of reviews easier, as such scrolling is typically done using the thumb. 
 
 ## Favicon
 
