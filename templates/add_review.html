@@ -26,7 +26,8 @@
                                     Posting as: {{ user.username }}
                                 </p>
                                 <form method="POST" style="margin-top: 1.3em;" enctype="multipart/form-data">
-                                    {{ form.media }}
+                                    {{ form.media|safe }}
+                                    <script>CKEDITOR.replace('editor1', { uiColor: '#9AB8F3'});</script>
                                     {{ form.as_p }}
                                     
                                     {% csrf_token %}
