@@ -594,7 +594,7 @@ May need to add (blank=True, null=True) to RichTextField in models.py
 Fixes tried:
 `<script>CKEDITOR.replace('editor1');</script>`
 
-
+`{{ form.text | safe }}`
 
 # Development Choices
 
