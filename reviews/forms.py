@@ -1,6 +1,7 @@
 from .models import Comment, Review
 from django import forms
 from django.utils.translation import gettext_lazy as _
+from ckeditor.widgets import CKEditorWidget
 
 
 class CommentForm(forms.ModelForm):
@@ -18,6 +19,8 @@ class CommentForm(forms.ModelForm):
 
 
 class UserReviewForm(forms.ModelForm):
+    content = forms.CharField(widget=CKEditorWidget())
+
     class Meta:
         model = Review
         fields = (

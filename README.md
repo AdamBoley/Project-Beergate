@@ -596,6 +596,8 @@ Fixes tried:
 
 `{{ form.text | safe }}`
 
+`{{ form.as_p | safe }}`
+
 # Development Choices
 
 19/8/22:
