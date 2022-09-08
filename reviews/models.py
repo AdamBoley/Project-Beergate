@@ -5,6 +5,7 @@ from ckeditor.fields import RichTextField
 from django.urls import reverse
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
+from tinymce import models as tinymce_models
 # last two are for validation - see Django documentation on valudation
 
 # Create your models here.
@@ -40,7 +41,7 @@ class Review(models.Model):
     hops = models.CharField(max_length=100)
     image = CloudinaryField('image', default='placeholder')
     keywords = models.CharField(max_length=200)
-    content = RichTextField()
+    content = tinymce_models.HTMLField()
     upvotes = models.ManyToManyField(User, related_name='review_upvotes', blank=True)
     downvotes = models.ManyToManyField(User, related_name='review_downvotes', blank=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="beer_review")

@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'cloudinary',
     'ckeditor',
+    'tinymce',
     'crispy_forms',
     'admin_honeypot',
     'reviews',
