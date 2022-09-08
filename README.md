@@ -587,6 +587,15 @@ I spent a long time searching for a solution, and I found several StackOverflow 
 8/9/22:
 Whilst using the deployed app using the Chrome browser of my Android mobile device, I noted with some alarm that the CK-Editor rich text fields for the add_review page and the add-comment section of the review page was not displaying. Further investigation revealed that this bug extended to the deployed version on my PC as well, indicating that the problem lay with the deployed site. 
 
+Since this problem only existed on the deployed version of the app, fixing it required many pushes with debug turned off, and then redeploying on Heroku. 
+
+May need to add (blank=True, null=True) to RichTextField in models.py
+
+Fixes tried:
+`<script>CKEDITOR.replace('editor1');</script>`
+
+
+
 # Development Choices
 
 19/8/22:
