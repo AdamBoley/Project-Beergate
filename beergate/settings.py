@@ -43,9 +43,7 @@ ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 ADMIN_HONEYPOT_EMAIL_ADMINS = False
 
-# CK editor
 
-CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
 
 # Application definition
 
@@ -178,3 +176,8 @@ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# TinyMCE config
+
+TINYMCE_JS_URL = os.path.join(STATIC_URL, "articles/build/lib/node_modules/tinymce/tinymce.min.js")
+TINYMCE_JS_ROOT = os.path.join(STATIC_ROOT, "articles/build/lib/node_modules/tinymce")
