@@ -137,6 +137,9 @@
                                         </p>
                                         <form method="POST" style="margin-top: 1.3em;">
                                             {{ comment_form.media }}
+                                            <script>
+                                                CKEDITOR.replace('editor1');
+                                            </script>
                                             {{ comment_form.as_p }}
                                             {% csrf_token %}
                                             <button type="submit" class="btn btn-signup btn-lg">Submit</button>
