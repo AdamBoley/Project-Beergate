@@ -28,7 +28,7 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
@@ -179,5 +179,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # TinyMCE config
 
-TINYMCE_JS_URL = os.path.join(STATIC_URL, "articles/build/lib/node_modules/tinymce/tinymce.min.js")
-TINYMCE_JS_ROOT = os.path.join(STATIC_ROOT, "articles/build/lib/node_modules/tinymce")
+TINYMCE_JS_URL = 'https://res.cloudinary.com/adamboley/raw/upload/v1662656035/static/tinymce/tinymce.min.f303c2d13b1e.js'
+# TINYMCE_COMPRESSOR = False
+
