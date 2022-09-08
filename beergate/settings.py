@@ -43,6 +43,10 @@ ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 ADMIN_HONEYPOT_EMAIL_ADMINS = False
 
+# CK editor
+
+CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
+
 # Application definition
 
 INSTALLED_APPS = [

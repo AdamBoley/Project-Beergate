@@ -589,7 +589,13 @@ Whilst using the deployed app using the Chrome browser of my Android mobile devi
 
 Since this problem only existed on the deployed version of the app, fixing it required many pushes with debug turned off, and then redeploying on Heroku. 
 
+During the attempts the fix this bug, it was noted that the CK editor does not display on the local version either - this is only an issue when Debug is off
+
 May need to add (blank=True, null=True) to RichTextField in models.py
+
+Per [this StackOverflow question](https://stackoverflow.com/questions/71814013/djangos-ckeditor-not-appearing-in-admin-panel), I inspected the form, and noted that the actual textarea input element has visibilty: hidden. However, if visibility: hidden is unchecked in the Chrome developer tools, a standard textarea element appears, not a full rich text editor
+
+Per documentation - run the collectstatic command in the terminal
 
 Fixes tried:
 `<script>CKEDITOR.replace('editor1');</script>`

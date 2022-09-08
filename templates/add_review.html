@@ -26,9 +26,9 @@
                                     Posting as: {{ user.username }}
                                 </p>
                                 <form method="POST" style="margin-top: 1.3em;" enctype="multipart/form-data">
-
-                                    {{ form.as_p | safe }}
                                     {{ form.media }}
+                                    {{ form.as_p }}
+                                    
                                     {% csrf_token %}
                                     <button type="submit" class="btn btn-signup btn-lg">Submit</button>
                                 </form>
