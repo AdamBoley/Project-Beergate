@@ -20,7 +20,7 @@ class CommentForm(forms.ModelForm):
 
 class UserReviewForm(forms.ModelForm):
 
-    content = forms.CharField(widget=CKEditorWidget())
+    # content = forms.CharField(widget=CKEditorWidget())
 
     class Meta:
         model = Review
