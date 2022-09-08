@@ -1,7 +1,7 @@
-from .models import Comment, Review
 from django import forms
+from .models import Comment, Review
 from django.utils.translation import gettext_lazy as _
-# from ckeditor.widgets import CKEditorWidget
+from ckeditor.widgets import CKEditorWidget
 
 
 class CommentForm(forms.ModelForm):
@@ -68,7 +68,7 @@ class UserReviewForm(forms.ModelForm):
                 'class': 'form-control',
                 'placeholder': 'Some words to quickly describe the beer - hoppy, malty, etc'
             }),
-            'content': forms.Textarea(attrs={
+            'content': forms.TextInput(attrs={
                 'class': 'form-control',
                 'placeholder': 'Your review of the beer'
             }),
