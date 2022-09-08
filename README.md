@@ -608,7 +608,7 @@ From the developer tools, I see that the TinyMCE editor textarea is not displayi
 
 When the collectstatic command is run, the static files are copied/moved to the value set in the STATICFILES_STORAGE setting in settings.py. This happens to be Cloudinary. I had thought that CLoudinary could only be used to store uploaded images, but it seems that it can serve as a repository for *any* file, and then serve them.
 I solutions to this:
-1 - copy the JS file code into a file in the local static folder, then set the TINY_JS_URL to that location
+1 - copy the JS file code into a file in the local static folder, then set the TINYMCE_JS_URL to that location
 2 - Use Cloudinary to store and serve the JS file
 
 I note that I have run the collectstatic command several times - it probably took so long to execute because instead of locally copying/moving the files, they were being uploaded to Cloudinary. Hence, Cloudinary is storing JS files that control the SummerNote, CKeditor and TinyMCE Rich Text Editors. It is possible that 2 different RTEs could be used
