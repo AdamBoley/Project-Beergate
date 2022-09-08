@@ -68,10 +68,10 @@ class UserReviewForm(forms.ModelForm):
                 'class': 'form-control',
                 'placeholder': 'Some words to quickly describe the beer - hoppy, malty, etc'
             }),
-            'content': forms.TextInput(attrs={
-                'class': 'form-control',
-                'placeholder': 'Your review of the beer'
-            }),
+            # 'content': forms.Textarea(attrs={
+            #     'class': 'form-control',
+            #     'placeholder': 'Your review of the beer'
+            # }),
             'aroma': forms.NumberInput(attrs={
                 'class': 'form-control',
             }),
