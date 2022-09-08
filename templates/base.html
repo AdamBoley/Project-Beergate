@@ -18,7 +18,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg bg-light">
+    <nav class="navbar navbar-expand-lg navbar-background sticky-top">
         <div class="container-fluid">
             <a class="navbar-brand" href="{% url 'home' %}">BeerGate</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -31,78 +31,51 @@
                     <li class="nav-item btn">
                         <a class="nav-link" aria-current="page" href="{% url 'home' %}">Reviews</a>
                     </li>
-                    <!-- <li class="nav-item">
-                        <a class="nav-link" href="#">Order</a>
-                    </li> -->
                     {% if user.is_authenticated %}
-                    <li class="nav-item btn">
-                        <a class="nav-link" href="{% url 'add_review' %}">Leave a review</a>
-                    </li>
-                    <li class="nav-item btn">
-                        <a class="nav-link" href="{% url 'user_reviews' %}">My reviews</a>
-                    </li>
-                    <li class="nav-item btn">
-                        <a class="nav-link" href="{% url 'account_logout' %}">Logout</a>
-                    </li>
-                    <li class="nav-item btn">
-                        <a class="nav-link" href="{% url 'account_change_password' %}">Change Password</a>
-                    </li>
-                    <!-- <li class="nav-item dropdown btn">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Account actions
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a class="dropdown-item" href="{% url 'account_change_password' %}">Change Password</a>
-                            </li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="{% url 'account_reset_password' %}">Reset Password</a>
-                            </li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="{% url 'account_set_password' %}">Set Password</a>
-                            </li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="{% url 'account_email' %}">Add Email Address</a>
-                            </li>
-                        </ul>
-                    </li> -->
+                        <li class="nav-item btn">
+                            <a class="nav-link" href="{% url 'add_review' %}">Leave a review</a>
+                        </li>
+                        <li class="nav-item btn">
+                            <a class="nav-link" href="{% url 'user_reviews' %}">My reviews</a>
+                        </li>
+                        <li class="nav-item btn">
+                            <a class="nav-link" href="{% url 'account_logout' %}">Logout</a>
+                        </li>
+                        <li class="nav-item btn">
+                            <a class="nav-link" href="{% url 'account_change_password' %}">Change Password</a>
+                        </li>
                     
                     {% else %}
-                    <li class="nav-item btn">
-                        <a class="nav-link" href="{% url 'account_signup' %}">Register</a>
-                    </li>
-                    <li class="nav-item btn">
-                        <a class="nav-link" href="{% url 'account_login' %}">Login</a>
-                    </li>
-                    <!-- <li class="nav-item btn">
-                        <a href="{% url 'account_reset_password' %}" class="nav-link">Reset Password</a>
-                    </li> -->
-                    
+                        <li class="nav-item btn">
+                            <a class="nav-link" href="{% url 'account_signup' %}">Register</a>
+                        </li>
+                        <li class="nav-item btn">
+                            <a class="nav-link" href="{% url 'account_login' %}">Login</a>
+                        </li>
+                        <!-- <li class="nav-item btn">
+                            <a href="{% url 'account_reset_password' %}" class="nav-link">Reset Password</a>
+                        </li> -->
+
                     {% endif %}
-                   
+                    
                 </ul>
                 {% if user.is_authenticated %}
-                    <div class="username">
-                        Logged in as: {{ user.username }}
-                    </div>
+                    <span class="navbar-text me-3">
+                        You are signed in
+                    </span>
+                    <span class="navbar-text me-3">
+                        Username: {{ user.username }}
+                    </span>
                 {% else %}
-                    <div class="username">
-                        You are not logged in
-                    </div>
+                    <span class="navbar-text me-3">
+                        You are not signed in
+                    </span>
                 {% endif %}
                 <form class="d-flex" role="search" action="{% url 'search_results' %}" method="GET">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
-                    <button class="btn btn-outline-success" type="submit">Find a beer</button>
+                    <button class="btn search-button" type="submit">
+                        Search
+                    </button>
                 </form>
             </div>
         </div>

@@ -37,8 +37,35 @@ main {
     z-index: 1;
 }
 
-.username {
-    margin-right: 2em;
+.navbar-background {
+    background-color: darkorange;
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: xx-large;
+}
+
+.navbar-text, .nav-link, .search-button {
+    font-weight: 500;
+    font-size: larger;
+    color: black;
+}
+
+.nav-link {
+    font-weight: 500;
+}
+
+.nav-link:hover {
+    color: black;
+}
+
+.nav-item:hover {
+    background-color: whitesmoke;
+}
+
+.search-button:hover {
+    background-color: whitesmoke;
 }
 
 .card-inner {

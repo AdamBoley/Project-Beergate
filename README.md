@@ -402,6 +402,24 @@ Done:
 - Fix bug related to UpdateReviewView creating a new record - done
 - Implement Django HoneyPot - done
 - Add settings.py booleans to enhance security - done
+- Apply bootstrap to search results and user reviews page - done
+- Larger, bolder, more prominent font on navbar - done
+
+
+For a user-written beer review form:
+- need a completed BeerReviewForm in forms.py - done
+- need a new view in views.py - done
+- need a context in the return render of the view - done?
+- need a template and front-end links to that - done
+- need a path in urls.py for that template - done
+- Add some functionality to handle an improperly completed form. Apply this to the comment form as well (for example if a user tries to submit an empty form). 
+- update admin.py with an approve beer review action - done?
+ALL DONE
+
+
+
+
+
 
 In progress:
 - Review and update Bootstrap card structure for non-AllAuth templates:
@@ -426,28 +444,25 @@ The major exception is the Surface Duo, which is a hybrid tablet/phone
 To do:
 From Second call:
 - Remove unused AllAuth URLS in urls.py, keep views and templates
-- Larger, bolder, more prominent font on navbar
 - ensure all templating language is properly indented
-- Apply bootstrap to search results and user reviews page
 - remove all extraneous / commented-out code
 - Harmonise login, log out, signup to sign-in, sign-out and sign-up
 - Implement tests from Django-Experimentation repo
 - add class and method docstrings
-
-- IMPORTANT - CKeditor rich text field not displaying on mobile devices
+- IMPORTANT - CKeditor rich text field not displaying on deployed site, including mobile devices
+- Modify Reviews so that they have realistic content, not just Lorem Ipsum bulk text
 
 Readme:
 - Soundly note change to new repository thanks to summernote editor
 - Testing section for exhaustive manual testing
 - Note removal of AllAuth Urls, and retention of views, forms and template for future work
-
 - Remove need for scrolling after upvote / downvote page reload - https://stackoverflow.com/questions/64456417/django-redirect-view-after-liking-without-scrolling
 - Add additional classes to forms.py widgets to control input element widths
 - Find and apply a favicon
 - Add screenshots of all pages to Readme
 - Upload wireframes to readme
 - Rework documentation
-- Modify Reviews so that they have realistic content, not just Lorem Ipsum bulk text
+
 
 Later:
 - implement upvotes / downvotes feature for Comments - on hold
@@ -458,15 +473,7 @@ Later:
 - Modify UserSignUpForm in user/forms.py to include additional first_name and last_name fields - https://www.youtube.com/watch?v=d9aCpxQfnOg @ 4.57
 
 
-For a user-written beer review form:
-- need a completed BeerReviewForm in forms.py - done
-- need a new view in views.py - done
-- need a context in the return render of the view - done?
-- need a template and front-end links to that - done
-- need a path in urls.py for that template - done
-- Add some functionality to handle an improperly completed form. Apply this to the comment form as well (for example if a user tries to submit an empty form). 
-- update admin.py with an approve beer review action - done?
-ALL DONE
+
 
 # Bugs
 
@@ -577,6 +584,9 @@ An initial solution involved using a post method inside the UpdateReviewView, ho
 
 I spent a long time searching for a solution, and I found several StackOverflow questions that point to the creation of a duplicate record when using the generic UpdateView being a common issue. I eventually found [this Reddit post](https://www.reddit.com/r/django/comments/8jkh5t/updateview_creates_new_items_in_the_db_instead_of/), in which the author answers their own question. The author's use-case appears to be slightly different from mine, but it is sufficiently similar that I was able to appropriate most of their code. With a few adjustments, notably adding `user_update_form.instance.approved = False` and altering the return statement to render the `update_review.html` page with the Updated flag set to True, I was able to update a record and then see the confirmation message. When I went to the index page, I noted that the record I had updated was absent. I then checked the admin panel and noted that the record had been automatically unapproved. When I accessed that record, I noted that the update I had made appeared. When I approved the record and visited the index page, the record was visible. When I clicked on the card to visit the detail page, the updated content was visible. This was immensely satisfying. Best of all, since the record is being updated, the image remains unchanged and does not default to the placeholder. 
 
+8/9/22:
+Whilst using the deployed app using the Chrome browser of my Android mobile device, I noted with some alarm that the CK-Editor rich text fields for the add_review page and the add-comment section of the review page was not displaying. Further investigation revealed that this bug extended to the deployed version on my PC as well, indicating that the problem lay with the deployed site. 
+
 # Development Choices
 
 19/8/22:
@@ -617,6 +627,9 @@ When the `SECURE_SSL_REDIRECT` and `SECURE_HSTS_SECONDS` were added, I was unabl
 
 5/9/22:
 Styling the user_review and search_results pages proved difficult for mobile devices. I initially attempted to stack the images above the information about a beer review within each card. However, on smaller screen sizes the images became mis-aligned. After some thought, I removed the images for screen sizes of less than 576px, the smallest Bootstrap breakpoint. This has the added benefit of reducing the sizes of the cards on mobile devices, which makes scrolling through a large number of reviews easier, as such scrolling is typically done using the thumb. 
+
+8/9/22:
+My Mentor noted that the standard Bootstrap navbar design is quite muted and bland. He suggested using a bolder, more prominent design. To accomplish this, I changed the background colour to dark orange, with the intention of mimicking the colour of a pint of beer. I initially used white text to mimic the foamy head of a pint, but upon checking the colour contrast with [WebAIM](https://webaim.org/resources/contrastchecker/), I noted that white on orange provided insufficient colour contrast. To counter this, I switched to using black text with a increased font-size and font-weight. I also added a hover effect to the navbar button links to turn them white when moused over, so as to provide clear user feedback that they are about to a click a button. 
 
 ## Favicon
 
