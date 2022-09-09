@@ -613,6 +613,8 @@ I solutions to this:
 
 I note that I have run the collectstatic command several times - it probably took so long to execute because instead of locally copying/moving the files, they were being uploaded to Cloudinary. Hence, Cloudinary is storing JS files that control the SummerNote, CKeditor and TinyMCE Rich Text Editors. It is possible that 2 different RTEs could be used
 
+Cloudinary is also storing, and presumably serving, the CSS file
+
 
 
 # Development Choices
