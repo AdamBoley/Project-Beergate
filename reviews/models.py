@@ -40,7 +40,7 @@ class Review(models.Model):
     hops = models.CharField(max_length=100)
     image = CloudinaryField('image', default='placeholder')
     keywords = models.CharField(max_length=200)
-    content = tinymce_models.HTMLField()
+    content = models.TextField()
     upvotes = models.ManyToManyField(User, related_name='review_upvotes', blank=True)
     downvotes = models.ManyToManyField(User, related_name='review_downvotes', blank=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="beer_review")

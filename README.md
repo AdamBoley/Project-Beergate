@@ -615,6 +615,8 @@ I note that I have run the collectstatic command several times - it probably too
 
 Cloudinary is also storing, and presumably serving, the CSS file. This is proved by disabling STATICFILES_STORAGE - without it, the CSS file fails to load on the deployed version
 
+Verdict - Ultimately, a Rich Text Editor proved too difficult to get working in production. I note that [RateBeer](https://www.ratebeer.com/) does not use an RTE. Reviews posted by users are short and simple, without fancy formatting. 
+
 # Development Choices
 
 19/8/22:
