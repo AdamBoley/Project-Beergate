@@ -141,7 +141,7 @@ class AddReviewView(generic.CreateView):
 
         return render(
             request,
-            "user_review.html",
+            "add_review.html",
             {
                 "user_review_form": UserReviewForm(),
                 "reviewed": True
