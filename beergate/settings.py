@@ -28,7 +28,7 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
@@ -183,6 +183,8 @@ STATICFILES_FINDERS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # TinyMCE config
-TINYMCE_JS_URL = 'https://res.cloudinary.com/adamboley/raw/upload/v1662656035/static/tinymce/tinymce.min.f303c2d13b1e.js'
-TINYMCE_JS_ROOT = 'https://res.cloudinary.com/adamboley/raw/upload/v1662656031/static/django_tinymce/init_tinymce.b3b8f2bad12a.js'
-TINYMCE_DEFAULT_CONFIG = 'https://res.cloudinary.com/adamboley/raw/upload/v1662655975/static/tinymce/themes/silver/theme.min.8996572fdb65.js'
+TINYMCE_JS_URL = os.path.join(STATIC_URL, "tinymce/tinymce.min.js")
+TINYMCE_JS_ROOT = os.path.join(STATIC_ROOT, "tinymce")
+# TINYMCE_JS_URL = 'https://res.cloudinary.com/adamboley/raw/upload/v1662656035/static/tinymce/tinymce.min.f303c2d13b1e.js'
+# TINYMCE_JS_ROOT = 'https://res.cloudinary.com/adamboley/raw/upload/v1662656031/static/django_tinymce/init_tinymce.b3b8f2bad12a.js'
+# TINYMCE_DEFAULT_CONFIG = 'https://res.cloudinary.com/adamboley/raw/upload/v1662655975/static/tinymce/themes/silver/theme.min.8996572fdb65.js'
