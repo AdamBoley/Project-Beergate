@@ -1,7 +1,6 @@
 from django import forms
 from .models import Comment, Review
 from django.utils.translation import gettext_lazy as _
-from ckeditor.widgets import CKEditorWidget
 
 
 class CommentForm(forms.ModelForm):

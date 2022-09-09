@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
-from ckeditor.fields import RichTextField
 from django.urls import reverse
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
@@ -120,7 +119,7 @@ class Comment(models.Model):
     """
     review = models.ForeignKey(Review, on_delete=models.CASCADE, related_name="comments")
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    content = RichTextField()
+    content = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
     upvotes = models.ManyToManyField(User, related_name='comment_upvotes', blank=True)
     downvotes = models.ManyToManyField(User, related_name='comment_downvotes', blank=True)
