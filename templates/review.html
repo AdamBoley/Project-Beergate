@@ -111,7 +111,7 @@
                                                 </span>
                                                 wrote:
                                             </p>
-                                            {{ comment.content | linebreaks }}
+                                            {{ comment.content | linebreaks | safe }}
                                         </div>
                                     {% empty %}
                                         <div>

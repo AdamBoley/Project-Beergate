@@ -617,6 +617,8 @@ Cloudinary is also storing, and presumably serving, the CSS file. This is proved
 
 Verdict - Ultimately, a Rich Text Editor proved too difficult to get working in production. I note that [RateBeer](https://www.ratebeer.com/) does not use an RTE. Reviews posted by users are short and simple, without fancy formatting. 
 
+
+
 # Development Choices
 
 19/8/22:
@@ -660,6 +662,9 @@ Styling the user_review and search_results pages proved difficult for mobile dev
 
 8/9/22:
 My Mentor noted that the standard Bootstrap navbar design is quite muted and bland. He suggested using a bolder, more prominent design. To accomplish this, I changed the background colour to dark orange, with the intention of mimicking the colour of a pint of beer. I initially used white text to mimic the foamy head of a pint, but upon checking the colour contrast with [WebAIM](https://webaim.org/resources/contrastchecker/), I noted that white on orange provided insufficient colour contrast. To counter this, I switched to using black text with a increased font-size and font-weight. I also added a hover effect to the navbar button links to turn them white when moused over, so as to provide clear user feedback that they are about to a click a button. 
+
+11/9/22:
+The large number of commits made between 8/9/22 to 9/9/22 ultimately achieved nothing, except for some documentation regarding learning about how Django and Cloudinary work, and a minor fix to the AddReviewView that updated the name of the template being used. I considered deleting or reverting these commits but decided against this. Commit deletion is considered bad practice and commit reversion would achieve nothing, since the last commit made on 9/9/22 essentially restored the project to its last working state, except that the Review model's content field now uses a standard TextField instead of CK-editor's RichTextField or TinyMCE's HTMLField.  
 
 ## Favicon
 

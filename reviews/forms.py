@@ -1,9 +1,13 @@
 from django import forms
 from .models import Comment, Review
 from django.utils.translation import gettext_lazy as _
+from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
 
 
 class CommentForm(forms.ModelForm):
+
+    content = forms.CharField(widget=SummernoteWidget())
+    
     class Meta:
         model = Comment
         fields = ('content',)
@@ -18,6 +22,8 @@ class CommentForm(forms.ModelForm):
 
 
 class UserReviewForm(forms.ModelForm):
+
+    content = forms.CharField(widget=SummernoteWidget())
 
     class Meta:
         model = Review

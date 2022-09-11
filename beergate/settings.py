@@ -16,6 +16,7 @@ import dj_database_url
 if os.path.isfile('env.py'):
     import env
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
@@ -28,7 +29,7 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
@@ -61,6 +62,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'cloudinary',
     'tinymce',
+    'django_summernote',
     'crispy_forms',
     'admin_honeypot',
     'reviews',
@@ -169,6 +171,7 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 STATICFILES_FINDERS = [
@@ -182,9 +185,3 @@ STATICFILES_FINDERS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# TinyMCE config
-TINYMCE_JS_URL = os.path.join(STATIC_URL, "tinymce/tinymce.min.js")
-TINYMCE_JS_ROOT = os.path.join(STATIC_ROOT, "tinymce")
-# TINYMCE_JS_URL = 'https://res.cloudinary.com/adamboley/raw/upload/v1662656035/static/tinymce/tinymce.min.f303c2d13b1e.js'
-# TINYMCE_JS_ROOT = 'https://res.cloudinary.com/adamboley/raw/upload/v1662656031/static/django_tinymce/init_tinymce.b3b8f2bad12a.js'
-# TINYMCE_DEFAULT_CONFIG = 'https://res.cloudinary.com/adamboley/raw/upload/v1662655975/static/tinymce/themes/silver/theme.min.8996572fdb65.js'
