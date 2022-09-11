@@ -453,7 +453,18 @@ From Second call:
 - Use the checking thing to check if a user is the post's author - if so, remove/disable the upvote button, or trigger it automatically. If clicked, open a modal that tells the user that they cannot like their own posts, and prompts them to update or delete it
 - Offer an option of ordering reviews by the number of upvotes - use a dropdown menu or some type of selector (in navbar?) Then render different index views based on that selection
 - Update data model to allow a user to select whether a beer is bottled, draught, etc, and then filter results by this - update SearchResultsView, or expand navbar filtering
-
+    - use index.html and ListView
+    - expand navbar dropdown menu
+    - as with SearchResultsView, use a def get_queryset to build the object_list
+    - dropdown divider to separate different sorting parameters
+    - use filter in view
+    - sort by type - ale, stout, lager
+    - sort by colour - pale, amber, dark
+    - principle is to sort by broad characteristics
+    - each needs its own view for sorting on index template
+    - Update data model to include a 'served_as' boolean field, with options for either draught or bottled
+    - for readme - Martin is not a beer drinker, so the search bar is less useful due to lack of familiarity with terms, so dropdown menu provides clearer sort function
+    - 
 
 Readme:
 - Soundly note change to new repository thanks to summernote editor
@@ -677,7 +688,11 @@ The large number of commits made between 8/9/22 to 9/9/22 ultimately achieved no
 11/9/22:
 A good friend of mine, upon viewing the project, suggested implementing some sort of functionality for changing the ordering of the displayed Reviews. I considered that this could be a good idea, since by default the project orders Reviews by timestamp, with the newest appearing first. I considered that a user might want to order the Reviews by the highest number of upvotes, so that they can see particularly well written reviews. This mimics the way in which Facebook and Twitter posts are said to 'go viral', that is, when they achieve a lot of traction and are then seen by more and more users. I also considered that a user might want to order Reviews in reverse order, with the oldest displaying first. This might be because older beers that would have been reviewed when they were first created would quickly become next to invisible because they would be hidden behind so many pagination buttons. However, beers stay around for a long time, and age should not make a review any less valid. 
 
-
+11/9/22:
+The AllAuth functions of password reset, password set and add email were not implemented because these require an email server. The password change function was kept. No links to the removed functions remain in the project, but the URLs were removed from user/urls.py as a precaution. The views and forms remain as a springboard for future work. For future reference, the removed URLs are:
+`path('account/password/reset/', UserPasswordResetView.as_view(), name='account_reset_password'),`
+`path('account/password/set/', UserPasswordSetView.as_view(), name='account_set_password'),`
+`path('account/email/', UserAddEmailView.as_view(), name='account_email'),`
 
 ## Favicon
 

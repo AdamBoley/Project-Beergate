@@ -11,64 +11,64 @@
                 <div class="card-inner-large">
                     <h3>Search Results:</h3>
                     {% for review in object_list %}
-                    <div class="card search-result-card d-block d-sm-none">
-                        <!-- mobile / <576px  -->
-                        <a href="{% url 'review' review.pk %}" class="post-link search-result">
-                            <div class="row">
-                                <div class="search-results-info col-12">
-                                    <h4 class="search-results-name">{{ review.name }}</h4>
+                        <div class="card search-result-card d-block d-sm-none">
+                            <!-- mobile / <576px  -->
+                            <a href="{% url 'review' review.pk %}" class="post-link search-result">
+                                <div class="row">
+                                    <div class="search-results-info col-12">
+                                        <h4 class="search-results-name">{{ review.name }}</h4>
 
-                                    <p class="search-results-text">Posted on {{ review.timestamp|date }}</p>
+                                        <p class="search-results-text">Posted on {{ review.timestamp|date }}</p>
 
-                                    <p class="search-results-text">By: {{ review.author }}</p>
+                                        <p class="search-results-text">By: {{ review.author }}</p>
 
-                                    <span class="search-results-votes">
-                                        <i class="far fa-thumbs-up"></i>
-                                        {{ review.review_upvotes }}
-                                    </span>
-                                    <span class="search-results-votes ms-3">
-                                        <i class="far fa-thumbs-down"></i>
-                                        {{ review.review_downvotes }}
-                                    </span>
+                                        <span class="search-results-votes">
+                                            <i class="far fa-thumbs-up"></i>
+                                            {{ review.review_upvotes }}
+                                        </span>
+                                        <span class="search-results-votes ms-3">
+                                            <i class="far fa-thumbs-down"></i>
+                                            {{ review.review_downvotes }}
+                                        </span>
+
+                                    </div>
 
                                 </div>
-
-                            </div>
-                        </a>
-                    </div>
-                    <div class="card search-result-card d-none d-sm-block">
-                        <!-- tablet / pc/ >576px -->
-                        <a href="{% url 'review' review.pk %}" class="post-link search-result">
-                            <div class="row">
-                            
-                                <div class="search-results-image col-5 col-lg-5 col-xl-4">
-                                    {% if "placeholder" in review.image.url %}
-                                        <img src="https://res.cloudinary.com/adamboley/image/upload/v1661792893/bg3_zfwcad.webp">
-                                    {% else %}
-                                        <img src="{{ review.image.url }}" alt="">
-                                    {% endif %}
-                                </div>
-                                <div class="search-results-info col-7 col-lg-7 col-xl-4">
-                                    <h4 class="search-results-name">{{ review.name }}</h4>
+                            </a>
+                        </div>
+                        <div class="card search-result-card d-none d-sm-block">
+                            <!-- tablet / pc/ >576px -->
+                            <a href="{% url 'review' review.pk %}" class="post-link search-result">
+                                <div class="row">
                                 
-                                    <p class="search-results-text">By: {{ review.author }}</p>
+                                    <div class="search-results-image col-5 col-lg-5 col-xl-4">
+                                        {% if "placeholder" in review.image.url %}
+                                            <img src="https://res.cloudinary.com/adamboley/image/upload/v1661792893/bg3_zfwcad.webp">
+                                        {% else %}
+                                            <img src="{{ review.image.url }}" alt="">
+                                        {% endif %}
+                                    </div>
+                                    <div class="search-results-info col-7 col-lg-7 col-xl-4">
+                                        <h4 class="search-results-name">{{ review.name }}</h4>
+                                    
+                                        <p class="search-results-text">By: {{ review.author }}</p>
 
-                                    <p class="search-results-text">Posted on: {{ review.timestamp|date }}</p>
+                                        <p class="search-results-text">Posted on: {{ review.timestamp|date }}</p>
 
-                                    <span class="search-results-votes">
-                                        <i class="far fa-thumbs-up"></i>
-                                        {{ review.review_upvotes }}
-                                    </span>
-                                    <span class="search-results-votes ms-3">
-                                        <i class="far fa-thumbs-down"></i>
-                                        {{ review.review_downvotes }}
-                                    </span>
+                                        <span class="search-results-votes">
+                                            <i class="far fa-thumbs-up"></i>
+                                            {{ review.review_upvotes }}
+                                        </span>
+                                        <span class="search-results-votes ms-3">
+                                            <i class="far fa-thumbs-down"></i>
+                                            {{ review.review_downvotes }}
+                                        </span>
+
+                                    </div>
 
                                 </div>
-
-                            </div>
-                        </a>
-                    </div>
+                            </a>
+                        </div>
                     {% empty %}
                         <div class="card">
                             <div class="card-inner">
