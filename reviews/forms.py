@@ -6,24 +6,21 @@ from django.utils.translation import gettext_lazy as _
 
 class CommentForm(forms.ModelForm):
 
-    content = forms.CharField(widget=SummernoteWidget())
-
     class Meta:
         model = Comment
         fields = ('content',)
-        # widgets = {
-        #     'content': forms.Textarea(attrs={
-        #         'class': 'form-control'
-        #     })
-        # }
+        widgets = {
+            'content': SummernoteWidget(),
+            # 'content': forms.Textarea(attrs={
+            #     'class': 'form-control'
+            # })
+        }
         labels = {
             'content': _('Your comment')
         }
 
 
 class UserReviewForm(forms.ModelForm):
-
-    content = forms.CharField(widget=SummernoteWidget())
 
     class Meta:
         model = Review
@@ -73,6 +70,7 @@ class UserReviewForm(forms.ModelForm):
                 'class': 'form-control',
                 'placeholder': 'Some words to quickly describe the beer - hoppy, malty, etc'
             }),
+            'content': SummernoteWidget(),
             # 'content': forms.Textarea(attrs={
             #     'class': 'form-control',
             #     'placeholder': 'Your review of the beer'
