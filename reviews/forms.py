@@ -1,4 +1,4 @@
-from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
+from django_summernote.widgets import SummernoteWidget
 from django import forms
 from .models import Comment, Review
 from django.utils.translation import gettext_lazy as _

@@ -4,7 +4,6 @@ from cloudinary.models import CloudinaryField
 from django.urls import reverse
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
-from tinymce import models as tinymce_models
 # last two are for validation - see Django documentation on valudation
 
 # Create your models here.
