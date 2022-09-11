@@ -1,21 +1,21 @@
+from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
 from django import forms
 from .models import Comment, Review
 from django.utils.translation import gettext_lazy as _
-from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
 
 
 class CommentForm(forms.ModelForm):
 
     content = forms.CharField(widget=SummernoteWidget())
-    
+
     class Meta:
         model = Comment
         fields = ('content',)
-        widgets = {
-            'content': forms.Textarea(attrs={
-                'class': 'form-control'
-            })
-        }
+        # widgets = {
+        #     'content': forms.Textarea(attrs={
+        #         'class': 'form-control'
+        #     })
+        # }
         labels = {
             'content': _('Your comment')
         }
@@ -73,10 +73,10 @@ class UserReviewForm(forms.ModelForm):
                 'class': 'form-control',
                 'placeholder': 'Some words to quickly describe the beer - hoppy, malty, etc'
             }),
-            'content': forms.Textarea(attrs={
-                'class': 'form-control',
-                'placeholder': 'Your review of the beer'
-            }),
+            # 'content': forms.Textarea(attrs={
+            #     'class': 'form-control',
+            #     'placeholder': 'Your review of the beer'
+            # }),
             'aroma': forms.NumberInput(attrs={
                 'class': 'form-control',
             }),
