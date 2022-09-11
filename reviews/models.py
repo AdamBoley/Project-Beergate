@@ -26,6 +26,9 @@ def validate_within_limits(value):
         )
 
 
+SERVED_AS = ((1, 'Bottled'), (2, 'Draught'))
+
+
 class Review(models.Model):
     """
     The model for a beer review post, much like a blog post
@@ -40,6 +43,7 @@ class Review(models.Model):
     image = CloudinaryField('image', default='placeholder')
     keywords = models.CharField(max_length=200)
     content = models.TextField()
+    served_as = models.IntegerField(choices=SERVED_AS, default=1)
     upvotes = models.ManyToManyField(User, related_name='review_upvotes', blank=True)
     downvotes = models.ManyToManyField(User, related_name='review_downvotes', blank=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="beer_review")

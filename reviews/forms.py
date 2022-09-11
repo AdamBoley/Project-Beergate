@@ -11,9 +11,6 @@ class CommentForm(forms.ModelForm):
         fields = ('content',)
         widgets = {
             'content': SummernoteWidget(),
-            # 'content': forms.Textarea(attrs={
-            #     'class': 'form-control'
-            # })
         }
         labels = {
             'content': _('Your comment')
@@ -33,6 +30,7 @@ class UserReviewForm(forms.ModelForm):
             'hops',
             'image',
             'keywords',
+            'served_as',
             'content',
             'aroma',
             'appearance',
@@ -70,11 +68,8 @@ class UserReviewForm(forms.ModelForm):
                 'class': 'form-control',
                 'placeholder': 'Some words to quickly describe the beer - hoppy, malty, etc'
             }),
+            'served_as': forms.RadioSelect(),
             'content': SummernoteWidget(),
-            # 'content': forms.Textarea(attrs={
-            #     'class': 'form-control',
-            #     'placeholder': 'Your review of the beer'
-            # }),
             'aroma': forms.NumberInput(attrs={
                 'class': 'form-control',
             }),
@@ -93,6 +88,7 @@ class UserReviewForm(forms.ModelForm):
             'alcohol': _('Alcohol content (a number)'),
             'image': _('Picture of the beer'),
             'keywords': _('Descriptors'),
+            'served_as': _('How was the beer served? Bottled or draught?'),
             'content': _('Your review'),
             'aroma': _("Rank the beer's aroma (a number from 1 to 10)"),
             'appearance': _("Rank the beer's appearance (a number from 1 to 10)"),

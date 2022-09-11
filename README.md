@@ -415,7 +415,7 @@ Done:
     - Add some functionality to handle an improperly completed form. Apply this to the comment form as well (for example if a user tries to submit an empty form). 
     - update admin.py with an approve beer review action - done
 
-- Update data model to allow a user to select whether a beer is bottled, draught, etc, and then filter results by this - expand navbar filtering
+- Implement functionality to broadly sort reviews by type and colour
     - use index.html and ListView
     - expand navbar dropdown menu
     - dropdown divider to separate different sorting parameters
@@ -424,7 +424,6 @@ Done:
     - sort by colour - pale, amber, dark
     - principle is to sort by broad characteristics
     - each needs its own view for sorting on index template
-    - Update data model to include a 'served_as' boolean field, with options for either draught or bottled
     - for readme - Martin is not a beer drinker, so the search bar is less useful due to lack of familiarity with terms, so dropdown menu provides clearer sort function
     All Done
 
@@ -445,6 +444,17 @@ In progress:
     - user_reviews - in progress
     - search_results - in progress
 - Style AllAuth templates - sign-in, sign-up, login, logout, email, password, etc - 
+
+- Update data model to allow a user to select whether a beer is bottled, draught, etc, and then filter results by this - expand navbar filtering
+    - Update data model to include a 'served_as' IntegerField
+    - Above Review model, designate a global SERVED_AS variable = `(0, 'draught'), (1, 'bottled'))`
+    - In IntegerField, use choices=SERVED_AS, default of 0
+    - https://stackoverflow.com/questions/5924988/radio-buttons-in-django-forms for more
+    - and https://stackoverflow.com/questions/27321692/override-a-django-generic-class-based-view-widget/27322032#27322032
+    - in widgets - 'served_as': forms.RadioSelect
+
+
+
 
 Note regarding search_results and user_reviews:
 The mobile view displays at 576px
@@ -687,6 +697,10 @@ The large number of commits made between 8/9/22 to 9/9/22 ultimately achieved no
 
 11/9/22:
 A good friend of mine, upon viewing the project, suggested implementing some sort of functionality for changing the ordering of the displayed Reviews. I considered that this could be a good idea, since by default the project orders Reviews by timestamp, with the newest appearing first. I considered that a user might want to order the Reviews by the highest number of upvotes, so that they can see particularly well written reviews. This mimics the way in which Facebook and Twitter posts are said to 'go viral', that is, when they achieve a lot of traction and are then seen by more and more users. I also considered that a user might want to order Reviews in reverse order, with the oldest displaying first. This might be because older beers that would have been reviewed when they were first created would quickly become next to invisible because they would be hidden behind so many pagination buttons. However, beers stay around for a long time, and age should not make a review any less valid. 
+
+On the back of this, he also suggested that, as a person who does not drink beer and therefore is not particularly familiar with terminology, that the search bar would be of less use to him. Therefore, I added options to the dropdown menu that allow the user to broadly sort Reviews by beer type and colour. At time of writing I have implemented 7 sorting options - 3 for types and 4 for colours. The type sorting is for ales, stouts and lagers, and the colour sorting is for pale, golden, amber and dark beers. It is relatively simple to add additional sorting parameters. 
+
+My friend also suggested modifying the data model so that a user can mark a beer as either a draught or bottled beer, since beers served in either form can vary considerably. 
 
 11/9/22:
 The AllAuth functions of password reset, password set and add email were not implemented because these require an email server. The password change function was kept. No links to the removed functions remain in the project, but the URLs were removed from user/urls.py as a precaution. The views and forms remain as a springboard for future work. For future reference, the removed URLs are:

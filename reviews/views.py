@@ -78,6 +78,20 @@ class ReviewListDarkColour(generic.ListView):
     paginate_by = 4
 
 
+class ReviewListBottled(generic.ListView):
+    model = Review
+    queryset = Review.objects.filter(approved=True).filter(served_as=1).order_by('timestamp')
+    template_name = 'index.html'
+    paginate_by = 4
+
+
+class ReviewListDraught(generic.ListView):
+    model = Review
+    queryset = Review.objects.filter(approved=True).filter(served_as=2).order_by('timestamp')
+    template_name = 'index.html'
+    paginate_by = 4
+
+
 class BeerReviewSingle(View):
 
     def get(self, request, pk, *args, **kwargs):
