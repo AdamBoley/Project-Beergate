@@ -21,9 +21,8 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', include('admin_honeypot.urls', namespace='admin_honeypot')),
-    path('summernote/', include('django_summernote.urls')),
-    path('tinymce/', include('tinymce.urls')),
     path('beergate-admin/', admin.site.urls),
+    path('summernote/', include('django_summernote.urls')),
     path('', include('reviews.urls'), name='reviews_urls'),
     path('accounts/', include('allauth.urls')),
     path('user/', include('user.urls')),
