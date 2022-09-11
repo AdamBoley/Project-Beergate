@@ -46,6 +46,19 @@
                 
                 {% endif %}
 
+                {% empty %}
+                    <div class="col-12 col-md-6 offset-md-3">
+                        <div class="card">
+                            <div class="card-inner">
+                                <div class="card-body">
+                                    <h3 class="card-title">
+                                        No beer reviews have been posted yet
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 {% endfor %}
             </div>
         </div>

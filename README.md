@@ -415,7 +415,18 @@ Done:
     - Add some functionality to handle an improperly completed form. Apply this to the comment form as well (for example if a user tries to submit an empty form). 
     - update admin.py with an approve beer review action - done
 
-
+- Update data model to allow a user to select whether a beer is bottled, draught, etc, and then filter results by this - expand navbar filtering
+    - use index.html and ListView
+    - expand navbar dropdown menu
+    - dropdown divider to separate different sorting parameters
+    - use filter in view
+    - sort by type - ale, stout, lager
+    - sort by colour - pale, amber, dark
+    - principle is to sort by broad characteristics
+    - each needs its own view for sorting on index template
+    - Update data model to include a 'served_as' boolean field, with options for either draught or bottled
+    - for readme - Martin is not a beer drinker, so the search bar is less useful due to lack of familiarity with terms, so dropdown menu provides clearer sort function
+    All Done
 
 
 
@@ -452,19 +463,7 @@ From Second call:
 - Modify Reviews so that they have realistic content, not just Lorem Ipsum bulk text
 - Use the checking thing to check if a user is the post's author - if so, remove/disable the upvote button, or trigger it automatically. If clicked, open a modal that tells the user that they cannot like their own posts, and prompts them to update or delete it
 - Offer an option of ordering reviews by the number of upvotes - use a dropdown menu or some type of selector (in navbar?) Then render different index views based on that selection
-- Update data model to allow a user to select whether a beer is bottled, draught, etc, and then filter results by this - update SearchResultsView, or expand navbar filtering
-    - use index.html and ListView
-    - expand navbar dropdown menu
-    - as with SearchResultsView, use a def get_queryset to build the object_list
-    - dropdown divider to separate different sorting parameters
-    - use filter in view
-    - sort by type - ale, stout, lager
-    - sort by colour - pale, amber, dark
-    - principle is to sort by broad characteristics
-    - each needs its own view for sorting on index template
-    - Update data model to include a 'served_as' boolean field, with options for either draught or bottled
-    - for readme - Martin is not a beer drinker, so the search bar is less useful due to lack of familiarity with terms, so dropdown menu provides clearer sort function
-    - 
+
 
 Readme:
 - Soundly note change to new repository thanks to summernote editor
@@ -476,6 +475,7 @@ Readme:
 - Add screenshots of all pages to Readme
 - Upload wireframes to readme
 - Rework documentation
+- add line-breaks for clearer structure
 
 
 Future work:
@@ -693,6 +693,8 @@ The AllAuth functions of password reset, password set and add email were not imp
 `path('account/password/reset/', UserPasswordResetView.as_view(), name='account_reset_password'),`
 `path('account/password/set/', UserPasswordSetView.as_view(), name='account_set_password'),`
 `path('account/email/', UserAddEmailView.as_view(), name='account_email'),`
+The necessary imports are:
+`UserAddEmailView, UserPasswordSetView, UserPasswordResetView, UserPasswordResetFromKeyView`
 
 ## Favicon
 

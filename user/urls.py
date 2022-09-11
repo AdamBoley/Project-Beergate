@@ -1,7 +1,5 @@
-from . import views
 from django.urls import path
-# from allauth.account.views import LoginView, SignupView
-from .views import UserLoginView, UserSignupView, UserPasswordChangeView, UserAddEmailView, UserPasswordSetView, UserPasswordResetView, UserPasswordResetFromKeyView
+from .views import UserLoginView, UserSignupView, UserPasswordChangeView
 
 urlpatterns = [
     path('account/login/', UserLoginView.as_view(), name='account_login'),

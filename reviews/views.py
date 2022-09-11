@@ -29,6 +29,55 @@ class ReviewListOldest(generic.ListView):
     paginate_by = 4
 
 
+class ReviewListAleType(generic.ListView):
+    model = Review
+    queryset = Review.objects.filter(approved=True).filter(type='Ale').order_by('timestamp')
+    template_name = 'index.html'
+    paginate_by = 4
+
+
+class ReviewListStoutType(generic.ListView):
+    model = Review
+    queryset = Review.objects.filter(approved=True).filter(type='Stout').order_by('timestamp')
+    template_name = 'index.html'
+    paginate_by = 4
+
+
+class ReviewListLagerType(generic.ListView):
+    model = Review
+    queryset = Review.objects.filter(approved=True).filter(type='Lager').order_by('timestamp')
+    template_name = 'index.html'
+    paginate_by = 4
+
+
+class ReviewListPaleColour(generic.ListView):
+    model = Review
+    queryset = Review.objects.filter(approved=True).filter(colour='Pale').order_by('timestamp')
+    template_name = 'index.html'
+    paginate_by = 4
+
+
+class ReviewListGoldenColour(generic.ListView):
+    model = Review
+    queryset = Review.objects.filter(approved=True).filter(colour='Golden').order_by('timestamp')
+    template_name = 'index.html'
+    paginate_by = 4
+
+
+class ReviewListAmberColour(generic.ListView):
+    model = Review
+    queryset = Review.objects.filter(approved=True).filter(colour='Amber').order_by('timestamp')
+    template_name = 'index.html'
+    paginate_by = 4
+
+
+class ReviewListDarkColour(generic.ListView):
+    model = Review
+    queryset = Review.objects.filter(approved=True).filter(colour='Dark').order_by('timestamp')
+    template_name = 'index.html'
+    paginate_by = 4
+
+
 class BeerReviewSingle(View):
 
     def get(self, request, pk, *args, **kwargs):
