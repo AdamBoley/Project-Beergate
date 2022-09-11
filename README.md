@@ -615,7 +615,13 @@ I note that I have run the collectstatic command several times - it probably too
 
 Cloudinary is also storing, and presumably serving, the CSS file. This is proved by disabling STATICFILES_STORAGE - without it, the CSS file fails to load on the deployed version
 
-Verdict - Ultimately, a Rich Text Editor proved too difficult to get working in production. I note that [RateBeer](https://www.ratebeer.com/) does not use an RTE. Reviews posted by users are short and simple, without fancy formatting. 
+Verdict 9/9/22:
+Ultimately, implementing a Rich Text Editor using either the CK Editor or the TinyMCE proved too difficult to get working in production. I note that [RateBeer](https://www.ratebeer.com/) does not use an RTE. Reviews posted by users are short and simple, without fancy formatting. 
+
+Update 11/9/22:
+I remembered that the Django Blog walkthrough project uses the Django Summernote editor. Whilst I wanted for this project to move away from the walkthrough project as much as possible, so as to make it as much of my own work as possible, I note that the Summernote editor worked and was easy to implement. This proved true for this projet as well - I was able to implement it in about 2 hours of work, compared to the 2 days I had previous spent fruitlessly trying to make the CK Editor and TinyMCE editor work. That said, several commits were necessary, as the deployed app initially failed to load with an H10 error. Those commits removed remnant code written for the previously-named rich text editors and reworked the settings and forms files. 
+
+Whilst the note about [RateBeer](https://www.ratebeer.com/) above still stands, the implementation of the Summernote editor is as much about me proving to myself that I could do it as it is about providing a good user experience. It should go without saying that I am very pleased to have done so. Credit goes to [this article](https://djangocentral.com/integrating-summernote-in-django/) and the [Django Summernote documentation](https://github.com/summernote/django-summernote)
 
 
 
