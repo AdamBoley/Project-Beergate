@@ -21,6 +21,13 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ review.name }}</h5>
                         <h6 class="card-subtitle mb-2 text-muted">{{ review.description }}</h6>
+                        <h6 class="card-subtitle mb-2 text-muted">
+                            {% if review.served_as == 1 %}
+                                Bottled
+                            {% else %}
+                                Draught
+                            {% endif %}
+                        </h6>
                         <p>
                             Review by: {{ review.author }} on {{ review.timestamp|date }} at {{ review.timestamp|time }}
                         </p>
