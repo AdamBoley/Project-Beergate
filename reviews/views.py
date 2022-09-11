@@ -5,11 +5,26 @@ from django.urls import reverse, reverse_lazy
 from .models import Review, Comment
 from .forms import CommentForm, UserReviewForm
 from django.db.models import Q
+from django.db.models import Count
 
 
 class ReviewList(generic.ListView):
     model = Review
     queryset = Review.objects.filter(approved=True).order_by('-timestamp')
+    template_name = 'index.html'
+    paginate_by = 4
+
+
+class ReviewListMostUpvotes(generic.ListView):
+    model = Review
+    queryset = Review.objects.filter(approved=True).annotate(upvote_count=Count('upvotes')).order_by('-upvote_count')
+    template_name = 'index.html'
+    paginate_by = 4
+
+
+class ReviewListOldest(generic.ListView):
+    model = Review
+    queryset = Review.objects.filter(approved=True).order_by('timestamp')
     template_name = 'index.html'
     paginate_by = 4
 

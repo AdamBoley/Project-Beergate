@@ -404,17 +404,17 @@ Done:
 - Add settings.py booleans to enhance security - done
 - Apply bootstrap to search results and user reviews page - done
 - Larger, bolder, more prominent font on navbar - done
+- CKeditor rich text field not displaying on deployed site, including mobile devices- done by implementing Summernote
 
+- For a user-written beer review form:
+    - need a completed BeerReviewForm in forms.py - done
+    - need a new view in views.py - done
+    - need a context in the return render of the view - done
+    - need a template and front-end links to that - done
+    - need a path in urls.py for that template - done
+    - Add some functionality to handle an improperly completed form. Apply this to the comment form as well (for example if a user tries to submit an empty form). 
+    - update admin.py with an approve beer review action - done
 
-For a user-written beer review form:
-- need a completed BeerReviewForm in forms.py - done
-- need a new view in views.py - done
-- need a context in the return render of the view - done?
-- need a template and front-end links to that - done
-- need a path in urls.py for that template - done
-- Add some functionality to handle an improperly completed form. Apply this to the comment form as well (for example if a user tries to submit an empty form). 
-- update admin.py with an approve beer review action - done?
-ALL DONE
 
 
 
@@ -449,8 +449,11 @@ From Second call:
 - Harmonise login, log out, signup to sign-in, sign-out and sign-up
 - Implement tests from Django-Experimentation repo
 - add class and method docstrings
-- IMPORTANT - CKeditor rich text field not displaying on deployed site, including mobile devices
 - Modify Reviews so that they have realistic content, not just Lorem Ipsum bulk text
+- Use the checking thing to check if a user is the post's author - if so, remove/disable the upvote button, or trigger it automatically. If clicked, open a modal that tells the user that they cannot like their own posts, and prompts them to update or delete it
+- Offer an option of ordering reviews by the number of upvotes - use a dropdown menu or some type of selector (in navbar?) Then render different index views based on that selection
+- Update data model to allow a user to select whether a beer is bottled, draught, etc, and then filter results by this - update SearchResultsView, or expand navbar filtering
+
 
 Readme:
 - Soundly note change to new repository thanks to summernote editor
@@ -464,10 +467,9 @@ Readme:
 - Rework documentation
 
 
-Later:
-- implement upvotes / downvotes feature for Comments - on hold
+Future work:
+- implement upvotes / downvotes feature for Comments
 - mimic an excerpt on the index cards with `{{ review.content|slice:":100" }}` to show the first 100 characters - fancy formatting in those first 100 characters could prove problematic, but test this first
-- related to above - use the checking thing to check if a user is the post's author - if so, remove/disable the upvote button, or trigger it automatically. If clicked, open a modal that tells the user that they cannot like their own posts, and prompts them to update or delete it
 - Extend User model to include a profile picture and other information - display this on the navbar and below each beer review
 - Add higher-level AllAuth functionality - social media sign in, password complexity, confirmation emails, etc
 - Modify UserSignUpForm in user/forms.py to include additional first_name and last_name fields - https://www.youtube.com/watch?v=d9aCpxQfnOg @ 4.57
@@ -671,6 +673,11 @@ My Mentor noted that the standard Bootstrap navbar design is quite muted and bla
 
 11/9/22:
 The large number of commits made between 8/9/22 to 9/9/22 ultimately achieved nothing, except for some documentation regarding learning about how Django and Cloudinary work, and a minor fix to the AddReviewView that updated the name of the template being used. I considered deleting or reverting these commits but decided against this. Commit deletion is considered bad practice and commit reversion would achieve nothing, since the last commit made on 9/9/22 essentially restored the project to its last working state, except that the Review model's content field now uses a standard TextField instead of CK-editor's RichTextField or TinyMCE's HTMLField.  
+
+11/9/22:
+A good friend of mine, upon viewing the project, suggested implementing some sort of functionality for changing the ordering of the displayed Reviews. I considered that this could be a good idea, since by default the project orders Reviews by timestamp, with the newest appearing first. I considered that a user might want to order the Reviews by the highest number of upvotes, so that they can see particularly well written reviews. This mimics the way in which Facebook and Twitter posts are said to 'go viral', that is, when they achieve a lot of traction and are then seen by more and more users. I also considered that a user might want to order Reviews in reverse order, with the oldest displaying first. This might be because older beers that would have been reviewed when they were first created would quickly become next to invisible because they would be hidden behind so many pagination buttons. However, beers stay around for a long time, and age should not make a review any less valid. 
+
+
 
 ## Favicon
 

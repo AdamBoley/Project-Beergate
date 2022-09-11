@@ -52,11 +52,18 @@
                         <li class="nav-item btn">
                             <a class="nav-link" href="{% url 'account_login' %}">Login</a>
                         </li>
-                        <!-- <li class="nav-item btn">
-                            <a href="{% url 'account_reset_password' %}" class="nav-link">Reset Password</a>
-                        </li> -->
 
                     {% endif %}
+                    <li class="nav-item dropdown btn">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Display by
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{% url 'home' %}">Newest</a></li>
+                            <li><a class="dropdown-item" href="{% url 'most_upvotes' %}">Most upvotes</a></li>
+                            <li><a class="dropdown-item" href="{% url 'oldest' %}">Oldest</a></li>
+                        </ul>
+                      </li>
                     
                 </ul>
                 {% if user.is_authenticated %}
