@@ -44,8 +44,6 @@ ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 ADMIN_HONEYPOT_EMAIL_ADMINS = False
 
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -61,7 +59,6 @@ INSTALLED_APPS = [
     'cloudinary_storage',
     'django.contrib.staticfiles',
     'cloudinary',
-    'tinymce',
     'django_summernote',
     'crispy_forms',
     'admin_honeypot',
