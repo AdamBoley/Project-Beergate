@@ -89,7 +89,7 @@ class UserReviewForm(forms.ModelForm):
             'image': _('Picture of the beer'),
             'keywords': _('Descriptors'),
             'served_as': _('How was the beer served? Bottled or draught?'),
-            'content': _('Your review'),
+            'content': _('Your review (note that the editor will not accept images or videos)'),
             'aroma': _("Rank the beer's aroma (a number from 1 to 10)"),
             'appearance': _("Rank the beer's appearance (a number from 1 to 10)"),
             'taste': _("Rank the beer's taste (a number from 1 to 10)"),

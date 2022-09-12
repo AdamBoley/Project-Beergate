@@ -415,6 +415,8 @@ Done:
     - Add some functionality to handle an improperly completed form. Apply this to the comment form as well (for example if a user tries to submit an empty form). 
     - update admin.py with an approve beer review action - done
 
+- Offer an option of ordering reviews by the number of upvotes - use a dropdown menu or some type of selector (in navbar?) Then render different index views based on that selection
+
 - Implement functionality to broadly sort reviews by type and colour
     - use index.html and ListView
     - expand navbar dropdown menu
@@ -427,9 +429,16 @@ Done:
     - for readme - Martin is not a beer drinker, so the search bar is less useful due to lack of familiarity with terms, so dropdown menu provides clearer sort function
     All Done
 
+- Update data model to allow a user to select whether a beer is bottled, draught, etc, and then filter results by this - expand navbar filtering - done
+    - Update data model to include a 'served_as' IntegerField - done
+    - Above Review model, designate a global SERVED_AS variable = `(0, 'draught'), (1, 'bottled'))` - done
+    - In IntegerField, use choices=SERVED_AS, default of 0 - done
+    - https://stackoverflow.com/questions/5924988/radio-buttons-in-django-forms for more
+    - and https://stackoverflow.com/questions/27321692/override-a-django-generic-class-based-view-widget/27322032#27322032
+    - in widgets - 'served_as': forms.RadioSelect - done
+    All Done
 
-
-
+- Remove unused AllAuth URLS in urls.py, keep views and templates - done
 
 In progress:
 - Review and update Bootstrap card structure for non-AllAuth templates:
@@ -445,13 +454,7 @@ In progress:
     - search_results - in progress
 - Style AllAuth templates - sign-in, sign-up, login, logout, email, password, etc - 
 
-- Update data model to allow a user to select whether a beer is bottled, draught, etc, and then filter results by this - expand navbar filtering
-    - Update data model to include a 'served_as' IntegerField
-    - Above Review model, designate a global SERVED_AS variable = `(0, 'draught'), (1, 'bottled'))`
-    - In IntegerField, use choices=SERVED_AS, default of 0
-    - https://stackoverflow.com/questions/5924988/radio-buttons-in-django-forms for more
-    - and https://stackoverflow.com/questions/27321692/override-a-django-generic-class-based-view-widget/27322032#27322032
-    - in widgets - 'served_as': forms.RadioSelect
+Modify sorting to use a checkbox group like GW - https://stackoverflow.com/questions/31145498/how-to-submit-checklist-in-django-with-get
 
 
 
@@ -464,7 +467,7 @@ The major exception is the Surface Duo, which is a hybrid tablet/phone
 
 To do:
 From Second call:
-- Remove unused AllAuth URLS in urls.py, keep views and templates
+
 - ensure all templating language is properly indented
 - remove all extraneous / commented-out code
 - Harmonise login, log out, signup to sign-in, sign-out and sign-up
@@ -472,8 +475,10 @@ From Second call:
 - add class and method docstrings
 - Modify Reviews so that they have realistic content, not just Lorem Ipsum bulk text
 - Use the checking thing to check if a user is the post's author - if so, remove/disable the upvote button, or trigger it automatically. If clicked, open a modal that tells the user that they cannot like their own posts, and prompts them to update or delete it
-- Offer an option of ordering reviews by the number of upvotes - use a dropdown menu or some type of selector (in navbar?) Then render different index views based on that selection
 
+Summernote editor:
+- continue tweaking settings, possibly apply different settings for the comment editor. 
+- remove `'disableDragAndDrop': True` and test what uploading images and videos through the editor does
 
 Readme:
 - Soundly note change to new repository thanks to summernote editor
@@ -610,22 +615,20 @@ I spent a long time searching for a solution, and I found several StackOverflow 
 8/9/22:
 Whilst using the deployed app using the Chrome browser of my Android mobile device, I noted with some alarm that the CK-Editor rich text fields for the add_review page and the add-comment section of the review page was not displaying. Further investigation revealed that this bug extended to the deployed version on my PC as well, indicating that the problem lay with the deployed site. 
 
-Since this problem only existed on the deployed version of the app, fixing it required many pushes with debug turned off, and then redeploying on Heroku. 
+Since this problem only existed on the deployed version of the app, fixing it required many commits with debug turned off, and then redeploying on Heroku. The commit history of this project from 8/9/22 to 9/9/22 has many small commits that were tweaking various settings and code
 
 During the attempts the fix this bug, it was noted that the CK editor does not display on the local version either - this is only an issue when Debug is off
 
-May need to add (blank=True, null=True) to RichTextField in models.py
-
 Per [this StackOverflow question](https://stackoverflow.com/questions/71814013/djangos-ckeditor-not-appearing-in-admin-panel), I inspected the form, and noted that the actual textarea input element has visibilty: hidden. However, if visibility: hidden is unchecked in the Chrome developer tools, a standard textarea element appears, not a full rich text editor
 
-Per documentation - run the collectstatic command in the terminal
-
-Fixes tried:
+I tried many fixes, including:
 `<script>CKEDITOR.replace('editor1');</script>`
 
 `{{ form.text | safe }}`
 
 `{{ form.as_p | safe }}`
+
+Halfway through this attempt at fixing the bugs I had met with no success, so I switched to using the TinyMCE rich text editor. Attempts at implementing this proved as fruitless as before.  
 
 From the developer tools, I see that the TinyMCE editor textarea is not displaying properly because the JS file that controls it cannot be located and hence loaded. This is not a problem with Debug turned on in local development. 
 
@@ -710,6 +713,9 @@ The AllAuth functions of password reset, password set and add email were not imp
 The necessary imports are:
 `UserAddEmailView, UserPasswordSetView, UserPasswordResetView, UserPasswordResetFromKeyView`
 
+12/9/22:
+After successfully implememting the Summernote editor for the add_review form, I noted that it had a fixed size of 720px. This caused the editor to overflow horizontally when viewed on a device with a screen size of less than 720px. I tried various options before I turned to [the documentation](https://github.com/summernote/django-summernote) and the [Summernote website](https://summernote.org/deep-dive/#disable-drag-and-drop), where I thankfully noted that the Summernote editor could be extensively customised in the settings file by way of the SUMMERNOTE_CONFIG variable. Simply setting the width to be 100% was sufficient to make the editor responsive to screen size. At this point I noted that the editor ships as standard with many options. I decided to cut these down considerably because a large number of options causes the toolbar to become absurdly large in proportion to the editor field when viewed on smaller screen sizes, and limiting the number of options removes this. I also decided to remove the ability to upload pictures and videos, as I was concerned about how Cloudinary would handle these when I already had a CloudinaryField in the Review Model. If a user tries to upload an image or video, a new tab with it will open instead. To avoid damaging the user experience, the label for the editor has been modified to inform users of this. 
+
 ## Favicon
 
 I decided to apply a pair of beer glasses as this app's favicon. Beer is the main theme of the app so this favicon seemed appropriate. The favicon was generated using the Clinking Beer Mugs emoji from the [Favicon.io](https://favicon.io/emoji-favicons/) favicon generator. 
@@ -782,3 +788,8 @@ https://stackoverflow.com/questions/21938028/how-can-i-get-a-favicon-to-show-up-
 https://favicon.io/ - for generating a favicon
 
 https://www.reddit.com/r/django/comments/8jkh5t/updateview_creates_new_items_in_the_db_instead_of/ - for providing the basis of the solution to automatically disapproving updated records
+
+https://github.com/summernote/django-summernote - for summernote editor implementation
+
+https://summernote.org/deep-dive/#custom-toolbar-popover - for summernote editor configs
+

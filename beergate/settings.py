@@ -183,4 +183,22 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 SUMMERNOTE_THEME = 'bs5'
 
+SUMMERNOTE_CONFIG = {
+    'summernote': {
+        'width': '100%',
+        'height': '500',
+
+        'toolbar': [
+            ['style', ['bold', 'italic', 'underline', 'clear']],
+            ['font', ['strikethrough']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['table', ['table']],
+            ['insert', ['link']],
+            ['view', ['fullscreen', 'help']],
+        ],
+
+        'disableDragAndDrop': True
+    }
+}
+
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
