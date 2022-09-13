@@ -20,20 +20,48 @@
                                             {% endif %}
                                         </div>
                                     </div>
-                                    <div class="image-flash">
-                                        <p>Author: {{ review.author }}</p>
-                                    </div>
+                                    
                                     <h2 class="card-title">{{ review.name }}</h2>
                                     <hr>
+
                                     <div class="card-text text-muted h6 meta-data-container">
-                                        <div class="index-timestamp-container">
-                                            {{ review.timestamp|date }}
+                                        <div>
+                                            <p class="float-start">Author: {{ review.author }}</p>
+                                            <p class="float-end">{{ review.timestamp|date }}</p>
+                                            <br class="float-clear">
                                         </div>
-                                        <div class="index-votes-container">
-                                            <i class="far fa-thumbs-up"></i>
-                                            {{ review.review_upvotes }}
-                                            <i class="far fa-thumbs-down"></i>
-                                            {{ review.review_downvotes }}
+                                        <div>
+                                            <p class="float-start">Colour: {{ review.colour }}</p>
+                                            <p class="float-end">Type: {{ review.type }}</p>
+                                            <br class="float-clear">
+                                        </div>
+                                        <div>
+                                            <p class="float-start">Alcohol content: {{ review.alcohol }}%</p>
+                                            <p class="float-end">Brewed by: {{ review.brewery }}</p>
+                                            <br class="float-clear">
+                                        </div>
+                                        <div>
+                                            <p class="float-start">Described as: {{ review.keywords }}</p>
+                                            <p class="float-end">
+                                                {% if review.served_as == 1 %}
+                                                    Bottled
+                                                {% else %}
+                                                    Draught
+                                                {% endif %}
+                                            </p>
+                                            <br class="float-clear">
+                                        </div>
+                                        <div>
+                                            <p class="float-start">
+                                                <span class="me-4">
+                                                    <i class="far fa-thumbs-up"></i>
+                                                    {{ review.review_upvotes }}
+                                                </span>
+                                                <span>
+                                                    <i class="far fa-thumbs-down"></i>
+                                                {{ review.review_downvotes }}
+                                                </span>
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
@@ -54,6 +82,9 @@
                                     <h3 class="card-title">
                                         No beer reviews have been posted yet
                                     </h3>
+                                    <p>
+                                        Use the search bar to find some reviews
+                                    </p>
                                 </div>
                             </div>
                         </div>

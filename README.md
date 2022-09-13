@@ -466,15 +466,17 @@ vertical phones top out at about 412px, so apply cols and offsets to satisfy thi
 The major exception is the Surface Duo, which is a hybrid tablet/phone
 
 To do:
-From Second call:
-
+- add more content to index cards to better reflect any sorting that has been applied
 - ensure all templating language is properly indented
 - remove all extraneous / commented-out code
 - Harmonise login, log out, signup to sign-in, sign-out and sign-up
 - Implement tests from Django-Experimentation repo
 - add class and method docstrings
 - Modify Reviews so that they have realistic content, not just Lorem Ipsum bulk text
-- Use the checking thing to check if a user is the post's author - if so, remove/disable the upvote button, or trigger it automatically. If clicked, open a modal that tells the user that they cannot like their own posts, and prompts them to update or delete it
+- Use the checking thing to check if a user is the post's author - if so, remove/disable the upvote button, or trigger it automatically. 
+    - adding an upvote automatically is difficult, since the add_review function does not allow an upvote to be assigned during the upload/save process
+    - disabling the upvote/downvote buttons is relatively simple - use the checker statement employed elsewhere
+- Consider removing Hops field from Review - this is not always available on bottled beers and certainly not for draught beers
 
 Summernote editor:
 - continue tweaking settings, possibly apply different settings for the comment editor. 
