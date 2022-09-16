@@ -9,34 +9,83 @@ Am I response image here
 
 - [Scope](#scope)
 - [Background](#background)
+- [Audience](#audience--users)
+- [User Stories](#user-stories)
+- [Features](#features)
+    - [Based](#base)
+    - [Header and navbar](#header-and-navbar)
+    - [Footer](#footer)
+    - [Landing Page](#landing-page)
+        - [Review cards](#review-cards)
+        - [Pagination](#pagination)
+        - [Sorting and filtering](#sorting-and-filtering)
+    - [Review Page](#review-page)
+    - [Add Review Page](#add-review-page)
+    - [Update Review Page](#update-review-page)
+    - [Delete Review Page](#delete-review-page)
+    - [Search Results Page](#search-results-page)
+    - [User Reviews Page](#user-reviews-page)
+    - [AllAuth pages](#sign-in-sign-out-sign-up-and-reset-password-pages)
+- [Function](#function)
+    - [Reviews app](#reviews-app)
+        - [Models](#reviews-models)
+            - [Review](#review-class)
+                - [Review class methods](#review-class-methods)
+            - [Comment](#comment-class)
+                - [Comment class methods](#comment-class-methods)
+        - [Views](#reviews-views)
+            - [Index Views](#index-views)
+                - [Default View](#default-view)
+                - [Sorting Views](#sorting-views)
+                - [Filtering Views - type](#filtering-views---type)
+                - [Filtering Views - colour](#filtering-views---colour)
+                - [Filtering Views - served as](#filtering-views---servedas)
+            - [Review View](#review-view)
+            - [Search Results View](#search-results-view)
+            - [User Reviews View](#user-reviews-view)
+            - [Add Review View](#add-review-view)
+            - [Update Review View](#update-review-view)
+            - [Delete Review View](#delete-review-view)
+            - [Voting Views](#review-upvote-and-review-downvote)
+        - [Forms](#reviews-forms)
+            - [Comment Form](#commentform)
+            - [User Review Form](#userreviewform)
+        - [URLs](#reviews-urls)
+        - [Admin](#reviews-admin)    
+    - [User app](#user-app)
+        - [User Views](#user-views)
+        - [User Forms](#user-forms)
+        - [User URLs](#user-urls)
+- [Deployment](#deployment)
+- [Tasks](#tasks)
+- [Future Work](#future-work)
+- [Bugs](#bugs)
+- [Development Choices](#development-choices)
+- [Testing](#testing)
+    - [Manual testing](#manual-testing)
+    - [Automated testing](#automated-testing)
+- [Technologies](#technologies)
+- [Other Notes](#other-notes)
+- [Credits](#credits)
 
 # Scope
 
-The scope of this project is to create a website using the Python Django framework. The website will function as a social media site for people who like beer. 
-<br>
-<br>
-The project will use the Django AllAuth library to allow users to create accounts and log in to the website. Once they have logged in, users will be able to post reviews of beers to help other users expand their tastes. Logged-in users will also be able to upvote and downvote these reviews, and post comments, which can also be upvoted and downvoted. 
-<br>
-<br>
-Later, if time allows and my skills permit it, a pseudo-e-commerce function will be implemented, that will allow users to order a collection of beers using a form. EmailJS will be used to send confirmations of these orders. These orders will be fake - no payment or delivery information will be taken, and no actual beers will be sent. 
-<br>
-<br>
+The scope of this project is to create a website using the Python Django framework. The website will function as a social media and blogging site for people who like beer. 
+<br><br>
+The project will use the Django AllAuth library to allow users to create accounts and log in to the website. Once they have logged in, users will be able to post reviews of beers to help other users expand their tastes. Logged-in users will also be able to upvote and downvote these reviews, and post comments. Users will be able to update and delete their own reviews. 
+<br><br>
+The project will also feature several mechanisms for searching, sorting and filtering database entries.
+<br><br>
 
 # Background
 
-This project is inspired by the Code Institute Whiskey Drop walkthrough project that was used to demonstrate the power and responsiveness of Bootstrap. Since I am more of a beer drinker than a whiskey drinker, I made my own variation I call Beergate. [This is the repository](https://github.com/AdamBoley/bootstrap-experimentation), and [this is the deployed site on Github Pages](https://adamboley.github.io/bootstrap-experimentation/)
-<br>
-<br>
+This project is inspired by the Code Institute Whiskey Drop walkthrough project that was used to demonstrate the power and responsiveness of Bootstrap. Since I am more of a beer drinker than a whiskey drinker, I made my own variation that I called Beergate. [This is the repository](https://github.com/AdamBoley/bootstrap-experimentation), and [this is the deployed site on Github Pages](https://adamboley.github.io/bootstrap-experimentation/).
+<br><br>
 As a beer drinker, I enjoy exploring different beers, rather than sticking to the same brewers. The UK has a large community of small breweries who collectively produce a huge number of different beers. Given the large variety of different hops, malts and brewing techniques these breweries use, beers can differ greatly in colour and taste. 
-<br>
-<br>
-One of the best ways to sample this variety is to visit a beer festival, such as the Reading Beer Festival or the Great British Beer Festival. At a beer festival, the custom is to drink only third-pints or half-pints, so as to sample as many beers as possible before one is rendered insensate.
-<br>
-<br>
-However, beer festivals are not for everyone - they can be loud and crowded, and may be inaccessible for some. Also, given that the Covid-19 pandemic is still not truly over, many people, especially older or immuno-compromised people, may not feel safe attending a beer festival. This presents a dilemma - how can you sample a variety of beers without going to a beer festival?
-<br>
-<br>
-This is where this project comes in - he aim is to replicate the purpose of a beer festival, and allow users to sample beers that they may not other be able to find. 
+<br><br>
+Whilst this makes the UK a gold-mine for beer drinkers, it presents a problem for the breweries themselves. With so many beers and so much variety, the market is effectively saturated, making it difficult for small breweries to stand out and make their products widely known.
+<br><br>
+This is where this project comes in. If a user finds and drinks a good beer, they can use this project to write a review, recommending (or not) that beer to the wider beer-drinking community. Similarly, users who wish to expand their range of beers can use this project to find recommendations. 
 
 # Audience / Users
 
@@ -44,24 +93,349 @@ This project is aimed at the large community of beer drinkers in the UK who want
 
 # User Stories
 
+As a user I want to....
+
 # Features
+
+This section discusses the features and structure of the project's templates  and the design choices made
+
+## Base
+
+BeerGate uses a single base.html template to render every page. This provides a consistent user experience. The background image used is one of a tall glass of beer. A 50% opacity dark background has been applied over this image to darken it off. This is because the unmodified image is particularly bright and eye-catching.
+
+## Header and Navbar
+
+The navbar provides navigation to the other pages of BeerGate. The navbar was created using a standard Bootstrap navbar, so as to make it smoothly responsive on smaller screen sizes. Each list item in the navbar has been given the Bootstrap `btn` class to turn it into a button. Functionally, this has been used to apply a nice rounded border when the button is hovered over, and custom CSS has been written to turn the button white and keep the text black when this happens. This provides clear user feedback so that the user knows that they are about to click a button and be redirected to another page. 
+
+If the user is signed out or has not yet created an account, their navigation options are limited. They may go back to the standard landing page view by clicking either the Reviews button or the bolded BeerGate icon. A user may created an account by clicking on the Sign Up button, or sign in to an existing account by clicking the Sign In button. 
+
+The navbar list items change if the user is signed in. If signed in, the user may click on the Add a review button to be taken to a page where they may create and upload a beer review of their own. They may also click the My Reviews button to view all of the beer reviews that they have written. They may sign-out by clicking the sign-out button and finally they may change their password with the Change Password button. 
+
+The navbar also informs the user whether or not they are signed in. If they are not signed in, text displays saying that. If they are signed in, different text displays saying that, and their username is displayed as well. 
+
+The final part of the navbar is the search box. Using this, a user may search the database for reviews. These are displayed in a separate search results page. A search is triggered by pressing the Search button. The search function works independently of user sign-in status. 
+
+Final navbar screenshot:
+
+## Footer
+
+The footer contains standard copyright information. 
+
+Final footer screenshot:
+
+## Landing page
+
+The landing page is the first template rendered to the user when they visit the deployed project - [Beergate](https://beergate.herokuapp.com/). The navbar and footer are discussed separately below. The landing page is rendered from templates/index.html using the ReviewList view. The main content of the landing page are 4 'review cards', so called because each holds a link to a particular Review, and because each is created using a Bootstrap card. 
+
+Final Landing page screenshot:
+
+### Review cards
+
+Each review card provides a brief overview snippet of a particular beer review. Each card provides quick information to a user that helps them decide which review to visit, such as the type and colour of the beer, when it was reviewed and the number of upvotes and downvotes. A user may click anywhere on the card to be directed to the associated review. I initially had only the name of the beer wrapped in the anchor element, however user testing on a mobile device indicated that it was sometimes difficult to tap the hyperlink. Modifying the template so that the entire card in within the anchor element allows a user with a mobile device to tap anywhere on the card to visit the review page.   
+
+The review page is discussed in more detail [below](#review-page).
+
+Single review card screenshot:
+
+### Pagination
+
+The landing page is set to display review cards in batches of 4. Further reviews are paginated, and these may be accessed by clicking or tapping on the Next button. Previous reviews may be accessed by clicking or tapping on the Previous button. This was implemented to save mobile users from having to endlessly scroll through reviews. 
+
+Screenshot of pagination buttons
+
+### Sorting and Filtering
+
+Aside from the search function, I considered that it would be difficult to find particular records. Hence, I implemented some functionality that allows a user to sort and filter the records displayed on the landing page. By default, records are displayed in descending timestamp order, i.e. with the newest records first. A user may sort the records to display those with the highest number of upvotes first, and may also sort the records to display in ascending timestamp order, i.e with the oldest records first. 
+
+A user may also filter the records by various properties. 
+
+Firstly, they may filter by broad beer type - Ale, Stout and Lager. If any of these options are selected, only reviews of Ales, Stouts or Lagers will be displayed. 
+
+Secondly, a user may filter by beer colour - Pale, Golden, Amber and Dark. If any of these options are selected, only reviews of Pale, Golden, Amber or Dark beers will be displayed. 
+
+Finally, a user may filter by whether the beer, when reviewed, was served bottled or draught. This was included because a beer can taste different depending on whether it is drunk bottled or on draught, so it is perfectly possible to have two separate reviews of the same beer - one in which the beer was served bottled and another in which it was served on draught. In addition, if a user is looking to purchase bottles of beer from a supermarket, then reviews of draught beers would be unhelpful. Similarly, if the user is in a pub with draught beers, reviews of bottled beers would be unhelpful. 
+
+Each of these sorting and filtering functions is rendered using its own view using the index template. 
+
+Final screenshot of sorting and filtering bar:
+
+## Review page
+
+The review page is used to display a single beer review in its entirety. The review is held with a standard Bootstrap card. All the relevant fields in a record are displayed within this card, including the beer's name, keyword descriptors, content and scores. The output of the short_description method is also displayed. 
+
+As with the navbar, the review page changes depending on the user's sign-in status. If signed in, a user may upvote and downvote that review by clicking on the thumbs-up and thumbs-down buttons. These buttons are mutually-exclusive - upvoting a review will cause an extant downvote to be removed. This particular feature was inspired by Reddit, which allows posts and comments to be upvoted or downvoted, not both. If the user is not signed-in, the upvote and downvote buttons are disabled and will instead just display the extant upvote and downvote totals. 
+
+Below the upvote / downvote section is the comment section. If a review has no comments posted, the comments section will inform the user of this. If the user is signed-in, they may post a comment. I debated whether to make the comment submission field a rich text editor or a standard text field. Ultimately I went with a rich text editor because I wanted users to have the ability to add formatted comments. When a comment is submitted, it requires approval from an administrator, so a text box will display informing the user of that. 
+
+Additionally, at the bottom of the card, there is a back button that directs the user back to the default landing page. This provides an alternative to the user's browser back button. If the the user is signed-in, and if the user is the author of that review, then they may update their review or delete it.
+
+Final screenshot of upper review page:
+
+Final screenshot of lower review page:
+
+## Add Review page
+
+The add_review page is rendered using the add_review template and the AddReviewView. 
+
+The add_review page allows a user to write and submit a beer review of their own. This is done via a form. The user must enter all of the necessary information about the beer - the name, brewery, type, colour, alcohol content, a short description, their full review and then their score in each of 4 categories - aroma, appearance, taste and aftertaste. The user may also upload an image, though this is optional. If no image is uploaded, the review will display a placeholder image. The user may select whether the beer was served bottled or on draught. 
+
+As with review comments, reviews are not automatically displayed, as they must be approved by an administrator. When submitted, a message will display informing the user of this. 
+
+Final screenshot of upper add review page:
+
+Final screenshot of lower add review page:
+
+## Update Review page
+
+The update_review page is rendered using the update_review template and the UpdateReviewView view. It functions similarly to the add_review template as the form uses the same form template and fields, except that the form fields are pre-populated with the extant records. A user may update any of the review's information, including the image. When submitted, the record is automatically disapproved, and a text box displays informing the user of this. 
+
+Final screenshot of upper update review page:
+
+Final screenshot of lower update review page:
+
+## Delete Review page
+
+The delete_review page is rendered using the delete_review template and the DeleteReviewView view. It is a simple template, and allows a user to delete a particular review. Rather than having a simple button to do this, I considered that placing the actual delete button inside a modal would be superior, to prevent a review being deleted by accident. In this way, a user must actively seek to delete a review. 
+
+Final screenshot of delete review page:
+
+## Search Results page
+
+The search_results page is rendered using the search_results template and the SearchResultsView view. The page consists of a Bootstrap card which contains all of the reviews returned by the search query. Similarly to the landing page, the entirety of each search result is contained within an anchor element linking to the particular review. Due to the particular structure and intended look of this page, I had some difficulty making it responsive to smaller screen sizes. In particular, the images proved troublesome. To overcome this issue, I set the images to be hidden on these smaller screen sizes. As each search result is placed within an anchor element, the text within each search result card is given anchor element styling - namely a blue colour and underline text decoration. I removed this native styling for most of the text elements, but kept it for the beer name, with the intention being to mimic the Google search results page, where the clickable links have unmodified anchor element styling. 
+
+The reasoning for placing the entirety of each search result within an anchor element is the same as that applied to the landing page - it aids tapping for mobile device users. 
+
+Final screenshot of search results page:
+
+## User Reviews page
+
+The user_reviews page is rendered using the UserReviewsView. The design is intentionally very similar to that of the search_results page, including the lack of images on smaller screen sizes, as I view both pages as a means of listing some collection of reviews, though obviously the difference lies in *how* that collection is assembled - this is dicussed in more detail in the Function section. The only noticable difference is that the user_reviews page's search results do not display the author of the reviews. As the author of the review is the user themselves, I considered this to be redundant. 
+
+The idea behind the implementation of this page is to allow a user to quickly see all of the reviews that they have written, so that they can update or delete them in one place, and also quickly see the number of upvotes and downvotes that other users have made against their reviews. The page also allows users to quickly visit each of their reviews to see the comments other users have posted. 
+
+Final screenshot of user_reviews page:
+
+## Sign In, Sign Out, Sign Up and Reset Password pages
+
+These pages are modified versions of the standard AllAuth templates that can be copied over from the site-packages directory with the `cp -r ../.pip-modules/lib/python3.8/site-packages/allauth/templates/* ./templates` command. A new app called 'user' was started to hold the views, forms and urls that control these templates, primarily to apply the Bootstrap `form-control` class that makes the input elements smooth and nice to use with user feedback. 
 
 # Function
 
-# Development Choices
+This section is discusses the code used in the project, and explains any particularly note-worthy or obscure features. 
 
-The beer review part of the project will be contained within one Django app called reviews, much like the Django Blog walkthrough project's blog app. This will include the Beer and Comment models. 
+## Reviews app
 
-Should time permit, a second app dealing with the pseudo-e-commerce part of the project will be started. This will use a database model to contain a pre-made selection of beer, which would equate to a shipment of a case of beer. 
+The Reviews app is where the bulk of the project's development took place, and holds most of the back-end code. 
 
-When formatting the admin panel, I decided to allow filtering by 5 categories - approved, created_on, brewery, type and author. Filtering by approved allows a superuser to see reviews that have not yet been approved. Filtering by created_on allows superusers to see what reviews have been posted in the last periods of time. Filtering by brewery and type allows superusers to see reviews of beers brewed by certain breweries and of beers of a certain type. Filtering by author allows superusers to see posts by certain users, which may allow them to find users who are particularly prolific. 
+### Reviews Models
+
+BeerGate uses two data models - Review and Comment. A validation function called `validate_within_limits` has also been written to validation inputs for the Review model's aroma, appearance, taste and aftertaste fields. These are IntegerFields, but the values must be between 1 and 10
+
+#### Review class
+
+Review is the primary data model for BeerGate. As of the end of the project's development cycle, it contains 18 fields. The name, brewery, type, colour and keywords fields are all standard character fields. The image field is a CloudinaryField, as uploaded images are saved to the Cloudinary CDN. 
+
+The content field is a TextField, but this was not always the case. As noted elsewhere, I initially used the django-summernote package to apply the Summernote Rich Text Editor, but this caused a fatal error that required the project to be restarted. When the project was restarted, I used the CK-editor package, which supplies a custom field type called RichTextField. When this package did not work on the deployed app, I switched to using the django-tinymce package in hopes of using the TinyMCE Rich Text Editor, which supplies a custom field type called HTMLField. Again, this did not work on the deployed app, so I went back to using the django-summernote package. Unlike the other two, the django-summernote package merely requires a widget called SummernoteWidget to be applied to a standard TextField in the corresponding forms file. 
+
+A late addition to the Review model was the served_as field, which is an IntegerField. It operates similarly to the status field of the Django Blog walkthrough project, in that the served_as field takes values defined within an external global variable, which is in this case called SERVED_AS. The served_as field determines whether the beer was served bottled or on draught, as the same beer can taste differently depending on how it is served. 
+
+The upvotes and downvotes fields are ManyToMany fields linked to the standard Django User model, since many users can upvote and downvote many reviews. I decided early on to include separate upvotes and downvotes fields since I am an avid user of Reddit, but I dislike Reddit's choice to combine upvotes and downvotes into a single number, as a user cannot see the total number of upvotes and downvotes. With separate upvote and downvote counts, both numbers can be displayed, so that users can see how many people agree with a review, and how many people disagree, so as to be as well-informed as possible.
+
+The author field is a standard ForegignKey field linked to the Django User model. It has the `ondelete=models.CASCADE` instruction so that if a user is deleted from the database then all of that user's reviews are deleted as well. 
+
+The timestamp field is standard DateTimeField with the `auto_now_add=True` instruction so that the exact date and time that a review was submitted is captured. 
+
+The approved field is a BooleanField with a default value of False. This field palys a considerable role in the security and defensive programming of BeerGate. As discussed below, reviews that are not approved are not displayed to users, and must be manually approved by an administrator. This field ensures that malicious users cannot post inappropriate or offensive reviews.
+
+The aroma, appearance, taste and aftertaste fields are standard IntegerFields, with validation being handled by the validate_within_limits function. These fields provide quick numerical scores of beers. These were added after I found [RateBeer](https://www.ratebeer.com/), and noted that said site allows numerical scores. I felt that using numerical scores along with class methods to do something with these would elevate the project. I am a member of CAMRA, and so I was able to find the criteria used by their judges in the Champion Beer of Britain competition.
+
+Early versions of the Review model used a slug field with the SlugField type, which was used to generate custom URLs, much as like in the Django Blog walkthrough project. However, this proved to be an obstacle to mass-approval of reviews in the admin panel. As in the walkthrough project, the slug field was set to be pre-populated, but I discovered that this pre-population only occurred when each individual record was accessed. Should users collectively submit hundreds of reviews, an administrator would need to access each record to pre-populate the slug field, which would be a huge time-sink. When this was discovered, the slug field was removed and the project converted to use the primary_key of each Review instead. 
+
+##### Review class methods
+
+The Review model contains a number of methods. The first of these is a standard Meta class, which supplies the verbose name and ordering of the reviews. 
+
+There is also a standard string method, the so-called 'magic method', which returns a text string containing the name of the beer and the author's name. 
+
+The get_absolute_url method specifies the redirection URL, which is used when upvoting and downvoting reviews, as these reload the page. 
+
+The description method returns a composite text string containing the beer's colour, type and brewery. This returns something like "A Golden Ale by Hogsback".
+
+The short_description method returns the keywords field in a more user-friendly way, much like the magic string method. It returns something like "Described as Hoppy, zesty and bitter".
+
+The review_upvotes and review_downvotes methods are quite simple and return total counts of the number of upvotes and downvotes applied to a review. These are injected into various templates as a measure of how highly or lowly rated a review is. 
+
+The average_score method averages the values of the aroma, appearance, taste and aftertaste fields to provide a single overall score for a beer. 
+
+#### Comment class
+
+The Comment model is a secondary data model for BeerGate. It provides the functionality for users to comment on Reviews
+
+The review field is a ForeignKey field that links a comment to a particular Review, much like the author field does for the Review model. It has the ondelete=models.CASCADE so that should a Review be deleted, all attached comments will be deleted as well. 
+
+The author field is a ForeignKey field that functions identically to the author field of the Review model. 
+
+The content field is a standard TextField. I have chosen to use the SummernoteWidget in the forms file to make this field into a RichTextEditor, so as to give commenting users the same rich text formatting options as they have when writing reviews. 
+
+The timestamp and approved fields function identically to those fields of the same name in the Review model. 
+
+The upvotes and downvotes fields function identically to those fields of the same name in the Review model. However, at the time of writing, I was unable to implement upvoting and downvoting of comments, as Reddit allows a user to do, primarily because the voting function for Reviews reloads the page, using the primary key of the review as the redirection URL. Nonetheless, I have decided to keep these fields in the model with a view to implementing such functionality at a later date. The total numbers of upvotes and downvotes are never displayed on the front-end, so a user will never know that the model contains those fields. 
+
+##### Comment class methods
+
+As with the Review model, the Comment model contains a Meta child class that supplies a verbose name and ordering. In contrast to the Review model, comments are ordered in ascending timestamp order, so that the oldest comments appear first. As in the walkthrough project, the intention is to mimic a conversation around the review and the beer. 
+
+The Comment model also contains a magic string method that returns a string of text containing the author and the content of the comment. It returns something like "Robert said: Nice review!"
+
+### Reviews Views
+
+#### Index views
+
+I have written a large number of views that render various versions of the the landing page using the index.html template. Each of these uses the generic Django ListView and in all cases the model is the Review model with pagination set to 4. 
+
+The justification for these various index views is [here](#ordering) 
+
+##### Default view
+
+The default view is called ReviewList, and the queryset filters the Review to include only those that have their approved field set to True, and orders these in descending timestamp order, so that the newest reviews are displayed first. 
+
+##### Sorting views
+
+There are two other views which apply different sorting instructions. 
+
+ReviewListMostUpvotes uses the annotate method to get the total number of upvotes for each Review, and then orders Reviews by this number. This allows users to view the most highly rated reviews first. The annotate method works similarly to the review_upvotes method of the Review model, in that it counts the number of upvotes and returns this count so that it can be used by other methods. 
+
+ReviewListOldest is nearly identical to the default ReviewList view, except that it orders Reviews in ascending timestamp order, so that the oldest reviews are displayed first. 
+
+##### Filtering views - type
+
+The ReviewListAleType, ReviewListStoutType and ReviewListLagerType function similarly to the default ReviewList view, filtering out those reviews that are not approved and ordering by descending timestamp order. These views also filter by the Review model type field. 
+
+ReviewListAleType filters out beers that do not have Ale as their type
+
+ReviewListStoutType filters out beers that do not have Stout as their type
+
+ReviewListLagerType filters out beers that do not have Lager as their type
+
+##### Filtering views - colour
+
+These views are called ReviewListPaleColour, ReviewListGoldenColour, ReviewListAmberColour and ReviewListDarkColour. These function similarly to the default ReviewList view, filtering out those reviews that are not approved and ordering by descending timestamp order. These views also filter by the Review model colour field. 
+
+ReviewListPaleColour filters out beers that do not have Pale as their colour
+
+ReviewListGoldenColour filters out beers that do not have Golden as their colour
+
+ReviewListAmberColour filters out beers that do not have Amber as their colour
+
+ReviewListDarkColour filters out beers that do not have Dark as their colour
+
+##### Filtering views - served_as
+
+These views are called ReviewListBottled and ReviewListDraught These function similarly to the default ReviewList view, filtering out those reviews that are not approved and ordering by descending timestamp order. These views also filter by the Review model served_as field.
+
+ReviewListBottled filters out beers that do not have 1 (meaning bottled, since served_as is an IntegerField) as the served_as value
+
+ReviewListDraught filters out beers that do not have 2 (meaning draught, since served_as is an IntegerField) as the served_as value
+
+#### Review view
+
+The view that renders the entirety of a single review using the review.html page is called BeerReviewSingle. 
+
+This view holds two methods - a get method and a post method. These are little different from the PostDetail view of the walkthrough project, except that in each method I have chosen to explictly define a variable called context to hold the object that holds the various key - value pairs that can be used in the template. I consider that this is a more pythonic way of doing things, and I generally prefer explict variable declarations anyway. 
+
+The get method defines a queryset containing all approved Reviews, and then retrieves a specific review using the `get_object_or_404` method, using the review's primary key, pk. It also retrives that review's comments, and defines two variables - upvotes and downvotes, both set to False. If the user is signed-in and has previous upvoted or downvoted that review, then either the upvoted or the downvoted variable is set to True. The specific review is then rendered in the return statement using the render keyword, the review.html template and the context variable. 
+
+The post method functions similarly, except that it has additional code to handle the submission of the CommentForm. If the submitted CommentForm is valid, the user and the current review are attached to the comment submission, so that the comment 'belongs' to that particular user and that review. In the context, commented is set to True, which triggers some templating language code to display a submission confirmation textbox to the user. 
+
+#### Search Results view
+
+The SearchResultsView view renders the search_results page using the search_results.html page. The object_list, which holds the reviews that are displayed, is constructed using the get_queryset method, which retrieves the search term used in the navbar's search box input element as a variable called query. The object_list is then constructed using a standard filter method that uses [Q Objects](https://docs.djangoproject.com/en/4.0/topics/db/queries/#complex-lookups-with-q-objects) to chain filters together. The code in this view was written using [this tutorial](https://learndjango.com/tutorials/django-search-tutorial), authored by known Django expert Will Vincent. The object_list is the returned for use within the template using templating language.  
+
+#### User Reviews view
+
+The UserReviewsView view renders the user_reviews page using the user_reviews.html template. It is relatively simple, using get method to construct a queryset consisting of all reviews belonging to a particular user that have been approved. As in BeerReviewSingle, a context variable has been explictly defined outside of the return statement that is then called in that return statement. 
+
+#### Add Review view
+
+The AddReviewView view renders the add_review page using the add_review.html template. This is, if you will, the meat of the project, as it allows a user to upload a beer review using a form. The form itself is rendered using the form_class variable set to the imported UserReviewForm. In previous versions of the project, as in the walkthrough project, a get method was used to render this form. Using the form_class variable reduces the amount of code required considerably, and thereby reduces complexity. The UserReviewForm is discussed in more detail [here](#userreviewform).
+
+Form submission is handled using the post method. This functions similarly to the code that handles comment submission in the BeerReviewSingle view, essentially checking if the submitted form is valid, and the attaching the user ID if so, so that the review 'belongs' to that particular user. A context variable is then defined and a return statement renders the template again, this time with the reviewed key set to True, which triggers some templating language to display a textbox informing the user that their review has been submitted and is awaiting approval. 
+
+#### Update Review view
+
+The UpdateReviewView view renders the update_review page using the update_review.html template. This a necessary companion to the AddReviewView, as it allows a user to update their reviews. As with the AddReviewView, a form_class variable specifies that the UserReviewForm is to be used. The view uses 3 methods - a get method, a post method and a form_valid method. These methods are necessary because I wanted this view to automatically disapprove reviews when they are updated. As discussed in the [bugs section](#bugs), this is a prudent security measure and part of the defensive programming employed in BeerGate. I found that without these methods, when the form is submitted, the review instantly and automatically holds the updated information. This is a vulnerability that a malicious user could exploit, first by submitting a seemingly-genuine review, getting it approved and then updating it with malicious/inappropriate/offensive content. 
+
+Full credit for the design of these methods goes to [this Reddit question](https://www.reddit.com/r/django/comments/8jkh5t/updateview_creates_new_items_in_the_db_instead_of/), where the author appears to have had a similar issue, and they answer their own question. I confess that I do not fully understand what these methods are doing, but my understanding is as follows:
+
+The get method retrieves the particular review that is being updated and the form that is being used. The post method handles the submission of the form containing the updated information. I have added a line of code that sets the updated review to be disapproved inside the IF statement block. The form_valid method then saves the updated information to the database. The return statement that renders a context is my own work, which sets the updated flag to True. This in turn triggers some templating language code in the template that informs that user that their updated review is awaiting reapproval. 
+
+#### Delete Review view
+
+The DeleteReviewView view renders the delete_review page using the delete_review.html template. This view uses the generic Django DeleteView which allows easy deletion of records. Once the review has been deleted, the success_url variable redirects the user back to the landing page. 
+
+#### Review Upvote and Review Downvote
+
+The ReviewUpvote and ReviewDownvote views handle upvoting and downvoting of reviews. They are essentially identical, and the core code borrows heavily from the walkthrough project's PostLike view. I have made my own additions inside the ELSE blocks of the post methods which make upvotes and downvotes mutually exclusive - that is, a user may either upvote or downvote a review, not both, and if a user has previously upvoted a review, then downvoting it will remove the extant upvote, and vice versa. Once a vote has been applied, the user is redirected back to the review they were voting on. 
+
+### Reviews Forms
+
+The forms file contains two form classes - CommentForm and UserReviewForm. As is the case in the walkthrough project, these forms are explicitly defined because I wanted to specifically control which fields were displayed. In addition, I wanted to apply the Bootstrap `form-control` class to makes the forms nicer to use. I was able to use the widgets variable to apply the `form-control` class. Later on, the widgets variable helped get the django-summernote Rich Text Editor working by way of the SummernoteWidget. I was also able to use the labels variable to modify the labels of the form input elements. 
+
+#### CommentForm
+
+The CommentForm class is quite simple - it sets that the only field to be displayed is the content field, which is made into a Rich Text Editor by way of the SummernoteWidget. The label is also modified to 'Your comment' 
+
+#### UserReviewForm
+
+The UserReviewForm class appears to be more complex, but is functionally similar to the CommentForm. It restricts the fields that are displayed and applies the `form-control` class to those fields, with the exception of the content field, which is turned into a Rich Text Editor using the SummernoteWidget. The widget object also allowed me to add the placeholder attribute to several fields which meant that I could add assistive placeholder text.  
+
+### Reviews URLS
+
+The urls file holds the urlpatterns for the reviews app. Most of the paths apply to the previously-mentioned sorting and filtering views that render various versions of the landing page. After these comes the add_review, search and user_review pages. Lastly come the paths which render the review pages and the pages for updating and deleting records, as well as the upvote and downvote paths. As previously mentioned, reviews are not listed by their slug but instead by their primary key, so for paths that deal with specific records, `<int:pk>` is used instead of `<slug:slug>` as in the walkthrough project.   
+
+I learned early on in development that paths that take in arguments are considered more general, and must hence be placed below more specific paths. Prior to learning this, an error would occur whenever I tried to naviagte to the add_review page. Thankfully Tutor Support were able to teach me this. As it turned out, I had all of the pieces in place, and the ordering of the urlpatterns was the only barrier. 
+
+### Reviews Admin
+
+The admin file controls the layout of, and actions available in, the Django admin panel. Functionally, it is little different to the admin file of the walkthrough project. There are two classes - BeerReviewAdmin and CommentAdmin - thanks to my going back to using the django-summernote package, both admin classes extend the SummernoteModelAdmin class. 
+
+Both admin classes are also similar in construction, as both have the same control variables - list_filter, list_display, search_fields, actions and summernote_fields. The list_display control variable within both classes has been given terms that allow an administator to quickly see the pertinent meta-data of a review - beer name, beer type, colour, brewery, timestamp, approval status, and the author. 
+
+Both admin classes have the same two methods - approve_beer_review / approve_comment and disapprove_beer_review / disapprove_comment. The approve methods are used for mass approval of all selected reviews whilst the disapprove methods are used for mass disapproval (i.e. mass withdrawal) of all selected reviews. 
+
+## User app
+
+The user app was started purely to achieve better control over the rendering of the signin.html, signout.html, signup.html and password_change.html templates. Primarily, the goal was to apply the Bootstrap `form-control` class to the forms. After doing this with the CommentForm and UserReviewForm in the reviews app, this proved quite easy, however in order to use the custom forms, I had to create custom views. 
+
+It should be noted that I created forms and views for all of the AllAuth functions, not just signing in, signing out, signing up and changing passwords. After doing so, I tested these and noted that only those named functions worked out-of-the-box. The others, such as resetting a password, required an email service. After speaking with my Mentor about this, he suggested keeping the views and forms and then removing the paths from the urls.py file, thus disabling them and ensuring that they could not be accessed accidentally. Getting this functionality working will be something to work on in the future after project submission.  
+
+### User Views
+
+As noted above, the only views in user/views.py that are in active used by BeerGate are UserSignInView, UserSignUpView and UserPasswordChangeView. There is no custom view for the user signout functionality because while that template has a form, it only consists of a submit button and hence has no need of the `form-control` class. 
+
+The active views are very simple, only using the form_class and template_name variables to designate the form and template to be used. The UserSignInView extends the AllAuth LoginView, the UserSignUpView extends the SignupView and the UserPasswordChangeView extends the PasswordChangeView. 
+
+### User Forms
+
+As with the views, only the UserSignInForm, UserSignupForm and UserPasswordChangeForm are actively used by BeerGate, with the others dormant until their corresponding views can be put into use. 
+
+Initially I tried using the widgets method shown in reviews/forms.py to apply the `form-control` class to forms, but this failed. I then found [this Medium article](https://gavinwiener.medium.com/modifying-django-allauth-forms-6eb19e77ef56) (as a Medium article, access might be restricted), which suggested using an `__init__` method within each form class to apply the `form-control` class. 
+
+The UserSignupForm and UserChangePasswordForm use a for loop to apply a `form-control` widget to each form field. However, this approach failed with the UserLoginForm, since this form has a 'remember me' checkbox, which, when given the `form-control` class, becomes an input field that cannot accept any input. To overcome this, I used another technique from that article to apply the `form-control` class to only the username and password input elements. This itself proved difficult, since the name of the username field is unhelpfully called 'login' rather than 'username', as might be expected. 
+
+### User URLS
+
+As noted above, the user/urls.py file's urlpatterns list only contains 3 paths. These are for the signin, signup and password_change pages. In the future, as I get the remaining AllAuth functionality working, corresponding paths will be added to allow these templates to be accessed. 
+
+
+
+
 
 
 # Design Choices
 
 I intend to use the background image used in the first Beergate project, that of a tall glass of beer with a dark background, which is then given some opacity to darken it off. This will apply to all pages for a uniform user experience. 
-<br>
-<br>
+<br><br>
 Given the dark background, each beer review post shall be held in a Bootstrap card with a light colour - white, off-white or light grey. 
 
 # Database Models
@@ -93,6 +467,11 @@ The Beer model is used to create a table that holds all of the data to make a be
 | appearance         | 5                   | IntegerField, with validation to accept values between 1 and 10  |
 | taste              | 10                  | IntegerField, with validation to accept values between 1 and 10  |
 | aftertaste         | 4                   | IntegerField, with validation to accept values between 1 and 10  |
+| Aroma              |                     | The smell of the beer - does it smell good or bad                |
+| Appearance         |                     | Colour, clarity, head and visual carbonation                     |
+| Taste              |                     | How does it taste - is it overly bitter, too weak or just right? |
+| Aftertaste         |                     | How the taste lingers in the mouth                               |
+
 
 The Beer model will have a Meta class that orders reviews by created_on in descending order, so that the newest reviews are displayed first
 
@@ -100,29 +479,6 @@ The Beer model will also have a magic string method to return the name of the be
 
 ### Discussion
 
-The Beer model contains a keyword field, which may hold any number of values. The intention is to list these as one of the first items on a beer review post, so as to give a quick summary of the beers' characteristics to a reader. 
-<br>
-<br>
-The model also contains separate upvotes and downvotes fields, and methods to return counts of these. I am personally an avid user of Reddit, but I dislike Reddit's choice to combine upvotes and downvotes into a single number, as a user cannot see the total number of upvotes and downvotes. With separate upvote and downvote counts, the intention is to display both numbers, so that users can see how many people agree with a review, and how many people disagree, so as to be as well-informed as possible.
-<br>
-<br>
-The Author field will contain on_delete=models.CASCADE, so that if a user's account is deleted, all beer reviews made by that user will be deleted as well. This is some defensive programming on my part, as malicious users may make posts before their accounts can be deleted using the Django administration backend. This saves an administrator having to manually delete all of that user's posts. 
-<br>
-<br>
-The aroma, appearance, taste, aftertaste and trueness_to_style columns were added after I found [RateBeer](https://www.ratebeer.com/), and noted that said site allows numerical scores. I felt that using numerical scores along with class methods to do something with these would elevate the project. I am a member of CAMRA, and so I was able to find the criteria used by their judges in the Champion Beer of Britain competition. Explanations of these criteria are in the table below:<br>
-| Criteria          | Explanation                                                                                      |
-| ------------------| -------------------------------------------------------------------------------------------------|
-| Aroma             | The smell of the beer - does it smell good or bad                                                |
-| Appearance        | Colour, clarity, head and visual carbonation                                                     |
-| Taste             | How does it taste - is it overly bitter, too weak or just right?                                 |
-| Aftertaste        | How the taste lingers in the mouth                                                               |
-| Trueness to Style | How it deviates from traditional beer styles - If a stout, does it taste and look like an stout? | 
-
-After some thought, the Trueness to Style criterion was not included, as I felt that this was more of an academic ranking that could penalise beers that are different and are specifically brewed to move outside of traditional conventions, such as lighter stouts or darker pale ales. 
-<br>
-The slug field is used to generate unique URLs. Similar to how slugs are generated in the Django Blog walkthrough, the slugs in this project are generated primarily using the beer_review field. However, the slugs are also generated using the author field. The idea behind this is to allow multiple reviews of the same beer. Just using the beer_name would invalidate this approach, since the slugs would not be unique due to the formatting of the slug field. Combining the beer_name and author fields allows multiple reviews of the same beer, provided that each review is authored by a different user. I feel that it is reasonable that the same author would not post two reviews of the same beer. 
-<br>
-All other fields should be self-explanatory.
 
 ## Comment
 
@@ -148,28 +504,9 @@ The post and author fields will both be Foreign Keys, and will have on_delete=mo
 <br>
 The Meta class that orders comments by created_on date so that the oldest comments are displated first is intended to simulate a conversation, so that other users can follow any discussion in the comments of a post. 
 
-
-## Selection
-
-The Selection model is used to create a table that holds 6 individual beers. 
-
-| Column Header      | Example             | Other notes                                                      |
-| -------------------|---------------------|------------------------------------------------------------------|
-| name               | Pale Ales           | CharField, unique                                                |
-| beer_1             | Golden Champion     | CharField                                                        |
-| beer_2             | IPA                 | CharField                                                        |
-| beer_3             | EPA                 | CharField                                                        |
-| beer_4             | Ghost Ship          | CharField                                                        |
-| beer_5             | APA                 | CharField                                                        |
-| beer_6             | Kentish Pale Ale    | CharField                                                        |
-
-### Discussion
-
-The Selection model will be used to automatically fill out an order form when a user selects one of several pre-made selections, so that the user knows exactly what beers they wil receive. The Selection model could also be used to populate a confirmation email. 
-
 # Deployment
 
-This project was deployed to Heroku early on, as per the Django Blog walkthrough project. 
+This project was deployed to Heroku early on, as per the Django Blog walkthrough project. This proved to be a valuable lesson, since I deployed my Project 3 to Heroku quite late, which caused much stress. As a bonus, early deployment allowed me to view the project on my mobile device when not developing the project, allowing me to note bugs and areas where improvements were needed. 
 
 ## Project set up
 
@@ -356,6 +693,7 @@ I foresee two methods by which a user could make a post:
 - Provide a button with an anchor link that takes the user to a separate page where the post is written - USE THIS APPROACH
     - This is a separation of concerns matter - the index page is displaying posts, the single_review page is for viewing a post and the make_a_post page is for writing a post.
 
+# Tasks
 
 Done:
 - implement upvotes / downvotes feature for Beer Reviews - done 
@@ -439,6 +777,8 @@ Done:
     All Done
 
 - Remove unused AllAuth URLS in urls.py, keep views and templates - done
+- add more content to index cards to better reflect any sorting that has been applied - done
+
 
 In progress:
 - Review and update Bootstrap card structure for non-AllAuth templates:
@@ -466,17 +806,39 @@ vertical phones top out at about 412px, so apply cols and offsets to satisfy thi
 The major exception is the Surface Duo, which is a hybrid tablet/phone
 
 To do:
-- add more content to index cards to better reflect any sorting that has been applied
+- navbar fails to render properly on horizontal tablets - screen widths 992 to 1400px / lg to xxl breakpoints
+    - only an issue when logged in due to the increased number of navbar options
+- review reviews/admin.py to see if more terms need to be added to the control variables. 
+- In UserReviewForm, apply bootstrap to RadioSelect widget - name, class, etc
+- add more content to search results and user reviews pages in the same vein as index
+- update data model with a OPTIONAL field for where a beer may be purchased. 'If you bought this beer online, where did you buy it from?' - encourages traffic to brewery websites
+- move sorting menu from navbar to its own navbar only on the index page - perhaps use a def get method to render a custom context that informs/reminds the user of the criteria they are filtering/sorting by. 
+- Footer
+- In BeerReviewSingle view, UserReviewsView view and AddReviewView, explicitly define a context variable to hold the object in the return statement, then call context in that return
+- add return of average_score method to index card, next to upvotes/downvotes, and create a view to order by this. 
+- Implement a random 'surprise me' feature
+- add update and delete buttons to user_reviews so that a user does not have to access each record individually. 
+- decreased number of cards on index page to 3 so that background image is less obscured
+- capitalise the type and colour field somewhere so that the filtering views do not miss any reviews.  Can filter() use a list?
+- look into displaying the total number of comments on the search_results and user_reviews pages using a similar thing to BeerReviewSingle
+- display review meta-data inline on larger screens
+- base.html meta tags
+- update image field label in add_review and update_review to explictly make it optional
+- Remove Hops field from Review - this is not always available on bottled beers and certainly not for draught beers
+- Add a request to users to upvote or downvote reviews - "this helps push good reviews up the rankings"
+- look into pagination for search_results and user_reviews pages
+- User_reviews does not filter out unapproved reviews
+- After submitting a User Review Form, add a link to submit a new review to the success text box
 - ensure all templating language is properly indented
 - remove all extraneous / commented-out code
-- Harmonise login, log out, signup to sign-in, sign-out and sign-up
+- Harmonise login, log out, signup to sign-in, sign-out and sign-up - will require changing login.html and logout.html template names. 
 - Implement tests from Django-Experimentation repo
 - add class and method docstrings
 - Modify Reviews so that they have realistic content, not just Lorem Ipsum bulk text
 - Use the checking thing to check if a user is the post's author - if so, remove/disable the upvote button, or trigger it automatically. 
     - adding an upvote automatically is difficult, since the add_review function does not allow an upvote to be assigned during the upload/save process
     - disabling the upvote/downvote buttons is relatively simple - use the checker statement employed elsewhere
-- Consider removing Hops field from Review - this is not always available on bottled beers and certainly not for draught beers
+
 
 Summernote editor:
 - continue tweaking settings, possibly apply different settings for the comment editor. 
@@ -494,6 +856,7 @@ Readme:
 - Rework documentation
 - add line-breaks for clearer structure
 
+# Future Work
 
 Future work:
 - implement upvotes / downvotes feature for Comments
@@ -655,6 +1018,8 @@ Whilst the note about [RateBeer](https://www.ratebeer.com/) above still stands, 
 
 # Development Choices
 
+When formatting the admin panel, I decided to allow filtering by 5 categories - approved, created_on, brewery, type and author. Filtering by approved allows a superuser to see reviews that have not yet been approved. Filtering by created_on allows superusers to see what reviews have been posted in the last periods of time. Filtering by brewery and type allows superusers to see reviews of beers brewed by certain breweries and of beers of a certain type. Filtering by author allows superusers to see posts by certain users, which may allow them to find users who are particularly prolific. 
+
 19/8/22:
 To create the functionality that allows users to update posts, major changes were made to the views.py file, per [this series of django tutorials](https://www.youtube.com/playlist?list=PLCC34OHNcOtr025c1kHSPrnP18YPB-NFi)
 
@@ -700,6 +1065,7 @@ My Mentor noted that the standard Bootstrap navbar design is quite muted and bla
 11/9/22:
 The large number of commits made between 8/9/22 to 9/9/22 ultimately achieved nothing, except for some documentation regarding learning about how Django and Cloudinary work, and a minor fix to the AddReviewView that updated the name of the template being used. I considered deleting or reverting these commits but decided against this. Commit deletion is considered bad practice and commit reversion would achieve nothing, since the last commit made on 9/9/22 essentially restored the project to its last working state, except that the Review model's content field now uses a standard TextField instead of CK-editor's RichTextField or TinyMCE's HTMLField.  
 
+## Ordering
 11/9/22:
 A good friend of mine, upon viewing the project, suggested implementing some sort of functionality for changing the ordering of the displayed Reviews. I considered that this could be a good idea, since by default the project orders Reviews by timestamp, with the newest appearing first. I considered that a user might want to order the Reviews by the highest number of upvotes, so that they can see particularly well written reviews. This mimics the way in which Facebook and Twitter posts are said to 'go viral', that is, when they achieve a lot of traction and are then seen by more and more users. I also considered that a user might want to order Reviews in reverse order, with the oldest displaying first. This might be because older beers that would have been reviewed when they were first created would quickly become next to invisible because they would be hidden behind so many pagination buttons. However, beers stay around for a long time, and age should not make a review any less valid. 
 
@@ -724,8 +1090,12 @@ I decided to apply a pair of beer glasses as this app's favicon. Beer is the mai
  
 # Local Clone / How you can use this code
 
+BeerGate uses a large number of packages to enable all of its functionality. These are listed in the `requirements.txt` file, and hence can be installed with the terminal command:
 `pip3 install -r requirements.txt`
 
+You will also need a Cloudinary account to store and served images and static files, and a Heroku account to host the app and provide the database. 
+
+If developing a clone of BeerGate locally, you will need an `env.py` file to contain the local environment variables. These would be the CLOUDINARY_URL, SECRET_KEY, and DATABASE_URL. The CLOUDINARY_URL can be obtained from your Cloudinary account, whilst the DATABASE_URL is provided by Heroku when a postgres database is attached to the Heroku app. The SECRET_KEY is a password of your own making. These will need to be added to your Heroku app Config Vars in the settings tab. 
 
 # Testing
 
@@ -762,36 +1132,53 @@ Cloudinary
 <br>
 CK Editor for rich text fields
 
+# Other notes
+
+Partway through the development of BeerGate, Heroku announced that it was suspended its free tier of Postgres database hosting at the end of November. Per instructions from Student Care (screenshot of email?), I continued to host BeerGate on Heroku. 
+
 # Credits
 
-Gemma from Tutor support, for helping to fix the issue with being unable to access the user_review.html page. 
+In contrast to my previous projects, where I was able to write most of the code myself, Beergate owes its a lot of its development to many external articles, guides, tutorials and so on. Making sense of these was often difficult, as was applying the code and solutions they offered. 
 
-Django Documentation
+Whilst I was not able to save every resource used, I credit the following people and resources for assisting BeerGate's development:
 
-AllAuth Documentation
+Firstly, the Code Institute Django Blog walkthrough project proved invaluable in the first stages of development, particularly with the deployment to Heroku and the use of Cloudinary. 
 
-Cloudinary documentation
+Gemma from Code Institute Tutor support, for helping to fix the issue with being unable to access the user_review.html page. This was the first major feature beyond the walkthrough project that I wanted to add, and her help in getting it working was a major boost to my confidence in my abilities.
 
-StackOverflow 
+Gemma also tried to fix the issue with the CK Editor and TinyMCE Rich Text Editors. Though unsuccessful, the tutoring process allowed me to realise that I was wasting time trying to get these working. From there, I used the django-summernote editor, which was implemented almost seemlessly and allowed development to continue. 
 
-Codemy Django walkthrough - https://www.youtube.com/playlist?list=PLCC34OHNcOtr025c1kHSPrnP18YPB-NFi
-For:
-- introducing CreateView, UpdateView and DeleteView generic views
-- introducing the CK Editor rich text editor
+The [official Django documentation](https://docs.djangoproject.com/en/3.2/) proved very helpful generally, particularly the [model field reference page](https://docs.djangoproject.com/en/3.2/ref/models/fields/) for guidance on designing my models and field types. 
 
-Medium article on apply widgets to AllAuth templates - https://gavinwiener.medium.com/modifying-django-allauth-forms-6eb19e77ef56
+The [official Django AllAuth documentation](https://django-allauth.readthedocs.io/en/latest/index.html) was helpful in the implementation of the AllAuth templates, forms and views. AllAuth itself is clearly very powerful. 
+
+The [Cloudinary documentation on image uploading](https://cloudinary.com/documentation/django_image_and_video_upload) proved helpful in writing the code to allow users to upload images when submitting beer review. 
+
+[StackOverflow](https://stackoverflow.com/) proved very helpful generally. Given Django's widespread use and maturity, I was almost always able to find a question or an answer that matched my own issues. 
+
+In particular, I credit the following question pages:
+- [This question](https://stackoverflow.com/questions/21938028/how-can-i-get-a-favicon-to-show-up-in-my-django-app) helped apply BeerGate's favicon
+- []() 
+- []()
+
+
+The [Codemy YouTube channel's Django walkthrough playlist](https://www.youtube.com/playlist?list=PLCC34OHNcOtr025c1kHSPrnP18YPB-NFi) proved very useful, in particular for introducing the CreateView, UpdateView and DeleteView generic views.  
+
+This [Medium article](https://gavinwiener.medium.com/modifying-django-allauth-forms-6eb19e77ef56) provided invaluable guidance on how to apply widgets to AllAuth templates.Without this, the forms in BeerGate's AllAuth templates would look jarringly different to other forms. 
 
 The idea of darkening off the main background image is not original and was taken from [bootstrap-experimentation](https://github.com/AdamBoley/bootstrap-experimentation), the repository set up to code along with the Code Institute Building With Bootstap videos. A different method had to be used to implement this, but the walkthrough videos gave the idea.
 
-https://www.w3schools.com/howto/howto_css_custom_scrollbar.asp - for a custom scrollbar
+A custom scrollbar was applied with [this W3Schools page](https://www.w3schools.com/howto/howto_css_custom_scrollbar.asp) 
 
-https://stackoverflow.com/questions/21938028/how-can-i-get-a-favicon-to-show-up-in-my-django-app - for applying a favicon to a Django project
+[Favicon.io](https://favicon.io/) was used to generate a favicon
 
-https://favicon.io/ - for generating a favicon
+[This Reddit post](https://www.reddit.com/r/django/comments/8jkh5t/updateview_creates_new_items_in_the_db_instead_of/), specifically the answer the questioner themselves added, provided the basis for providing the basis of the solution to automatically disapproving updated reviews
 
-https://www.reddit.com/r/django/comments/8jkh5t/updateview_creates_new_items_in_the_db_instead_of/ - for providing the basis of the solution to automatically disapproving updated records
+The official [django-summernote](https://github.com/summernote/django-summernote) documentation and [this article](https://djangocentral.com/integrating-summernote-in-django/) were collectively invaluable in implementing the summernote editor to both the admin panel and front-end form. Django Summernote itself should be credited for its ease of use and clarity of documentation. After the trials and travails encountered when working with the CK Editor and TinyMCE editors, this was very welcome. 
 
-https://github.com/summernote/django-summernote - for summernote editor implementation
+[This Summernote website page](https://summernote.org/deep-dive/#custom-toolbar-popover) was useful for customising the options available to the Summernote editors. 
 
-https://summernote.org/deep-dive/#custom-toolbar-popover - for summernote editor configs
+[This article](https://learndjango.com/tutorials/django-search-tutorial) by noted Django export Will Vincent provided invaluable guidance on implementing a working search bar. 
+
+
 
