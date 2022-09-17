@@ -11,6 +11,9 @@ Am I response image here
 - [Background](#background)
 - [Audience](#audience--users)
 - [User Stories](#user-stories)
+    - [Admin user User Stories](#admin-user-user-stories)
+    - [Unregistered user User Stories](#unregistered-user-user-stories)
+    - [Registered user User Stories](#registered-user-user-stories)
 - [Features](#features)
     - [Based](#base)
     - [Header and navbar](#header-and-navbar)
@@ -62,7 +65,40 @@ Am I response image here
 - [Bugs](#bugs)
 - [Development Choices](#development-choices)
 - [Testing](#testing)
-    - [Manual testing](#manual-testing)
+    - [Manual User Story testing](#manual-user-story-testing)
+        - [Admin user User Story testing](#admin-user-user-story-testing)
+        - [Generic user User Story testing](#generic-user-user-story-testing)
+        - [Unregistered user User Story testing](#unregistered-user-user-story-testing)
+        - [Registered user User Story testing](#registered-user-user-story-testing)
+    - [Other Manual testing](#other-manual-testing)
+    - [Validation testing](#validation-testing)
+        - [HTML validation](#html-validation)
+            - [Base template](#base-template)
+            - [Index template](#index-template)
+            - [Review template](#review-template)
+            - [Search Results template](#search-results-template)
+            - [User Reviews template](#user-reviews-template)
+            - [Add Review template](#add-review-template)
+            - [Update Review template](#update-review-template)
+            - [Delete Review template](#delete-review-template)
+            - [Account Sign-in template](#account-sign-in-template)
+            - [Account Sign-out template](#account-sign-out-template)
+            - [Account Sign-up template](#account-sign-up-template)
+            - [Account Password Change template](#account-password-change-template)
+        - [CSS validation](#css-validation)
+        - [JS validation](#js-validation)
+        - [Python validation](#python-validation)
+            - [Beergate settings.py](#beergate-settingspy)
+            - [Beergate urls.py](#beergate-urlspy)
+            - [Reviews urls.py](#reviews-urlspy)
+            - [Reviews admin.py](#reviews-adminpy)
+            - [Reviews forms.py](#reviews-formspy)
+            - [Reviews models.py](#reviews-modelspy)
+            - [Reviews urls.py](#reviews-urlspy)
+            - [Reviews views.py](#reviews-viewspy)
+            - [User forms.py](#user-formspy)
+            - [User view.py](#user-viewspy)
+            - [User urls.py](#user-urlspy)
     - [Automated testing](#automated-testing)
 - [Technologies](#technologies)
 - [Other Notes](#other-notes)
@@ -93,7 +129,71 @@ This project is aimed at the large community of beer drinkers in the UK who want
 
 # User Stories
 
-As a user I want to....
+## Admin user User Stories
+
+- As an Admin user I can...
+    - Navigate to the admin sign-in page
+    - Use the admin sign-in page to access the admin panel
+    - View all beer reviews submitted by users
+    - Filter and sort all beer reviews easily
+    - Quickly approve any number of selected beer reviews so that they become visible on the site
+    - Quickly disapprove any number of selected beer reviews so that they stop being visible on the site
+    - Quickly delete any number of selected beer reviews
+    - Fully edit a beer review, including rich text and images
+    - View all comments submitted by users
+    - Filter and sort all comments easily
+    - Quickly approve any number of selected comments so that they become visible on their parent review page
+    - Quickly disapprove any number of selected comments so that they stop being visible on their parent review page
+    - Fully edit a comment, including rich text
+    - View all extant users
+    - Delete any number of extant users
+    - View login attempts from dummy admin honeypot page
+
+## Generic user User Stories 
+
+These user stories apply to all users regardless of authentication status
+
+- As a generic user I can ...
+    - Immediately determine the purpose of the application when first visiting
+    - Access the application from any web-enabled device and have a positive user experience
+    - View all beer reviews
+        - At the same, not be overwhelmed by reviews
+    - Sort and filter all beer reviews so that I can see only the beer reviews that appeal to me
+    - Have my sorting or filtering criteria reflected back to me so that I know which criteria I have applied
+    - View any single beer review in its entirety so that I can read the content
+    - Use a search function to search for beer reviews using keyword terms
+        - If my search returned no results, have that reflected back to me
+    
+## Unregistered user User Stories
+
+- As an unregistered user I can ...
+    - Sign-up and create an account
+    - Sign-in to that created account
+
+## Registered user User Stories
+
+- As a registered user I can ...
+    - Sign in to a previously created account
+    - Change the password for that account
+    - Sign-out easily, when I am already signed-in
+    - Have my sign-in status reflected back to me
+    - Write a beer review easily
+        - Apply rich text formatting to the content of my review
+        - upload an image to my review
+    - If signed in, easily access all of the reviews that I have written
+        - If I have written no reviews, have that reflected back to me
+    - Easily update any beer reviews that I have written
+    - Easily delete any beer reviews that I have written
+        - At the same time, ensure that I cannot accidentally delete any beer reviews
+    - When viewing a single beer review, post a comment
+        - when I have submitted a comment, have a confirmation message displayed to me indicating success
+    - When viewing a single beer review, upvote it if I like it
+    - When viewing a single beer review, downvote it if I do not like it
+
+- Rejected user stories:
+    - Be able to upvote comments
+    - Be able to downvote comments
+
 
 # Features
 
@@ -806,6 +906,9 @@ vertical phones top out at about 412px, so apply cols and offsets to satisfy thi
 The major exception is the Surface Duo, which is a hybrid tablet/phone
 
 To do:
+- comment disapproval method not working due to spelling error
+- Allow the superuser (user ID = 1) to update and delete all posts as well as users, so that the admin does not have to use the admin panel
+    - related, allow the superuser to quickly access the admin panel from the front-end
 - navbar fails to render properly on horizontal tablets - screen widths 992 to 1400px / lg to xxl breakpoints
     - only an issue when logged in due to the increased number of navbar options
 - review reviews/admin.py to see if more terms need to be added to the control variables. 
@@ -1099,16 +1202,85 @@ If developing a clone of BeerGate locally, you will need an `env.py` file to con
 
 # Testing
 
-## Manual testing
+## Manual User Story testing
 
-Can I create an account
-<br>
-Can I sign-in to that account?
-<br>
-Can I make a post?
-<br>
-Can I make a comment?
-<br>
+### Admin user User Story testing
+
+### Generic user User Story testing
+
+### Unregistered user User Story testing
+
+### Registered user User Story testing
+
+## Other manual testing
+
+What happens when a login attempt is made via the dummy admin sign-in page?
+
+Are these attempts viewable in the real admin panel?
+
+What happens when the tab duplication trick is used?
+
+## Validation testing
+
+### HTML Validation
+
+#### Base template
+
+#### Index template
+
+#### Review template
+
+#### Search Results template
+
+#### User Reviews template
+
+#### Add Review template
+
+#### Update Review template
+
+#### Delete Review template
+
+#### Account Sign-in template
+
+#### Account Sign-out template
+
+#### Account Sign-up template
+
+#### Account Password Change template
+
+### CSS Validation
+
+All custom styling is contained within static/css/styles.css
+
+### JS Validation
+
+There is no custom JS, though a JS file exists for future work. It is contained with static/js/script.js
+
+### Python Validation
+
+BeerGate's python files are contained within 3 directories - beergate, reviews and user
+
+PEP8 Validator
+
+#### Beergate settings.py
+
+#### Beergate urls.py
+
+#### Reviews admin.py
+
+#### Reviews forms.py
+
+#### Reviews models.py
+
+#### Reviews urls.py
+
+#### Reviews views.py
+
+#### User forms.py
+
+#### User views.py
+
+#### User urls.py
 
 ## Automated testing
 
@@ -1130,7 +1302,9 @@ Heroku
 <br>
 Cloudinary
 <br>
-CK Editor for rich text fields
+CK Editor and TinyMCE were used initially, but then rejected
+<br>
+Django Summernote editor
 
 # Other notes
 
@@ -1180,5 +1354,7 @@ The official [django-summernote](https://github.com/summernote/django-summernote
 
 [This article](https://learndjango.com/tutorials/django-search-tutorial) by noted Django export Will Vincent provided invaluable guidance on implementing a working search bar. 
 
-
+Surprise me feature:
+    - http://web.archive.org/web/20110802060451/http://bolddream.com/2010/01/22/getting-a-random-row-from-a-relational-database/
+    - https://stackoverflow.com/questions/962619/how-to-pull-a-random-record-using-djangos-orm
 
