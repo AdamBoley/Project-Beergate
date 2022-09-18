@@ -105,18 +105,17 @@ class BeerReviewSingle(View):
         if review.downvotes.filter(id=self.request.user.id).exists():
             downvoted = True
 
-        return render(
-            request,
-            "review.html",
-            {
-                "review": review,
-                "comments": comments,
-                "commented": False,
-                "upvoted": upvoted,
-                "downvoted": downvoted,
-                "comment_form": CommentForm()
-            }
-        )
+        template_name = 'review.html'
+        context = {
+            "review": review,
+            "comments": comments,
+            "commented": False,
+            "upvoted": upvoted,
+            "downvoted": downvoted,
+            "comment_form": CommentForm()
+        }
+
+        return render(request, template_name, context)
 
     def post(self, request, pk, *args, **kwargs):
         queryset = Review.objects.filter(approved=True)
@@ -139,18 +138,17 @@ class BeerReviewSingle(View):
         else:
             comment_form = CommentForm()
 
-        return render(
-            request,
-            "review.html",
-            {
-                "review": review,
-                "comments": comments,
-                "commented": True,
-                "upvoted": upvoted,
-                "downvoted": downvoted,
-                "comment_form": CommentForm()
-            }
-        )
+        template_name = 'review.html'
+        context = {
+            "review": review,
+            "comments": comments,
+            "commented": True,
+            "upvoted": upvoted,
+            "downvoted": downvoted,
+            "comment_form": CommentForm()
+        }
+
+        return render(request, template_name, context)
 
 
 class SearchResultsView(generic.ListView):
@@ -176,13 +174,12 @@ class UserReviewsView(generic.ListView):
 
     def get(self, request, *args, **kwargs):
         queryset = Review.objects.filter(author=request.user)
-        return render(
-            request,
-            "user_reviews.html",
-            {
-                "object_list": queryset
-            }
-        )
+
+        template_name = 'user_reviews.html'
+        context = {
+            "object_list": queryset
+        }
+        return render(request, template_name, context)
 
 
 class AddReviewView(generic.CreateView):
@@ -217,14 +214,13 @@ class AddReviewView(generic.CreateView):
         else:
             user_review_form = UserReviewForm()
 
-        return render(
-            request,
-            "add_review.html",
-            {
-                "user_review_form": UserReviewForm(),
-                "reviewed": True
-            }
-        )
+        context = {
+            "user_review_form": UserReviewForm(),
+            "reviewed": True
+        }
+        template_name = 'add_review.html'
+
+        return render(request, template_name, context)
 
 
 class UpdateReviewView(generic.UpdateView):

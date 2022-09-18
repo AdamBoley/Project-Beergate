@@ -930,7 +930,8 @@ To do:
 
 - move sorting menu from navbar to its own navbar only on the index page - perhaps use a def get method to render a custom context that informs/reminds the user of the criteria they are filtering/sorting by. 
 
-- In BeerReviewSingle view, UserReviewsView view and AddReviewView, explicitly define a context variable to hold the object in the return statement, then call context in that return
+- In BeerReviewSingle view, UserReviewsView view and AddReviewView, explicitly define a context variable to hold the object in the return statement, then call context in that return. Do same with template_name variable
+
 - add return of average_score method to index card, next to upvotes/downvotes, and create a view to order by this. 
 - Implement a random 'surprise me' feature
 - add update and delete buttons to user_reviews so that a user does not have to access each record individually. 
@@ -1140,6 +1141,8 @@ I added the 'served_as' field to the admin list_filter and list_display control 
 I also noted that the review field of the admin comments page was displaying the output of the Review model magic string method. Since the magic string method appears to be used only here, I modified the output of said method to return only the name of the review. This made the the admin comments page clearer 
 
 I personally like to add footers containing copyright information to my projects where possible, a basic footer element was added along with accompanying CSS. 
+
+Whilst the return render method used in the walkthrough videos is perfectly functional, I personally do not find it overly clear, especially since it is placed over multiple lines and contains a object. I have since learned that the object is called a context. I found it clearer and more pythonic to explicitly declare the context object as a value of a variable called context, and also to declare the HTML template file to be used as the value of a variable called template_name. I then called the context and template_name variables in the return render method with the request. I feel that this made the return statement clearer, since it occupied a single line.  
 
 # Development Choices
 
