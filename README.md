@@ -962,6 +962,7 @@ To do:
 - ensure all templating language is properly indented
 - remove all extraneous / commented-out code
 - Harmonise login, log out, signup to sign-in, sign-out and sign-up - will require changing login.html and logout.html template names. 
+
 - Implement tests from Django-Experimentation repo
 - add class and method docstrings
 - Modify Reviews so that they have realistic content, not just Lorem Ipsum bulk text
@@ -1418,3 +1419,9 @@ Surprise me feature:
     - https://stackoverflow.com/questions/962619/how-to-pull-a-random-record-using-djangos-orm
 
 [This article](https://teamtreehouse.com/community/length-of-queryset-in-a-django-response) taught me how to get the length of a queryset, which is used to great effect in the UserReviewsView
+
+The answers to [this StackOverflow Question](https://stackoverflow.com/questions/71124344/use-q-object-and-paginator-together-in-django) provided guidance on how to paginate pages rendered by views that use a get_queryset method
+
+[This Django documentation on Pagination](https://docs.djangoproject.com/en/3.2/topics/pagination/) provided a superior pagination template than the one used in the walkthrough videos that I had been used. This template allows finer navigation between pages
+
+Include Bootstrap pages with code examples - navbar, pagination, etc

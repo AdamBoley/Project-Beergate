@@ -154,6 +154,13 @@ class BeerReviewSingle(View):
 class SearchResultsView(generic.ListView):
     model = Review
     template_name = 'search_results.html'
+    paginate_by = 4
+
+    def querystring(self):
+        querystring = self.request.GET.copy()
+        querystring.pop(self.page_kwarg, None)
+        encoded_querystring = querystring.urlencode()
+        return encoded_querystring
 
     def get_queryset(self):
         query = self.request.GET.get('search')
@@ -164,7 +171,7 @@ class SearchResultsView(generic.ListView):
             | Q(colour__icontains=query)
             | Q(hops__icontains=query)
             | Q(keywords__icontains=query)
-            )
+            ).filter(approved=True)
         return object_list
 
 
