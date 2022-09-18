@@ -878,6 +878,11 @@ Done:
 
 - Remove unused AllAuth URLS in urls.py, keep views and templates - done
 - add more content to index cards to better reflect any sorting that has been applied - done
+- comment disapproval method not working due to spelling error - done
+
+
+
+
 
 
 In progress:
@@ -906,7 +911,7 @@ vertical phones top out at about 412px, so apply cols and offsets to satisfy thi
 The major exception is the Surface Duo, which is a hybrid tablet/phone
 
 To do:
-- comment disapproval method not working due to spelling error
+
 - Allow the superuser (user ID = 1) to update and delete all posts as well as users, so that the admin does not have to use the admin panel
     - related, allow the superuser to quickly access the admin panel from the front-end
 - navbar fails to render properly on horizontal tablets - screen widths 992 to 1400px / lg to xxl breakpoints
@@ -1116,6 +1121,11 @@ Update 11/9/22:
 I remembered that the Django Blog walkthrough project uses the Django Summernote editor. Whilst I wanted for this project to move away from the walkthrough project as much as possible, so as to make it as much of my own work as possible, I note that the Summernote editor worked and was easy to implement. This proved true for this projet as well - I was able to implement it in about 2 hours of work, compared to the 2 days I had previous spent fruitlessly trying to make the CK Editor and TinyMCE editor work. That said, several commits were necessary, as the deployed app initially failed to load with an H10 error. Those commits removed remnant code written for the previously-named rich text editors and reworked the settings and forms files. 
 
 Whilst the note about [RateBeer](https://www.ratebeer.com/) above still stands, the implementation of the Summernote editor is as much about me proving to myself that I could do it as it is about providing a good user experience. It should go without saying that I am very pleased to have done so. Credit goes to [this article](https://djangocentral.com/integrating-summernote-in-django/) and the [Django Summernote documentation](https://github.com/summernote/django-summernote)
+
+18/9/22:
+Fix spelling error bug in reviews/admin.py causing the mass comment disapprove method to not display
+
+
 
 
 
