@@ -927,6 +927,8 @@ To do:
     - However, could use an AdminUpdateReview view that does not use the methods, and hence does not auto-disapprove the review
 
 - floated card content becomes misaligned at smaller screen sizes - set float active only at larger breakpoints
+    - with reductions to character count, this becomes much less of a problem
+
 - Place My Reviews, Sign-out and Change Password behind a Account actions dropdown menu to make navbar less busy
 
 - add more content to search results and user reviews pages in the same vein as index
@@ -936,11 +938,13 @@ To do:
 
 - move sorting menu from navbar to its own navbar only on the index page - perhaps use a def get method to render a custom context that informs/reminds the user of the criteria they are filtering/sorting by. 
 
-
-
-
 - Create a view to order by return of average_score 
+
+
+
+
 - Implement a random 'surprise me' feature
+
 - add update and delete buttons to user_reviews so that a user does not have to access each record individually. 
 - decreased number of cards on index page to 3 so that background image is less obscured
 - capitalise the type and colour field somewhere so that the filtering views do not miss any reviews.  Can filter() use a list?
@@ -1150,6 +1154,8 @@ I also noted that the review field of the admin comments page was displaying the
 I personally like to add footers containing copyright information to my projects where possible, a basic footer element was added along with accompanying CSS. 
 
 Whilst the return render method used in the walkthrough videos is perfectly functional, I personally do not find it overly clear, especially since it is placed over multiple lines and contains a object. I have since learned that the object is called a context. I found it clearer and more pythonic to explicitly declare the context object as a value of a variable called context, and also to declare the HTML template file to be used as the value of a variable called template_name. I then called the context and template_name variables in the return render method with the request. I feel that this made the return statement clearer, since it occupied a single line.  
+
+On smaller screen sizes, I noted that the supplementary beer review information - author, timestamp, brewery, etc - became misaligned on smaller screen sizes. I solved this by removing the float classes I had previously applied, as I considered that it would be very possible for authors, beers and breweries to have long names, and for the keywords field to have many words as well. I also reduced the pagination number to 3 so that only 3 reviews display per page. This has created a cleaner, less busy landing page. 
 
 # Development Choices
 

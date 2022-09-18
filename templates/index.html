@@ -2,100 +2,81 @@
 
 {% block content %}
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-12 mt-3 left">
-            <div class="row">
-                {% for review in object_list %}
-                    <div class="col-12 col-xl-3">
-                        <div class="card mb-4">
-                            <a href="{% url 'review' review.pk %}" class="post-link index-review-link">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-10 offset-1 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-4 offset-lg-4 col-xl-12 offset-xl-0 index-image-container">
-                                            {% if "placeholder" in review.image.url %}
-                                                <img src="https://res.cloudinary.com/adamboley/image/upload/v1661792893/bg3_zfwcad.webp" alt="default image" class="card-img-top">
-                                            {% else %}
-                                                <img src="{{ review.image.url }}" alt="" class="card-img-top">
-                                            {% endif %}
-                                        </div>
-                                    </div>
-                                    
-                                    <h2 class="card-title">{{ review.name }}</h2>
-                                    <hr>
-
-                                    <div class="card-text text-muted h6 meta-data-container">
-                                        <div>
-                                            <p class="float-start">Author: {{ review.author }}</p>
-                                            <p class="float-end">{{ review.timestamp|date }}</p>
-                                            <br class="float-clear">
-                                        </div>
-                                        <div>
-                                            <p class="float-start">Colour: {{ review.colour }}</p>
-                                            <p class="float-end">Type: {{ review.type }}</p>
-                                            <br class="float-clear">
-                                        </div>
-                                        <div>
-                                            <p class="float-start">Alcohol content: {{ review.alcohol }}%</p>
-                                            <p class="float-end">Brewed by: {{ review.brewery }}</p>
-                                            <br class="float-clear">
-                                        </div>
-                                        <div>
-                                            <p class="float-start">Described as: {{ review.keywords }}</p>
-                                            <p class="float-end">
-                                                {% if review.served_as == 1 %}
-                                                    Bottled
-                                                {% else %}
-                                                    Draught
-                                                {% endif %}
-                                            </p>
-                                            <br class="float-clear">
-                                        </div>
-                                        <div>
-                                            <p class="float-start">
-                                                <span class="me-4">
-                                                    <i class="far fa-thumbs-up"></i>
-                                                    {{ review.review_upvotes }}
-                                                </span>
-                                                <span>
-                                                    <i class="far fa-thumbs-down"></i>
-                                                {{ review.review_downvotes }}
-                                                </span>
-                                            </p>
-                                            <p class="float-end">
-                                                Average score: {{ review.average_score }}
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                {% if forloop.counter|divisibleby:4 %}
-                </div>
-                <div class="row">
-                
-                {% endif %}
-
-                {% empty %}
-                    <div class="col-12 col-md-6 offset-md-3">
-                        <div class="card">
-                            <div class="card-inner">
-                                <div class="card-body">
-                                    <h3 class="card-title">
-                                        No beer reviews have been posted yet
-                                    </h3>
-                                    <p>
-                                        Use the search bar to find some reviews
-                                    </p>
+<div class="container-fluid container-90">
+    <div class="row mt-5">
+        {% for review in object_list %}
+            <div class="col-12 col-xl-4 gx-5">
+                <div class="card mb-4 transparent-card">
+                    <a href="{% url 'review' review.pk %}" class="post-link index-review-link">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-10 offset-1 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-4 offset-lg-4 col-xl-12 offset-xl-0 index-image-container">
+                                    {% if "placeholder" in review.image.url %}
+                                        <img src="https://res.cloudinary.com/adamboley/image/upload/v1661792893/bg3_zfwcad.webp" alt="default image" class="card-img-top">
+                                    {% else %}
+                                        <img src="{{ review.image.url }}" alt="" class="card-img-top">
+                                    {% endif %}
                                 </div>
                             </div>
+                            
+                            <h2 class="card-title">{{ review.name }}</h2>
+                            <hr>
+
+                            <div class="card-text text-muted h6">
+
+                                <p>Author: {{ review.author }}</p>
+                                <p>{{ review.timestamp|date }}</p>
+                                <p>Colour: {{ review.colour }}</p>
+                                <p>Type: {{ review.type }}</p>
+                                <p>Alc {{ review.alcohol }}% vol</p>
+                                <p>Brewery: {{ review.brewery }}</p>
+                                <p>Described as: {{ review.keywords }}</p>
+                                <p>
+                                    {% if review.served_as == 1 %}
+                                        Bottled
+                                    {% else %}
+                                        Draught
+                                    {% endif %}
+                                </p>
+                                <p>
+                                    <span class="me-4">
+                                        <i class="far fa-thumbs-up"></i>
+                                        {{ review.review_upvotes }}
+                                    </span>
+                                    <span>
+                                        <i class="far fa-thumbs-down"></i>
+                                    {{ review.review_downvotes }}
+                                    </span>
+                                </p>
+                                <p>Score: {{ review.average_score }}</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        {% if forloop.counter|divisibleby:3 %}
+        </div>
+        <div class="row">
+        
+        {% endif %}
+
+        {% empty %}
+            <div class="col-12 col-md-6 offset-md-3">
+                <div class="card">
+                    <div class="card-inner">
+                        <div class="card-body">
+                            <h3 class="card-title">
+                                No beer reviews have been posted yet
+                            </h3>
+                            <p>
+                                Use the search bar to find some reviews
+                            </p>
                         </div>
                     </div>
-
-                {% endfor %}
+                </div>
             </div>
-        </div>
+
+        {% endfor %}
     </div>
 
     {% if is_paginated %}

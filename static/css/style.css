@@ -140,6 +140,10 @@ main {
     height: 1.5em;
 }
 
+.container-90 {
+    width: 90%;
+}
+
 /* Search results and user review style rules */
 .search-result-card {
     padding: 1em;

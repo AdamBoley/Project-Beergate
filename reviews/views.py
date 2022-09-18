@@ -12,84 +12,84 @@ class ReviewList(generic.ListView):
     model = Review
     queryset = Review.objects.filter(approved=True).order_by('-timestamp')
     template_name = 'index.html'
-    paginate_by = 4
+    paginate_by = 3
 
 
 class ReviewListMostUpvotes(generic.ListView):
     model = Review
     queryset = Review.objects.filter(approved=True).annotate(upvote_count=Count('upvotes')).order_by('-upvote_count')
     template_name = 'index.html'
-    paginate_by = 4
+    paginate_by = 3
 
 
 class ReviewListOldest(generic.ListView):
     model = Review
     queryset = Review.objects.filter(approved=True).order_by('timestamp')
     template_name = 'index.html'
-    paginate_by = 4
+    paginate_by = 3
 
 
 class ReviewListAleType(generic.ListView):
     model = Review
     queryset = Review.objects.filter(approved=True).filter(type='Ale').order_by('timestamp')
     template_name = 'index.html'
-    paginate_by = 4
+    paginate_by = 3
 
 
 class ReviewListStoutType(generic.ListView):
     model = Review
     queryset = Review.objects.filter(approved=True).filter(type='Stout').order_by('timestamp')
     template_name = 'index.html'
-    paginate_by = 4
+    paginate_by = 3
 
 
 class ReviewListLagerType(generic.ListView):
     model = Review
     queryset = Review.objects.filter(approved=True).filter(type='Lager').order_by('timestamp')
     template_name = 'index.html'
-    paginate_by = 4
+    paginate_by = 3
 
 
 class ReviewListPaleColour(generic.ListView):
     model = Review
     queryset = Review.objects.filter(approved=True).filter(colour='Pale').order_by('timestamp')
     template_name = 'index.html'
-    paginate_by = 4
+    paginate_by = 3
 
 
 class ReviewListGoldenColour(generic.ListView):
     model = Review
     queryset = Review.objects.filter(approved=True).filter(colour='Golden').order_by('timestamp')
     template_name = 'index.html'
-    paginate_by = 4
+    paginate_by = 3
 
 
 class ReviewListAmberColour(generic.ListView):
     model = Review
     queryset = Review.objects.filter(approved=True).filter(colour='Amber').order_by('timestamp')
     template_name = 'index.html'
-    paginate_by = 4
+    paginate_by = 3
 
 
 class ReviewListDarkColour(generic.ListView):
     model = Review
     queryset = Review.objects.filter(approved=True).filter(colour='Dark').order_by('timestamp')
     template_name = 'index.html'
-    paginate_by = 4
+    paginate_by = 3
 
 
 class ReviewListBottled(generic.ListView):
     model = Review
     queryset = Review.objects.filter(approved=True).filter(served_as=1).order_by('timestamp')
     template_name = 'index.html'
-    paginate_by = 4
+    paginate_by = 3
 
 
 class ReviewListDraught(generic.ListView):
     model = Review
     queryset = Review.objects.filter(approved=True).filter(served_as=2).order_by('timestamp')
     template_name = 'index.html'
-    paginate_by = 4
+    paginate_by = 3
 
 
 class BeerReviewSingle(View):
