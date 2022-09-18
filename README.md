@@ -882,8 +882,16 @@ Done:
 - Navbar fails to render properly on horizontal tablets - screen widths 992 to 1400px / lg to xxl breakpoints - done
 - review reviews/admin.py to see if more terms need to be added to the control variables - done
 - Footer - done
+- In BeerReviewSingle view, UserReviewsView view and AddReviewView, explicitly define a context variable to hold the object in the return statement, then call context in that return. Do same with template_name variable - done
+- add return of average_score method to index card, next to upvotes/downvotes - done
+
 
 - In UserReviewForm, apply bootstrap to RadioSelect widget with name, class, etc - rejected as unnecessary, since the extant radio buttons are clear enough
+
+
+
+
+
 
 In progress:
 - Review and update Bootstrap card structure for non-AllAuth templates:
@@ -918,8 +926,6 @@ To do:
     - This renders the justification moot
     - However, could use an AdminUpdateReview view that does not use the methods, and hence does not auto-disapprove the review
 
-
-
 - floated card content becomes misaligned at smaller screen sizes - set float active only at larger breakpoints
 - Place My Reviews, Sign-out and Change Password behind a Account actions dropdown menu to make navbar less busy
 
@@ -930,9 +936,10 @@ To do:
 
 - move sorting menu from navbar to its own navbar only on the index page - perhaps use a def get method to render a custom context that informs/reminds the user of the criteria they are filtering/sorting by. 
 
-- In BeerReviewSingle view, UserReviewsView view and AddReviewView, explicitly define a context variable to hold the object in the return statement, then call context in that return. Do same with template_name variable
 
-- add return of average_score method to index card, next to upvotes/downvotes, and create a view to order by this. 
+
+
+- Create a view to order by return of average_score 
 - Implement a random 'surprise me' feature
 - add update and delete buttons to user_reviews so that a user does not have to access each record individually. 
 - decreased number of cards on index page to 3 so that background image is less obscured
@@ -1221,7 +1228,7 @@ I decided to apply a pair of beer glasses as this app's favicon. Beer is the mai
 BeerGate uses a large number of packages to enable all of its functionality. These are listed in the `requirements.txt` file, and hence can be installed with the terminal command:
 `pip3 install -r requirements.txt`
 
-You will also need a Cloudinary account to store and served images and static files, and a Heroku account to host the app and provide the database. 
+You will also need a Cloudinary account to store and serve images and static files, and a Heroku account to host the app and provide the database. 
 
 If developing a clone of BeerGate locally, you will need an `env.py` file to contain the local environment variables. These would be the CLOUDINARY_URL, SECRET_KEY, and DATABASE_URL. The CLOUDINARY_URL can be obtained from your Cloudinary account, whilst the DATABASE_URL is provided by Heroku when a postgres database is attached to the Heroku app. The SECRET_KEY is a password of your own making. These will need to be added to your Heroku app Config Vars in the settings tab. 
 

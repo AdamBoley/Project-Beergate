@@ -5,7 +5,7 @@ from django.urls import reverse, reverse_lazy
 from .models import Review, Comment
 from .forms import CommentForm, UserReviewForm
 from django.db.models import Q
-from django.db.models import Count
+from django.db.models import Count, Avg
 
 
 class ReviewList(generic.ListView):
