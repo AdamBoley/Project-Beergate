@@ -879,7 +879,7 @@ Done:
 - Remove unused AllAuth URLS in urls.py, keep views and templates - done
 - add more content to index cards to better reflect any sorting that has been applied - done
 - comment disapproval method not working due to spelling error - done
-
+- Navbar fails to render properly on horizontal tablets - screen widths 992 to 1400px / lg to xxl breakpoints - done
 
 
 
@@ -914,8 +914,15 @@ To do:
 
 - Allow the superuser (user ID = 1) to update and delete all posts as well as users, so that the admin does not have to use the admin panel
     - related, allow the superuser to quickly access the admin panel from the front-end
-- navbar fails to render properly on horizontal tablets - screen widths 992 to 1400px / lg to xxl breakpoints
-    - only an issue when logged in due to the increased number of navbar options
+    - update method auto-disapproves, so admin panel access would be required anyway
+    - This renders the justification moot
+    - However, could use an AdminUpdateReview view that does not use the methods, and hence does not auto-disapprove the review
+
+
+
+- floated card content becomes misaligned at smaller screen sizes - set float active only at larger breakpoints
+- Place My Reviews, Sign-out and Change Password behind a Account actions dropdown menu to make navbar less busy
+
 - review reviews/admin.py to see if more terms need to be added to the control variables. 
 - In UserReviewForm, apply bootstrap to RadioSelect widget - name, class, etc
 - add more content to search results and user reviews pages in the same vein as index
@@ -1125,7 +1132,7 @@ Whilst the note about [RateBeer](https://www.ratebeer.com/) above still stands, 
 18/9/22:
 Fix spelling error bug in reviews/admin.py causing the mass comment disapprove method to not display
 
-
+Whilst testing responsiveness to smaller screen sizes, I noted that the navbar nav-items became misaligned at between the LG and XXL breakpoints (992px to 1400px), before collapsing behind the burger icon at less than 992px. I changed the navbar collapse breakpoint to XXL to stop this happening. I should note however that this was only an issue when signed-in, due to the greater number of nav-item links. 
 
 
 

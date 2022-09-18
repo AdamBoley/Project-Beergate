@@ -23,7 +23,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-background sticky-top">
+    <nav class="navbar navbar-expand-xxl navbar-background sticky-top">
         <div class="container-fluid">
             <a class="navbar-brand" href="{% url 'home' %}">BeerGate</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -38,7 +38,7 @@
                     </li>
                     {% if user.is_authenticated %}
                         <li class="nav-item btn">
-                            <a class="nav-link" href="{% url 'add_review' %}">Leave a review</a>
+                            <a class="nav-link" href="{% url 'add_review' %}">Add a review</a>
                         </li>
                         <li class="nav-item btn">
                             <a class="nav-link" href="{% url 'user_reviews' %}">My reviews</a>
