@@ -68,6 +68,12 @@ main {
     background-color: whitesmoke;
 }
 
+.footer {
+    background-color: rgba(0, 0, 0, 0.5);
+    font-size: smaller;
+    color: whitesmoke;
+}
+
 .card-inner {
     margin: 2em;
     max-height: 80vh;

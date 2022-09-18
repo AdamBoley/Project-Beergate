@@ -881,9 +881,9 @@ Done:
 - comment disapproval method not working due to spelling error - done
 - Navbar fails to render properly on horizontal tablets - screen widths 992 to 1400px / lg to xxl breakpoints - done
 - review reviews/admin.py to see if more terms need to be added to the control variables - done
+- Footer - done
 
-
-
+- In UserReviewForm, apply bootstrap to RadioSelect widget with name, class, etc - rejected as unnecessary, since the extant radio buttons are clear enough
 
 In progress:
 - Review and update Bootstrap card structure for non-AllAuth templates:
@@ -918,20 +918,18 @@ To do:
     - This renders the justification moot
     - However, could use an AdminUpdateReview view that does not use the methods, and hence does not auto-disapprove the review
 
-- In UserReviewForm, apply bootstrap to RadioSelect widget - name, class, etc
 
 
 - floated card content becomes misaligned at smaller screen sizes - set float active only at larger breakpoints
 - Place My Reviews, Sign-out and Change Password behind a Account actions dropdown menu to make navbar less busy
 
-
-
 - add more content to search results and user reviews pages in the same vein as index
 
 - update data model with a OPTIONAL field for where a beer may be purchased. 'If you bought this beer online, where did you buy it from?' - encourages traffic to brewery websites
+    - From a user perspective, this is easy to do on a PC with multiple tabs, but less easy to do with a mobile device
 
 - move sorting menu from navbar to its own navbar only on the index page - perhaps use a def get method to render a custom context that informs/reminds the user of the criteria they are filtering/sorting by. 
-- Footer
+
 - In BeerReviewSingle view, UserReviewsView view and AddReviewView, explicitly define a context variable to hold the object in the return statement, then call context in that return
 - add return of average_score method to index card, next to upvotes/downvotes, and create a view to order by this. 
 - Implement a random 'surprise me' feature
@@ -1141,7 +1139,7 @@ I added the 'served_as' field to the admin list_filter and list_display control 
 
 I also noted that the review field of the admin comments page was displaying the output of the Review model magic string method. Since the magic string method appears to be used only here, I modified the output of said method to return only the name of the review. This made the the admin comments page clearer 
 
-
+I personally like to add footers containing copyright information to my projects where possible, a basic footer element was added along with accompanying CSS. 
 
 # Development Choices
 
