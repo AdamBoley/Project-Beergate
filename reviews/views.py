@@ -173,13 +173,64 @@ class UserReviewsView(generic.ListView):
     template_name = 'user_reviews.html'
 
     def get(self, request, *args, **kwargs):
-        queryset = Review.objects.filter(author=request.user)
+        """
+        5 use cases:
+        1 - user has written no reviews, hence len(user_queryset_all) == 0
+        2 - user has written one review, and it is awaiting approval, hence len(user_queryset_all) == 1 and len(user_queryset_approved) == 0
+        3 - user has written one or more reviews, but they all are awaiting approval, hence len(user_queryset_approved) == 0
+        4 - user has written one or more reviews, but some are awaiting approval hence len(user_queryset_all) > len(user_queryset_approved)
+        5 - user has written one or more reviews, and all are approved
+        """
+        user_queryset_all = Review.objects.filter(author=request.user)
+        user_queryset_approved = Review.objects.filter(author=request.user).filter(approved=True)
 
         template_name = 'user_reviews.html'
-        context = {
-            "object_list": queryset
-        }
-        return render(request, template_name, context)
+
+        if len(user_queryset_all) == 0:
+            context = {
+                "object_list": user_queryset_all,
+            }
+            # Unlike below, no special context object key is needed
+            # The template uses the empty tag of object_list
+            return render(request, template_name, context)
+
+        elif len(user_queryset_all) == 1 and len(user_queryset_approved) == 0:
+            context = {
+                "object_list": user_queryset_approved,
+                "one_review_awaiting_approval": True,
+                "all_reviews_awaiting_approval": False,
+                "some_reviews_awaiting_approval": False,
+                "no_reviews_awaiting_approval": False
+            }
+            return render(request, template_name, context)
+
+        elif len(user_queryset_approved) == 0:
+            context = {
+                "object_list": user_queryset_approved,
+                "all_reviews_awaiting_approval": True,
+                "some_reviews_awaiting_approval": False,
+                "no_reviews_awaiting_approval": False
+            }
+            return render(request, template_name, context)
+
+        elif len(user_queryset_all) > len(user_queryset_approved):
+            # user_queryset_all > 0 and user_queryset_approved > 0
+            context = {
+                "object_list": user_queryset_approved,
+                "all_reviews_awaiting_approval": False,
+                "some_reviews_awaiting_approval": True,
+                "no_reviews_awaiting_approval": True
+            }
+            return render(request, template_name, context)
+
+        elif len(user_queryset_all) == len(user_queryset_approved):
+            context = {
+                "object_list": user_queryset_approved,
+                "all_reviews_awaiting_approval": False,
+                "some_reviews_awaiting_approval": False,
+                "no_reviews_awaiting_approval": True
+            }
+            return render(request, template_name, context)
 
 
 class AddReviewView(generic.CreateView):

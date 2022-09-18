@@ -885,8 +885,8 @@ Done:
 - In BeerReviewSingle view, UserReviewsView view and AddReviewView, explicitly define a context variable to hold the object in the return statement, then call context in that return. Do same with template_name variable - done
 - add return of average_score method to index card, next to upvotes/downvotes - done
 - Fix issue of floated card content becoming misaligned at smaller screen sizes - done
-
-
+- decreased number of cards on index page to 3 so that background image is less obscured - done
+- User_reviews does not filter out unapproved reviews - done
 
 
 
@@ -948,8 +948,8 @@ To do:
 
 - Implement a random 'surprise me' feature
 
-- decreased number of cards on index page to 3 so that background image is less obscured
 - capitalise the type and colour field somewhere so that the filtering views do not miss any reviews.  Can filter() use a list?
+
 - look into displaying the total number of comments on the search_results and user_reviews pages using a similar thing to BeerReviewSingle
 - display review meta-data inline on larger screens
 - base.html meta tags
@@ -957,7 +957,7 @@ To do:
 - Remove Hops field from Review - this is not always available on bottled beers and certainly not for draught beers
 - Add a request to users to upvote or downvote reviews - "this helps push good reviews up the rankings"
 - look into pagination for search_results and user_reviews pages
-- User_reviews does not filter out unapproved reviews
+
 - After submitting a User Review Form, add a link to submit a new review to the success text box
 - ensure all templating language is properly indented
 - remove all extraneous / commented-out code
@@ -1160,6 +1160,23 @@ Whilst the return render method used in the walkthrough videos is perfectly func
 On smaller screen sizes, I noted that the supplementary beer review information - author, timestamp, brewery, etc - became misaligned on smaller screen sizes. I solved this by removing the float classes I had previously applied, as I considered that it would be very possible for authors, beers and breweries to have long names, and for the keywords field to have many words as well. I also reduced the pagination number to 3 so that only 3 reviews display per page. This has created a cleaner, less busy landing page. 
 
 I noted that the user_reviews and search_results pages were quite bare, so I added the same supplementary information that had been added to the index page - type, colour, brewery, etc. I had also planned to insert quick links to the update_review and delete_review pages, so that a user could quickly update and delete these reviews from the search_results and user_reviews pages. Whilst technically possible, it disrupted my styling and element placement, presumably because each search result card rendered on those pages is contained within an anchor element. I could have removed this parent anchor element, but chose not to because it makes tapping on a mobile device much easier. 
+
+When testing the user_reviews page, I noted that all of the reviews belonging to a particular user were displayed, whether they had been approved or not. When I clicked on these, I got Django error pages. This was the result of not using `filter(approved=True)` in the UserReviewsView. In solving this, I greatly expanded the functionality of that views, so that it checks whether a user has unapproved reviews. The reasoning behind this was that I had some text set to display if the object_list was empty that merely said that the user had not written any reviews. If indeed the user *had* written a review, but that review was not yet approved, it could cause the user to doubt that the add_review page was working properly. The UserReviewsView now considers 5 cases:
+- 1 - the user has not written any reviews. 
+    - In this case, text will display informing the user of this and inviting them to write a review
+
+- 2 - the user has written one review, but it is awaiting approval
+    - In this case, text will dispaly informing the user of this. I included this because a user's first review would probably be considered the most important
+
+- 3 - the user has written one or more reviews, but none have been approved. 
+    - In this case, text will display informing the user of this
+
+- 4 - the user has written one or more reviews, and some have been approved
+    - In this case, text will display informing the user of this, and their approved reviews will also be displayed
+
+- 5 - the user has written one or more reviews, and all have been approved
+    - In this case, all of the user's reviews will be displayed, with no additional text
+
 
 # Development Choices
 
@@ -1400,3 +1417,4 @@ Surprise me feature:
     - http://web.archive.org/web/20110802060451/http://bolddream.com/2010/01/22/getting-a-random-row-from-a-relational-database/
     - https://stackoverflow.com/questions/962619/how-to-pull-a-random-record-using-djangos-orm
 
+[This article](https://teamtreehouse.com/community/length-of-queryset-in-a-django-response) taught me how to get the length of a queryset, which is used to great effect in the UserReviewsView
