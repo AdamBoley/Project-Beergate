@@ -6,8 +6,8 @@ from django_summernote.admin import SummernoteModelAdmin
 @admin.register(Review)
 class BeerReviewAdmin(SummernoteModelAdmin):
 
-    list_filter = ('approved', 'timestamp', 'brewery', 'type', 'author')
-    list_display = ('name', 'type', 'colour', 'brewery', 'timestamp', 'approved', 'author')
+    list_filter = ('approved', 'timestamp', 'brewery', 'type', 'author', 'served_as')
+    list_display = ('name', 'type', 'colour', 'brewery', 'served_as', 'author', 'timestamp', 'approved')
     search_fields = ['name', 'brewery', 'type', 'colour', 'hops', 'alcohol', 'content']
     actions = ['approve_beer_review', 'disapprove_beer_review']
 

@@ -880,7 +880,7 @@ Done:
 - add more content to index cards to better reflect any sorting that has been applied - done
 - comment disapproval method not working due to spelling error - done
 - Navbar fails to render properly on horizontal tablets - screen widths 992 to 1400px / lg to xxl breakpoints - done
-
+- review reviews/admin.py to see if more terms need to be added to the control variables - done
 
 
 
@@ -918,15 +918,18 @@ To do:
     - This renders the justification moot
     - However, could use an AdminUpdateReview view that does not use the methods, and hence does not auto-disapprove the review
 
+- In UserReviewForm, apply bootstrap to RadioSelect widget - name, class, etc
 
 
 - floated card content becomes misaligned at smaller screen sizes - set float active only at larger breakpoints
 - Place My Reviews, Sign-out and Change Password behind a Account actions dropdown menu to make navbar less busy
 
-- review reviews/admin.py to see if more terms need to be added to the control variables. 
-- In UserReviewForm, apply bootstrap to RadioSelect widget - name, class, etc
+
+
 - add more content to search results and user reviews pages in the same vein as index
+
 - update data model with a OPTIONAL field for where a beer may be purchased. 'If you bought this beer online, where did you buy it from?' - encourages traffic to brewery websites
+
 - move sorting menu from navbar to its own navbar only on the index page - perhaps use a def get method to render a custom context that informs/reminds the user of the criteria they are filtering/sorting by. 
 - Footer
 - In BeerReviewSingle view, UserReviewsView view and AddReviewView, explicitly define a context variable to hold the object in the return statement, then call context in that return
@@ -1133,6 +1136,10 @@ Whilst the note about [RateBeer](https://www.ratebeer.com/) above still stands, 
 Fix spelling error bug in reviews/admin.py causing the mass comment disapprove method to not display
 
 Whilst testing responsiveness to smaller screen sizes, I noted that the navbar nav-items became misaligned at between the LG and XXL breakpoints (992px to 1400px), before collapsing behind the burger icon at less than 992px. I changed the navbar collapse breakpoint to XXL to stop this happening. I should note however that this was only an issue when signed-in, due to the greater number of nav-item links. 
+
+I added the 'served_as' field to the admin list_filter and list_display control variables
+
+I also noted that the review field of the admin comments page was displaying the output of the Review model magic string method. Since the magic string method appears to be used only here, I modified the output of said method to return only the name of the review. This made the the admin comments page clearer 
 
 
 

@@ -68,7 +68,7 @@ class Review(models.Model):
         Magic string method to return the beer that is being
         reviewed and the name of the review
         """
-        return f"A review of {self.name} by {self.author}"
+        return f"{self.name}"
 
     def get_absolute_url(self):
         """
