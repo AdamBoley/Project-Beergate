@@ -884,10 +884,17 @@ Done:
 - Footer - done
 - In BeerReviewSingle view, UserReviewsView view and AddReviewView, explicitly define a context variable to hold the object in the return statement, then call context in that return. Do same with template_name variable - done
 - add return of average_score method to index card, next to upvotes/downvotes - done
+- Fix issue of floated card content becoming misaligned at smaller screen sizes - done
 
 
+
+
+
+
+
+Rejected:
+- add update and delete buttons to user_reviews so that a user does not have to access each record individually - not possible, since the entire search result card is itself an anchor element, it cannot have other anchor elements as children
 - In UserReviewForm, apply bootstrap to RadioSelect widget with name, class, etc - rejected as unnecessary, since the extant radio buttons are clear enough
-
 
 
 
@@ -926,8 +933,7 @@ To do:
     - This renders the justification moot
     - However, could use an AdminUpdateReview view that does not use the methods, and hence does not auto-disapprove the review
 
-- floated card content becomes misaligned at smaller screen sizes - set float active only at larger breakpoints
-    - with reductions to character count, this becomes much less of a problem
+
 
 - Place My Reviews, Sign-out and Change Password behind a Account actions dropdown menu to make navbar less busy
 
@@ -940,12 +946,8 @@ To do:
 
 - Create a view to order by return of average_score 
 
-
-
-
 - Implement a random 'surprise me' feature
 
-- add update and delete buttons to user_reviews so that a user does not have to access each record individually. 
 - decreased number of cards on index page to 3 so that background image is less obscured
 - capitalise the type and colour field somewhere so that the filtering views do not miss any reviews.  Can filter() use a list?
 - look into displaying the total number of comments on the search_results and user_reviews pages using a similar thing to BeerReviewSingle
@@ -1156,6 +1158,8 @@ I personally like to add footers containing copyright information to my projects
 Whilst the return render method used in the walkthrough videos is perfectly functional, I personally do not find it overly clear, especially since it is placed over multiple lines and contains a object. I have since learned that the object is called a context. I found it clearer and more pythonic to explicitly declare the context object as a value of a variable called context, and also to declare the HTML template file to be used as the value of a variable called template_name. I then called the context and template_name variables in the return render method with the request. I feel that this made the return statement clearer, since it occupied a single line.  
 
 On smaller screen sizes, I noted that the supplementary beer review information - author, timestamp, brewery, etc - became misaligned on smaller screen sizes. I solved this by removing the float classes I had previously applied, as I considered that it would be very possible for authors, beers and breweries to have long names, and for the keywords field to have many words as well. I also reduced the pagination number to 3 so that only 3 reviews display per page. This has created a cleaner, less busy landing page. 
+
+I noted that the user_reviews and search_results pages were quite bare, so I added the same supplementary information that had been added to the index page - type, colour, brewery, etc. I had also planned to insert quick links to the update_review and delete_review pages, so that a user could quickly update and delete these reviews from the search_results and user_reviews pages. Whilst technically possible, it disrupted my styling and element placement, presumably because each search result card rendered on those pages is contained within an anchor element. I could have removed this parent anchor element, but chose not to because it makes tapping on a mobile device much easier. 
 
 # Development Choices
 
