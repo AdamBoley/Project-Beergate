@@ -1209,7 +1209,7 @@ However, I ran into a serious problen when doing the same for the post method, w
 
 I tried various approaches before hitting upon the current approach. I declare three variables - `queryset`, `review` and `primary_key` - at the top of the RandomReview class, and set them to None. The get method then proceeds as normal - constructing a randomised queryset, retrieving the first record and then retrieving that record's primary_key. These RandomReview class variables `queryset`, `review` and `primary_key` are then reassigned with the values generated in the get method. When or if the post method is called, it takes in the RandomReview class variables, ensuring that when a comment is submitted, the user is not directed away from the review they were commenting on. If the user clicks on the Random button again, the extant RandomReview view class collapses and then is called again, and the execution starts from the beginning with the three variables set to None, allowing the user to access another random record. Needless to say, I am quite pleased with the construction of this code. 
 
-
+When coding the above solution, I submitted several comments to the admin panel. In doing so, I noted that when comments were displayed, their HTML element tags were displaying as well. This had been caused by improper use of `safe` filter in the templating language of `review.html`. Once fixed, the comments displayed properly. 
 
 
 # Development Choices
