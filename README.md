@@ -891,7 +891,7 @@ Done:
 - add more content to search results and user reviews pages in the same vein as index
 - Place My Reviews, Sign-out and Change Password behind an 'Account actions' dropdown menu to make navbar less busy
 - Implement improved pagination model to index page - done
-
+- Implement a random 'surprise me' feature - done
 
 
 
@@ -955,7 +955,7 @@ To do:
 
 - Create a view to order by return of average_score 
 
-- Implement a random 'surprise me' feature
+
 
 - capitalise the type and colour field somewhere so that the filtering views do not miss any reviews.  Can filter() use a list?
 
@@ -1197,6 +1197,19 @@ SearchResults view, could prove challenging, especially considering the reworkin
 I considered that the navbar was too busy. Previously, the number of navbar items had caused rendering and sizing issues. Whilst this had been dealt with by increasing the breakpoint at which the navbar collapsed, significantly expanding the size and scope of the project in future, such as by enabling all AllAuth account functionality, could prove problematic. Hence, I moved the My Reviews, Sign-out and Change Password links into a dropdown menu. This makes the navbar much cleaner. 
 
 Much like the search_results page, I considered that the queryset used to populate the index page could contain hundreds of records. Whilst perfectly sufficient for basic navigation, the extant pagination method provided by the walkthrough project would not work well for hundreds of records. Hence, I implemented the improved pagination feature designed for the search_results page. This also helps to maintain a consistent pagination style. 
+
+Should BeerGate become an active beer review site, the size of the database could quickly expand. Since the extant sorting, filtering and search functions order the constructed queryset by timestamp, this means that older reviews would quickly become 'buried' in the database, so to speak, as they would be so far along the pagination track that they would be rarely, if ever, accessed. This might be referred to as the 'Google Search Problem', as it commonly acknowledged that when doing a Google Search, few people ever go beyond the first page when looking for a viable search result. To overcome this, I wanted to implement a randomiser feature that would take the user to a random review. This proved difficult, but ultimately surmountable. 
+
+I achieved this by using a variation on the BeerReviewSingle view, which I called RandomReview. Within the get method, I constructed a randomised queryset using: <br>
+`queryset = Review.objects.filter(approved=True).order_by('?')`
+<br>
+
+This was informed by the [official Django documentation on this subject](https://docs.djangoproject.com/en/dev/ref/models/querysets/#django.db.models.query.QuerySet.order_by). 
+However, I ran into a serious problen when doing the same for the post method, which had to be included should a user wish to post a comment on the random review that they were directed to. Initially, the post method used the same approach to construct the queryset, but this, as might be expected, returned a different random review. Hence, when the user submiited a comment on the initial random review, they would be redirected to that different random review.  
+
+I tried various approaches before hitting upon the current approach. I declare three variables - `queryset`, `review` and `primary_key` - at the top of the RandomReview class, and set them to None. The get method then proceeds as normal - constructing a randomised queryset, retrieving the first record and then retrieving that record's primary_key. These RandomReview class variables `queryset`, `review` and `primary_key` are then reassigned with the values generated in the get method. When or if the post method is called, it takes in the RandomReview class variables, ensuring that when a comment is submitted, the user is not directed away from the review they were commenting on. If the user clicks on the Random button again, the extant RandomReview view class collapses and then is called again, and the execution starts from the beginning with the three variables set to None, allowing the user to access another random record. Needless to say, I am quite pleased with the construction of this code. 
+
+
 
 
 # Development Choices
@@ -1443,5 +1456,7 @@ Surprise me feature:
 The answers to [this StackOverflow Question](https://stackoverflow.com/questions/71124344/use-q-object-and-paginator-together-in-django) provided guidance on how to paginate pages rendered by views that use a get_queryset method
 
 [This Django documentation on Pagination](https://docs.djangoproject.com/en/3.2/topics/pagination/) provided a superior pagination template than the one used in the walkthrough videos that I had been used. This template allows finer navigation between pages
+
+[This Django documentation](https://docs.djangoproject.com/en/dev/ref/models/querysets/#django.db.models.query.QuerySet.order_by) taught me how to access a random database record. 
 
 Include Bootstrap pages with code examples - navbar, pagination, etc

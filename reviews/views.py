@@ -151,6 +151,78 @@ class BeerReviewSingle(View):
         return render(request, template_name, context)
 
 
+class RandomReview(View):
+
+    queryset = None
+    review = None
+    primary_key = None
+
+    def get(self, request, *args, **kwargs):
+        
+        queryset = Review.objects.filter(approved=True).order_by('?')
+        RandomReview.queryset = queryset
+        review = queryset.first()
+        RandomReview.review = review
+        primary_key = review.pk
+        RandomReview.primary_key = primary_key
+        # random_review = RandomReview.review
+        comments = review.comments.filter(approved=True).order_by('timestamp')
+        upvoted = False
+        downvoted = False
+        if review.upvotes.filter(id=self.request.user.id).exists():
+            upvoted = True
+        if review.downvotes.filter(id=self.request.user.id).exists():
+            downvoted = True
+
+        template_name = 'review.html'
+        context = {
+            "review": review,
+            "comments": comments,
+            "commented": False,
+            "upvoted": upvoted,
+            "downvoted": downvoted,
+            "comment_form": CommentForm(),
+        }
+
+        return render(request, template_name, context)
+
+
+    def post(self, request, *args, **kwargs):
+
+        review = get_object_or_404(RandomReview.queryset, pk=RandomReview.primary_key)
+        comments = review.comments.filter(approved=True).order_by('timestamp')
+        upvoted = False
+        downvoted = False
+        if review.upvotes.filter(id=self.request.user.id).exists():
+            upvoted = True
+        if review.downvotes.filter(id=self.request.user.id).exists():
+            downvoted = True
+
+        comment_form = CommentForm(data=request.POST)
+
+        if comment_form.is_valid():
+            comment_form.instance.author = request.user
+            comment = comment_form.save(commit=False)
+            comment.review = review
+            comment.save()
+        else:
+            comment_form = CommentForm()
+
+        template_name = 'review.html'
+        context = {
+            "review": review,
+            "comments": comments,
+            "commented": True,
+            "upvoted": upvoted,
+            "downvoted": downvoted,
+            "comment_form": CommentForm(),
+        }
+
+        return render(request, template_name, context)
+
+    
+
+
 class SearchResultsView(generic.ListView):
     model = Review
     template_name = 'search_results.html'
