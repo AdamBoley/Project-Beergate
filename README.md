@@ -893,7 +893,7 @@ Done:
 - Implement improved pagination model to index page - done
 - Implement a random 'surprise me' feature - done
 - Add a request to users to upvote or downvote reviews - "this helps push good reviews up the rankings" - done
-
+- Harmonise login, log out, signup to sign-in, sign-out and sign-up - done
 
 
 
@@ -972,7 +972,7 @@ To do:
 - ensure all templating language is properly indented
 - remove all extraneous / commented-out code
 
-- Harmonise login, log out, signup to sign-in, sign-out and sign-up - will require changing login.html and logout.html template names. 
+- Filters in queryset appear to be case-sensitive
 
 - Implement tests from Django-Experimentation repo
 - add class and method docstrings
