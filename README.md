@@ -890,6 +890,9 @@ Done:
 - look into pagination for search_results and user_reviews pages - done for search_result page
 - add more content to search results and user reviews pages in the same vein as index
 - Place My Reviews, Sign-out and Change Password behind an 'Account actions' dropdown menu to make navbar less busy
+- Implement improved pagination model to index page - done
+
+
 
 
 Rejected:
@@ -942,7 +945,7 @@ To do:
     - From a user perspective, this is easy to do on a PC with multiple tabs, but less easy to do with a mobile device
     - My Mentor's thoughts are....
 
-- Implement improved pagination model to index page
+
 
 
 
@@ -1192,6 +1195,9 @@ It did not prove possible to implement pagination for the user_reviews page. As 
 SearchResults view, could prove challenging, especially considering the reworking to provide different rendering contexts.
 
 I considered that the navbar was too busy. Previously, the number of navbar items had caused rendering and sizing issues. Whilst this had been dealt with by increasing the breakpoint at which the navbar collapsed, significantly expanding the size and scope of the project in future, such as by enabling all AllAuth account functionality, could prove problematic. Hence, I moved the My Reviews, Sign-out and Change Password links into a dropdown menu. This makes the navbar much cleaner. 
+
+Much like the search_results page, I considered that the queryset used to populate the index page could contain hundreds of records. Whilst perfectly sufficient for basic navigation, the extant pagination method provided by the walkthrough project would not work well for hundreds of records. Hence, I implemented the improved pagination feature designed for the search_results page. This also helps to maintain a consistent pagination style. 
+
 
 # Development Choices
 
