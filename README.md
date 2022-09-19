@@ -892,6 +892,8 @@ Done:
 - Place My Reviews, Sign-out and Change Password behind an 'Account actions' dropdown menu to make navbar less busy
 - Implement improved pagination model to index page - done
 - Implement a random 'surprise me' feature - done
+- Add a request to users to upvote or downvote reviews - "this helps push good reviews up the rankings" - done
+
 
 
 
@@ -960,11 +962,10 @@ To do:
 - capitalise the type and colour field somewhere so that the filtering views do not miss any reviews.  Can filter() use a list?
 
 - look into displaying the total number of comments on the search_results and user_reviews pages using a similar thing to BeerReviewSingle
-- display review meta-data inline on larger screens
-- base.html meta tags
+
 - update image field label in add_review and update_review to explictly make it optional
 - Remove Hops field from Review - this is not always available on bottled beers and certainly not for draught beers
-- Add a request to users to upvote or downvote reviews - "this helps push good reviews up the rankings"
+
 
 
 - After submitting a User Review Form, add a link to submit a new review to the success text box

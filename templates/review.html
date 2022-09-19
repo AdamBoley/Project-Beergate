@@ -19,36 +19,23 @@
                     </div>
                     
                     <div class="card-body">
-                        <h5 class="card-title">{{ review.name }}</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">{{ review.description }}</h6>
-                        <h6 class="card-subtitle mb-2 text-muted">
+                        <h4 class="card-title">{{ review.name }}</h4>
+                        <h6 class="card-subtitle mb-3">{{ review.description }}</h6>
+                        <h6 class="card-subtitle mb-3">
                             {% if review.served_as == 1 %}
                                 Bottled
                             {% else %}
                                 Draught
                             {% endif %}
                         </h6>
-                        <p>
-                            Review by: {{ review.author }} on {{ review.timestamp|date }} at {{ review.timestamp|time }}
-                        </p>
-                        <p>
-                            {{ review.short_description }}
-                        </p>
-                        <p>
-                            Aroma: {{ review.aroma }}
-                        </p>
-                        <p>
-                            Appearance: {{ review.appearance }}
-                        </p>
-                        <p>
-                            Taste: {{ review.taste }}
-                        </p>
-                        <p>
-                            Aftertaste: {{ review.aftertaste }}
-                        </p>
-                        <p>
-                            Average score: {{ review.average_score }}
-                        </p>
+                        <h6 class="card-subtitle mb-3">Review by: {{ review.author }} on {{ review.timestamp|date }}</h6>
+                        <h6 class="card-subtitle mb-3">{{ review.short_description }}</h6>
+                        <h6 class="card-subtitle mb-3">Aroma: {{ review.aroma }}</h6>
+                        <h6 class="card-subtitle mb-3">Appearance: {{ review.appearance }}</h6>
+                        <h6 class="card-subtitle mb-3">Taste: {{ review.taste }}</h6>
+                        <h6 class="card-subtitle mb-3">Aftertaste: {{ review.aftertaste }}</h6>
+                        <h6 class="card-subtitle mb-3">Average score: {{ review.average_score }}</h6>
+                        
                         <div class="card-text">
                             <h5>Review</h5>
                             {{ review.content |safe }}
