@@ -883,13 +883,13 @@ Done:
 - review reviews/admin.py to see if more terms need to be added to the control variables - done
 - Footer - done
 - In BeerReviewSingle view, UserReviewsView view and AddReviewView, explicitly define a context variable to hold the object in the return statement, then call context in that return. Do same with template_name variable - done
-- add return of average_score method to index card, next to upvotes/downvotes - done
+- add return of average_score method to index card - done
 - Fix issue of floated card content becoming misaligned at smaller screen sizes - done
 - decreased number of cards on index page to 3 so that background image is less obscured - done
 - User_reviews does not filter out unapproved reviews - done
-
-
-
+- look into pagination for search_results and user_reviews pages - done for search_result page
+- add more content to search results and user reviews pages in the same vein as index
+- Place My Reviews, Sign-out and Change Password behind an 'Account actions' dropdown menu to make navbar less busy
 
 
 Rejected:
@@ -932,15 +932,21 @@ To do:
     - update method auto-disapproves, so admin panel access would be required anyway
     - This renders the justification moot
     - However, could use an AdminUpdateReview view that does not use the methods, and hence does not auto-disapprove the review
+    - on the other hand, this could be a security issue - if there is a partial security breach, where the superuser's admin credentials are compromised, then the dummy admin page still offers some protection. The attacker may have the admin credentials, but cannot put them to use beyong deleting or updating the admin's reviews
+    - if this feature is implemented, then an attacker can essentially have access to the admin panel from the front-end
+    - also, if more superusers are added, then this feature may fail or would need to be recoded
+    - My Mentor's thoughts are....
 
-
-
-- Place My Reviews, Sign-out and Change Password behind a Account actions dropdown menu to make navbar less busy
-
-- add more content to search results and user reviews pages in the same vein as index
 
 - update data model with a OPTIONAL field for where a beer may be purchased. 'If you bought this beer online, where did you buy it from?' - encourages traffic to brewery websites
     - From a user perspective, this is easy to do on a PC with multiple tabs, but less easy to do with a mobile device
+    - My Mentor's thoughts are....
+
+- Implement improved pagination model to index page
+
+
+
+
 
 - move sorting menu from navbar to its own navbar only on the index page - perhaps use a def get method to render a custom context that informs/reminds the user of the criteria they are filtering/sorting by. 
 
@@ -956,11 +962,12 @@ To do:
 - update image field label in add_review and update_review to explictly make it optional
 - Remove Hops field from Review - this is not always available on bottled beers and certainly not for draught beers
 - Add a request to users to upvote or downvote reviews - "this helps push good reviews up the rankings"
-- look into pagination for search_results and user_reviews pages
+
 
 - After submitting a User Review Form, add a link to submit a new review to the success text box
 - ensure all templating language is properly indented
 - remove all extraneous / commented-out code
+
 - Harmonise login, log out, signup to sign-in, sign-out and sign-up - will require changing login.html and logout.html template names. 
 
 - Implement tests from Django-Experimentation repo
@@ -1163,6 +1170,7 @@ On smaller screen sizes, I noted that the supplementary beer review information 
 I noted that the user_reviews and search_results pages were quite bare, so I added the same supplementary information that had been added to the index page - type, colour, brewery, etc. I had also planned to insert quick links to the update_review and delete_review pages, so that a user could quickly update and delete these reviews from the search_results and user_reviews pages. Whilst technically possible, it disrupted my styling and element placement, presumably because each search result card rendered on those pages is contained within an anchor element. I could have removed this parent anchor element, but chose not to because it makes tapping on a mobile device much easier. 
 
 When testing the user_reviews page, I noted that all of the reviews belonging to a particular user were displayed, whether they had been approved or not. When I clicked on these, I got Django error pages. This was the result of not using `filter(approved=True)` in the UserReviewsView. In solving this, I greatly expanded the functionality of that views, so that it checks whether a user has unapproved reviews. The reasoning behind this was that I had some text set to display if the object_list was empty that merely said that the user had not written any reviews. If indeed the user *had* written a review, but that review was not yet approved, it could cause the user to doubt that the add_review page was working properly. The UserReviewsView now considers 5 cases:
+
 - 1 - the user has not written any reviews. 
     - In this case, text will display informing the user of this and inviting them to write a review
 
@@ -1178,6 +1186,12 @@ When testing the user_reviews page, I noted that all of the reviews belonging to
 - 5 - the user has written one or more reviews, and all have been approved
     - In this case, all of the user's reviews will be displayed, with no additional text
 
+I considered that a search could return potentially dozens of results. In that case, scrolling through those records could be tiresome to a user. To resolve this, I implemented pagaination. This proved difficult, but ultimately surmountable. 
+
+It did not prove possible to implement pagination for the user_reviews page. As far as I understand it, pagination requires a queryset. However, the UserReviewsView constructs the queryset using a get method, whereas the paginate_by attribute must be placed in the parent class. Reworking the UserReviewView to use a get_queryset method, as in the 
+SearchResults view, could prove challenging, especially considering the reworking to provide different rendering contexts.
+
+I considered that the navbar was too busy. Previously, the number of navbar items had caused rendering and sizing issues. Whilst this had been dealt with by increasing the breakpoint at which the navbar collapsed, significantly expanding the size and scope of the project in future, such as by enabling all AllAuth account functionality, could prove problematic. Hence, I moved the My Reviews, Sign-out and Change Password links into a dropdown menu. This makes the navbar much cleaner. 
 
 # Development Choices
 
