@@ -86,7 +86,7 @@
                             <li><a class="dropdown-item" href="{% url 'bottled' %}">Bottled beers</a></li>
                             <li><a class="dropdown-item" href="{% url 'draught' %}">Draught beers</a></li>
                         </ul>
-                      </li>
+                    </li>
                     
                 </ul>
                 {% if user.is_authenticated %}
@@ -110,6 +110,7 @@
             </div>
         </div>
     </nav>
+    
 
     <main class="flex-shrink-0">
         {% block content %}

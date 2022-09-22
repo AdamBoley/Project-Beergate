@@ -938,6 +938,10 @@ Rejected:
 - Use the checking thing to check if a user is the post's author - if so, remove/disable the upvote button, or trigger it automatically - rejected as too difficult
     - adding an upvote automatically is difficult, since the add_review function does not allow an upvote to be assigned during the upload/save process
 
+- Optional purchased_from CharField in Review - rejected as unncessary. The beer name and brewery should be sufficient if a user wishes to search for a place to buy the beer from, plus it could prove confusing for users submitting reviews of draught ales
+
+
+
 
 In progress:
 - Review and update Bootstrap card structure for non-AllAuth templates:
@@ -979,10 +983,6 @@ Questions:
     - Ronan will look into this
 
 - For UpdateReview, say that this is based off of a code snippet, I understand what is happening in general if not specific terms. 
-
-
-
-- Optional purchased_from CharField in Review
 
 - look into displaying the total number of comments on the search_results and user_reviews pages using a similar thing to ReviewSingle
 
