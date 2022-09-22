@@ -395,7 +395,9 @@ The Comment model also contains a magic string method that returns a string of t
 
 #### Index views
 
-I have written a large number of views that render various versions of the the landing page using the index.html template. Each of these uses the generic Django ListView and in all cases the model is the Review model with pagination set to 4. 
+I have written a large number of views that render various versions of the the landing page using the index.html template. A view called LandingPage acts as a base. LandingPage is not used to render a page directly. Instead, the other index views inherit from it. LandingPage sets the model, template_name and pagination factor, but leaves the queryset to be defined by the inheriting views. 
+
+In previous builds, each index view defined the model, template_name, pagination factor and queryset individually. During the 'tidy-up' phase of development, I considered that this was a violation of DRY principles, so I set the index views to inherit from the LandingPage view, so that should I need to change the pagination factor, model or template name, I would only have to chaneg it in one place. Each index view only defines a unique queryset. 
 
 The justification for these various index views is [here](#ordering) 
 
@@ -915,25 +917,24 @@ Done:
 
 
 Rejected:
-- add update and delete buttons to user_reviews so that a user does not have to access each record individually - not possible, since the entire search result card is itself an anchor element, it cannot have other anchor elements as children
+- add update and delete buttons to user_reviews so that a user does not have to access each record individually - rejected as not possible, since the entire search result card is itself an anchor element, it cannot have other anchor elements as children
 
 - In UserReviewForm, apply bootstrap to RadioSelect widget with name, class, etc - rejected as unnecessary, since the extant radio buttons are clear enough
-Modify sorting to use a checkbox group like GW - https://stackoverflow.com/questions/31145498/how-to-submit-checklist-in-django-with-get - too complex, and too far along in development to implement a major feature like this
 
-- Allow the superuser (user ID = 1) to update and delete all posts as well as users, so that the admin does not have to use the admin panel
-    - related, allow the superuser to quickly access the admin panel from the front-end
-    - update method auto-disapproves, so admin panel access would be required anyway
-    - This renders the justification moot
-    - However, could use an AdminUpdateReview view that does not use the methods, and hence does not auto-disapprove the review
-    - on the other hand, this could be a security issue - if there is a partial security breach, where the superuser's admin credentials are compromised, then the dummy admin page still offers some protection. The attacker may have the admin credentials, but cannot put them to use beyong deleting or updating the admin's reviews
+- Modify sorting to use a checkbox group like [Games Workshop](https://www.games-workshop.com/en-GB/Warhammer-40-000) - rejected as too complex, and too far along in development to implement a major feature like this
+
+- Allow the superuser (user ID = 1) to update and delete all posts as well as users, so that the admin does not have to use the admin panel - rejected as this could compromise security:
+    - This could be a security issue - if there is a partial security breach, where the superuser's admin credentials are compromised, then the dummy admin page still offers some protection. The attacker may have the admin credentials, but cannot put them to use beyong deleting or updating the admin's reviews
     - if this feature is implemented, then an attacker can essentially have access to the admin panel from the front-end
     - also, if more superusers are added, then this feature may fail or would need to be recoded
     - My Mentor's thoughts are:
-    - This is separation of concerns issue
-    - superuser update/delete works fine in the admin panel
-    - The security concern is valid, since I have a 2-layered defence
-    - It is also a violation of DRY, since Django ships with a admin panel
+        - This is separation of concerns issue
+        - superuser update/delete works fine in the admin panel
+        - The security concern is valid, since I have a 2-layered defence
+        - It is also a violation of DRY, since Django ships with a admin panel
 
+- Use the checking thing to check if a user is the post's author - if so, remove/disable the upvote button, or trigger it automatically - rejected as too difficult
+    - adding an upvote automatically is difficult, since the add_review function does not allow an upvote to be assigned during the upload/save process
 
 
 In progress:
@@ -994,11 +995,6 @@ Questions:
 - Modify Reviews so that they have realistic content, not just Lorem Ipsum bulk text
 
 - Have enough records in the database so that all sorting and filtering views work and can be demostrated
-
-- Use the checking thing to check if a user is the post's author - if so, remove/disable the upvote button, or trigger it automatically. 
-    - adding an upvote automatically is difficult, since the add_review function does not allow an upvote to be assigned during the upload/save process
-    - disabling the upvote/downvote buttons is relatively simple - use the checker statement employed elsewhere
-
 
 Summernote editor:
 - continue tweaking settings, possibly apply different settings for the comment editor. 
@@ -1277,7 +1273,7 @@ The large number of commits made between 8/9/22 to 9/9/22 ultimately achieved no
 
 I considered adding the option to allow the superuser to update reviews on the front-end, but ... Justification for rejection....
 
-Previous versions of BeerGate had somewhat long and unwieldy views.py class names, such as AddReview. Late in development, I decided to simply these by removing extraneous instances of 'View' from these class names. The view for rendering a single Review was simplified from ReviewSingle to ReviewSingle
+Previous versions of BeerGate had somewhat long and unwieldy views.py class names, such as AddReview. Late in development, I decided to simply these by removing extraneous instances of 'View' from these class names. The view for rendering a single Review was simplified from ReviewSingle to ReviewSingle.
 
 ## Ordering
 11/9/22:
@@ -1333,7 +1329,8 @@ What happens when the tab duplication trick is used?
 
 404 error testing - does 404 page display?
 
-500 error testing - does 500 page display? Currently I can find no way of manually triggering a HTTP 500 response
+500 error testing - does 500 page display?
+I was unable to find a way of deliberately triggering a 500 error. However, one of my goals was to automatically add an upvote to a review when it is submitted. I tried this with `user_review_form.instance.author = request.user` added to AddReview's `if user_review_form.is_valid()` block. When I filled out and submitted the form, a 500 error triggered, rendering the 500.html template. This is a somewhat roundabout way of tiggering a 500 error, but a valid one for testing purposes. 
 
 
 

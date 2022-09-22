@@ -8,138 +8,114 @@ from django.db.models import Q
 from django.db.models import Count, Avg
 
 
-class ReviewList(generic.ListView):
+class LandingPage(generic.ListView):
+    """
+    Base view to populate the landing page
+    Defines the model, template name and pagination factor
+    This view is not directly called, but serves as a base that -
+    - is inherited by other views
+    """
+    model = Review
+    template_name = 'index.html'
+    paginate_by = 3
+
+
+class ReviewList(LandingPage):
     """
     The default view to populate the landing page
     sorts reviews by timestamp in descending order
     Newest reviews appear first
     """
-    model = Review
     queryset = Review.objects.filter(approved=True).order_by('-timestamp')
-    template_name = 'index.html'
-    paginate_by = 3
 
 
-class ReviewListMostUpvotes(generic.ListView):
+class ReviewListMostUpvotes(LandingPage):
     """
     A sorting view that populates the landing page
     sorts reviews by upvote count using annotate method
     """
-    model = Review
     queryset = Review.objects.filter(approved=True).annotate(upvote_count=Count('upvotes')).order_by('-upvote_count')
-    template_name = 'index.html'
-    paginate_by = 3
 
 
-class ReviewListOldest(generic.ListView):
+class ReviewListOldest(LandingPage):
     """
     A sorting view that populates the landing page
     sorts reviews by timestamp in ascending order
     Oldest reviews appear first
     """
-    model = Review
     queryset = Review.objects.filter(approved=True).order_by('timestamp')
-    template_name = 'index.html'
-    paginate_by = 3
 
 
-class ReviewListAleType(generic.ListView):
+class ReviewListAleType(LandingPage):
     """
     A filtering view that populates the landing page
     Filters out reviews that do not have a type of Ale
     """
-    model = Review
     queryset = Review.objects.filter(approved=True).filter(type='Ale').order_by('timestamp')
-    template_name = 'index.html'
-    paginate_by = 3
 
 
-class ReviewListStoutType(generic.ListView):
+class ReviewListStoutType(LandingPage):
     """
     A filtering view that populates the landing page
     Filters out reviews that do not have a type of Stout
     """
-    model = Review
     queryset = Review.objects.filter(approved=True).filter(type='Stout').order_by('timestamp')
-    template_name = 'index.html'
-    paginate_by = 3
 
 
-class ReviewListLagerType(generic.ListView):
+class ReviewListLagerType(LandingPage):
     """
     A filtering view that populates the landing page
     Filters out reviews that do not have a type of Lager
     """
-    model = Review
     queryset = Review.objects.filter(approved=True).filter(type='Lager').order_by('timestamp')
-    template_name = 'index.html'
-    paginate_by = 3
 
 
-class ReviewListPaleColour(generic.ListView):
+class ReviewListPaleColour(LandingPage):
     """
     A filtering view that populates the landing page
     Filters out reviews that do not have a colour of Pale
     """
-    model = Review
     queryset = Review.objects.filter(approved=True).filter(colour='Pale').order_by('timestamp')
-    template_name = 'index.html'
-    paginate_by = 3
 
 
-class ReviewListGoldenColour(generic.ListView):
+class ReviewListGoldenColour(LandingPage):
     """
     A filtering view that populates the landing page
     Filters out reviews that do not have a colour of Golden
     """
-    model = Review
     queryset = Review.objects.filter(approved=True).filter(colour='Golden').order_by('timestamp')
-    template_name = 'index.html'
-    paginate_by = 3
 
 
-class ReviewListAmberColour(generic.ListView):
+class ReviewListAmberColour(LandingPage):
     """
     A filtering view that populates the landing page
     Filters out reviews that do not have a colour of Amber
     """
-    model = Review
     queryset = Review.objects.filter(approved=True).filter(colour='Amber').order_by('timestamp')
-    template_name = 'index.html'
-    paginate_by = 3
 
 
-class ReviewListDarkColour(generic.ListView):
+class ReviewListDarkColour(LandingPage):
     """
     A filtering view that populates the landing page
     Filters out reviews that do not have a colour of Dark
     """
-    model = Review
     queryset = Review.objects.filter(approved=True).filter(colour='Dark').order_by('timestamp')
-    template_name = 'index.html'
-    paginate_by = 3
 
 
-class ReviewListBottled(generic.ListView):
+class ReviewListBottled(LandingPage):
     """
     A filtering view that populates the landing page
     Filters out reviews that were not served as bottled beers
     """
-    model = Review
     queryset = Review.objects.filter(approved=True).filter(served_as=1).order_by('timestamp')
-    template_name = 'index.html'
-    paginate_by = 3
 
 
-class ReviewListDraught(generic.ListView):
+class ReviewListDraught(LandingPage):
     """
     A filtering view that populates the landing page
     Filters out reviews that were not served as draught beers
     """
-    model = Review
     queryset = Review.objects.filter(approved=True).filter(served_as=2).order_by('timestamp')
-    template_name = 'index.html'
-    paginate_by = 3
 
 
 class ReviewSingle(View):
