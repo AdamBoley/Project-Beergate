@@ -275,7 +275,7 @@ Final screenshot of lower review page:
 
 ## Add Review page
 
-The add_review page is rendered using the add_review template and the AddReviewView. 
+The add_review page is rendered using the add_review template and the AddReview. 
 
 The add_review page allows a user to write and submit a beer review of their own. This is done via a form. The user must enter all of the necessary information about the beer - the name, brewery, type, colour, alcohol content, a short description, their full review and then their score in each of 4 categories - aroma, appearance, taste and aftertaste. The user may also upload an image, though this is optional. If no image is uploaded, the review will display a placeholder image. The user may select whether the beer was served bottled or on draught. 
 
@@ -287,7 +287,7 @@ Final screenshot of lower add review page:
 
 ## Update Review page
 
-The update_review page is rendered using the update_review template and the UpdateReviewView view. It functions similarly to the add_review template as the form uses the same form template and fields, except that the form fields are pre-populated with the extant records. A user may update any of the review's information, including the image. When submitted, the record is automatically disapproved, and a text box displays informing the user of this. 
+The update_review page is rendered using the update_review template and the UpdateReview view. It functions similarly to the add_review template as the form uses the same form template and fields, except that the form fields are pre-populated with the extant records. A user may update any of the review's information, including the image. When submitted, the record is automatically disapproved, and a text box displays informing the user of this. 
 
 Final screenshot of upper update review page:
 
@@ -295,7 +295,7 @@ Final screenshot of lower update review page:
 
 ## Delete Review page
 
-The delete_review page is rendered using the delete_review template and the DeleteReviewView view. It is a simple template, and allows a user to delete a particular review. Rather than having a simple button to do this, I considered that placing the actual delete button inside a modal would be superior, to prevent a review being deleted by accident. In this way, a user must actively seek to delete a review. 
+The delete_review page is rendered using the delete_review template and the DeleteReview view. It is a simple template, and allows a user to delete a particular review. Rather than having a simple button to do this, I considered that placing the actual delete button inside a modal would be superior, to prevent a review being deleted by accident. In this way, a user must actively seek to delete a review. 
 
 Final screenshot of delete review page:
 
@@ -309,7 +309,7 @@ Final screenshot of search results page:
 
 ## User Reviews page
 
-The user_reviews page is rendered using the UserReviewsView. The design is intentionally very similar to that of the search_results page, including the lack of images on smaller screen sizes, as I view both pages as a means of listing some collection of reviews, though obviously the difference lies in *how* that collection is assembled - this is dicussed in more detail in the Function section. The only noticable difference is that the user_reviews page's search results do not display the author of the reviews. As the author of the review is the user themselves, I considered this to be redundant. 
+The user_reviews page is rendered using the UserReviews. The design is intentionally very similar to that of the search_results page, including the lack of images on smaller screen sizes, as I view both pages as a means of listing some collection of reviews, though obviously the difference lies in *how* that collection is assembled - this is dicussed in more detail in the Function section. The only noticable difference is that the user_reviews page's search results do not display the author of the reviews. As the author of the review is the user themselves, I considered this to be redundant. 
 
 The idea behind the implementation of this page is to allow a user to quickly see all of the reviews that they have written, so that they can update or delete them in one place, and also quickly see the number of upvotes and downvotes that other users have made against their reviews. The page also allows users to quickly visit each of their reviews to see the comments other users have posted. 
 
@@ -443,7 +443,7 @@ ReviewListDraught filters out beers that do not have 2 (meaning draught, since s
 
 #### Review view
 
-The view that renders the entirety of a single review using the review.html page is called BeerReviewSingle. 
+The view that renders the entirety of a single review using the review.html page is called ReviewSingle. 
 
 This view holds two methods - a get method and a post method. These are little different from the PostDetail view of the walkthrough project, except that in each method I have chosen to explictly define a variable called context to hold the object that holds the various key - value pairs that can be used in the template. I consider that this is a more pythonic way of doing things, and I generally prefer explict variable declarations anyway. 
 
@@ -453,17 +453,17 @@ The post method functions similarly, except that it has additional code to handl
 
 #### Search Results view
 
-The SearchResultsView view renders the search_results page using the search_results.html page. The object_list, which holds the reviews that are displayed, is constructed using the get_queryset method, which retrieves the search term used in the navbar's search box input element as a variable called query. The object_list is then constructed using a standard filter method that uses [Q Objects](https://docs.djangoproject.com/en/4.0/topics/db/queries/#complex-lookups-with-q-objects) to chain filters together. The code in this view was written using [this tutorial](https://learndjango.com/tutorials/django-search-tutorial), authored by known Django expert Will Vincent. The object_list is the returned for use within the template using templating language.  
+The SearchResults view renders the search_results page using the search_results.html page. The object_list, which holds the reviews that are displayed, is constructed using the get_queryset method, which retrieves the search term used in the navbar's search box input element as a variable called query. The object_list is then constructed using a standard filter method that uses [Q Objects](https://docs.djangoproject.com/en/4.0/topics/db/queries/#complex-lookups-with-q-objects) to chain filters together. The code in this view was written using [this tutorial](https://learndjango.com/tutorials/django-search-tutorial), authored by known Django expert Will Vincent. The object_list is the returned for use within the template using templating language.
 
 #### User Reviews view
 
-The UserReviewsView view renders the user_reviews page using the user_reviews.html template. It is relatively simple, using get method to construct a queryset consisting of all reviews belonging to a particular user that have been approved. As in BeerReviewSingle, a context variable has been explictly defined outside of the return statement that is then called in that return statement. 
+The UserReviews view renders the user_reviews page using the user_reviews.html template. It is relatively simple, using get method to construct a queryset consisting of all reviews belonging to a particular user that have been approved. As in ReviewSingle, a context variable has been explictly defined outside of the return statement that is then called in that return statement. 
 
 #### Add Review view
 
-The AddReviewView view renders the add_review page using the add_review.html template. This is, if you will, the meat of the project, as it allows a user to upload a beer review using a form. The form itself is rendered using the form_class variable set to the imported UserReviewForm. In previous versions of the project, as in the walkthrough project, a get method was used to render this form. Using the form_class variable reduces the amount of code required considerably, and thereby reduces complexity. The UserReviewForm is discussed in more detail [here](#userreviewform).
+The AddReview view renders the add_review page using the add_review.html template. This is, if you will, the meat of the project, as it allows a user to upload a beer review using a form. The form itself is rendered using the form_class variable set to the imported UserReviewForm. In previous versions of the project, as in the walkthrough project, a get method was used to render this form. Using the form_class variable reduces the amount of code required considerably, and thereby reduces complexity. The UserReviewForm is discussed in more detail [here](#userreviewform).
 
-Form submission is handled using the post method. This functions similarly to the code that handles comment submission in the BeerReviewSingle view, essentially checking if the submitted form is valid, and the attaching the user ID if so, so that the review 'belongs' to that particular user. Additional lines of code ensure that the `name`, `brewery` and `hops` field inputs are titled, and that the `type` and `colour` field inputs are capitalised. These were added for two reasons. Firstly, the filtering views that filter by `type` and `colour` are case-sensitive. If the `type` and `colour` field inputs are not capitalised, the filtering views will not include them. For example, the ReviewListAleType view filters by `type = Ale`, so only reviews with a type field input of `Ale`, specifically capitalised, will be included in the queryset. Whilst non-capitalised field inputs could be easily recified in the admin panel, this sort of menial work is better handled by a computer. The second reason is that the `name` and `brewery` field inputs are injected into the templates, and having each word capitalised makes the app feel more professional. The title() method was used because the names of many beers and breweries consist of multiple words, such as the beer called Surrey Nirvana or the brewery Bear Island. The `hops` field is currently not injected, but the field input was titled should this be changed. In addition, the `keywords` field input is lowercased using the lower() method. The reasoning is similar to that for capitalising the `name` and `brewery` field inputs - the `keywords` field is injected into the templates, but in this case, as part of a sentence starting with `Described as`. Having random capital letters in the middle of a sentence is jarring and distracting.
+Form submission is handled using the post method. This functions similarly to the code that handles comment submission in the ReviewSingle view, essentially checking if the submitted form is valid, and the attaching the user ID if so, so that the review 'belongs' to that particular user. Additional lines of code ensure that the `name`, `brewery` and `hops` field inputs are titled, and that the `type` and `colour` field inputs are capitalised. These were added for two reasons. Firstly, the filtering views that filter by `type` and `colour` are case-sensitive. If the `type` and `colour` field inputs are not capitalised, the filtering views will not include them. For example, the ReviewListAleType view filters by `type = Ale`, so only reviews with a type field input of `Ale`, specifically capitalised, will be included in the queryset. Whilst non-capitalised field inputs could be easily recified in the admin panel, this sort of menial work is better handled by a computer. The second reason is that the `name` and `brewery` field inputs are injected into the templates, and having each word capitalised makes the app feel more professional. The title() method was used because the names of many beers and breweries consist of multiple words, such as the beer called Surrey Nirvana or the brewery Bear Island. The `hops` field is currently not injected, but the field input was titled should this be changed. In addition, the `keywords` field input is lowercased using the lower() method. The reasoning is similar to that for capitalising the `name` and `brewery` field inputs - the `keywords` field is injected into the templates, but in this case, as part of a sentence starting with `Described as`. Having random capital letters in the middle of a sentence is jarring and distracting.
 
 This is necessary to ensure that the sorting and filtering views work properly, as the filter methods used therein are case-sensitive. The capitalise method has the added, and to me surprising, effect of converting all-uppercased inputs (e.g. type = STOUT or colour = PALE) to standard capitalised inputs (e.g type = Stout or colour = Pale).
 
@@ -471,7 +471,7 @@ A context variable is then defined and a return statement renders the template a
 
 #### Update Review view
 
-The UpdateReviewView view renders the update_review page using the update_review.html template. This a necessary companion to the AddReviewView, as it allows a user to update their reviews. As with the AddReviewView, a form_class variable specifies that the UserReviewForm is to be used. The view uses 3 methods - a get method, a post method and a form_valid method. These methods are necessary because I wanted this view to automatically disapprove reviews when they are updated. As discussed in the [bugs section](#bugs), this is a prudent security measure and part of the defensive programming employed in BeerGate. I found that without these methods, when the form is submitted, the review instantly and automatically holds the updated information. This is a vulnerability that a malicious user could exploit, first by submitting a seemingly-genuine review, getting it approved and then updating it with malicious/inappropriate/offensive content. 
+The UpdateReview view renders the update_review page using the update_review.html template. This a necessary companion to the AddReview view, as it allows a user to update their reviews. As with the AddReview, a form_class variable specifies that the UserReviewForm is to be used. The view uses 3 methods - a get method, a post method and a form_valid method. These methods are necessary because I wanted this view to automatically disapprove reviews when they are updated. As discussed in the [bugs section](#bugs), this is a prudent security measure and part of the defensive programming employed in BeerGate. I found that without these methods, when the form is submitted, the review instantly and automatically holds the updated information. This is a vulnerability that a malicious user could exploit, first by submitting a seemingly-genuine review, getting it approved and then updating it with malicious, inappropriate or offensive content. 
 
 Full credit for the design of these methods goes to [this Reddit question](https://www.reddit.com/r/django/comments/8jkh5t/updateview_creates_new_items_in_the_db_instead_of/), where the author appears to have had a similar issue, and they answer their own question. I confess that I do not fully understand what these methods are doing, but my understanding is as follows:
 
@@ -481,11 +481,11 @@ Within the post method is code similar to that employed in the AddReview view wh
 
 #### Delete Review view
 
-The DeleteReviewView view renders the delete_review page using the delete_review.html template. This view uses the generic Django DeleteView which allows easy deletion of records. Once the review has been deleted, the success_url variable redirects the user back to the landing page. 
+The DeleteReview view renders the delete_review page using the delete_review.html template. This view uses the generic Django DeleteView which allows easy deletion of records. Once the review has been deleted, the success_url variable redirects the user back to the landing page. 
 
 #### Review Upvote and Review Downvote
 
-The ReviewUpvote and ReviewDownvote views handle upvoting and downvoting of reviews. They are essentially identical, and the core code borrows heavily from the walkthrough project's PostLike view. I have made my own additions inside the ELSE blocks of the post methods which make upvotes and downvotes mutually exclusive - that is, a user may either upvote or downvote a review, not both, and if a user has previously upvoted a review, then downvoting it will remove the extant upvote, and vice versa. Once a vote has been applied, the user is redirected back to the review they were voting on. 
+The ReviewUpvote and ReviewDownvote views handle upvoting and downvoting of reviews. They are essentially identical, and the core code borrows heavily from the walkthrough project's PostLike view. I have made my own additions inside the ELSE blocks of the post methods which makes upvotes and downvotes mutually exclusive - that is, a user may either upvote or downvote a review, not both, and if a user has previously upvoted a review, then downvoting it will remove the extant upvote, and vice versa. Once a vote has been applied, the user is redirected back to the review they were voting on.
 
 ### Reviews Forms
 
@@ -493,7 +493,7 @@ The forms file contains two form classes - CommentForm and UserReviewForm. As is
 
 #### CommentForm
 
-The CommentForm class is quite simple - it sets that the only field to be displayed is the content field, which is made into a Rich Text Editor by way of the SummernoteWidget. The label is also modified to 'Your comment' 
+The CommentForm class is quite simple - it sets that the only field to be displayed is the content field, which is made into a Rich Text Editor by way of the SummernoteWidget. The label is also modified to 'Your comment'.
 
 #### UserReviewForm
 
@@ -501,7 +501,7 @@ The UserReviewForm class appears to be more complex, but is functionally similar
 
 ### Reviews URLS
 
-The urls file holds the urlpatterns for the reviews app. Most of the paths apply to the previously-mentioned sorting and filtering views that render various versions of the landing page. After these comes the add_review, search and user_review pages. Lastly come the paths which render the review pages and the pages for updating and deleting records, as well as the upvote and downvote paths. As previously mentioned, reviews are not listed by their slug but instead by their primary key, so for paths that deal with specific records, `<int:pk>` is used instead of `<slug:slug>` as in the walkthrough project.   
+The urls file holds the urlpatterns for the reviews app. Most of the paths apply to the previously-mentioned sorting and filtering views that render various versions of the landing page. After these comes the add_review, search and user_review pages. Lastly come the paths which render the review pages and the pages for updating and deleting records, as well as the upvote and downvote paths. As previously mentioned, reviews are not listed by their slug but instead by their primary key, so for paths that deal with specific records, `<int:pk>` is used instead of `<slug:slug>` as in the walkthrough project. 
 
 I learned early on in development that paths that take in arguments are considered more general, and must hence be placed below more specific paths. Prior to learning this, an error would occur whenever I tried to naviagte to the add_review page. Thankfully Tutor Support were able to teach me this. As it turned out, I had all of the pieces in place, and the ordering of the urlpatterns was the only barrier. 
 
@@ -728,7 +728,7 @@ Views created successfully and above problem solved - see bugs section.
 
 ### Single beer review page
 
-Create BeerReviewSingle view that contains a get method and a return render
+Create ReviewSingle view that contains a get method and a return render
 
 Create a template to display the review - beer_review_single.html
 
@@ -847,7 +847,7 @@ Done:
 - Review generic placeholder image - done, new image will much greater resolution used which is better for the review.html page
 - Provide a consistent aspect ratio for post images - done by sizing the image-container element using bootstrap classes
 - Not all cards displaying on mobile devices - done by reworking html structure and css rules
-- Fix bug related to UpdateReviewView creating a new record - done
+- Fix bug related to UpdateReview creating a new record - done
 - Implement Django HoneyPot - done
 - Add settings.py booleans to enhance security - done
 - Apply bootstrap to search results and user reviews page - done
@@ -892,7 +892,7 @@ Done:
 - Navbar fails to render properly on horizontal tablets - screen widths 992 to 1400px / lg to xxl breakpoints - done
 - review reviews/admin.py to see if more terms need to be added to the control variables - done
 - Footer - done
-- In BeerReviewSingle view, UserReviewsView view and AddReviewView, explicitly define a context variable to hold the object in the return statement, then call context in that return. Do same with template_name variable - done
+- In ReviewSingle view, UserReviews view and AddReview, explicitly define a context variable to hold the object in the return statement, then call context in that return. Do same with template_name variable - done
 - add return of average_score method to index card - done
 - Fix issue of floated card content becoming misaligned at smaller screen sizes - done
 - decreased number of cards on index page to 3 so that background image is less obscured - done
@@ -907,6 +907,11 @@ Done:
 - Find and apply a favicon - done
 - Custom 404 and 500 error pages - done
 - add class and method docstrings - done
+- Capitalise or title AddReview `name`, `brewery`, `hops`, `type` and `colour` field inputs - done
+- Capitalise or title UpdateReview `name`, `brewery`, `hops`, `type` and `colour` field inputs - done
+- Lowercase AddReview and UpdateReview `keywords` field input - done
+- After submitting a User Review Form, add a link to submit a new review to the success text box - done
+- Simplify views.py class names - done
 
 
 Rejected:
@@ -972,27 +977,17 @@ Questions:
 
 - For UpdateReview, say that this is based off of a code snippet, I understand what is happening in general if not specific terms. 
 
-
-
-- Capitalise AddReviewView type and colour inputs, similar to how user id is retrieved
-
 - Add blank and null to Hops field, modify input label to be specifically optional
 
 - Optional purchased_from CharField in Review
 
-- look into displaying the total number of comments on the search_results and user_reviews pages using a similar thing to BeerReviewSingle
+- look into displaying the total number of comments on the search_results and user_reviews pages using a similar thing to ReviewSingle
 
 - update image field label in add_review and update_review to explictly make it optional
-
-- After submitting a User Review Form, add a link to submit a new review to the success text box
 
 - ensure all templating language is properly indented
 
 - remove all extraneous / commented-out code
-
-- Remove unnecessary 'View's for views class-names
-
-- Add additional classes to forms.py widgets to control input element widths?
 
 - Implement tests from Django-Experimentation repo
 
@@ -1074,7 +1069,7 @@ Given that I was using code that is largely identical to that of the walkthrough
 
 
 12/8/22:
-When adding a form that would allow users to post beer reviews, I encountered a 404 error where the user_review.html page could not be located, despite being present. Tutor support were eventually able to find the problem - the UserReview url path had to be above the BeerReviewSingle path, per the [URL dispatcher documentation](https://docs.djangoproject.com/en/4.1/topics/http/urls/). Once this had been implemented, the page displayed as expected. However, the form did not display. This proved easy to diagnose - in views.py I had `"user_review": UserReviewForm()` in the dictionary of the return render, whereas I was using `user_review_form` in the templating language of `user_review.html`. Changing the view code to `user_review_form` caused the form entry fields to be displayed as expected. A quick test using a beer called Surrey Nirvana from the Hogsback brewery confirmed that the form was working and had been submitted to the backend. Logging in as the superuser allowed me to approve this entry, and it was then displayed as expected. Formatting remains an issue, but this should be easily corrected. 
+When adding a form that would allow users to post beer reviews, I encountered a 404 error where the user_review.html page could not be located, despite being present. Tutor support were eventually able to find the problem - the AddReview url path had to be above the ReviewSingle path, per the [URL dispatcher documentation](https://docs.djangoproject.com/en/4.1/topics/http/urls/). Once this had been implemented, the page displayed as expected. However, the form did not display. This proved easy to diagnose - in views.py I had `"user_review": UserReviewForm()` in the dictionary of the return render, whereas I was using `user_review_form` in the templating language of `user_review.html`. Changing the view code to `user_review_form` caused the form entry fields to be displayed as expected. A quick test using a beer called Surrey Nirvana from the Hogsback brewery confirmed that the form was working and had been submitted to the backend. Logging in as the superuser allowed me to approve this entry, and it was then displayed as expected. Formatting remains an issue, but this should be easily corrected. 
 
 One issue remains - on the front-end form, per the model, there is an image field. An image can be selected using a standard image upload interface, but this does not appear to be passed into the admin backend, as the image name there defaults to the placeholder image. 
 
@@ -1109,7 +1104,7 @@ Within Comment(unchanged):
 
 
 19/8/22:
-When designing the user review form that allows users to submit their own beer reviews, and implementing the backend code to handle this, I noted that the form was not uploading images that had been attached in the image field. A Django blog walkthrough video on Youtube suggested using an ImageField, and then storing images directly in the repository. Whilst I considered that this might be an acceptable work-around, I concluded that it would not for extensibility reasons. Many users uploading many images would bloat that directory. I then found [Cloudinary's documentation on image uploading](https://cloudinary.com/documentation/django_image_and_video_upload). I determined that I already had most of the pieces in place, though their code snippets pre-suppose the use of function-based views. Merely adding `{% load cloudinary %}` to the HTML file, and adding `request.FILES` to the post method of the AddReviewView view was sufficient to get this working. A database entry with name `image upload test` is testament to this - this entry's image was uploaded using the form, not via the admin backend, though I have disapproved it since the image is poorly-sized. 
+When designing the user review form that allows users to submit their own beer reviews, and implementing the backend code to handle this, I noted that the form was not uploading images that had been attached in the image field. A Django blog walkthrough video on Youtube suggested using an ImageField, and then storing images directly in the repository. Whilst I considered that this might be an acceptable work-around, I concluded that it would not for extensibility reasons. Many users uploading many images would bloat that directory. I then found [Cloudinary's documentation on image uploading](https://cloudinary.com/documentation/django_image_and_video_upload). I determined that I already had most of the pieces in place, though their code snippets pre-suppose the use of function-based views. Merely adding `{% load cloudinary %}` to the HTML file, and adding `request.FILES` to the post method of the AddReview view was sufficient to get this working. A database entry with name `image upload test` is testament to this - this entry's image was uploaded using the form, not via the admin backend, though I have disapproved it since the image is poorly-sized. 
 
 19/8/22:
 After implementing the functionality to update and delete posts, I was researching ways to limit only the user of a post to edit or delete it. In doing so, I came across a potential vulnerability - a logged in user may duplicate their tab and then using that second tab, navigate to the user_review, update_review and delete_review pages. If they then log out using the first tab and refresh the second tab, that second tab remains on those pages, effectively giving a logged-out user continued access to functionality that only logged in users should have. Fortunately, I already had `{% if user.is_authenticated %}` control statements in these pages, so that if a user tries the above work-around, the content will not display. It is possible that a user might do this accidentally, so I added text and links to the login page if the user is not authenticated. This is also intended to tweak-off a malicious user. 
@@ -1133,9 +1128,9 @@ Until this point, the background image for the application and the placeholder i
 The main background image caused problems when the app was viewed on mobile devices, with all of the first review and most of the second hidden. I determined that this was due to the main background image being applied to the `<main>` element in base.html. When changed to apply to the body element, the navbar moved. I determined that this was because the ruleset included the display: flex and align-items: center style rules which govern the layout of each page. Separating the ruleset out so that the display rules were applied to the `main` element and the background image style rules were applied to the `body` element solved this problem. I also removed the previously-applied `opaque-overlay` class selector, instead folding the style rules contained therein into the `main` selector. These changes solved the problem, allowing all of the reviews to be displayed on mobile devices with a fully-darkened background image as intended. 
 
 3/9/22:
-When I initially implemented the UpdateReviewView to enable a user to update their own Reviews on the front-end, it occurred to me that a malicious user could exploit the fact that when a review is updated, it is not automatically disapproved. In order to do so, a malicious user would need to pose as a normal user and submit a seemingly-genuine beer review that would likely be approved without issue. Then, said malicious user could simply update their review with their malicious content, and it would be unlikely that an administrator would see this in order to remove it. I ran this past both my Mentor and an experienced software developer friend of mine, and both agreed that this was a potential vulnerability. 
+When I initially implemented the UpdateReview to enable a user to update their own Reviews on the front-end, it occurred to me that a malicious user could exploit the fact that when a review is updated, it is not automatically disapproved. In order to do so, a malicious user would need to pose as a normal user and submit a seemingly-genuine beer review that would likely be approved without issue. Then, said malicious user could simply update their review with their malicious content, and it would be unlikely that an administrator would see this in order to remove it. I ran this past both my Mentor and an experienced software developer friend of mine, and both agreed that this was a potential vulnerability. 
 
-An initial solution involved using a post method inside the UpdateReviewView, however I noted that this actually had the effect of creating a new record with the updated content. For a time I considered that this was an acceptable solution - since the new record would be automatically disapproved, any malicious content would not be visible and could be safely removed by an administrator. However, this new record also did not have an image attached, which would require an image to be added by the administrator. If the user was replacing the image, this would have been problematic. 
+An initial solution involved using a post method inside the UpdateReview, however I noted that this actually had the effect of creating a new record with the updated content. For a time I considered that this was an acceptable solution - since the new record would be automatically disapproved, any malicious content would not be visible and could be safely removed by an administrator. However, this new record also did not have an image attached, which would require an image to be added by the administrator. If the user was replacing the image, this would have been problematic. 
 
 I spent a long time searching for a solution, and I found several StackOverflow questions that point to the creation of a duplicate record when using the generic UpdateView being a common issue. I eventually found [this Reddit post](https://www.reddit.com/r/django/comments/8jkh5t/updateview_creates_new_items_in_the_db_instead_of/), in which the author answers their own question. The author's use-case appears to be slightly different from mine, but it is sufficiently similar that I was able to appropriate most of their code. With a few adjustments, notably adding `user_update_form.instance.approved = False` and altering the return statement to render the `update_review.html` page with the Updated flag set to True, I was able to update a record and then see the confirmation message. When I went to the index page, I noted that the record I had updated was absent. I then checked the admin panel and noted that the record had been automatically unapproved. When I accessed that record, I noted that the update I had made appeared. When I approved the record and visited the index page, the record was visible. When I clicked on the card to visit the detail page, the updated content was visible. This was immensely satisfying. Best of all, since the record is being updated, the image remains unchanged and does not default to the placeholder. 
 
@@ -1193,7 +1188,7 @@ On smaller screen sizes, I noted that the supplementary beer review information 
 
 I noted that the user_reviews and search_results pages were quite bare, so I added the same supplementary information that had been added to the index page - type, colour, brewery, etc. I had also planned to insert quick links to the update_review and delete_review pages, so that a user could quickly update and delete these reviews from the search_results and user_reviews pages. Whilst technically possible, it disrupted my styling and element placement, presumably because each search result card rendered on those pages is contained within an anchor element. I could have removed this parent anchor element, but chose not to because it makes tapping on a mobile device much easier. 
 
-When testing the user_reviews page, I noted that all of the reviews belonging to a particular user were displayed, whether they had been approved or not. When I clicked on these, I got Django error pages. This was the result of not using `filter(approved=True)` in the UserReviewsView. In solving this, I greatly expanded the functionality of that views, so that it checks whether a user has unapproved reviews. The reasoning behind this was that I had some text set to display if the object_list was empty that merely said that the user had not written any reviews. If indeed the user *had* written a review, but that review was not yet approved, it could cause the user to doubt that the add_review page was working properly. The UserReviewsView now considers 5 cases:
+When testing the user_reviews page, I noted that all of the reviews belonging to a particular user were displayed, whether they had been approved or not. When I clicked on these, I got Django error pages. This was the result of not using `filter(approved=True)` in the UserReviews. In solving this, I greatly expanded the functionality of that views, so that it checks whether a user has unapproved reviews. The reasoning behind this was that I had some text set to display if the object_list was empty that merely said that the user had not written any reviews. If indeed the user *had* written a review, but that review was not yet approved, it could cause the user to doubt that the add_review page was working properly. The UserReviews now considers 5 cases:
 
 - 1 - the user has not written any reviews. 
     - In this case, text will display informing the user of this and inviting them to write a review
@@ -1212,7 +1207,7 @@ When testing the user_reviews page, I noted that all of the reviews belonging to
 
 I considered that a search could return potentially dozens of results. In that case, scrolling through those records could be tiresome to a user. To resolve this, I implemented pagaination. This proved difficult, but ultimately surmountable. 
 
-It did not prove possible to implement pagination for the user_reviews page. As far as I understand it, pagination requires a queryset. However, the UserReviewsView constructs the queryset using a get method, whereas the paginate_by attribute must be placed in the parent class. Reworking the UserReviewView to use a get_queryset method, as in the 
+It did not prove possible to implement pagination for the user_reviews page. As far as I understand it, pagination requires a queryset. However, the UserReviews constructs the queryset using a get method, whereas the paginate_by attribute must be placed in the parent class. Reworking the UserReviews view to use a get_queryset method, as in the 
 SearchResults view, could prove challenging, especially considering the reworking to provide different rendering contexts.
 
 I considered that the navbar was too busy. Previously, the number of navbar items had caused rendering and sizing issues. Whilst this had been dealt with by increasing the breakpoint at which the navbar collapsed, significantly expanding the size and scope of the project in future, such as by enabling all AllAuth account functionality, could prove problematic. Hence, I moved the My Reviews, Sign-out and Change Password links into a dropdown menu. This makes the navbar much cleaner. 
@@ -1221,7 +1216,7 @@ Much like the search_results page, I considered that the queryset used to popula
 
 Should BeerGate become an active beer review site, the size of the database could quickly expand. Since the extant sorting, filtering and search functions order the constructed queryset by timestamp, this means that older reviews would quickly become 'buried' in the database, so to speak, as they would be so far along the pagination track that they would be rarely, if ever, accessed. This might be referred to as the 'Google Search Problem', as it commonly acknowledged that when doing a Google Search, few people ever go beyond the first page when looking for a viable search result. To overcome this, I wanted to implement a randomiser feature that would take the user to a random review. This proved difficult, but ultimately surmountable. 
 
-I achieved this by using a variation on the BeerReviewSingle view, which I called RandomReview. Within the get method, I constructed a randomised queryset using: <br>
+I achieved this by using a variation on the ReviewSingle view, which I called RandomReview. Within the get method, I constructed a randomised queryset using: <br>
 `queryset = Review.objects.filter(approved=True).order_by('?')`
 <br>
 
@@ -1240,9 +1235,7 @@ When formatting the admin panel, I decided to allow filtering by 5 categories - 
 19/8/22:
 To create the functionality that allows users to update posts, major changes were made to the views.py file, per [this series of django tutorials](https://www.youtube.com/playlist?list=PLCC34OHNcOtr025c1kHSPrnP18YPB-NFi)
 
-UserReview was renamed to AddReviewView, and was changed to use the CreateView generic view, which allowed me to remove the get method (currently commented out)
-
-A new view called UpdateReviewView was created, using the generic UpdateView. Get and post methods exist in this view, but are commented out. The get method is probably unnecessary, but the post method may be necessary, but it currently creates a duplicate record. 
+AddReview was previously named UserReview, and was changed to use the CreateView generic view, which allowed me to remove the get method. The renaming was necessary because I also had a view called UserReviews, which could have caused confusion. 
 
 25/8/22:
 When implementing the modal for the delete_review page, I found that when the close button was placed outside of the form that it was mis-aligned with the button to confirm the deletion. Rather than try to manual align the buttons with custom CSS that might produce unexpected results for different viewports, I solved this problem by placing the button within the form element. This does not appear to have any unintended side-effects. 
@@ -1280,9 +1273,11 @@ Styling the user_review and search_results pages proved difficult for mobile dev
 My Mentor noted that the standard Bootstrap navbar design is quite muted and bland. He suggested using a bolder, more prominent design. To accomplish this, I changed the background colour to dark orange, with the intention of mimicking the colour of a pint of beer. I initially used white text to mimic the foamy head of a pint, but upon checking the colour contrast with [WebAIM](https://webaim.org/resources/contrastchecker/), I noted that white on orange provided insufficient colour contrast. To counter this, I switched to using black text with a increased font-size and font-weight. I also added a hover effect to the navbar button links to turn them white when moused over, so as to provide clear user feedback that they are about to a click a button. 
 
 11/9/22:
-The large number of commits made between 8/9/22 to 9/9/22 ultimately achieved nothing, except for some documentation regarding learning about how Django and Cloudinary work, and a minor fix to the AddReviewView that updated the name of the template being used. I considered deleting or reverting these commits but decided against this. Commit deletion is considered bad practice and commit reversion would achieve nothing, since the last commit made on 9/9/22 essentially restored the project to its last working state, except that the Review model's content field now uses a standard TextField instead of CK-editor's RichTextField or TinyMCE's HTMLField. 
+The large number of commits made between 8/9/22 to 9/9/22 ultimately achieved nothing, except for some documentation regarding learning about how Django and Cloudinary work, and a minor fix to the AddReview that updated the name of the template being used. I considered deleting or reverting these commits but decided against this. Commit deletion is considered bad practice and commit reversion would achieve nothing, since the last commit made on 9/9/22 essentially restored the project to its last working state, except that the Review model's content field now uses a standard TextField instead of CK-editor's RichTextField or TinyMCE's HTMLField. 
 
 I considered adding the option to allow the superuser to update reviews on the front-end, but ... Justification for rejection....
+
+Previous versions of BeerGate had somewhat long and unwieldy views.py class names, such as AddReview. Late in development, I decided to simply these by removing extraneous instances of 'View' from these class names. The view for rendering a single Review was simplified from ReviewSingle to ReviewSingle
 
 ## Ordering
 11/9/22:
@@ -1485,12 +1480,15 @@ Surprise me feature:
     - http://web.archive.org/web/20110802060451/http://bolddream.com/2010/01/22/getting-a-random-row-from-a-relational-database/
     - https://stackoverflow.com/questions/962619/how-to-pull-a-random-record-using-djangos-orm
 
-[This article](https://teamtreehouse.com/community/length-of-queryset-in-a-django-response) taught me how to get the length of a queryset, which is used to great effect in the UserReviewsView
+[This article](https://teamtreehouse.com/community/length-of-queryset-in-a-django-response) taught me how to get the length of a queryset, which is used to great effect in the UserReviews
 
 The answers to [this StackOverflow Question](https://stackoverflow.com/questions/71124344/use-q-object-and-paginator-together-in-django) provided guidance on how to paginate pages rendered by views that use a get_queryset method
 
 [This Django documentation on Pagination](https://docs.djangoproject.com/en/3.2/topics/pagination/) provided a superior pagination template than the one used in the walkthrough videos that I had been used. This template allows finer navigation between pages
 
 [This Django documentation](https://docs.djangoproject.com/en/dev/ref/models/querysets/#django.db.models.query.QuerySet.order_by) taught me how to access a random database record. 
+
+[This article](https://thispointer.com/python-capitalize-the-first-letter-of-each-word-in-a-string/#:~:text=Use%20title()%20to%20capitalize,of%20word%20to%20lower%20case.) taught me how to title and capitalise Python strings.
+
 
 Include Bootstrap pages with code examples - navbar, pagination, etc

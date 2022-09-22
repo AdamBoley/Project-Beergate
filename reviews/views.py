@@ -142,7 +142,7 @@ class ReviewListDraught(generic.ListView):
     paginate_by = 3
 
 
-class BeerReviewSingle(View):
+class ReviewSingle(View):
     """
     The view used for rendering the review template
     Equivalent to a standard PostDetail-type view
@@ -297,7 +297,7 @@ class RandomReview(View):
         return render(request, template_name, context)
 
     
-class SearchResultsView(generic.ListView):
+class SearchResults(generic.ListView):
     """
     The view for rendering the search_results page
     Has three variables that set the model, template and pagination
@@ -335,7 +335,7 @@ class SearchResultsView(generic.ListView):
         return object_list
 
 
-class UserReviewsView(generic.ListView):
+class UserReviews(generic.ListView):
     """
     The view for rendering the user_reviews page
     """
@@ -406,7 +406,7 @@ class UserReviewsView(generic.ListView):
             return render(request, template_name, context)
 
 
-class AddReviewView(generic.CreateView):
+class AddReview(generic.CreateView):
     """
     The view for rendering the add_review page, where -
     - a user can add a review using the generated UserReviewForm
@@ -449,7 +449,7 @@ class AddReviewView(generic.CreateView):
         return render(request, template_name, context)
 
 
-class UpdateReviewView(generic.UpdateView):
+class UpdateReview(generic.UpdateView):
     """
     The view used for updating reviews on the front-end
     Use of the generic UpdateView pre-populates the form-
@@ -507,7 +507,7 @@ class UpdateReviewView(generic.UpdateView):
         return render(request, template_name, context)
 
 
-class DeleteReviewView(generic.DeleteView):
+class DeleteReview(generic.DeleteView):
     """
     The view used for deleting a review on the front-end
     Does not use a get or post method
