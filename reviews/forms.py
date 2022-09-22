@@ -113,7 +113,7 @@ class UserReviewForm(forms.ModelForm):
         labels = {
             'name': _('Beer'),
             'alcohol': _('Alcohol content (a number)'),
-            'image': _('Picture of the beer'),
+            'image': _('Picture of the beer (optional)'),
             'keywords': _('Descriptors'),
             'hops': _('Hops (optional)'),
             'served_as': _('How was the beer served? Bottled or draught?'),
