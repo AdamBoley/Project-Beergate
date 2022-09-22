@@ -915,7 +915,7 @@ Done:
 - After submitting a User Review Form, add a link to submit a new review to the success text box - done
 - Simplify views.py class names - done
 - Add blank and null to Hops field, modify input label to be specifically optional - done
-
+- Maintain consistent pagination style across all paginated pages
 
 
 Rejected:
@@ -1278,6 +1278,8 @@ I considered adding the option to allow the superuser to update reviews on the f
 Previous versions of BeerGate had somewhat long and unwieldy views.py class names, such as AddReview. Late in development, I decided to simply these by removing extraneous instances of 'View' from these class names. The view for rendering a single Review was simplified from ReviewSingle to ReviewSingle.
 
 After some consideration of the Review model, I decided to make the hops field optional with `blank=True, null=True`, and modifying the label in forms.py to notify the user that adding the hops is not mandatory. This change was made because I considered that if a user is adding a beer review via a mobile devide when they are in, for example, a pub drinking a draught beer, determining the hops used in the beer would be difficult. Making this a mandatory field would annoy the user, as they would be unable to submit the form because they would be unable to supply information they would not have ready access to. I did consider removing the hops field entirely, but this would require the additional step of modifying the SearchResults view, which can construct its queryset using the hops field. This prompted the consideration that having more fields to search against is better than having fewer, even if the hops field would be rarely searched against. 
+
+When I improved the HTML code in the index and search_results templates, I did not like the fact that the `first`, `previous`, `next` and `last` buttons disappeared if they were not needed. Though the unordered list element stayed in the same place, it looked like it was moving around when navigating between pagination pages as the aforementioned buttons appeared and disappeared. I decided to fix this by applying templating language else clauses to the `page_obj.has_previous` and `page_obj.has_next` conditionals. These else clauses contain similar code but have disabled anchor elements with inactive href attributes. I find that this helps maintain a consistent style across all paginated pages, and across the site generally. 
 
 ## Ordering
 11/9/22:

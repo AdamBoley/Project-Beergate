@@ -84,7 +84,14 @@
             </li>
             <li class="page-item">
                 <a href="?page={{ page_obj.previous_page_number }}" class="page-link">previous</a>
-            </li>   
+            </li>
+        {% else %}
+            <li class="page-item">
+                <a href="#" class="page-link disabled">&laquo; first</a>
+            </li>
+            <li class="page-item">
+                <a href="#" class="page-link disabled">previous</a>
+            </li>
             
         {% endif %}
 
@@ -102,6 +109,14 @@
             </li>
             <li class="page-item">
                 <a href="?page={{ page_obj.paginator.num_pages }}" class="page-link">last &raquo;</a>
+            </li>
+
+        {% else %}
+            <li class="page-item">
+                <a href="#" class="page-link disabled">next</a>
+            </li>
+            <li class="page-item">
+                <a href="#" class="page-link disabled">last &raquo;</a>
             </li>
             
         {% endif %}
