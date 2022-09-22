@@ -914,6 +914,8 @@ Done:
 - Lowercase AddReview and UpdateReview `keywords` field input - done
 - After submitting a User Review Form, add a link to submit a new review to the success text box - done
 - Simplify views.py class names - done
+- Add blank and null to Hops field, modify input label to be specifically optional - done
+
 
 
 Rejected:
@@ -978,7 +980,7 @@ Questions:
 
 - For UpdateReview, say that this is based off of a code snippet, I understand what is happening in general if not specific terms. 
 
-- Add blank and null to Hops field, modify input label to be specifically optional
+
 
 - Optional purchased_from CharField in Review
 
@@ -1274,6 +1276,8 @@ The large number of commits made between 8/9/22 to 9/9/22 ultimately achieved no
 I considered adding the option to allow the superuser to update reviews on the front-end, but ... Justification for rejection....
 
 Previous versions of BeerGate had somewhat long and unwieldy views.py class names, such as AddReview. Late in development, I decided to simply these by removing extraneous instances of 'View' from these class names. The view for rendering a single Review was simplified from ReviewSingle to ReviewSingle.
+
+After some consideration of the Review model, I decided to make the hops field optional with `blank=True, null=True`, and modifying the label in forms.py to notify the user that adding the hops is not mandatory. This change was made because I considered that if a user is adding a beer review via a mobile devide when they are in, for example, a pub drinking a draught beer, determining the hops used in the beer would be difficult. Making this a mandatory field would annoy the user, as they would be unable to submit the form because they would be unable to supply information they would not have ready access to. I did consider removing the hops field entirely, but this would require the additional step of modifying the SearchResults view, which can construct its queryset using the hops field. This prompted the consideration that having more fields to search against is better than having fewer, even if the hops field would be rarely searched against. 
 
 ## Ordering
 11/9/22:

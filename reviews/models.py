@@ -39,7 +39,7 @@ class Review(models.Model):
     type = models.CharField(max_length=50)
     colour = models.CharField(max_length=50)
     alcohol = models.DecimalField(max_digits=3, decimal_places=1)
-    hops = models.CharField(max_length=100)
+    hops = models.CharField(max_length=100, blank=True, null=True)
     image = CloudinaryField('image', default='placeholder')
     keywords = models.CharField(max_length=200)
     content = models.TextField()

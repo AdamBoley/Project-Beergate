@@ -115,6 +115,7 @@ class UserReviewForm(forms.ModelForm):
             'alcohol': _('Alcohol content (a number)'),
             'image': _('Picture of the beer'),
             'keywords': _('Descriptors'),
+            'hops': _('Hops (optional)'),
             'served_as': _('How was the beer served? Bottled or draught?'),
             'content': _('Your review (note that the editor will not accept images or videos)'),
             'aroma': _("Rank the beer's aroma (a number from 1 to 10)"),
