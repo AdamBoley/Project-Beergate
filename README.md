@@ -463,7 +463,11 @@ The UserReviewsView view renders the user_reviews page using the user_reviews.ht
 
 The AddReviewView view renders the add_review page using the add_review.html template. This is, if you will, the meat of the project, as it allows a user to upload a beer review using a form. The form itself is rendered using the form_class variable set to the imported UserReviewForm. In previous versions of the project, as in the walkthrough project, a get method was used to render this form. Using the form_class variable reduces the amount of code required considerably, and thereby reduces complexity. The UserReviewForm is discussed in more detail [here](#userreviewform).
 
-Form submission is handled using the post method. This functions similarly to the code that handles comment submission in the BeerReviewSingle view, essentially checking if the submitted form is valid, and the attaching the user ID if so, so that the review 'belongs' to that particular user. A context variable is then defined and a return statement renders the template again, this time with the reviewed key set to True, which triggers some templating language to display a textbox informing the user that their review has been submitted and is awaiting approval. 
+Form submission is handled using the post method. This functions similarly to the code that handles comment submission in the BeerReviewSingle view, essentially checking if the submitted form is valid, and the attaching the user ID if so, so that the review 'belongs' to that particular user. Additional lines of code ensure that the `name`, `brewery` and `hops` field inputs are titled, and that the `type` and `colour` field inputs are capitalised. These were added for two reasons. Firstly, the filtering views that filter by `type` and `colour` are case-sensitive. If the `type` and `colour` field inputs are not capitalised, the filtering views will not include them. For example, the ReviewListAleType view filters by `type = Ale`, so only reviews with a type field input of `Ale`, specifically capitalised, will be included in the queryset. Whilst non-capitalised field inputs could be easily recified in the admin panel, this sort of menial work is better handled by a computer. The second reason is that the `name` and `brewery` field inputs are injected into the templates, and having each word capitalised makes the app feel more professional. The title() method was used because the names of many beers and breweries consist of multiple words, such as the beer called Surrey Nirvana or the brewery Bear Island. The `hops` field is currently not injected, but the field input was titled should this be changed. In addition, the `keywords` field input is lowercased using the lower() method. The reasoning is similar to that for capitalising the `name` and `brewery` field inputs - the `keywords` field is injected into the templates, but in this case, as part of a sentence starting with `Described as`. Having random capital letters in the middle of a sentence is jarring and distracting.
+
+This is necessary to ensure that the sorting and filtering views work properly, as the filter methods used therein are case-sensitive. The capitalise method has the added, and to me surprising, effect of converting all-uppercased inputs (e.g. type = STOUT or colour = PALE) to standard capitalised inputs (e.g type = Stout or colour = Pale).
+
+A context variable is then defined and a return statement renders the template again, this time with the reviewed key set to True, which triggers some templating language to display a textbox informing the user that their review has been submitted and is awaiting approval. 
 
 #### Update Review view
 
@@ -472,6 +476,8 @@ The UpdateReviewView view renders the update_review page using the update_review
 Full credit for the design of these methods goes to [this Reddit question](https://www.reddit.com/r/django/comments/8jkh5t/updateview_creates_new_items_in_the_db_instead_of/), where the author appears to have had a similar issue, and they answer their own question. I confess that I do not fully understand what these methods are doing, but my understanding is as follows:
 
 The get method retrieves the particular review that is being updated and the form that is being used. The post method handles the submission of the form containing the updated information. I have added a line of code that sets the updated review to be disapproved inside the IF statement block. The form_valid method then saves the updated information to the database. The return statement that renders a context is my own work, which sets the updated flag to True. This in turn triggers some templating language code in the template that informs that user that their updated review is awaiting reapproval. 
+
+Within the post method is code similar to that employed in the AddReview view which variously titles and capitalises the `name`, `brewery`, `hops`, `type` and `colour` field inputs, and lowercases the `keywords` input. This is to ensure that a user cannot accidentally update a review so that the filtering methods stop catching it, and to ensure that the user cannot damage the user experience for other users by de-capitalising these fields (or uppercasing/capitalising the keywords field).
 
 #### Delete Review view
 
@@ -900,7 +906,7 @@ Done:
 - Harmonise login, log out, signup to sign-in, sign-out and sign-up - done
 - Find and apply a favicon - done
 - Custom 404 and 500 error pages - done
-
+- add class and method docstrings - done
 
 
 Rejected:
@@ -939,7 +945,7 @@ In progress:
     - search_results - in progress
 - Style AllAuth templates - sign-in, sign-up, login, logout, email, password, etc - 
 
-- add class and method docstrings
+
 
 
 To do:

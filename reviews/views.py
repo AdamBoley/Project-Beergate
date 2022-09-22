@@ -428,6 +428,12 @@ class AddReviewView(generic.CreateView):
         user_review_form = UserReviewForm(request.POST, request.FILES)
 
         if user_review_form.is_valid():
+            user_review_form.instance.name = user_review_form.instance.name.title()
+            user_review_form.instance.brewery = user_review_form.instance.brewery.title()
+            user_review_form.instance.hops = user_review_form.instance.hops.title()
+            user_review_form.instance.type = user_review_form.instance.type.capitalize()
+            user_review_form.instance.colour = user_review_form.instance.colour.capitalize()
+            user_review_form.instance.keywords = user_review_form.instance.keywords.lower()
             user_review_form.instance.author = request.user
             user_review = user_review_form.save(commit=False)
             user_review.save()
@@ -475,6 +481,12 @@ class UpdateReviewView(generic.UpdateView):
         user_update_form = self.get_form(form_class)
 
         if user_update_form.is_valid():
+            user_update_form.instance.name = user_update_form.instance.name.title()
+            user_update_form.instance.brewery = user_update_form.instance.brewery.title()
+            user_update_form.instance.hops = user_update_form.instance.hops.title()
+            user_update_form.instance.type = user_update_form.instance.type.capitalize()
+            user_update_form.instance.colour = user_update_form.instance.colour.capitalize()
+            user_update_form.instance.keywords = user_update_form.instance.keywords.lower()
             user_update_form.instance.approved = False
             return self.form_valid(user_update_form, request)
         return self.form_invalid(user_update_form)
