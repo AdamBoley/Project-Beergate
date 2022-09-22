@@ -5,8 +5,20 @@ from django.utils.translation import gettext_lazy as _
 
 
 class CommentForm(forms.ModelForm):
+    """
+    Form for submitting a comment
+    Properties are controlled by Meta child class
+    """
 
     class Meta:
+        """
+        Controls properties of comment form
+        Sets the model to be used to Comment
+        Limits displayed fields to content
+        Applies the SummernoteWidget to turn the content -
+        - field into a Rich Text Editor
+        Modifies label of content field
+        """
         model = Comment
         fields = ('content',)
         widgets = {
@@ -18,8 +30,23 @@ class CommentForm(forms.ModelForm):
 
 
 class UserReviewForm(forms.ModelForm):
+    """
+    Form that allows a user to submit a beer review
+    Properties are controlled by Meta child class 
+    """
 
     class Meta:
+        """
+        Controls propeties of user review form
+        Sets model to be used to Review
+        Limits displayed fields to those in fields list
+        Widgets object applies the Bootstrap form-control class
+        Also adds placeholder text
+        Applies SummernoteWidget to content field to turn it -
+        - into a Rich Text Editor
+        Modifies labels to better guide the user as to what -
+        - should be added to fields
+        """
         model = Review
         fields = (
             'name',

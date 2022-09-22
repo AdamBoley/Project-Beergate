@@ -899,6 +899,8 @@ Done:
 - Add a request to users to upvote or downvote reviews - "this helps push good reviews up the rankings" - done
 - Harmonise login, log out, signup to sign-in, sign-out and sign-up - done
 - Find and apply a favicon - done
+- Custom 404 and 500 error pages - done
+
 
 
 Rejected:
@@ -964,7 +966,7 @@ Questions:
 
 - For UpdateReview, say that this is based off of a code snippet, I understand what is happening in general if not specific terms. 
 
-- Custom 404 and 500 error pages - https://stackoverflow.com/questions/17662928/django-creating-a-custom-500-404-error-page
+
 
 - Capitalise AddReviewView type and colour inputs, similar to how user id is retrieved
 

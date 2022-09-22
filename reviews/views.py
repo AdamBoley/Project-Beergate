@@ -510,7 +510,7 @@ class DeleteReviewView(generic.DeleteView):
 class ReviewUpvote(View):
     """
     The view used for upvoting a review
-    Since upvoting takes place via a form - 
+    Since upvoting takes place via a form -
     - all functionality is handled by the child post method
     """
 
@@ -541,15 +541,20 @@ class ReviewUpvote(View):
 
 class ReviewDownvote(View):
     """
-    Retrieves the review that is being downvoted
-    If the review already has a downvote by the user, it is removed
-    If no upvote is extant, a downvote is added
-    And if there is an extant upvote by the user, it is removed -
-    - when the downvote is added
-    Upon completion, the user is redirected back to the review
+    The view used for downvoting a review
+    Since downvoting takes place via a form -
+    - all functionality is handled by the child post method
     """
 
     def post(self, request, pk):
+        """
+        Retrieves the review that is being downvoted
+        If the review already has a downvote by the user, it is removed
+        If no upvote is extant, a downvote is added
+        And if there is an extant upvote by the user, it is removed -
+        - when the downvote is added
+        Upon completion, the user is redirected back to the review
+        """
         review = get_object_or_404(Review, pk=pk)
 
         if review.downvotes.filter(id=request.user.id).exists():
