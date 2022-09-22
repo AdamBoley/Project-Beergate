@@ -319,6 +319,10 @@ Final screenshot of user_reviews page:
 
 These pages are modified versions of the standard AllAuth templates that can be copied over from the site-packages directory with the `cp -r ../.pip-modules/lib/python3.8/site-packages/allauth/templates/* ./templates` command. A new app called 'user' was started to hold the views, forms and urls that control these templates, primarily to apply the Bootstrap `form-control` class that makes the input elements smooth and nice to use with user feedback. 
 
+## 404 and 500 error pages
+
+At the urging of my Mentor, I created custom 404 and 500 error pages. These are simple pages, designed to be humourous so as to reassure the user that they have not irreversibly broken BeerGate. Both pages provide links back to the landing page. 
+
 # Function
 
 This section is discusses the code used in the project, and explains any particularly note-worthy or obscure features. 
@@ -894,14 +898,28 @@ Done:
 - Implement a random 'surprise me' feature - done
 - Add a request to users to upvote or downvote reviews - "this helps push good reviews up the rankings" - done
 - Harmonise login, log out, signup to sign-in, sign-out and sign-up - done
-
+- Find and apply a favicon - done
 
 
 Rejected:
 - add update and delete buttons to user_reviews so that a user does not have to access each record individually - not possible, since the entire search result card is itself an anchor element, it cannot have other anchor elements as children
+
 - In UserReviewForm, apply bootstrap to RadioSelect widget with name, class, etc - rejected as unnecessary, since the extant radio buttons are clear enough
+Modify sorting to use a checkbox group like GW - https://stackoverflow.com/questions/31145498/how-to-submit-checklist-in-django-with-get - too complex, and too far along in development to implement a major feature like this
 
-
+- Allow the superuser (user ID = 1) to update and delete all posts as well as users, so that the admin does not have to use the admin panel
+    - related, allow the superuser to quickly access the admin panel from the front-end
+    - update method auto-disapproves, so admin panel access would be required anyway
+    - This renders the justification moot
+    - However, could use an AdminUpdateReview view that does not use the methods, and hence does not auto-disapprove the review
+    - on the other hand, this could be a security issue - if there is a partial security breach, where the superuser's admin credentials are compromised, then the dummy admin page still offers some protection. The attacker may have the admin credentials, but cannot put them to use beyong deleting or updating the admin's reviews
+    - if this feature is implemented, then an attacker can essentially have access to the admin panel from the front-end
+    - also, if more superusers are added, then this feature may fail or would need to be recoded
+    - My Mentor's thoughts are:
+    - This is separation of concerns issue
+    - superuser update/delete works fine in the admin panel
+    - The security concern is valid, since I have a 2-layered defence
+    - It is also a violation of DRY, since Django ships with a admin panel
 
 
 
@@ -919,64 +937,61 @@ In progress:
     - search_results - in progress
 - Style AllAuth templates - sign-in, sign-up, login, logout, email, password, etc - 
 
-Modify sorting to use a checkbox group like GW - https://stackoverflow.com/questions/31145498/how-to-submit-checklist-in-django-with-get
+- add class and method docstrings
 
-
-
-
-Note regarding search_results and user_reviews:
-The mobile view displays at 576px
-However, horizontal phones will use the >576px width
-vertical phones top out at about 412px, so apply cols and offsets to satisfy this, and note these observations fully
-The major exception is the Surface Duo, which is a hybrid tablet/phone
 
 To do:
 
-- Allow the superuser (user ID = 1) to update and delete all posts as well as users, so that the admin does not have to use the admin panel
-    - related, allow the superuser to quickly access the admin panel from the front-end
-    - update method auto-disapproves, so admin panel access would be required anyway
-    - This renders the justification moot
-    - However, could use an AdminUpdateReview view that does not use the methods, and hence does not auto-disapprove the review
-    - on the other hand, this could be a security issue - if there is a partial security breach, where the superuser's admin credentials are compromised, then the dummy admin page still offers some protection. The attacker may have the admin credentials, but cannot put them to use beyong deleting or updating the admin's reviews
-    - if this feature is implemented, then an attacker can essentially have access to the admin panel from the front-end
-    - also, if more superusers are added, then this feature may fail or would need to be recoded
-    - My Mentor's thoughts are....
+Notes for Mentor call:
+
+Questions:
+
+- Have heard that the random method can be slow - how, why, and can anything be done to counter this?
+    - May be better to use a random number generator
+    - Then filter by that random number generator
+    - But also not all indexes are active as some records have been deleted
+
+- The SECURE_SSL_REDIRECT and SECURE_HSTS_SECONDS security settings provided last session caused localhost to fail
+    - Is it acceptable to not include these?
+    - Use a conditional - if working in deployment, apply these settings
 
 
-- update data model with a OPTIONAL field for where a beer may be purchased. 'If you bought this beer online, where did you buy it from?' - encourages traffic to brewery websites
-    - From a user perspective, this is easy to do on a PC with multiple tabs, but less easy to do with a mobile device
-    - My Mentor's thoughts are....
+- move sorting menu from universal navbar to its own navbar only on the index page - perhaps use a def get method to render a custom context that informs/reminds the user of the criteria they are filtering/sorting by
 
+- How to create a view to order by the output of a class method
+    - average_score method 
+    - Ronan will look into this
 
+- For UpdateReview, say that this is based off of a code snippet, I understand what is happening in general if not specific terms. 
 
+- Custom 404 and 500 error pages - https://stackoverflow.com/questions/17662928/django-creating-a-custom-500-404-error-page
 
+- Capitalise AddReviewView type and colour inputs, similar to how user id is retrieved
 
+- Add blank and null to Hops field, modify input label to be specifically optional
 
-
-- move sorting menu from navbar to its own navbar only on the index page - perhaps use a def get method to render a custom context that informs/reminds the user of the criteria they are filtering/sorting by. 
-
-- Create a view to order by return of average_score 
-
-
-
-- capitalise the type and colour field somewhere so that the filtering views do not miss any reviews.  Can filter() use a list?
+- Optional purchased_from CharField in Review
 
 - look into displaying the total number of comments on the search_results and user_reviews pages using a similar thing to BeerReviewSingle
 
 - update image field label in add_review and update_review to explictly make it optional
-- Remove Hops field from Review - this is not always available on bottled beers and certainly not for draught beers
-
-
 
 - After submitting a User Review Form, add a link to submit a new review to the success text box
+
 - ensure all templating language is properly indented
+
 - remove all extraneous / commented-out code
 
-- Filters in queryset appear to be case-sensitive
+- Remove unnecessary 'View's for views class-names
+
+- Add additional classes to forms.py widgets to control input element widths?
 
 - Implement tests from Django-Experimentation repo
-- add class and method docstrings
+
 - Modify Reviews so that they have realistic content, not just Lorem Ipsum bulk text
+
+- Have enough records in the database so that all sorting and filtering views work and can be demostrated
+
 - Use the checking thing to check if a user is the post's author - if so, remove/disable the upvote button, or trigger it automatically. 
     - adding an upvote automatically is difficult, since the add_review function does not allow an upvote to be assigned during the upload/save process
     - disabling the upvote/downvote buttons is relatively simple - use the checker statement employed elsewhere
@@ -991,11 +1006,9 @@ Readme:
 - Testing section for exhaustive manual testing
 - Note removal of AllAuth Urls, and retention of views, forms and template for future work
 - Remove need for scrolling after upvote / downvote page reload - https://stackoverflow.com/questions/64456417/django-redirect-view-after-liking-without-scrolling
-- Add additional classes to forms.py widgets to control input element widths
-- Find and apply a favicon
 - Add screenshots of all pages to Readme
 - Upload wireframes to readme
-- Rework documentation
+- Rework early part of Bugs section, esp. parts that deal with old project
 - add line-breaks for clearer structure
 
 # Future Work
@@ -1018,7 +1031,6 @@ Some Googling revealed that the problem could be to do with the version of Pytho
 
 In the end, I noted that this was extraneous, since INSTALLED_APPS was missing a comma. Once added, Heroku was able to build and deploy the app properly
 
-
 After creating a superuser to access the Django backend, I ran into a 403 error when trying to login using that superuser via the admin login page. 
 
 Some Googling found [this StackOverflow page](https://stackoverflow.com/questions/70285834/forbidden-403-csrf-verification-failed-request-aborted-reason-given-for-fail/70326426#70326426). Though this should apply only to Django v4.x.x , where I specifically installed Django v3, as per the walkthrough videos. 
@@ -1029,9 +1041,9 @@ To solve the error, I found [this StackOverflow page](https://stackoverflow.com/
 
 CSRF_TRUSTED_ORIGINS = ['https://*.YOUR_DOMAIN.COM'], replacing YOUR_DOMAIN.COM with the URL of the Gitpod workspace I was using, prefixed with `8000-` to account for the development server. 
 
-This worked, and allowed me to login to the Django backend without issue. The code above appears to override the need to provide a CSRF token when performing actions from this workspace. This may present a vulnerability, as a CSRF token is Django's way of protecting sites against malicious users, and the code in settings.py overrides that. I asked my Mentor, and his response was....
+This worked, and allowed me to login to the Django backend without issue. The code above appears to override the need to provide a CSRF token when performing actions from this workspace. This may present a vulnerability, as a CSRF token is Django's way of protecting sites against malicious users, and the code in settings.py overrides that.
 
-
+This ceased to be an issue when I downgraded to Django 3.2
 
 When attempting to render an BeerReview database entry, I initially could not get a Bootstrap card holding the various fields to display. I thought that this may have been a problem with my views. Where the Django Blog uses a status field to mark a post as either draft or published, I am merely using an approved field, and then filtering posts to display by the boolean value in the approved field. Removing this stipulation did not work. 
 
@@ -1260,7 +1272,9 @@ Styling the user_review and search_results pages proved difficult for mobile dev
 My Mentor noted that the standard Bootstrap navbar design is quite muted and bland. He suggested using a bolder, more prominent design. To accomplish this, I changed the background colour to dark orange, with the intention of mimicking the colour of a pint of beer. I initially used white text to mimic the foamy head of a pint, but upon checking the colour contrast with [WebAIM](https://webaim.org/resources/contrastchecker/), I noted that white on orange provided insufficient colour contrast. To counter this, I switched to using black text with a increased font-size and font-weight. I also added a hover effect to the navbar button links to turn them white when moused over, so as to provide clear user feedback that they are about to a click a button. 
 
 11/9/22:
-The large number of commits made between 8/9/22 to 9/9/22 ultimately achieved nothing, except for some documentation regarding learning about how Django and Cloudinary work, and a minor fix to the AddReviewView that updated the name of the template being used. I considered deleting or reverting these commits but decided against this. Commit deletion is considered bad practice and commit reversion would achieve nothing, since the last commit made on 9/9/22 essentially restored the project to its last working state, except that the Review model's content field now uses a standard TextField instead of CK-editor's RichTextField or TinyMCE's HTMLField.  
+The large number of commits made between 8/9/22 to 9/9/22 ultimately achieved nothing, except for some documentation regarding learning about how Django and Cloudinary work, and a minor fix to the AddReviewView that updated the name of the template being used. I considered deleting or reverting these commits but decided against this. Commit deletion is considered bad practice and commit reversion would achieve nothing, since the last commit made on 9/9/22 essentially restored the project to its last working state, except that the Review model's content field now uses a standard TextField instead of CK-editor's RichTextField or TinyMCE's HTMLField. 
+
+I considered adding the option to allow the superuser to update reviews on the front-end, but ... Justification for rejection....
 
 ## Ordering
 11/9/22:
@@ -1314,9 +1328,17 @@ Are these attempts viewable in the real admin panel?
 
 What happens when the tab duplication trick is used?
 
+404 error testing - does 404 page display?
+
+500 error testing - does 500 page display? Currently I can find no way of manually triggering a HTTP 500 response
+
+
+
 ## Validation testing
 
 ### HTML Validation
+
+Do by pointing the validator to page URLs, not by copy-pasting code
 
 #### Base template
 
@@ -1355,6 +1377,9 @@ There is no custom JS, though a JS file exists for future work. It is contained 
 BeerGate's python files are contained within 3 directories - beergate, reviews and user
 
 PEP8 Validator
+
+Views.py, forms.py, admin.py, models.py
+Not necessary to do urls.py
 
 #### Beergate settings.py
 

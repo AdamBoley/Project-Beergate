@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, reverse
 from django.views import generic, View
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse, reverse_lazy
 from .models import Review, Comment
 from .forms import CommentForm, UserReviewForm
@@ -564,3 +564,19 @@ class ReviewDownvote(View):
                 # if an upvote exists, remove it when adding a downvote
 
         return HttpResponseRedirect(reverse('review', args=[pk]))
+
+
+def http_404(request, exception):
+    """
+    Handles HTTP 404 Page Not Found errors
+    """
+    template_name = '404.html'
+    return render(request, template_name)
+
+
+def http_500(request):
+    """
+    Handles HTTP 500 Server Error errors
+    """
+    template_name = 'templates/500.html'
+    return render(request, template_name)
