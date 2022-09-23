@@ -106,9 +106,9 @@ Am I response image here
 
 # Scope
 
-The scope of this project is to create a website using the Python Django framework. The website will function as a social media and blogging site for people who like beer. 
+The scope of this project is to create a website using the Python Django framework. The website will function as a review site for people who like beer, similar to [RateBeer](https://www.ratebeer.com/). 
 <br><br>
-The project will use the Django AllAuth library to allow users to create accounts and log in to the website. Once they have logged in, users will be able to post reviews of beers to help other users expand their tastes. Logged-in users will also be able to upvote and downvote these reviews, and post comments. Users will be able to update and delete their own reviews. 
+The project will use the Django AllAuth library to allow users to create accounts and log in to the website. Once they have logged in, users will be able to post reviews of beers to help other users expand their tastes. Logged-in users will also be able to upvote and downvote these reviews, and post comments. Users will be able to update and delete their own reviews.
 <br><br>
 The project will also feature several mechanisms for searching, sorting and filtering database entries.
 <br><br>
@@ -121,7 +121,7 @@ As a beer drinker, I enjoy exploring different beers, rather than sticking to th
 <br><br>
 Whilst this makes the UK a gold-mine for beer drinkers, it presents a problem for the breweries themselves. With so many beers and so much variety, the market is effectively saturated, making it difficult for small breweries to stand out and make their products widely known.
 <br><br>
-This is where this project comes in. If a user finds and drinks a good beer, they can use this project to write a review, recommending (or not) that beer to the wider beer-drinking community. Similarly, users who wish to expand their range of beers can use this project to find recommendations. 
+This is where this project comes in. If a user finds and drinks a good beer, they can use this project to write a review, recommending (or not) that beer to the wider beer-drinking community. Similarly, users who wish to expand their range of beers can use this project to find recommendations, or know what beers to avoid. 
 
 # Audience / Users
 
@@ -163,6 +163,8 @@ These user stories apply to all users regardless of authentication status
     - View any single beer review in its entirety so that I can read the content
     - Use a search function to search for beer reviews using keyword terms
         - If my search returned no results, have that reflected back to me
+    - If an error occurs, be reassured that it has not broken the website
+    - If an error occurs, have a means of resetting the website or getting out of the error
     
 ## Unregistered user User Stories
 
@@ -185,8 +187,12 @@ These user stories apply to all users regardless of authentication status
     - Easily update any beer reviews that I have written
     - Easily delete any beer reviews that I have written
         - At the same time, ensure that I cannot accidentally delete any beer reviews
+    - Be informed when I have undertaken an interaction with the site:
+        - Posted a comment
+        - Posted a review
+        - Updated a review
+        - Deleted a review
     - When viewing a single beer review, post a comment
-        - when I have submitted a comment, have a confirmation message displayed to me indicating success
     - When viewing a single beer review, upvote it if I like it
     - When viewing a single beer review, downvote it if I do not like it
 
@@ -197,23 +203,23 @@ These user stories apply to all users regardless of authentication status
 
 # Features
 
-This section discusses the features and structure of the project's templates  and the design choices made
+This section discusses the features of BeerGate and the design choices made. Where appropriate, there is discussion of the HTML and CSS.
 
 ## Base
 
-BeerGate uses a single base.html template to render every page. This provides a consistent user experience. The background image used is one of a tall glass of beer. A 50% opacity dark background has been applied over this image to darken it off. This is because the unmodified image is particularly bright and eye-catching.
+BeerGate uses a single base template file that is applied to every page. This provides a consistent user experience. The base template contains a Bootstrap navbar and a small footer. The HTML code from the other templates is injected into a central `main` element. The background image used is one of a tall glass of beer. A 50% opacity dark background has been applied over this image to darken it off. This is because the unmodified image is particularly bright and eye-catching. The unmodified image is below:
+
+(undarkened background image)
 
 ## Header and Navbar
 
-The navbar provides navigation to the other pages of BeerGate. The navbar was created using a standard Bootstrap navbar, so as to make it smoothly responsive on smaller screen sizes. Each list item in the navbar has been given the Bootstrap `btn` class to turn it into a button. Functionally, this has been used to apply a nice rounded border when the button is hovered over, and custom CSS has been written to turn the button white and keep the text black when this happens. This provides clear user feedback so that the user knows that they are about to click a button and be redirected to another page. 
+The navbar provides navigation to the other pages of BeerGate. The navbar was created using a standard Bootstrap navbar, so as to make it smoothly responsive on smaller screen sizes. Each list item in the navbar has been given the Bootstrap `btn` class to turn it into a button. Functionally, this has been used to apply a nice rounded border when the button is hovered over, and custom CSS has been written to turn the button white and keep the text black when this happens. This provides clear user feedback so that the user knows that they are about to click a button and be redirected to another page.
 
-If the user is signed out or has not yet created an account, their navigation options are limited. They may go back to the standard landing page view by clicking either the Reviews button or the bolded BeerGate icon. A user may created an account by clicking on the Sign Up button, or sign in to an existing account by clicking the Sign In button. 
+All users, regardless of authentication status, may view the default landing page by clicking either the bolded `BeerGate` icon or the `Reviews` button. They may also be directed to a random single review by clicking the `Random review`. Finally, they may sort and filter the reviews displayed on the landing page by using the options contained within the `Sort and filter` dropdown menu button. This is discussed in greater detail [below](#sorting-and-filtering). Finally, users may search the database for reviews using the search input box. These are displayed in a separate search results page. A search is triggered by pressing the Search button or by pressing the `enter` key. By default, Bootstrap places the search box on the right-hand side of the page, and I have left this unchanged. The intention is to semantically separate the search function from other website functions. This appears to be common practice in website design - sites such as [Reddit](https://www.reddit.com/), [Facebook](https://www.facebook.com/) and [RateBeer](https://www.ratebeer.com/) all have search bars that are distinctly separated from other content.
 
-The navbar list items change if the user is signed in. If signed in, the user may click on the Add a review button to be taken to a page where they may create and upload a beer review of their own. They may also click the My Reviews button to view all of the beer reviews that they have written. They may sign-out by clicking the sign-out button and finally they may change their password with the Change Password button. 
+If the user is signed out or has not yet created an account, their navigation options beyond those above are limited to either signing-in to an extant account or creating a new account. A user may create an account by clicking on the `Sign Up` button, or sign in to an existing account by clicking the `Sign In` button.
 
-The navbar also informs the user whether or not they are signed in. If they are not signed in, text displays saying that. If they are signed in, different text displays saying that, and their username is displayed as well. 
-
-The final part of the navbar is the search box. Using this, a user may search the database for reviews. These are displayed in a separate search results page. A search is triggered by pressing the Search button. The search function works independently of user sign-in status. 
+If the user is signed-in, they have more navigation options. The user may click on the `Add a review` button to be taken to a page where they may create and upload a beer review of their own. The `Signed in as <username>` button works like the `account actions` or `your profile` buttons of other websites. This button has two functions - firstly it displays the user's username, letting them know that they are signed in, and secondly it is a dropdown menu that contains account options. There are three account options. Firstly, users may access all of the reviews that they have authored and that have been approved by clicking the `My reviews` option. Secondly, users may change their account password by clicking the `Change password` option. Thirdly, users may sign out by clicking the `Sign Out` option. 
 
 Final navbar screenshot:
 
@@ -1354,7 +1360,9 @@ What happens when the tab duplication trick is used?
 500 error testing - does 500 page display?
 I was unable to find a way of deliberately triggering a 500 error. However, one of my goals was to automatically add an upvote to a review when it is submitted. I tried this with `user_review_form.instance.author = request.user` added to AddReview's `if user_review_form.is_valid()` block. When I filled out and submitted the form, a 500 error triggered, rendering the 500.html template. This is a somewhat roundabout way of tiggering a 500 error, but a valid one for testing purposes. 
 
+Are unregistered users unable to edit and delete reviews?
 
+Are registered users unable to edit and delete reviews that do not belong to them?
 
 ## Validation testing
 

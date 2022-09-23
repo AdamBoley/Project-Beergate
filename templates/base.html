@@ -39,6 +39,28 @@
                     <li class="nav-item btn">
                         <a href="{% url 'random_review' %}" class="nav-link">Random review</a>
                     </li>
+                    <li class="nav-item dropdown btn">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Sort and filter
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{% url 'home' %}">Newest</a></li>
+                            <li><a class="dropdown-item" href="{% url 'most_upvotes' %}">Most upvotes</a></li>
+                            <li><a class="dropdown-item" href="{% url 'oldest' %}">Oldest</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{% url 'ales' %}">Ales</a></li>
+                            <li><a class="dropdown-item" href="{% url 'stouts' %}">Stouts</a></li>
+                            <li><a class="dropdown-item" href="{% url 'lagers' %}">Lagers</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{% url 'pale' %}">Pale beers</a></li>
+                            <li><a class="dropdown-item" href="{% url 'golden' %}">Golden beers</a></li>
+                            <li><a class="dropdown-item" href="{% url 'amber' %}">Amber beers</a></li>
+                            <li><a class="dropdown-item" href="{% url 'dark' %}">Dark beers</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{% url 'bottled' %}">Bottled beers</a></li>
+                            <li><a class="dropdown-item" href="{% url 'draught' %}">Draught beers</a></li>
+                        </ul>
+                    </li>
                     {% if user.is_authenticated %}
                         <li class="nav-item btn">
                             <a class="nav-link" href="{% url 'add_review' %}">Add a review</a>
@@ -65,28 +87,7 @@
                         </li>
 
                     {% endif %}
-                    <li class="nav-item dropdown btn">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Sort and filter
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{% url 'home' %}">Newest</a></li>
-                            <li><a class="dropdown-item" href="{% url 'most_upvotes' %}">Most upvotes</a></li>
-                            <li><a class="dropdown-item" href="{% url 'oldest' %}">Oldest</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{% url 'ales' %}">Ales</a></li>
-                            <li><a class="dropdown-item" href="{% url 'stouts' %}">Stouts</a></li>
-                            <li><a class="dropdown-item" href="{% url 'lagers' %}">Lagers</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{% url 'pale' %}">Pale beers</a></li>
-                            <li><a class="dropdown-item" href="{% url 'golden' %}">Golden beers</a></li>
-                            <li><a class="dropdown-item" href="{% url 'amber' %}">Amber beers</a></li>
-                            <li><a class="dropdown-item" href="{% url 'dark' %}">Dark beers</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{% url 'bottled' %}">Bottled beers</a></li>
-                            <li><a class="dropdown-item" href="{% url 'draught' %}">Draught beers</a></li>
-                        </ul>
-                    </li>
+                    
                     
                 </ul>
                 
