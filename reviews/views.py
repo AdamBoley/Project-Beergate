@@ -272,7 +272,7 @@ class RandomReview(View):
 
         return render(request, template_name, context)
 
-    
+
 class SearchResults(generic.ListView):
     """
     The view for rendering the search_results page
