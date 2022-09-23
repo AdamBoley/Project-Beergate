@@ -916,6 +916,9 @@ Done:
 - Simplify views.py class names - done
 - Add blank and null to Hops field, modify input label to be specifically optional - done
 - Maintain consistent pagination style across all paginated pages
+- update image field label in add_review and update_review to explictly make it optional - done
+
+
 
 
 Rejected:
@@ -939,6 +942,9 @@ Rejected:
     - adding an upvote automatically is difficult, since the add_review function does not allow an upvote to be assigned during the upload/save process
 
 - Optional purchased_from CharField in Review - rejected as unncessary. The beer name and brewery should be sufficient if a user wishes to search for a place to buy the beer from, plus it could prove confusing for users submitting reviews of draught ales
+
+- Display the total number of comments on the index, search_results, user_reviews pages using a context - rejected as too difficult
+
 
 
 
@@ -977,16 +983,15 @@ Questions:
 
 
 - move sorting menu from universal navbar to its own navbar only on the index page - perhaps use a def get method to render a custom context that informs/reminds the user of the criteria they are filtering/sorting by
+    - https://docs.djangoproject.com/en/3.2/topics/class-based-views/generic-display/
+    - might solve comments issue as well
+
 
 - How to create a view to order by the output of a class method
     - average_score method 
     - Ronan will look into this
 
 - For UpdateReview, say that this is based off of a code snippet, I understand what is happening in general if not specific terms. 
-
-- look into displaying the total number of comments on the search_results and user_reviews pages using a similar thing to ReviewSingle
-
-- update image field label in add_review and update_review to explictly make it optional
 
 - ensure all templating language is properly indented
 
@@ -1016,10 +1021,13 @@ Readme:
 
 Future work:
 - implement upvotes / downvotes feature for Comments
-- mimic an excerpt on the index cards with `{{ review.content|slice:":100" }}` to show the first 100 characters - fancy formatting in those first 100 characters could prove problematic, but test this first
+- Display number of approved comments attached to each review on the index, search_results and user_reviews pages. [This article](https://stackoverflow.com/questions/50365624/display-total-number-of-comments-related-to-each-object-in-a-list-view) may assist
+
 - Extend User model to include a profile picture and other information - display this on the navbar and below each beer review
+
 - Add higher-level AllAuth functionality - social media sign in, password complexity, confirmation emails, etc
-- Modify UserSignUpForm in user/forms.py to include additional first_name and last_name fields - https://www.youtube.com/watch?v=d9aCpxQfnOg @ 4.57
+
+- Modify UserSignUpForm in user/forms.py to include additional first_name and last_name fields
 
 
 
@@ -1225,6 +1233,12 @@ I tried various approaches before hitting upon the current approach. I declare t
 
 When coding the above solution, I submitted several comments to the admin panel. In doing so, I noted that when comments were displayed, their HTML element tags were displaying as well. This had been caused by improper use of `safe` filter in the templating language of `review.html`. Once fixed, the comments displayed properly. 
 
+To inform the user of their sign-in status and username, I had implemented some span elements with the Bootstrap navbar-text class to hold this text. Whilst these displayed perfectly acceptably when the navbar was expanded, they became misaligned when the navbar was collapsed, like so:
+
+(navbar collapsed problem screenshot)
+
+To recify this, I changed the account actions dropdown menu text to hold the user's username. The dropdown arrow indicates to the user that this button expands a dropdown menu of account actions.
+
 
 # Development Choices
 
@@ -1280,6 +1294,8 @@ Previous versions of BeerGate had somewhat long and unwieldy views.py class name
 After some consideration of the Review model, I decided to make the hops field optional with `blank=True, null=True`, and modifying the label in forms.py to notify the user that adding the hops is not mandatory. This change was made because I considered that if a user is adding a beer review via a mobile devide when they are in, for example, a pub drinking a draught beer, determining the hops used in the beer would be difficult. Making this a mandatory field would annoy the user, as they would be unable to submit the form because they would be unable to supply information they would not have ready access to. I did consider removing the hops field entirely, but this would require the additional step of modifying the SearchResults view, which can construct its queryset using the hops field. This prompted the consideration that having more fields to search against is better than having fewer, even if the hops field would be rarely searched against. 
 
 When I improved the HTML code in the index and search_results templates, I did not like the fact that the `first`, `previous`, `next` and `last` buttons disappeared if they were not needed. Though the unordered list element stayed in the same place, it looked like it was moving around when navigating between pagination pages as the aforementioned buttons appeared and disappeared. I decided to fix this by applying templating language else clauses to the `page_obj.has_previous` and `page_obj.has_next` conditionals. These else clauses contain similar code but have disabled anchor elements with inactive href attributes. I find that this helps maintain a consistent style across all paginated pages, and across the site generally. 
+
+One of my goals was to display the number of comments attached to a review on each review card in the index, search_results and user_reviews pages. Initially, this proved to be deceptively simple - injecting the number of comments with `{{ review.comments.count }}` was sufficient. However, this counts the total number of comments regardless of approval status. I considered that this could be misleading, since the total number of comments on a review could be 3, but only 2 could be approved, and hence only those 2 would be displayed. This would mislead users, and could damage the user experience. This issue will go into the [Future Work](#future-work) section, to be solved at a later date. 
 
 ## Ordering
 11/9/22:
