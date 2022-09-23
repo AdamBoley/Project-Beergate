@@ -18,10 +18,10 @@
                                     Delete your review of {{ review.name }}?
                                 </h3>
                                 <p>
-                                    Be warned that this action is irreversible. If you are not happy with it, you can <a href="{% url 'update_review' review.pk %}">update it</a> instead 
+                                    Be warned that this action is irreversible. If you are not happy with your review, you can <a href="{% url 'update_review' review.pk %}">edit it</a> instead 
                                 </p>
                                 <p>
-                                    If you want to proceed, click the button below and confirm
+                                    If you want to proceed, click the button below and confirm. You will then be redirected back to the home page
                                 </p>
                                 <button type="button" data-bs-toggle="modal" data-bs-target="#delete"  class="btn btn-signup btn-lg">Delete review</button>
                             {% else %}
@@ -31,7 +31,7 @@
                             {% endif %}
                         {% else %}
                             <div class="card-text">
-                                <p>You are logged out. Please <a href="{% url 'account_login' %}">login</a> to delete your review</p>
+                                <p>You are logged out. Please <a href="{% url 'account_login' %}">sign in</a> to delete your review</p>
                             </div>
                         {% endif %}
                     </div>
@@ -50,9 +50,10 @@
             <div class="modal-body">
                 <p>Click the button below to confirm deletion of your review</p>
                 <p>WARNING: This action is irreversible!</p>
+                <p>After your review is deleted, you will be redirected back to the landing page</p>
             </div>
             <div class="modal-footer">
-                <form method="POST" style="margin-top: 1.3em;">
+                <form method="POST" class="mt-2">
                     {% csrf_token %}
                     <button type="button" class="btn btn-signup btn-lg" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-signup btn-lg">Delete Review</button>

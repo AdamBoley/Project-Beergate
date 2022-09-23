@@ -21,12 +21,10 @@
                             {% if user.is_authenticated %}
                                 {% if user.id == review.author.id %}
                                     <h3>
-                                        Update your review
+                                        Edit your review
                                     </h3>
-                                    <p>
-                                        Posting as: {{ user.username }}
-                                    </p>
-                                    <form method="POST" style="margin-top: 1.3em;" enctype="multipart/form-data">
+                                    
+                                    <form method="POST" class="mt-2" enctype="multipart/form-data">
                                         {{ form.media }}
                                         {{ form.as_p }}
                                         {% csrf_token %}
@@ -39,7 +37,7 @@
                                 {% endif %}
                             {% else %}
                                 <div class="card-text">
-                                    <p>You are logged out. Please <a href="{% url 'account_login' %}">login</a> to update your beer review</p>
+                                    <p>You are logged out. Please <a href="{% url 'account_login' %}">sign in</a> to update your beer review</p>
                                 </div>
                             {% endif %}
                         {% endif %}
