@@ -2,7 +2,7 @@
 
 {% load i18n %}
 
-{% block title %}{% trans "Signup" %}{% endblock %}
+{% block title %}Sign up{% endblock %}
 
 {% block content %}
 
@@ -19,12 +19,11 @@
                     {% csrf_token %}
                     {{ form.as_p }}
                     {% if redirect_field_value %}
-                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
                     {% endif %}
-                    <button class="btn" type="submit">{% trans "Sign Up" %} &raquo;</button>
+                        <button class="btn" type="submit">{% trans "Sign Up" %} &raquo;</button>
+                    </form>
                 </div>
-                
-                </form>
             </div>
         </div>
     </div>

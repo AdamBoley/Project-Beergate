@@ -1205,11 +1205,14 @@ What happens when the tab duplication trick is used?
 404 error testing - does 404 page display?
 
 500 error testing - does 500 page display?
+
 I was unable to find a way of deliberately triggering a 500 error. However, one of my goals was to automatically add an upvote to a review when it is submitted. I tried this with `user_review_form.instance.author = request.user` added to AddReview's `if user_review_form.is_valid()` block. When I filled out and submitted the form, a 500 error triggered, rendering the 500.html template. This is a somewhat roundabout way of tiggering a 500 error, but a valid one for testing purposes. 
 
 Are unregistered users unable to edit and delete reviews?
 
 Are registered users unable to edit and delete reviews that do not belong to them?
+
+What happens when the tab duplication trick is used and the user attempts to add a review, update a review or delete a review?
 
 ## Validation testing
 
@@ -1333,8 +1336,6 @@ As the content of this page can change based on user actions without modifying t
 
 When this page was validated, 10 errors were returned. Closer examination of the results reveals that these errors are all due to the formatting of the injected form, which I can do little to resolve.
 
-Validation by URL input returned no errors, however. 
-
 ##### Form submitted
 
 When validating this page, I submitted a beer review using the form. I expected the success message to be displayed, but I actually got the 500 server error page. Submitting the same beer review via the local version with debug on revealed the issue - I had purposely left the `hops` field empty, as it is optional. However, the post method in AddReview uses the `title()` method on the `hops` field. Since the field is empty, the `title()` method fails. At time of writing, I could not find a way of checking to see if the `hops` field has a value, and if so, apply the `title()` method. This will go into the Future Work section to be tackled at a later date. For the moment, the code to apply the `title()` method to the `hops` field has been removed. When this fix was applied, the the form was filled out and submitted. Once submitted, the confirmation message displayed as expected. Validation by page source code returned no errors.  
@@ -1351,39 +1352,51 @@ Prior to validation, I modified the UpdateReview view to remove the code that ap
 
 ##### Pre-populated update_review form
 
-
+Validation of this page returned 10 errors. Closer inspection revealed that these errors were the same errors as those noted in the add_review page validation, and are related to formatting. As in that section, I can do little to resolve these errors, as I cannot directly control the layout. 
 
 ##### Form submiited
 
+Validation of this page returned no errors, and no errors were encountered when submitting. I suspect that my preventative bug fixing above allowed this.
+
 ##### Update_review page when signed out
+
+The tab-duplication trick was used to generate this page. Validation of this page returned no errors. It did not trigger a 500 server error as the user_reviews page does when the same trick is applied, but this is acceptable, since the templating language handles this.
 
 #### Delete Review
 
-The delete_review page was validated twice - once for when the page has just been loaded, and once for when the Confirm Deletion modal has been activated.
+The delete_review page was validated 3 times - once for when the page has just been loaded, once for when the Confirm Deletion modal has been activated, and finally for when the user has managed to navigate to the page when signed-out. As above, this should be impossible to achieve in the normal operation of BeerGate, but it is technically possible to achieve, as documented [here](#tab-duplication-bug).
 
 ##### Modal inactive
 
+This page was validated by direct source code checking. Validation returned no errors.
+
 ##### Modal active
+
+This page was validated by direct source code checking. Validation returned no errors. Interestingly, to access the menu to generate the page source code, you must right-click inside the modal, since right-clicking outside closes the modal.
+
+##### Delete_review when signed out
+
+The tab-duplication trick was used to generate this page. Validation of this page returned no errors. It did not trigger a 500 server error as the user_reviews page does when the same trick is applied, but this is acceptable, since the templating language handles this.
 
 #### Account Sign-in
 
-The sign_in page was validated once:
+The sign_in page was validated once by URL. Validation returned no errors.
 
 #### Account Sign-out
 
-The sign_out page was validated once:
+The sign_out page was validated once by direct source code checking. Initially validation returned 3 errors related to element formatting. I thought to put these down to the formatting of the form, was has been noted as problematic above, but then noted that the form for the sign-out page is simple. Close inspection of the source code revealed improper placement of the elements. Once fixed, validation was re-run and returned no errors. 
 
 #### Account Sign-up
 
-The sign_up page was validated once:
+The sign_up page was validated once by URL. Initially validation returned 3 errors related to element formatting, similar to those noted directly above. Inspection of the source code revealed similarly improper formatting. Once fixed, validation was re-run and returned no errors. 
 
 #### Account Password Change
 
-The password_change page was validated once:
+The password_change page was validated once by direct source code checking. Validation returned no errors.
 
 ### CSS Validation
 
-All custom CSS is contained within static/css/styles.css. This file was validated by [the official W3 CSS validator](https://jigsaw.w3.org/css-validator/). Unlike the HTML files, copying and pasting the CSS code was sufficient.
+All custom CSS is contained within static/css/styles.css. This file was validated by [the official W3 CSS validator](https://jigsaw.w3.org/css-validator/). Direct source code checking was used. No errors were returned. 
 
 ### JS Validation
 
@@ -1395,11 +1408,17 @@ BeerGate's python files are contained within 3 directories - beergate, reviews a
 
 All Python validation was carried out with the [PEP8 Validator](http://pep8online.com/)
 
-All Python files in the project were validated. 
+All Python files in the project were validated.
+
+Validation was carried out by direct source code checking
 
 #### Beergate settings.py
 
+Validation returned 5 'Line Too Long' errors. These relate to long value names in the AUTH_PASSWORD_VALIDATORS dictionary, and a long value for the STATICFILES_STORAGE. Since this is the settings file, applying strictly correct formatting could damage the project, so they were left uncorrected.
+
 #### Beergate urls.py
+
+
 
 #### Reviews admin.py
 
