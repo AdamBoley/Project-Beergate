@@ -838,9 +838,16 @@ To do:
     - average_score method 
     - Ronan will look into this
 
+- uncaught usage of 'logged-in' in add_review
 
+- give bugs section titles for each bug
 
 - remove all extraneous / commented-out code
+    - commented out anchor element in account/change_password
+
+- possible bug - change password does not display a success message, just reloads the page. Will require messages framework:
+    - https://stackoverflow.com/questions/19892366/how-to-add-a-success-message-after-django-allauth-change-password-view-has-retur
+    - https://docs.djangoproject.com/en/3.2/ref/contrib/messages/#using-messages-in-views-and-templates
 
 - Implement tests from Django-Experimentation repo
 
@@ -872,6 +879,8 @@ Future work:
 
 
 # Bugs
+
+### Initial deployment bug
 
 When trying to deploy an initial blank version of the project to Heroku, I ran into an error, with Heroku logging the error `unable to build wheel for backports.zoneinfo`. Some Googling revealed that the problem could be to do with the version of Python that Heroku uses, and that a possible fix could be to add a `runtime.txt` file to the repository to specify the exact version of Python that should be used. Said file was added with `python-3.8.13`. In the end, I noted that this was extraneous, since INSTALLED_APPS was missing a comma. Once added, Heroku was able to build and deploy the app properly. The `runtime.txt` file was removed. 
 
@@ -942,6 +951,8 @@ Within Comment(unchanged):
 When designing the user review form that allows users to submit their own beer reviews, and implementing the backend code to handle this, I noted that the form was not uploading images that had been attached in the image field. A Django blog walkthrough video on Youtube suggested using an ImageField, and then storing images directly in the repository. Whilst I considered that this might be an acceptable work-around, I concluded that it would not for extensibility reasons. Many users uploading many images would bloat that directory. I then found [Cloudinary's documentation on image uploading](https://cloudinary.com/documentation/django_image_and_video_upload). I determined that I already had most of the pieces in place, though their code snippets pre-suppose the use of function-based views. Merely adding `{% load cloudinary %}` to the HTML file, and adding `request.FILES` to the post method of the AddReview view was sufficient to get this working. A database entry with name `image upload test` is testament to this - this entry's image was uploaded using the form, not via the admin backend, though I have disapproved it since the image is poorly-sized.
 
 <hr>
+
+### Tab duplication bug
 
 After implementing the functionality to update and delete posts, I was researching ways to limit only the user of a post to edit or delete it. In doing so, I came across a potential vulnerability - a logged in user may duplicate their tab and then using that second tab, navigate to the user_review, update_review and delete_review pages. If they then log out using the first tab and refresh the second tab, that second tab remains on those pages, effectively giving a logged-out user continued access to functionality that only logged in users should have. Fortunately, I already had `{% if user.is_authenticated %}` control statements in these pages, so that if a user tries the above work-around, the content will not display. It is possible that a user might do this accidentally, so I added text and links to the login page if the user is not authenticated. This is also a safeguard against malicious users.
 
@@ -1166,6 +1177,8 @@ If developing a clone of BeerGate locally, you will need an `env.py` file to con
 
 # Testing
 
+All testing was carried out on the deployed version of BeerGate.
+
 ## Manual User Story testing
 
 ### Admin user User Story testing
@@ -1201,25 +1214,99 @@ HTML validation was carried out by pointing the [Official W3 validator](https://
 
 #### Index
 
+For the sake of completeness, the landing page rendered from index.html was validated 12 times - once for each of the sorting and filtering criteria applied by the different views. In addition, at time of validation, the Amber Beers filtering criteria returned no matching reviews, which triggered the empty tag of the templating language. As this tag contains HTML code, it bears validating. 
+
 #### Review
+
+##### Default - reviews sorted by Newest
+
+##### Reviews sorted by Most Upvotes
+
+##### Reviews sorted by Oldest
+
+##### Reviews filtered by Ale type
+
+##### Reviews filtered by Stout type
+
+##### Reviews filtered by Lager type
+
+##### Reviews filtered by Pale colour
+
+##### Reviews filtered by Golden type
+
+##### Reviews filtered by Amber type
+
+##### Reviews filtered by Dark type
+
+##### Reviews filtered by Bottled beers
+
+##### Reviews filtered by Draught beers
 
 #### Search Results
 
+The search_results page was validated twice - once for when a search was performed for `ale`, which returned several results, and once for when a search was performed for `cider`, which returned no results, as none of the reviews in the database match that search. This is because the search_results.html template has templating language that handles an empty queryset. 
+
+##### Search Results page with returned reviews
+
+##### Search Results with no reviews returned
+
 #### User Reviews
+
+The user_reviews page was validated 5 times - once for each of the use cases as documented in the [User Reviews view](#user-reviews-view) section in the docstring of the UserReviews class in views.py.
+
+##### Use case 1 - user has no reviews
+
+##### Use case 2 - user has one review awaiting approval
+
+##### Use case 3 - user has all reviews awaiting approval
+
+##### Use case 4 - user has some reviews approved and some awaitingg approval
+
+##### Use case 5 - user has all reviews approved
 
 #### Add Review
 
+The add_review page was validated 3 times - once for when the page has just been navigated to and hence an empty form is presented to the user, once for when the user has submitted a review and sees the success message as triggered by the templating language, and finally for when a user has managed to navigate to the page whilst signed-out. Though the final use-case should be impossible to achieve in the normal operation of BeerGate, it is technically possible to achieve via the tab-duplication trick, as documented [here](#tab-duplication-bug).
+
+##### Fresh add_review form
+
+##### Form submiited
+
+##### Add_review page when signed out
+
 #### Update Review
+
+The update_review page was validated 3 times - once for when the page has just been loaded and hence contains a pre-populated form, once for when a user has submitted an updated review via the form and see the success message as triggered by the templating language, and finally for when the user has managed to navigate to the page when signed-out. As above, this should be impossible to achieve in the normal operation of BeerGate, but it is technically possible to achieve, as documented [here](#tab-duplication-bug).
+
+##### Pre-populated update_review form
+
+##### Form submiited
+
+##### Update_review page when signed out
 
 #### Delete Review
 
+The delete_review page was validated twice - once for when the page has just been loaded, and once for when the Confirm Deletion modal has been activated.
+
+##### Modal inactive
+
+##### Modal active
+
 #### Account Sign-in
+
+The sign_in page was validated once:
 
 #### Account Sign-out
 
+The sign_out page was validated once:
+
 #### Account Sign-up
 
+The sign_up page was validated once:
+
 #### Account Password Change
+
+The password_change page was validated once:
 
 ### CSS Validation
 
@@ -1259,37 +1346,38 @@ All Python files in the project were validated.
 
 ## Automated testing
 
-When first developing the project, I had planned to implementing automated testing. However, as BeerGate's development progressed, I identified little need for automated testing. The models file does contain a function called `validate_within_limits` that checks if the `aroma`, `appearance`, `taste` and `aftertaste` fields have been given integers between 1 and 10. This function could have some automated testing written for it. However, the function's operation is small enough that extensive manual testing should be sufficient to determine if it works as intended. This is documented in the User Story Testing section. 
+When first developing the project, I had planned to implementing automated testing. However, as BeerGate's development progressed, I identified little need for automated testing. The models file does contain a function called `validate_within_limits` that checks if the `aroma`, `appearance`, `taste` and `aftertaste` fields have been given integers between 1 and 10. This function could have some automated testing written for it. However, the function's operation is small enough that extensive manual testing should be sufficient to determine if it works as intended. This is documented in the User Story Testing section.
 
 # Technologies
 
-Slack was used to hold video calls with my Mentor 
-<br>
-Django is the framework used to develop BeerGate
-<br>
-AllAuth provided the user authentication system used in BeerGate
-<br>
-Github was used to store BeerGate's files
-<br>
-Gitpod was used to create and edit BeerGate's files
-<br>
-Heroku was used to deploy BeerGate, and to host the Postgres database that holds all of BeerGate's data
-<br>
-Cloudinary was used to store and serve BeerGate's static files, including the styles.css file and images uploaded by users.  
-<br>
-The CK Editor and TinyMCE libraries were initially used to provide rich text editors. After difficulties were encountered getting these rich text editors to render on the deployed site, they were rejected.  
-<br>
-The Django Summernote editor was used to provide rich text editors for the Review and Comment content fields after the CK editor and TinyMCE libraries were rejected. I specifically commend the Django Summernote library for its ease-of-use and extensive customisability. 
-<br>
-The Bootstrap library was used to design the front-end look of BeerGate. 
+The following technologies were used in the development of BeerGate. This also includes the various packages used as well
+
+Applications:
+- Slack was used to hold video calls with my Mentor
+- Github was used to store BeerGate's files
+- Gitpod was used to create and edit BeerGate's files
+- Heroku was used to deploy BeerGate, and to host the Postgres database that holds all of BeerGate's data
+- Cloudinary was used to store and serve BeerGate's static files, including the styles.css file and images uploaded by users.
+
+Packages:
+- The Django framework was used to provide the foundation for BeerGate
+- The Django AllAuth library was used to provide BeerGate's user authentication system
+- The Django Summernote library was used to provide rich text editors for the `content` fields of the Comment and Review models
+- The Django Ck Editor and Django TinyMCE libraries were initially used to provide rich text editors. After difficulties were encountered getting these rich text editors to render on the deployed site, they were rejected
+- The Django Admin Honeypot library was used to provide a dummy admin login page
+- The Django Crispy Forms library was used to make BeerGates forms look better
+- The Bootstrap CSS library was used to design the front-end look of BeerGate
+
+
+
 
 # Other notes
 
-The most important note that must be made is that on 18/8/22, when attempting to migrate a change in the Review model into the database, the project encountered a fatal error. During this migration, the Django Summernote editor needed to make a migration as well, but could not. This stopped the migration from happening. I was unable to find a work-around for this error despite extensive research. I determined that the only way to continue with development was to begin again, setting up a new repository, workspace, Heroku app and Postgres database. When doing so, I found it easier to simply copy over the files I had already constructed. This made the first commit to the new repository rather large, as those files and changes might normally have been added over several commits. This may be considered a violation of good version control practice, though the commits made to the old repository - [BeerGate](https://github.com/AdamBoley/Beergate) - should be considered part of the current repository - [Project BeerGate](https://github.com/AdamBoley/Project-Beergate) - since they were all working toward the finished project. This is noted in the [bugs section](#bugs), but the seriousness of the issue means that it bears explicitly repeating here.
+The most important note that must be made is that on 18/8/22, when attempting to migrate a change in the Review model into the database, the project encountered a fatal error. During this migration, the Django Summernote editor needed to make a migration as well, but could not due to an error. This stopped the migration from happening. I was unable to find a work-around for this error despite extensive research. I determined that the only way to continue with development was to begin again, setting up a new repository, workspace, Heroku app and Postgres database. When doing so, I found it easier to simply copy over the files I had already constructed. This made the first commit to the new repository rather large, as those files and changes might normally have been added over several commits. This may be considered a violation of good version control practice, though the commits made to the old repository - [BeerGate](https://github.com/AdamBoley/Beergate) - should be considered part of the current repository - [Project BeerGate](https://github.com/AdamBoley/Project-Beergate) - since they were all working toward the finished project. This is noted in the [bugs section](#bugs), but the seriousness of the issue means that it bears explicitly repeating here.
 
 Partway through the development of BeerGate, Heroku announced that it was suspended its free tier of Postgres database hosting at the end of November. Per instructions from Student Care, I continued to host BeerGate on Heroku.
 
-This project was deployed to Heroku early on, as per the Django Blog walkthrough project. This proved to be a valuable lesson, since I deployed my Project 3 to Heroku quite late, which caused much stress. As a bonus, early deployment allowed me to view the project on my mobile device when not developing the project, allowing me to note bugs and areas where improvements were needed.
+This project was deployed to Heroku early on, as per the Django Blog walkthrough project. This proved to be a valuable lesson, since I deployed my Project 3 to Heroku quite late, which caused much stress. As a bonus, early deployment allowed me to view the project on my mobile device when not developing the project, allowing me to note bugs and areas where improvements were needed, particular to the responsiveness of the layout.
 
 The large number of commits made between 8/9/22 to 9/9/22 were made with the intention of getting the CK editor and TinyMCE rich text editors working. Full commits were required because these editors failed to render only on the deployed version of BeerGate, whereas they worked perfectly on the local development server.
 
@@ -1307,12 +1395,10 @@ Gemma from Code Institute Tutor support, for helping to fix the issue with being
 
 Gemma also tried to fix the issue with the CK Editor and TinyMCE Rich Text Editors. Though unsuccessful, the tutoring process allowed me to realise that I was wasting time trying to get these working. From there, I used the django-summernote editor, which was implemented almost seemlessly and allowed development to continue.
 
-The [official Django documentation](https://docs.djangoproject.com/en/3.2/) proved very helpful generally, particularly the [model field reference page](https://docs.djangoproject.com/en/3.2/ref/models/fields/) for guidance on designing my models and field types. The [QuerySet page](https://docs.djangoproject.com/en/3.2/ref/models/querysets/) was also helpful in learning how to construct more complex querysets.
-
-Other Django documentation pages of particular use were:
-
+The [official Django documentation](https://docs.djangoproject.com/en/3.2/) proved very helpful generally, particularly the following pages:
+- [model field reference page](https://docs.djangoproject.com/en/3.2/ref/models/fields/) for guidance on designing my models and field types
+- The [QuerySet page](https://docs.djangoproject.com/en/3.2/ref/models/querysets/) was also helpful in learning how to construct more complex querysets
 - [This Django documentation on Pagination](https://docs.djangoproject.com/en/3.2/topics/pagination/) provided a superior pagination template than the one used in the walkthrough videos that I had been used. This template allows finer navigation between pages. This template was further customised, but the documentation should be credited with allowing this customisation. 
-
 - [This Django documentation](https://docs.djangoproject.com/en/dev/ref/models/querysets/#django.db.models.query.QuerySet.order_by) taught me how to access a random database record.
 
 The [official Django AllAuth documentation](https://django-allauth.readthedocs.io/en/latest/index.html) was helpful in the implementation of the AllAuth templates, forms and views in the user app. AllAuth itself is clearly very powerful.
@@ -1341,7 +1427,7 @@ A custom scrollbar was applied with [this W3Schools page](https://www.w3schools.
 
 The official [django-summernote](https://github.com/summernote/django-summernote) documentation and [this article](https://djangocentral.com/integrating-summernote-in-django/) were collectively invaluable in implementing the Summernote editor to both the admin panel and front-end UserReviewForm. Django Summernote itself should be credited for its ease of use and clarity of documentation. After the trials and travails encountered when working with the CK Editor and TinyMCE editors, this was very welcome.
 
-[This Summernote website page](https://summernote.org/deep-dive/#custom-toolbar-popover) was useful for customising the options available to the Summernote editors. Again, the ease-of-use should be specifically mentioned.
+[This Summernote documentation](https://summernote.org/deep-dive/#custom-toolbar-popover) was useful for customising the options available to the Summernote editors. Again, the ease-of-use should be specifically mentioned.
 
 [This article](https://learndjango.com/tutorials/django-search-tutorial) by noted Django export Will Vincent provided invaluable guidance on implementing a working search bar.
 
