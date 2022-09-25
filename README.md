@@ -846,8 +846,6 @@ To do:
     - average_score method 
     - Ronan will look into this
 
-- uncaught usage of 'logged-in' in add_review
-
 - give bugs section titles for each bug
 
 - remove all extraneous / commented-out code
