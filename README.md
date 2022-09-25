@@ -842,6 +842,10 @@ To do:
 
 - Landing page with no reviews needs pagination bar pushed down
 
+- Explictly state the number of reviews the user has vs how many are approved on the user_reviews page. Define in context using len? or use templating count?
+
+- Consider using a new method for UpdateView: https://docs.djangoproject.com/en/3.2/topics/forms/modelforms/#the-save-method - override save method?
+
 - The SECURE_SSL_REDIRECT and SECURE_HSTS_SECONDS security settings provided last session caused localhost to fail
     - Is it acceptable to not include these?
     - Use a conditional - if working in deployment, apply these settings
@@ -1299,31 +1303,55 @@ When validating the user_reviews page by URL, the Validator returned a HTTP 500 
 
 When validating this page, I signed-in as a newly-created user with username 'Kieran'. When I navigated to the user_reviews page, no content was displayed. After examining the code of the template and the view, I determined that this was due to a misplaced `endif` control statement. After fixing this, the expected message that the user has not written any reviews displayed as expected.
 
+After apply the fixes documented directly below, validation returned no errors.
+
 ##### Use case 2 - user has one review awaiting approval
 
 When validating this page, I transferred a single review to the 'Kieran' account and disapproved it. When I navigated to the user_reviews page, two text boxes displayed - one informing me that, as expected, a review had been written and was awating approval, and another informing me that I had no written any reviews. This was problematic, and I determined that I could not rely on the `{% empty %}` tag in the templating language, and hence that I needed to rework the UserReview view to explicitly handle this case and the above use-case 1. I reworked those files to more explicitly handle these use cases and redeployed to Heroku.
 
+After this fix, validation returned no errors
+
 ##### Use case 3 - user has all reviews awaiting approval
 
-##### Use case 4 - user has some reviews approved and some awaitingg approval
+When validating this page, I assigned two reviews to the 'Adam' superuser account and disapproved both. When I navigated to the user_reviews page, the expected message that I had written some reviews but that they were awaiting approval was displayed. Validation of this page returned no errors
+
+##### Use case 4 - user has some reviews approved and some awaiting approval
+
+When validating this page, I assigned two reviews to the 'Adam' superuser account and approved one of them. When I navigated to the user_reviews page, the expected message that I had some of my reviews approved was displayed, along with the single displayed review. Validation of this page returned no errors.
 
 ##### Use case 5 - user has all reviews approved
+
+When validating this page, I assigned two reviews to the 'Adam' superuser account and approved both of them. When I navigated to the user_reviews page, the expected message that I all of my reviews were approved was displayed, along with both reviews displayed. Validation of this page returned no errors.
 
 #### Add Review
 
 The add_review page was validated 3 times - once for when the page has just been navigated to and hence an empty form is presented to the user, once for when the user has submitted a review and sees the success message as triggered by the templating language, and finally for when a user has managed to navigate to the page whilst signed-out. Though the final use-case should be impossible to achieve in the normal operation of BeerGate, it is technically possible to achieve via the tab-duplication trick, as documented [here](#tab-duplication-bug).
 
+As the content of this page can change based on user actions without modifying the URL, direct validation by page source code was used.
+
 ##### Fresh add_review form
 
-##### Form submiited
+When this page was validated, 10 errors were returned. Closer examination of the results reveals that these errors are all due to the formatting of the injected form, which I can do little to resolve.
+
+Validation by URL input returned no errors, however. 
+
+##### Form submitted
+
+When validating this page, I submitted a beer review using the form. I expected the success message to be displayed, but I actually got the 500 server error page. Submitting the same beer review via the local version with debug on revealed the issue - I had purposely left the `hops` field empty, as it is optional. However, the post method in AddReview uses the `title()` method on the `hops` field. Since the field is empty, the `title()` method fails. At time of writing, I could not find a way of checking to see if the `hops` field has a value, and if so, apply the `title()` method. This will go into the Future Work section to be tackled at a later date. For the moment, the code to apply the `title()` method to the `hops` field has been removed. When this fix was applied, the the form was filled out and submitted. Once submitted, the confirmation message displayed as expected. Validation by page source code returned no errors.  
 
 ##### Add_review page when signed out
+
+The tab-duplication trick was used to generate this page. Validation of this page returned no errors. It did not trigger a 500 server error as the user_reviews page does when the same trick is applied, but this is acceptable, since the templating language handles this.
 
 #### Update Review
 
 The update_review page was validated 3 times - once for when the page has just been loaded and hence contains a pre-populated form, once for when a user has submitted an updated review via the form and see the success message as triggered by the templating language, and finally for when the user has managed to navigate to the page when signed-out. As above, this should be impossible to achieve in the normal operation of BeerGate, but it is technically possible to achieve, as documented [here](#tab-duplication-bug).
 
+Prior to validation, I modified the UpdateReview view to remove the code that applies the `title()` method to the `hops` field, as I anticipated the same problem.
+
 ##### Pre-populated update_review form
+
+
 
 ##### Form submiited
 
