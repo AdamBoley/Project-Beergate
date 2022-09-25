@@ -836,6 +836,8 @@ In progress:
 
 To do:
 
+- Landing page with no reviews needs pagination bar pushed down
+
 - The SECURE_SSL_REDIRECT and SECURE_HSTS_SECONDS security settings provided last session caused localhost to fail
     - Is it acceptable to not include these?
     - Use a conditional - if working in deployment, apply these settings
@@ -1213,27 +1215,51 @@ For the sake of completeness, the landing page rendered from index.html was vali
 
 ##### Default - reviews sorted by Newest
 
+Validation initially returned many errors about the use of the `aria-labelledby` attribute, warning that the value had to point to another element. I noted that I had selected the incorrect aria attribute. I changed the image elements to use the `aria-label` attribute instead. After this correction, validation returned no errors.
+
 ##### Reviews sorted by Most Upvotes
+
+Validation returned no errors.
 
 ##### Reviews sorted by Oldest
 
+Validation returned no errors.
+
 ##### Reviews filtered by Ale type
+
+Validation returned no errors.
 
 ##### Reviews filtered by Stout type
 
+Validation returned no errors.
+
 ##### Reviews filtered by Lager type
+
+Validation returned no errors.
 
 ##### Reviews filtered by Pale colour
 
+Validation returned no errors.
+
 ##### Reviews filtered by Golden type
+
+Validation returned no errors.
 
 ##### Reviews filtered by Amber type
 
+Validation returned no errors.
+
 ##### Reviews filtered by Dark type
+
+Validation returned no errors.
 
 ##### Reviews filtered by Bottled beers
 
+Validation returned no errors.
+
 ##### Reviews filtered by Draught beers
+
+Validation returned no errors.
 
 #### Review
 
@@ -1241,13 +1267,19 @@ The review page was validated twice - once for when the page has just been loade
 
 ##### Review page standard
 
+Validation returned no errors
+
 ##### Review page after comment submission
+
+Validation returned no errors
 
 #### Search Results
 
-The search_results page was validated twice - once for when a search was performed for `ale`, which returned several results, and once for when a search was performed for `cider`, which returned no results, as none of the reviews in the database match that search. This is because the search_results.html template has templating language that handles an empty queryset. 
+The search_results page was validated twice - once for when a search was performed for `ale`, which returned several results, and once for when a search was performed for `cider`, which returned no results, as none of the reviews in the database match that search. This is because the search_results.html template has templating language that handles an empty queryset.
 
 ##### Search Results page with returned reviews
+
+
 
 ##### Search Results with no reviews returned
 

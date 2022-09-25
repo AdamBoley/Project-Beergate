@@ -16,9 +16,9 @@
                                 <div class="row">
                                     <div class="search-results-image d-none d-sm-inline col-5 col-lg-5 col-xl-4">
                                         {% if "placeholder" in review.image.url %}
-                                            <img src="https://res.cloudinary.com/adamboley/image/upload/v1661792893/bg3_zfwcad.webp" alt="image of 2 pints of beer" aria-label="image of 2 pints of beer" class="card-img-top">
+                                            <img src="https://res.cloudinary.com/adamboley/image/upload/v1661792893/bg3_zfwcad.webp" alt="image of 2 pints of beer" aria-label="image of 2 pints of beer">
                                         {% else %}
-                                            <img src="{{ review.image.url }}" alt="an image of {{ review.name }} beer" aria-label="an image of {{ review.name }} beer" class="card-img-top">
+                                            <img src="{{ review.image.url }}" alt="an image of {{ review.name }} beer" aria-label="an image of {{ review.name }} beer">
                                         {% endif %}
                                     </div>
                                     <div class="search-results-info col-7 col-lg-7 col-xl-4">
