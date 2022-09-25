@@ -398,7 +398,7 @@ The approved field is a BooleanField with a default value of False. This field p
 
 The aroma, appearance, taste and aftertaste fields are standard IntegerFields, with validation being handled by the validate_within_limits function. These fields provide quick numerical scores of beers. These were added after I found [RateBeer](https://www.ratebeer.com/), and noted that said site allows numerical scores. I felt that using numerical scores along with class methods to do something with these would elevate the project. I am a member of CAMRA, and so I was able to find the criteria used by their judges in the Champion Beer of Britain competition.
 
-Early versions of the Review model used a slug field with the SlugField type, which was used to generate custom URLs, much as like in the Django Blog walkthrough project. However, this proved to be an obstacle to mass-approval of reviews in the admin panel. As in the walkthrough project, the slug field was set to be pre-populated, but I discovered that this pre-population only occurred when each individual record was accessed. Should users collectively submit hundreds of reviews, an administrator would need to access each record to pre-populate the slug field, which would be a huge time-sink. When this was discovered, the slug field was removed and the project converted to use the primary_key of each Review instead. 
+Early versions of the Review model used a slug field with the SlugField type, which was used to generate custom URLs, much as like in the Django Blog walkthrough project. However, this proved to be an obstacle to mass-approval of reviews in the admin panel. As in the walkthrough project, the slug field was set to be pre-populated, but I discovered that this pre-population only occurred when each individual record was accessed. Should users collectively submit hundreds of reviews, an administrator would need to access each record to pre-populate the slug field, which would be a huge time-sink. When this was discovered, the slug field was removed and the project converted to use the primary_key of each Review instead.
 
 ##### Review class methods
 
@@ -1224,8 +1224,6 @@ HTML validation was carried out by pointing the [Official W3 validator](https://
 
 For the sake of completeness, the landing page rendered from index.html was validated 12 times - once for each of the sorting and filtering criteria applied by the different views. In addition, at time of validation, the Amber Beers filtering criteria returned no matching reviews, which triggered the empty tag of the templating language. As this tag contains HTML code, it bears validating. 
 
-#### Review
-
 ##### Default - reviews sorted by Newest
 
 ##### Reviews sorted by Most Upvotes
@@ -1249,6 +1247,14 @@ For the sake of completeness, the landing page rendered from index.html was vali
 ##### Reviews filtered by Bottled beers
 
 ##### Reviews filtered by Draught beers
+
+#### Review
+
+The review page was validated twice - once for when the page has just been loaded, and once for when a use has submitted a comment, and hence the comment submission success message is rendered. 
+
+##### Review page standard
+
+##### Review page after comment submission
 
 #### Search Results
 
