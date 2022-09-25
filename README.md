@@ -861,6 +861,9 @@ Done:
 - Note removal of AllAuth Urls, and retention of views, forms and template for future work - done
 - ensure all templating language is properly indented - done
 - implement messages
+- On search results page, invite user to perform another search if theirs returns no reviews - done
+
+
 
 
 Rejected:
@@ -915,8 +918,6 @@ In progress:
 To do:
 
 - message close button is a bit too close to edge - move in with absolute positioning or give div some padding
-
-- On search results page, invite user to perform another search if theirs returns no reviews
 
 - Landing page with no reviews needs pagination bar pushed down
 

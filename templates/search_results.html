@@ -77,8 +77,9 @@
                     {% empty %}
                         <div class="card">
                             <div class="card-inner">
-                                <p>Your search returned no results</p>
-                                <p>Click <a href="{% url 'home' %}">here</a> to go back to the homepage</p>
+                                <p class="text-center">Your search returned no results</p>
+                                <p class="text-center">Click <a href="{% url 'home' %}">here</a> to go back to the homepage</p>
+                                <p class="text-center">Or do another search with different terms</p>
                             </div>
                         </div>
                     {% endfor %}
