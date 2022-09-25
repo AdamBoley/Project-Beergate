@@ -32,7 +32,7 @@ class CommentForm(forms.ModelForm):
 class UserReviewForm(forms.ModelForm):
     """
     Form that allows a user to submit a beer review
-    Properties are controlled by Meta child class 
+    Properties are controlled by Meta child class
     """
 
     class Meta:

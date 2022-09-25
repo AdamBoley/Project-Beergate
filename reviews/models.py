@@ -158,4 +158,3 @@ class Comment(models.Model):
         """
         return self.downvotes.count()
 
-

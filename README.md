@@ -1418,23 +1418,39 @@ Validation returned 5 'Line Too Long' errors. These relate to long value names i
 
 #### Beergate urls.py
 
-
+Validation returned no errors. 
 
 #### Reviews admin.py
 
+Validation returned 3 Line Too Long errors.
+
 #### Reviews forms.py
+
+Validation returned 5 Line Too Long errors.
 
 #### Reviews models.py
 
+Validation returned 6 Line Too Long errors. 
+
 #### Reviews urls.py
+
+Validation returned 6 Line Too Long errors.
 
 #### Reviews views.py
 
+Validation returned 28 Line Too Long errors and 5 Line Break Before Binary Operator errors. The Line Break Before Binary Operator errors relate to the line breaks between the Q methods used to construct the queryset in the SearchResults view. Placing the Q methods on one line would degrade readability, so I have left this code as-is.
+
 #### User forms.py
+
+Validation returned 1 Line Too Long error.
 
 #### User views.py
 
+Validation returned 4 Line Too Long errors.
+
 #### User urls.py
+
+Validation returned 1 Line Too Long error.
 
 ## Automated testing
 
@@ -1442,26 +1458,24 @@ When first developing the project, I had planned to implementing automated testi
 
 # Technologies
 
-The following technologies were used in the development of BeerGate. This also includes the various packages used as well
+The following technologies were used in the development of BeerGate. This also includes the various packages used as well.
 
 Applications:
 - Slack was used to hold video calls with my Mentor
 - Github was used to store BeerGate's files
 - Gitpod was used to create and edit BeerGate's files
 - Heroku was used to deploy BeerGate, and to host the Postgres database that holds all of BeerGate's data
-- Cloudinary was used to store and serve BeerGate's static files, including the styles.css file and images uploaded by users.
+- [Cloudinary](https://cloudinary.com/) was used to store and serve BeerGate's static files, including the styles.css file and images uploaded by users.
 
 Packages:
-- The Django framework was used to provide the foundation for BeerGate
-- The Django AllAuth library was used to provide BeerGate's user authentication system
-- The Django Summernote library was used to provide rich text editors for the `content` fields of the Comment and Review models
-- The Django Ck Editor and Django TinyMCE libraries were initially used to provide rich text editors. After difficulties were encountered getting these rich text editors to render on the deployed site, they were rejected
-- The Django Admin Honeypot library was used to provide a dummy admin login page
-- The Django Crispy Forms library was used to make BeerGates forms look better
-- The Bootstrap CSS library was used to design the front-end look of BeerGate
-
-
-
+- The [Django](https://www.djangoproject.com/) framework was used to provide the foundation for BeerGate
+- The [Django AllAuth](https://django-allauth.readthedocs.io/en/latest/) library was used to provide BeerGate's user authentication system
+- The [Django Summernote](https://github.com/summernote/django-summernote) library was used to provide rich text editors for the `content` fields of the Comment and Review models
+- The [Django Ck Editor](https://pypi.org/project/django-ckeditor/) and [Django TinyMCE](https://django-tinymce.readthedocs.io/en/latest/#) libraries were initially used to provide rich text editors. After difficulties were encountered getting these rich text editors to render on the deployed site, they were rejected
+- The [Django Admin Honeypot](https://django-admin-honeypot.readthedocs.io/en/latest/index.html#) library was used to provide a dummy admin login page
+- The [Django Crispy Forms](https://django-crispy-forms.readthedocs.io/en/latest/) library was used to make BeerGates forms look better
+- The [Django Cloudinary Storage](https://pypi.org/project/django-cloudinary-storage/) was used to facilitate interactions with the Cloudinary CDN
+- The [Bootstrap CSS](https://getbootstrap.com/) library was used to design the front-end look of BeerGate
 
 # Other notes
 
@@ -1477,7 +1491,7 @@ These commits ultimately achieved nothing, except for some documentation regardi
 
 # Credits
 
-In contrast to my previous projects, where I was able to write most of the code myself, BeerGate owes its a lot of its development to many external articles, guides, tutorials and so on. Making sense of these was often difficult, as was applying the code and solutions they offered, but in the end valuable lessons were learnt.
+In contrast to my previous projects, where I was able to write most of the code myself, BeerGate owes its much of its development to many external articles, guides, tutorials and so on, as well as the official documentation of the packages used. Making sense of these was often difficult, as was applying the code and solutions they offered, but in the end valuable lessons were learnt.
 
 Whilst I was not able to save every resource used, I credit the following people and resources for assisting BeerGate's development:
 
@@ -1486,6 +1500,8 @@ Firstly, the Code Institute Django Blog walkthrough project proved invaluable in
 Gemma from Code Institute Tutor support, for helping to fix the issue with being unable to access the user_review.html page. This was the first major feature beyond the walkthrough project that I wanted to add, and her help in getting it working was a major boost to my confidence in my abilities, and allowed development to proceed.
 
 Gemma also tried to fix the issue with the CK Editor and TinyMCE Rich Text Editors. Though unsuccessful, the tutoring process allowed me to realise that I was wasting time trying to get these working. From there, I used the django-summernote editor, which was implemented almost seemlessly and allowed development to continue.
+
+Ronan McLelland, as my Mentor, provided invaluable guidance on potential features to add in, as well as a veritable truckload of resources.
 
 The [official Django documentation](https://docs.djangoproject.com/en/3.2/) proved very helpful generally, particularly the following pages:
 - [model field reference page](https://docs.djangoproject.com/en/3.2/ref/models/fields/) for guidance on designing my models and field types
@@ -1515,13 +1531,13 @@ A custom scrollbar was applied with [this W3Schools page](https://www.w3schools.
 
 [Favicon.io](https://favicon.io/) was used to generate a favicon
 
-[This Reddit post](https://www.reddit.com/r/django/comments/8jkh5t/updateview_creates_new_items_in_the_db_instead_of/), specifically the answer the questioner themselves added, provided the basis for providing the basis of the solution to automatically disapproving updated reviews in the UpdateReview view.
+[This Reddit post](https://www.reddit.com/r/django/comments/8jkh5t/updateview_creates_new_items_in_the_db_instead_of/), specifically the answer the questioner themselves added, provided the basis of the solution to the problem of automatically disapproving updated reviews in the UpdateReview view.
 
 The official [django-summernote](https://github.com/summernote/django-summernote) documentation and [this article](https://djangocentral.com/integrating-summernote-in-django/) were collectively invaluable in implementing the Summernote editor to both the admin panel and front-end UserReviewForm. Django Summernote itself should be credited for its ease of use and clarity of documentation. After the trials and travails encountered when working with the CK Editor and TinyMCE editors, this was very welcome.
 
 [This Summernote documentation](https://summernote.org/deep-dive/#custom-toolbar-popover) was useful for customising the options available to the Summernote editors. Again, the ease-of-use should be specifically mentioned.
 
-[This article](https://learndjango.com/tutorials/django-search-tutorial) by noted Django export Will Vincent provided invaluable guidance on implementing a working search bar.
+[This article](https://learndjango.com/tutorials/django-search-tutorial) by noted Django export Will Vincent provided invaluable guidance on implementing a working search bar, and the code to construct querysets based on user inputs.
 
 [This article](https://teamtreehouse.com/community/length-of-queryset-in-a-django-response) taught me how to get the length of a queryset, which is used to great effect in the UserReviews view.
 

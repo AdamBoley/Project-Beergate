@@ -51,7 +51,7 @@ class UserChangePasswordForm(ChangePasswordForm):
 
     def __init__(self, *args, **kwargs):
         """
-        Applies Bootstrap form-control class to all fields using a for loop 
+        Applies Bootstrap form-control class to all fields using a for loop
         """
         super(UserChangePasswordForm, self).__init__(*args, **kwargs)
 

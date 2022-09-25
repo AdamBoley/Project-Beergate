@@ -1,11 +1,11 @@
-from django.shortcuts import render, get_object_or_404, reverse
+from django.shortcuts import render, get_object_or_404
 from django.views import generic, View
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
-from .models import Review, Comment
-from .forms import CommentForm, UserReviewForm
 from django.db.models import Q
-from django.db.models import Count, Avg
+from django.db.models import Count
+from .models import Review
+from .forms import CommentForm, UserReviewForm
 
 
 class LandingPage(generic.ListView):
@@ -206,7 +206,7 @@ class RandomReview(View):
     def get(self, request, *args, **kwargs):
         """
         Get method - retrieves a random review from the database
-        Saves the queryset, review and review's primary key - 
+        Saves the queryset, review and review's primary key -
         - to class variables above
         """
         queryset = Review.objects.filter(approved=True).order_by('?')
