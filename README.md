@@ -12,8 +12,11 @@ Am I response image here
 - [Audience](#audience--users)
 - [User Stories](#user-stories)
     - [Admin user User Stories](#admin-user-user-stories)
+    - [Generic user User Stories](#generic-user-user-stories)
+        - [Rejected Generic user Stories](#rejected-generic-user-user-stories)
     - [Unregistered user User Stories](#unregistered-user-user-stories)
     - [Registered user User Stories](#registered-user-user-stories)
+        - [Rejected Registered user User Stories](#rejected-registered-user-user-stories)
 - [Features](#features)
     - [Based](#base)
     - [Header and navbar](#header-and-navbar)
@@ -28,7 +31,9 @@ Am I response image here
     - [Delete Review Page](#delete-review-page)
     - [Search Results Page](#search-results-page)
     - [User Reviews Page](#user-reviews-page)
-    - [AllAuth pages](#sign-in-sign-out-sign-up-and-reset-password-pages)
+    - [AllAuth pages](#sign-in-sign-out-sign-up-and-change-password-pages)
+    - [Messages](#messages)
+    - [404 and 500 error pages](#404-and-500-error-pages)
 - [Function](#function)
     - [Reviews app](#reviews-app)
         - [Models](#reviews-models)
@@ -63,6 +68,33 @@ Am I response image here
 - [Tasks](#tasks)
 - [Future Work](#future-work)
 - [Bugs](#bugs)
+    - [Initial Deployment bug](#initial-deployment-bug)
+    - [Superuser login bug](#superuser-login-bug)
+    - [Object list bug](#object-list-bug)
+    - [Username bug](#username-bug)
+    - [Add Review URL bug](#addreview-url-bug)
+    - [Slug field bug](#slug-field-bug)
+    - [IMPORTANT - Project Fatal Error and Restart bug](#important---project-fatal-error-and-restart)
+    - [Cloudinary Image upload bug](#cloudinary-image-upload-bug)
+    - [Tab duplication bug](#tab-duplication-bug)
+    - [Upvote - Downvote mutual exclusivity bug](#upvote---downvote-mutual-exclusivity-bug)
+    - [AllAuth email server bug](#allauth-email-server-bug)
+    - [Image sizing bug](#image-sizing-bug)
+    - [Background and placeholder image serving bug](#background-and-placeholder-image-serving-bug)
+    - [Mobile device layout bug](#mobile-device-layout-bug)
+    - [Update review automatic disapproval bug](#update-review-automatic-disapproval-bug)
+    - [Rich Text Editor bug](#rich-text-editor-bug)
+    - [Navbar collapse bug](#navbar-collapse-bug)
+    - [Review Magic String method bug](#review-magic-string-method-bug)
+    - [Explicit context declaration bug](#explicit-context-declaration-bug)
+    - [Review card float bug](#review-card-float-bug)
+    - [Supplementary information improvement](#supplementary-information-bug)
+    - [User Reviews bug](#user-reviews-bug)
+    - [Search Results pagination bug](#search-results-pagination-bug)
+    - [Too many navbar items bug](#too-many-navbar-items-bug)
+    - [Landing Page pagination improvement](#landing-page-pagination-bug)
+    - [Random Review bug](#random-review-bug)
+    - [Comments HTML not escaping bug](#comments-html-display-bug)   
 - [Development Choices](#development-choices)
 - [Testing](#testing)
     - [Manual User Story testing](#manual-user-story-testing)
@@ -73,18 +105,46 @@ Am I response image here
     - [Other Manual testing](#other-manual-testing)
     - [Validation testing](#validation-testing)
         - [HTML validation](#html-validation)
-            - [Base template](#base-template)
-            - [Index template](#index-template)
-            - [Review template](#review-template)
-            - [Search Results template](#search-results-template)
-            - [User Reviews template](#user-reviews-template)
-            - [Add Review template](#add-review-template)
-            - [Update Review template](#update-review-template)
-            - [Delete Review template](#delete-review-template)
-            - [Account Sign-in template](#account-sign-in-template)
-            - [Account Sign-out template](#account-sign-out-template)
-            - [Account Sign-up template](#account-sign-up-template)
-            - [Account Password Change template](#account-password-change-template)
+            - [Index](#index)
+                - [# Default - reviews sorted by newest](#default---reviews-sorted-by-newest)
+                - [Reviews sorted by most upvotes](#reviews-sorted-by-most-upvotes)
+                - [Reviews sorted by oldest](#reviews-sorted-by-oldest)
+                - [Reviews filtered by Ale type](#reviews-filtered-by-ale-type)
+                - [Reviews filtered by Stout type](#reviews-filtered-by-stout-type)
+                - [Reviews filtered by Lager type](#reviews-filtered-by-lager-type)
+                - [Reviews filtered by Pale colour](#reviews-filtered-by-pale-colour)
+                - [Reviews filtered by Golden colour](#reviews-filtered-by-golden-colour)
+                - [Reviews filtered by Amber colour](#reviews-filtered-by-amber-colour)
+                - [Reviews filtered by Dark colour](#reviews-filtered-by-dark-colour)
+                - [Reviews filtered by bottled beers](#reviews-filtered-by-bottled-beers)
+                - [Reviews filtered by draught beers](#reviews-filtered-by-draught-beers)
+            - [Review](#review)
+                - [Review page standard](#review-page-standard)
+                - [Review page after comment submission](#review-page-after-comment-submission)
+            - [Search Results](#search-results)
+                - [Search results page with returned reviews](#search-results-page-with-returned-reviews)
+                - [Search results page with no reviews returned](#search-results-with-no-reviews-returned)
+            - [User Reviews](#user-reviews)
+                - [Use case 1 - user has no reviews](#use-case-1---user-has-no-reviews)
+                - [Use case 2 - user has one review awaiting approval](#use-case-2---user-has-one-review-awaiting-approval)
+                - [Use case 3 - user has all reviews awaiting approval](#use-case-3---user-has-all-reviews-awaiting-approval)
+                - [Use case 4 - user has some reviews approved and some awaiting approval](#use-case-4---user-has-some-reviews-approved-and-some-awaiting-approval)
+                - [Use case 5 - user has all reviews approved](#use-case-5---user-has-all-reviews-approved)
+            - [Add Review](#add-review)
+                - [Fresh Add Review form](#fresh-addreview-form)
+                - [Add Review form submitted](#add-review-form-submitted)
+                - [Add Review page when signed out](#addreview-page-when-signed-out)
+            - [Update Review](#update-review)
+                - [Prepopulated Update Review form](#pre-populated-updatereview-form)
+                - [Update Review form submitted](#update-review-form-submiited)
+                - [Update Review page when signed out](#updatereview-page-when-signed-out)
+            - [Delete Review](#delete-review)
+                - [Modal inactive](#modal-inactive)
+                - [Modal active](#modal-active)
+            - [Account Sign In](#account-sign-in)
+            - [Account Sign Out](#account-sign-out)
+            - [Account Sign Up](#account-sign-up)
+            - [#Account Password Change](#account-password-change)
         - [CSS validation](#css-validation)
         - [JS validation](#js-validation)
         - [Python validation](#python-validation)
@@ -270,7 +330,7 @@ The landing page is set to display review cards in batches of 3. Further reviews
 
 Pagination was implemented to save mobile users from having to endlessly scroll through reviews. 
 
-Screenshot of pagination buttons:
+Screenshot of pagination bar:
 
 ### Sorting and Filtering
 
@@ -306,6 +366,8 @@ Final screenshot of upper review page:
 
 Final screenshot of lower review page:
 
+Final screenshot of comment submission message:
+
 ## Add Review page
 
 The add_review page is rendered using the add_review template and the AddReview view. 
@@ -318,6 +380,8 @@ Final screenshot of upper add review page:
 
 Final screenshot of lower add review page:
 
+Final screenshot of review submission message
+
 ## Update Review page
 
 The update_review page is rendered using the update_review template and the UpdateReview view. It functions similarly to the add_review template as the form uses the same form template and fields, except that the form fields are pre-populated with the extant records. A user may update any of the review's information, including the image. When submitted, the record is automatically disapproved, and a text box displays informing the user of this. This is to ensure that a user is not using the update functionality, which by default does not automatically disapprove a review, to post malicious, offensive or inappropriate content.
@@ -325,6 +389,8 @@ The update_review page is rendered using the update_review template and the Upda
 Final screenshot of upper update review page:
 
 Final screenshot of lower update review page:
+
+Final screenshot of review update message
 
 ## Delete Review page
 
@@ -342,7 +408,9 @@ The reasoning for placing the entirety of each search result within an anchor el
 
 The search_results page supports pagination, as a search could return dozens of records.
 
-Final screenshot of search results page:
+Final screenshot of upper search results page:
+
+Final screenshot of lower search results page:
 
 ## User Reviews page
 
@@ -352,11 +420,21 @@ The idea behind the implementation of this page is to allow a user to quickly se
 
 The current build of the UserReviews view does not allow for pagination. I recognise that this is an area of potential improvement.
 
-Final screenshot of user_reviews page:
+Final screenshot of upper user_reviews page:
 
-## Sign In, Sign Out, Sign Up and Reset Password pages
+Final screenshot of lower user_reviews page:
+
+## Sign In, Sign Out, Sign Up and Change Password pages
 
 These pages are modified versions of the standard AllAuth templates that can be copied over from the site-packages directory with the `cp -r ../.pip-modules/lib/python3.8/site-packages/allauth/templates/* ./templates` command. A new app called 'user' was started to hold the views, forms and urls that control these templates, primarily to apply the Bootstrap `form-control` class that makes the input elements smooth and nice to use with user feedback.
+
+Final screenshot of Sign In page:
+
+Final screenshot of Sign Out page:
+
+Final screenshot of Sign Up page:
+
+Final screenshot of Change Password page:
 
 ## Messages
 
@@ -606,7 +684,7 @@ As a Full Stack project that uses Django, this project uses models to create the
 
 ## Beer
 
-The Beer model is used to create a table that holds all of the data to make a beer review post. 
+The Beer model is used to create a table that holds all of the data to make a beer review post.
 
 | Column Header      | Example             | Other notes                                                      |
 | -------------------|---------------------|------------------------------------------------------------------|
@@ -885,11 +963,15 @@ Future work:
 
 # Bugs
 
+Given the complexity of Django, it was inevitable that many bugs were encountered. To assist navigation, each bug has been given its own heading. Each is also separated by horizontal rules. 
+
 ### Initial deployment bug
 
 When trying to deploy an initial blank version of the project to Heroku, I ran into an error, with Heroku logging the error `unable to build wheel for backports.zoneinfo`. Some Googling revealed that the problem could be to do with the version of Python that Heroku uses, and that a possible fix could be to add a `runtime.txt` file to the repository to specify the exact version of Python that should be used. Said file was added with `python-3.8.13`. In the end, I noted that this was extraneous, since INSTALLED_APPS was missing a comma. Once added, Heroku was able to build and deploy the app properly. The `runtime.txt` file was removed. 
 
 <hr>
+
+### Superuser Login bug
 
 After creating a superuser to access the Django backend, I ran into a 403 error when trying to login using that superuser via the admin login page. Some Googling found [this StackOverflow page](https://stackoverflow.com/questions/70285834/forbidden-403-csrf-verification-failed-request-aborted-reason-given-for-fail/70326426#70326426). Though this should apply only to Django v4.x.x , where I specifically installed Django v3, as per the walkthrough videos. 
 
@@ -901,15 +983,19 @@ To solve the error, I found [this StackOverflow page](https://stackoverflow.com/
 
 This worked, and allowed me to login to the Django backend without issue. The code above appears to override the need to provide a CSRF token when performing actions from this workspace. This may present a vulnerability, as a CSRF token is Django's way of protecting sites against malicious users, and the code in settings.py overrides that.
 
-This ceased to be an issue when I downgraded to Django 3.2
+This ceased to be an issue when I downgraded to Django 3.2, so the code was removed. This note exists should purely to document the issue should it recur. 
 
 <hr>
+
+### Object List bug
 
 When attempting to render an BeerReview database entry, I initially could not get a Bootstrap card holding the various fields to display. I thought that this may have been a problem with my views. Where the Django Blog uses a status field to mark a post as either draft or published, I am merely using an approved field, and then filtering posts to display by the boolean value in the approved field. Removing this stipulation did not work. 
 
 I then viewed the index.html page in the Dev Tools and found that the card was not even rendering, and that the code was stopping at the Templating Language For Loop. I had been using for `beer_review in beer_review_list`. I then consulted the [Django documentation on class-based views](https://docs.djangoproject.com/en/4.1/topics/class-based-views/generic-display/), and found that their example code uses `for publisher in object_list`. I followed their pattern and changed `beer_review_list` to `object_list`. This worked, and the index page displayed the test beer review that I had made in the database. 
 
 <hr>
+
+### Username bug
 
 When adding the code to allow a user to post a comment on a beer_review_single page, I encountered a ValueError - `Cannot assign "<username>": "Comment.author" must be a "User" instance`.
 
@@ -920,9 +1006,13 @@ Some Googling revealed that another developer had encountered a similar issue wh
 
 <hr>
 
+### AddReview URL bug
+
 When adding a form that would allow users to post beer reviews, I encountered a 404 error where the user_review.html page could not be located, despite being present. Tutor support were eventually able to find the problem - the AddReview url path had to be above the ReviewSingle path, per the [URL dispatcher documentation](https://docs.djangoproject.com/en/4.1/topics/http/urls/). Once this had been implemented, the page displayed as expected. However, the form did not display. This proved easy to diagnose - in views.py I had `"user_review": UserReviewForm()` in the dictionary of the return render, whereas I was using `user_review_form` in the templating language of `user_review.html`. Changing the view code to `user_review_form` caused the form entry fields to be displayed as expected. A quick test using a beer called Surrey Nirvana from the Hogsback brewery confirmed that the form was working and had been submitted to the backend. Logging in as the superuser allowed me to approve this entry, and it was then displayed as expected.
 
 <hr>
+
+### Slug field bug
 
 After designing and implementing the functionality to allow a user to submit a review, a bug was noted that did not allow more than one review to exist in the admin area without being reviewed. The reason is that a review's slug is generated in-situ when viewed in the admin area, and the slug is used to generate urls. The slug field in the Review model is set to be unique, the reasoning being that urls should be unique. I reason that even an empty slug field, is considered by the admin as being valid, so therefore there cannot be more than 1 review with an empty slug field, and an empty slug field is by itself unique. 
 Two solutions present themselves:
@@ -936,6 +1026,8 @@ Two solutions present themselves:
 Ultimately I went with the second solution, though this did require some major reworking of the project so that reviews were loaded by their primary key instead of their slug. 
 
 <hr>
+
+### IMPORTANT - Project Fatal Error and Restart
 
 When I decided to implement the solution to the bug above, I decided to remove the slug field from the Review Model. When migrating this change, an error occured with django summernote needing to make a migration as well. Why summernote needed to do so I cannot say, but this presented a major obstacle that i was unable to find a work-around for. Ultimately, I decided to restart the project using a fresh repository, workspace, database and Heroku app. This repository - Project Beergate - should be viewed as a continuation of the old project - [Beergate](#https://github.com/AdamBoley/Beergate). Whilst annoying, I took the opportunity to redesign parts of the project, changing some Model and field names for increased clarity and ease-of-use, and using the Django CKeditor library instead of Summernote to provide rich text fields. Commit #4, made at 14.27 on 18/8/22, added many files and changes that might normally have been added over several commits. This is because these files were merely copied over from the old project, with those changes as described above. The changes are:
 <br>
@@ -953,6 +1045,8 @@ Within Comment(unchanged):
 
 <hr>
 
+### Cloudinary Image Upload bug 
+
 When designing the user review form that allows users to submit their own beer reviews, and implementing the backend code to handle this, I noted that the form was not uploading images that had been attached in the image field. A Django blog walkthrough video on Youtube suggested using an ImageField, and then storing images directly in the repository. Whilst I considered that this might be an acceptable work-around, I concluded that it would not for extensibility reasons. Many users uploading many images would bloat that directory. I then found [Cloudinary's documentation on image uploading](https://cloudinary.com/documentation/django_image_and_video_upload). I determined that I already had most of the pieces in place, though their code snippets pre-suppose the use of function-based views. Merely adding `{% load cloudinary %}` to the HTML file, and adding `request.FILES` to the post method of the AddReview view was sufficient to get this working. A database entry with name `image upload test` is testament to this - this entry's image was uploaded using the form, not via the admin backend, though I have disapproved it since the image is poorly-sized.
 
 <hr>
@@ -963,28 +1057,42 @@ After implementing the functionality to update and delete posts, I was researchi
 
 A similar issue was noted when adding the templating language code that only allows a user to update or delete a review if they are the author of it. Determining if a user owns a review, and is therefore eligible to update or delete it was simple - I merely added `{% if user.id == review.author.id %}` control statements to the pages. To fix the vulnerability, I added this control statement to the update_review and delete_review templates as well, with some text and a link back to the homepage.
 
+In some cases, attempting this trick triggers a HTTP server error. In other cases, the page loads but templating language control statements stop any meaningful content from rendering. 
+
 <hr>
+
+### Upvote - Downvote Mutual Exclusivity bug
 
 When I implemented the upvote and downvote features, they were independent of each other. This allowed a user to both upvote and downvote a beer review, which is plainly non-sensical. To rectify this, I considered removing the views and urls that control upvoting and downvoting, and replacing them with a single view for both actions. I then realised that I could simply modify the existing views so that if a user's upvote is added and if a downvote by that same user exists, then the downvote is removed, and vice-versa - if a user's downvote is added and an upvote by that same user exists, then the upvote is removed. These modifications proved remarkably easy to implement - requiring a single IF conditional within the extant ELSE block. Simple testing confirmed that the modifications worked as intended - a vote was extant, clicking the button for the opposite vote removed the extant vote when the opposite vote was added.
 
 <hr>
 
+### AllAuth Email Server bug
+
 When I added the AllAuth functionality for resetting passwords and adding email addresses, testing revealed that these functions did not work, with a Django error page being generated. Research revealed that these AllAuth functions require an email server to function. I determined that an email server was outside of the project's scope, so links to those AllAuth templates were removed from the navbar, as were the corresponding paths in the user app urls file. The views and forms remain, as part of BeerGate's future work would be to get these functions working. 
 
 <hr>
+
+### Image Sizing bug
 
 A noted bug with uploaded images was that they were neither centered nor had a uniform size. This was eventually solved by using the max-height and max-width CSS style rules. 
 Further investigation on different viewport sizes proved that this had been the wrong approach - I had been fighting against Bootstap, rather than using it. I solved this by implementing a container and row arrangement within each Review card within which to place the images. This proved effective, as it centered and sized the images appropriately for all viewport sizes.
 
 <hr>
 
+### Background and Placeholder image serving bug
+
 In previous builds, the background image for the application and the placeholder image had been served from the local repository. When DEBUG flag was set to True, and running the project locally, this worked fine. However, with DEBUG set to False and viewing the deployed app on Heroku, the background image and placeholder image failed to display. I noted from the Django Blog walkthrough videos that Django is designed to serve images via a CDN, not locally. At this point, I realised that Cloudinary is a CDN, and hence that I could use it to serve my background and placeholder images for the deployed app. When DEBUG was turned off and the app was deployed, the background and placeholder images displayed as expected.
 
 <hr>
 
+### Mobile device layout bug
+
 The main background image caused problems when the app was viewed on mobile devices, with all of the first review and most of the second hidden. I determined that this was due to the main background image being applied to the `<main>` element in base.html. When changed to apply to the body element, the navbar moved. I determined that this was because the ruleset included the `display: flex` and `align-items: center` style rules which govern the layout of each page. Separating the ruleset out so that the `display` and `align-items` rules were applied to the `main` element and the background image style rules were applied to the `body` element solved this problem. I also removed the previously-applied `opaque-overlay` class selector, instead folding the style rules contained therein into the `main` selector. These changes solved the problem, allowing all of the reviews to be displayed on mobile devices with a fully-darkened background image as intended. 
 
 <hr>
+
+### Update review automatic disapproval bug
 
 When I initially implemented the UpdateReview to enable a user to update their own Reviews on the front-end, it occurred to me that a malicious user could exploit the fact that when a review is updated, it is not automatically disapproved. In order to do so, a malicious user would need to pose as a normal user and submit a seemingly-genuine beer review that would likely be approved without issue. Then, said malicious user could simply update their review with their malicious content, and it would be unlikely that an administrator would see this in order to remove it. I ran this past both my Mentor and an experienced software developer friend of mine, and both agreed that this was a potential vulnerability.
 
@@ -993,6 +1101,8 @@ An initial solution involved using a post method inside the UpdateReview, howeve
 I spent a long time searching for a solution, and I found several StackOverflow questions that point to the creation of a duplicate record when using the generic UpdateView being a common issue. I eventually found [this Reddit post](https://www.reddit.com/r/django/comments/8jkh5t/updateview_creates_new_items_in_the_db_instead_of/), in which the author answers their own question. The author's use-case appears to be slightly different from mine, but it is sufficiently similar that I was able to appropriate most of their code. With a few adjustments, notably adding `user_update_form.instance.approved = False` and altering the return statement to render the `update_review.html` page with the Updated flag set to True, I was able to update a record and then see the confirmation message. When I went to the index page, I noted that the record I had updated was absent. I then checked the admin panel and noted that the record had been automatically unapproved. When I accessed that record, I noted that the update I had made appeared. When I approved the record and visited the index page, the record was visible. When I clicked on the card to visit the detail page, the updated content was visible. This was immensely satisfying. Best of all, since the record is being updated, the image remains unchanged and does not default to the placeholder. 
 
 <hr>
+
+### Rich Text Editor bug
 
 Whilst using the deployed app using the Chrome browser of my Android mobile device, I noted with some alarm that the CK-Editor rich text fields for the add_review page and the add-comment section of the review page was not displaying. Further investigation revealed that this bug extended to the deployed version on my PC as well, indicating that the problem lay with the deployed site.
 
@@ -1020,25 +1130,37 @@ Whilst the note about [RateBeer](https://www.ratebeer.com/) above still stands, 
 
 <hr>
 
+### Navbar collapse bug
+
 Whilst testing responsiveness to smaller screen sizes, I noted that the navbar nav-items became misaligned at between the LG and XXL breakpoints (992px to 1400px), before collapsing behind the burger icon at less than 992px. I changed the navbar collapse breakpoint to XXL to stop this happening. I should note however that this was only an issue when signed-in, due to the greater number of nav-item links.
 
 <hr>
+
+### Review magic string method bug
 
 I noted that the review field of the admin comments page was displaying the output of the Review model magic string method. Since the magic string method appears to be used only here, I modified the output of said method to return only the name of the review. This made the the admin comments page clearer.
 
 <hr>
 
-Whilst the `return render` method used in the walkthrough videos is perfectly functional, I personally do not find it overly clear, especially since it is placed over multiple lines and contains a object. I have since learned that the object is called a context. I found it clearer and more pythonic to explicitly declare the context object as the value of a variable called `context`, and also to declare the HTML template file to be used as the value of a variable called template_name. I then called the context and template_name variables in the return render method with the request. I feel that this made the return statement clearer, since it occupied only a single line.
+### Explicit context declaration bug
+
+Whilst the `return render` method used in the walkthrough videos is perfectly functional, I personally do not find it overly clear, especially since it is placed over multiple lines and contains a object. I have since learned that the object is called a context. I found it clearer and more pythonic to explicitly declare the context dictionary as the value of a variable called `context`, and also to declare the HTML template file to be used as the value of a variable called template_name. I then called the context and template_name variables in the return render method with the request. I feel that this made the return statement clearer, since it occupied only a single line.
 
 <hr>
+
+### Review Card float bug
 
 On smaller screen sizes, I noted that the supplementary beer review information - author, timestamp, brewery, etc - became misaligned on smaller screen sizes. I solved this by removing the float classes I had previously applied, as I considered that it would be very possible for authors, beers and breweries to have long names, and for the keywords field to have many words as well. I also reduced the pagination number to 3 so that only 3 reviews display per page. This has created a cleaner, less busy landing page.
 
 <hr>
 
+### Supplementary information bug
+
 I noted that the user_reviews and search_results pages were quite bare, so I added the same supplementary information that had been added to the index page - type, colour, brewery, etc. I had also planned to insert quick links to the update_review and delete_review pages, so that a user could quickly update and delete these reviews from the search_results and user_reviews pages. Whilst technically possible, it disrupted my styling and element placement, presumably because each search result card rendered on those pages is contained within an anchor element. I could have removed this parent anchor element, but chose not to because it makes tapping on a mobile device much easier.
 
 <hr>
+
+### User Reviews bug
 
 When testing the user_reviews page, I noted that all of the reviews belonging to a particular user were displayed, whether they had been approved or not. When I clicked on these, I got Django error pages. This was the result of not using `filter(approved=True)` in the UserReviews. In solving this, I greatly expanded the functionality of that views, so that it checks whether a user has unapproved reviews. The reasoning behind this was that I had some text set to display if the object_list was empty that merely said that the user had not written any reviews. If indeed the user *had* written a review, but that review was not yet approved, it could cause the user to doubt that the add_review page was working properly. The UserReviews now considers 5 cases:
 
@@ -1059,17 +1181,25 @@ When testing the user_reviews page, I noted that all of the reviews belonging to
 
 <hr>
 
+### Search Results pagination bug
+
 I considered that a search could return potentially dozens of results to the search_results page. In that case, scrolling through those records could be tiresome to a user. To resolve this, I implemented pagaination. This proved difficult, but ultimately surmountable, with help from [this StackOverflow Question](https://stackoverflow.com/questions/71124344/use-q-object-and-paginator-together-in-django). The first answer to that question provided the code snippets that allowed me to construct the SearchResults view get_querystring method, and the reference the output of that method in the anchor elements to modify the URLs.
 
 <hr>
+
+### Too many navbar items bug
 
 I considered that the navbar was too busy. Previously, the number of navbar items had caused rendering and sizing issues. Whilst this had been dealt with by increasing the breakpoint at which the navbar collapsed, significantly expanding the size and scope of the project in future, such as by enabling all AllAuth account functionality, could prove problematic. Hence, I moved the My Reviews, Sign-out and Change Password links into a dropdown menu. This makes the navbar much cleaner.
 
 <hr>
 
+### Landing page pagination bug
+
 Much like the search_results page, I considered that the queryset used to populate the index page could contain hundreds of records. Whilst perfectly sufficient for basic navigation, the extant pagination method provided by the walkthrough project would not work well for hundreds of records. Hence, I implemented the improved pagination feature designed for the search_results page, which provides links to each paginated page. This also helps to maintain a consistent pagination style.
 
 <hr>
+
+### Random Review bug
 
 Should BeerGate become an active beer review site, the size of the database could quickly expand. Since the extant sorting, filtering and search functions order the constructed queryset by timestamp, this means that older reviews would quickly become 'buried' in the database, so to speak, as they would be so far along the pagination track that they would be rarely, if ever, accessed. This might be referred to as the 'Google Search Problem', as it commonly acknowledged that when doing a Google Search, few people ever go beyond the first page when looking for a viable search result. To overcome this, I wanted to implement a randomiser feature that would take the user to a random review. This proved difficult, but ultimately surmountable. 
 
@@ -1086,9 +1216,13 @@ The documentation does note that this method of returning a random record from a
 
 <hr>
 
+### Comments HTML display bug
+
 When coding the above solution, I submitted several comments to the admin panel. In doing so, I noted that when comments were displayed, their HTML element tags were displaying as well. This had been caused by improper use of `|safe` filter in the templating language of `review.html`. Once fixed, the comments displayed properly, without their HTML tags.
 
 <hr>
+
+### Navbar text responsiveness bug
 
 To inform the user of their sign-in status and username, I had implemented some span elements with the Bootstrap navbar-text class to hold this text. Whilst these displayed perfectly acceptably when the navbar was expanded, they became misaligned when the navbar was collapsed, like so:
 
@@ -1252,15 +1386,15 @@ Validation returned no errors.
 
 Validation returned no errors.
 
-##### Reviews filtered by Golden type
+##### Reviews filtered by Golden colour
 
 Validation returned no errors.
 
-##### Reviews filtered by Amber type
+##### Reviews filtered by Amber colour
 
 Validation returned no errors.
 
-##### Reviews filtered by Dark type
+##### Reviews filtered by Dark colour
 
 Validation returned no errors.
 
@@ -1336,7 +1470,7 @@ As the content of this page can change based on user actions without modifying t
 
 When this page was validated, 10 errors were returned. Closer examination of the results reveals that these errors are all due to the formatting of the injected form, which I can do little to resolve.
 
-##### Form submitted
+##### Add Review Form submitted
 
 When validating this page, I submitted a beer review using the form. I expected the success message to be displayed, but I actually got the 500 server error page. Submitting the same beer review via the local version with debug on revealed the issue - I had purposely left the `hops` field empty, as it is optional. However, the post method in AddReview uses the `title()` method on the `hops` field. Since the field is empty, the `title()` method fails. At time of writing, I could not find a way of checking to see if the `hops` field has a value, and if so, apply the `title()` method. This will go into the Future Work section to be tackled at a later date. For the moment, the code to apply the `title()` method to the `hops` field has been removed. When this fix was applied, the the form was filled out and submitted. Once submitted, the confirmation message displayed as expected. Validation by page source code returned no errors.  
 
@@ -1354,7 +1488,7 @@ Prior to validation, I modified the UpdateReview view to remove the code that ap
 
 Validation of this page returned 10 errors. Closer inspection revealed that these errors were the same errors as those noted in the add_review page validation, and are related to formatting. As in that section, I can do little to resolve these errors, as I cannot directly control the layout. 
 
-##### Form submiited
+##### Update Review Form submiited
 
 Validation of this page returned no errors, and no errors were encountered when submitting. I suspect that my preventative bug fixing above allowed this.
 
