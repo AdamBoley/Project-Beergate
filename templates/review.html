@@ -11,9 +11,9 @@
                     <div class="row">
                         <div class="col-10 offset-1 col-md-8 offset-md-2 col-lg-4 offset-lg-4">
                             {% if "placeholder" in review.image.url %}
-                                <img src="https://res.cloudinary.com/adamboley/image/upload/v1661792893/bg3_zfwcad.webp" alt="image of 2 pints of beer" aria-labelledby="image of 2 pints of beer" class="card-img-top">
+                                <img src="https://res.cloudinary.com/adamboley/image/upload/v1661792893/bg3_zfwcad.webp" alt="image of 2 pints of beer" aria-label="image of 2 pints of beer" class="card-img-top">
                             {% else %}
-                                <img src="{{ review.image.url }}" alt="an image of {{ review.name }} beer" aria-labelledby="an image of {{ review.name }} beer" class="card-img-top">
+                                <img src="{{ review.image.url }}" alt="an image of {{ review.name }} beer" aria-label="an image of {{ review.name }} beer" class="card-img-top">
                             {% endif %}
                         </div>
                     </div>

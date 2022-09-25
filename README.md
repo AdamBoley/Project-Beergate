@@ -779,12 +779,10 @@ Done:
 - Add blank and null to Hops field, modify input label to be specifically optional - done
 - Maintain consistent pagination style across all paginated pages
 - update image field label in add_review and update_review to explictly make it optional - done
-
 - Soundly note change to new repository thanks to summernote editor - done
 - Note removal of AllAuth Urls, and retention of views, forms and template for future work - done
-
 - ensure all templating language is properly indented - done
-
+- implement messages
 
 
 Rejected:
@@ -847,15 +845,6 @@ To do:
     - Ronan will look into this
 
 - give bugs section titles for each bug
-
-- remove all extraneous / commented-out code
-    - commented out anchor element in account/change_password
-
-- possible bug - change password does not display a success message, just reloads the page. Will require messages framework:
-    - https://stackoverflow.com/questions/19892366/how-to-add-a-success-message-after-django-allauth-change-password-view-has-retur
-    - https://docs.djangoproject.com/en/3.2/ref/contrib/messages/#using-messages-in-views-and-templates
-
-- Implement tests from Django-Experimentation repo
 
 - Modify Reviews so that they have realistic content, not just Lorem Ipsum bulk text
 
