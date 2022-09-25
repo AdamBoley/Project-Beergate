@@ -836,6 +836,10 @@ In progress:
 
 To do:
 
+- message close button is a bit too close to edge - move in with absolute positioning or give div some padding
+
+- On search results page, invite user to perform another search if theirs returns no reviews
+
 - Landing page with no reviews needs pagination bar pushed down
 
 - The SECURE_SSL_REDIRECT and SECURE_HSTS_SECONDS security settings provided last session caused localhost to fail
@@ -1279,15 +1283,21 @@ The search_results page was validated twice - once for when a search was perform
 
 ##### Search Results page with returned reviews
 
-
+Validation returned no errors
 
 ##### Search Results with no reviews returned
+
+Validation returned no errors
 
 #### User Reviews
 
 The user_reviews page was validated 5 times - once for each of the use cases as documented in the [User Reviews view](#user-reviews-view) section in the docstring of the UserReviews class in views.py.
 
+When validating the user_reviews page by URL, the Validator returned a HTTP 500 error, possibly because this page may only be accessed by signed-in users. Some quick testing with the aforementioned tab-duplication trick reveals that this triggers a server error and displays the custom 500 error page. To get around this, I used the View Page Source functionality of the Chrome Developer Tools, then copy-pasted the resulting source code into the Validator direct input box. This returned one error - a duplicate `href` attribute in the code of the base template. This was removed.
+
 ##### Use case 1 - user has no reviews
+
+When validating this page, I signed-in as a newly-created user with username 'Kieran'. When I navigated to the user_reviews page, no content was displayed. After examining the code of the template and the view, I determined that this was due to a misplaced `endif` control statement. After fixing this....
 
 ##### Use case 2 - user has one review awaiting approval
 

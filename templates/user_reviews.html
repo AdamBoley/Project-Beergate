@@ -35,76 +35,76 @@
                             </div>
                             
                         {% endif %}
-
-                        {% for review in object_list %}
-                            <div class="card search-result-card">
-                                <a href="{% url 'review' review.pk %}" class="post-link search-result">
-                                    <div class="row">
-                                        <div class="search-results-image d-none d-sm-inline col-5 col-lg-5 col-xl-4">
-                                            {% if "placeholder" in review.image.url %}
-                                                <img src="https://res.cloudinary.com/adamboley/image/upload/v1661792893/bg3_zfwcad.webp" alt="image of 2 pints of beer" aria-label="image of 2 pints of beer">
-                                            {% else %}
-                                                <img src="{{ review.image.url }}" alt="an image of {{ review.name }} beer" aria-label="an image of {{ review.name }} beer">
-                                            {% endif %}
-                                        </div>
-                                        <div class="search-results-info col-7 col-lg-7 col-xl-4">
-                                            <h4 class="search-results-name">{{ review.name }}</h4>
-                                            <div class="search-results-text">
-                                                <div class="d-block mt-2">
-                                                    <span>{{ review.timestamp|date }}</span>
-                                                </div>
-                                                <div class="d-block mt-2">
-                                                    <span class="me-5">Colour: {{ review.colour }}</span>
-                                                    
-                                                </div>
-                                                <div class="d-block mt-2">
-                                                    <span>Type: {{ review.type }}</span>
-                                                </div>
-                                                <div class="d-block mt-2">
-                                                    <span class="me-5">Alc {{ review.alcohol }}% vol</span>
-                                                </div>
-                                                <div class="d-block mt-2">
+                    {% endif %}
+                    {% for review in object_list %}
+                        <div class="card search-result-card">
+                            <a href="{% url 'review' review.pk %}" class="post-link search-result">
+                                <div class="row">
+                                    <div class="search-results-image d-none d-sm-inline col-5 col-lg-5 col-xl-4">
+                                        {% if "placeholder" in review.image.url %}
+                                            <img src="https://res.cloudinary.com/adamboley/image/upload/v1661792893/bg3_zfwcad.webp" alt="image of 2 pints of beer" aria-label="image of 2 pints of beer">
+                                        {% else %}
+                                            <img src="{{ review.image.url }}" alt="an image of {{ review.name }} beer" aria-label="an image of {{ review.name }} beer">
+                                        {% endif %}
+                                    </div>
+                                    <div class="search-results-info col-7 col-lg-7 col-xl-4">
+                                        <h4 class="search-results-name">{{ review.name }}</h4>
+                                        <div class="search-results-text">
+                                            <div class="d-block mt-2">
+                                                <span>{{ review.timestamp|date }}</span>
+                                            </div>
+                                            <div class="d-block mt-2">
+                                                <span class="me-5">Colour: {{ review.colour }}</span>
+                                                
+                                            </div>
+                                            <div class="d-block mt-2">
+                                                <span>Type: {{ review.type }}</span>
+                                            </div>
+                                            <div class="d-block mt-2">
+                                                <span class="me-5">Alc {{ review.alcohol }}% vol</span>
+                                            </div>
+                                            <div class="d-block mt-2">
+                                                <span>
+                                                    {% if review.served_as == 1 %}
+                                                        Bottled
+                                                    {% else %}
+                                                        Draught
+                                                    {% endif %}
+                                                </span>
+                                            </div>
+                                            <div class="d-block mt-2">
+                                                <span>Brewery: {{ review.brewery }}</span>
+                                            </div>
+                                            <div class="d-block mt-2">
+                                                <span>Described as: {{ review.keywords }}</span>
+                                            </div>
+                                            <div class="d-block mt-2">
+                                                <span class="me-5">
+                                                    <span class="me-4">
+                                                        <i class="far fa-thumbs-up"></i>
+                                                        {{ review.review_upvotes }}
+                                                    </span>
                                                     <span>
-                                                        {% if review.served_as == 1 %}
-                                                            Bottled
-                                                        {% else %}
-                                                            Draught
-                                                        {% endif %}
+                                                        <i class="far fa-thumbs-down"></i>
+                                                    {{ review.review_downvotes }}
                                                     </span>
-                                                </div>
-                                                <div class="d-block mt-2">
-                                                    <span>Brewery: {{ review.brewery }}</span>
-                                                </div>
-                                                <div class="d-block mt-2">
-                                                    <span>Described as: {{ review.keywords }}</span>
-                                                </div>
-                                                <div class="d-block mt-2">
-                                                    <span class="me-5">
-                                                        <span class="me-4">
-                                                            <i class="far fa-thumbs-up"></i>
-                                                            {{ review.review_upvotes }}
-                                                        </span>
-                                                        <span>
-                                                            <i class="far fa-thumbs-down"></i>
-                                                        {{ review.review_downvotes }}
-                                                        </span>
-                                                    </span>
-                                                    <span>Score: {{ review.average_score }}</span>
-                                                </div>
+                                                </span>
+                                                <span>Score: {{ review.average_score }}</span>
                                             </div>
                                         </div>
                                     </div>
-                                </a>
-                            </div>
-                        {% empty %}
-                            <div class="card">
-                                <div class="card-inner">
-                                    <p>You have not written any reviews</p>
-                                    <p>Click <a href="{% url 'add_review' %}">here</a> to write one</p>
                                 </div>
+                            </a>
+                        </div>
+                    {% empty %}
+                        <div class="card">
+                            <div class="card-inner">
+                                <p>You have not written any reviews</p>
+                                <p>Click <a href="{% url 'add_review' %}">here</a> to write one</p>
                             </div>
-                        {% endfor %}
-                    {% endif %}
+                        </div>
+                    {% endfor %}
+                    
                 </div>
             </div>
         </div>
