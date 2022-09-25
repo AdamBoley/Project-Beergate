@@ -129,7 +129,6 @@ main {
 
 .index-image-container img {
     max-height: 400px;
-    /* max-width: 420px; */
     border-radius: 2%;
 }
 
@@ -161,12 +160,6 @@ main {
     margin-bottom: 1em;
 }
 
-/* @media screen and (max-width: 515px) {
-    .search-result {
-        max-height: 320px;
-    }
-} */
-
 .search-results-name {
     text-decoration: underline;
 }
@@ -176,18 +169,8 @@ main {
     font-size: smaller;
 }
 
-.search-results-image {
-    /* float: left;
-    width: 25%; */
-}
-
 .search-results-image img {
     max-width: 100%;
     max-height: 200px;
-}
-
-.search-results-info {
-    /* float: right;
-    width: 75%; */
 }
 
