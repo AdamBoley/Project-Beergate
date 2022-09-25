@@ -339,18 +339,14 @@ class UserReviews(generic.ListView):
         if len(user_queryset_all) == 0:
             context = {
                 "object_list": user_queryset_all,
+                "no_reviews_written": True
             }
-            # Unlike below, no special context object key is needed
-            # The template uses the empty tag of object_list
             return render(request, template_name, context)
 
         elif len(user_queryset_all) == 1 and len(user_queryset_approved) == 0:
             context = {
                 "object_list": user_queryset_approved,
                 "one_review_awaiting_approval": True,
-                "all_reviews_awaiting_approval": False,
-                "some_reviews_awaiting_approval": False,
-                "no_reviews_awaiting_approval": False
             }
             return render(request, template_name, context)
 
@@ -358,25 +354,19 @@ class UserReviews(generic.ListView):
             context = {
                 "object_list": user_queryset_approved,
                 "all_reviews_awaiting_approval": True,
-                "some_reviews_awaiting_approval": False,
-                "no_reviews_awaiting_approval": False
             }
             return render(request, template_name, context)
 
         elif len(user_queryset_all) > len(user_queryset_approved):
             context = {
                 "object_list": user_queryset_approved,
-                "all_reviews_awaiting_approval": False,
                 "some_reviews_awaiting_approval": True,
-                "no_reviews_awaiting_approval": True
             }
             return render(request, template_name, context)
 
         elif len(user_queryset_all) == len(user_queryset_approved):
             context = {
                 "object_list": user_queryset_approved,
-                "all_reviews_awaiting_approval": False,
-                "some_reviews_awaiting_approval": False,
                 "no_reviews_awaiting_approval": True
             }
             return render(request, template_name, context)

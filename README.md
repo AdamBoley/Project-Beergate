@@ -1297,9 +1297,11 @@ When validating the user_reviews page by URL, the Validator returned a HTTP 500 
 
 ##### Use case 1 - user has no reviews
 
-When validating this page, I signed-in as a newly-created user with username 'Kieran'. When I navigated to the user_reviews page, no content was displayed. After examining the code of the template and the view, I determined that this was due to a misplaced `endif` control statement. After fixing this....
+When validating this page, I signed-in as a newly-created user with username 'Kieran'. When I navigated to the user_reviews page, no content was displayed. After examining the code of the template and the view, I determined that this was due to a misplaced `endif` control statement. After fixing this, the expected message that the user has not written any reviews displayed as expected.
 
 ##### Use case 2 - user has one review awaiting approval
+
+When validating this page, I transferred a single review to the 'Kieran' account and disapproved it. When I navigated to the user_reviews page, two text boxes displayed - one informing me that, as expected, a review had been written and was awating approval, and another informing me that I had no written any reviews. This was problematic, and I determined that I could not rely on the `{% empty %}` tag in the templating language, and hence that I needed to rework the UserReview view to explicitly handle this case and the above use-case 1. I reworked those files to more explicitly handle these use cases and redeployed to Heroku.
 
 ##### Use case 3 - user has all reviews awaiting approval
 
