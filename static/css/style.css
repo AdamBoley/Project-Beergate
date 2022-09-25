@@ -31,6 +31,11 @@ main {
     position: relative;
     background-color: rgba(0, 0, 0, 0.5);
     min-height: 100vh;
+    padding-top: 3em;
+}
+
+.z-index-front {
+    z-index: 2;
 }
 
 .navbar, .navbar-expand-lg {

@@ -22,7 +22,7 @@
     <link rel="shortcut icon" href="{%  static 'favicon.ico' %}">
 </head>
 
-<body>
+<body class="position-relative">
     <nav class="navbar navbar-expand-xxl navbar-background sticky-top">
         <div class="container-fluid">
             <a class="navbar-brand" href="{% url 'home' %}">BeerGate</a>
@@ -100,9 +100,23 @@
             </div>
         </div>
     </nav>
+
+    <div class="container-fluid pt-3 position-absolute z-index-front">
+        <div class="row">
+            <div class="col-10 offset-1 col-md-6 offset-md-3 col-lg-4 offset-lg-4">
+                {% for message in messages %}
+                    <div class="alert {{ message.tags }} alert-dismissable fade show position-relative" id="msg" role="alert">
+                        {{ message | safe }}
+                        <button type="button" class="btn-close position-absolute top-25 end-0" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
     
 
     <main class="flex-shrink-0">
+
         {% block content %}
             <!-- Content Goes here -->
         {% endblock content %}
@@ -111,6 +125,14 @@
     <footer class="footer mt-auto py-3 text-center">
         <p>Copyright Adam Boley 2022</p>
     </footer>
+
+    <script>
+        setTimeout(function () {
+            let messages = document.getElementById('msg');
+            let alert = new bootstrap.Alert(messages);
+            alert.close();
+        }, 3000);
+    </script>
 
 </body>
 
