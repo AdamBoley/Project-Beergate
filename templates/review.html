@@ -94,22 +94,19 @@
 
                         <div class="row">
                             <div class="col card mb-4 mt-3">
-                                <h3>Comments:</h3>
+                                <h4>Comments:</h4>
                                 <div class="card-body">
                                     {% for comment in comments %}
                                         <div class="comments">
-                                            <p class="font-weight-bold">
-                                                {{ comment.author }}
-                                                <span class=" text-muted font-weight-normal">
-                                                    {{ comment.timestamp }}
-                                                </span>
-                                                wrote:
-                                            </p>
+                                            <p class="font-weight-bold mb-0">{{ comment.author }}:</p>
+                                                
                                             {{ comment.content| safe }}
+                                            
+                                            <p class="text-muted font-weight-normal">{{ comment.timestamp|date }}</p>
                                         </div>
                                     {% empty %}
                                         <div>
-                                            No comments yet
+                                            No comments have been posted yet
                                         </div>
                                     {% endfor %}
                                 </div>
@@ -135,6 +132,8 @@
                                             {% csrf_token %}
                                             <button type="submit" class="btn btn-signup btn-lg">Submit</button>
                                         </form>
+                                    {% else %}
+                                        <p>Want to post a comment of your own? Sign in <a href="{% url 'account_login' %}">here</a></p>
                                     {% endif %}
                                 {% endif %}
                             </div>
@@ -144,10 +143,6 @@
                                 {% if user.id == review.author.id %}
                                     <div>
                                         This is your beer review, so you may update or delete it using the buttons below
-                                    </div>
-                                {% else %}
-                                    <div>
-                                        You are not the author of this post, so you may not update or delete it
                                     </div>
                                 {% endif %}
                             {% endif %}

@@ -1403,7 +1403,7 @@ In contrast to my previous projects, where I was able to write most of the code 
 
 Whilst I was not able to save every resource used, I credit the following people and resources for assisting BeerGate's development:
 
-Firstly, the Code Institute Django Blog walkthrough project proved invaluable in the first stages of development, particularly with the deployment to Heroku and the use of Cloudinary. 
+Firstly, the Code Institute Django Blog walkthrough project proved invaluable in the first stages of development, particularly with the deployment to Heroku, the use of Cloudinary to serve images, and the implementation of messages.
 
 Gemma from Code Institute Tutor support, for helping to fix the issue with being unable to access the user_review.html page. This was the first major feature beyond the walkthrough project that I wanted to add, and her help in getting it working was a major boost to my confidence in my abilities, and allowed development to proceed.
 
@@ -1412,8 +1412,8 @@ Gemma also tried to fix the issue with the CK Editor and TinyMCE Rich Text Edito
 The [official Django documentation](https://docs.djangoproject.com/en/3.2/) proved very helpful generally, particularly the following pages:
 - [model field reference page](https://docs.djangoproject.com/en/3.2/ref/models/fields/) for guidance on designing my models and field types
 - The [QuerySet page](https://docs.djangoproject.com/en/3.2/ref/models/querysets/) was also helpful in learning how to construct more complex querysets
-- [This Django documentation on Pagination](https://docs.djangoproject.com/en/3.2/topics/pagination/) provided a superior pagination template than the one used in the walkthrough videos that I had been used. This template allows finer navigation between pages. This template was further customised, but the documentation should be credited with allowing this customisation. 
-- [This Django documentation](https://docs.djangoproject.com/en/dev/ref/models/querysets/#django.db.models.query.QuerySet.order_by) taught me how to access a random database record.
+- [This Django documentation on Pagination](https://docs.djangoproject.com/en/3.2/topics/pagination/) provided a superior pagination template than the one used in the walkthrough videos that I had been used. This template allows finer navigation between pages. This template was further customised, but the documentation should be credited with allowing this customisation
+- [This Django documentation](https://docs.djangoproject.com/en/dev/ref/models/querysets/#django.db.models.query.QuerySet.order_by) taught me how to access a random database record
 
 The [official Django AllAuth documentation](https://django-allauth.readthedocs.io/en/latest/index.html) was helpful in the implementation of the AllAuth templates, forms and views in the user app. AllAuth itself is clearly very powerful.
 
