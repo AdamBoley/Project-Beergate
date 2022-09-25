@@ -358,35 +358,41 @@ Final screenshot of user_reviews page:
 
 These pages are modified versions of the standard AllAuth templates that can be copied over from the site-packages directory with the `cp -r ../.pip-modules/lib/python3.8/site-packages/allauth/templates/* ./templates` command. A new app called 'user' was started to hold the views, forms and urls that control these templates, primarily to apply the Bootstrap `form-control` class that makes the input elements smooth and nice to use with user feedback.
 
+## Messages
+
+Late in development, I noted that when a user changes their password, they are not redirected to the landing page as they are when they create an account, sign-in or sign-out. Whilst this proved eacy to achieve ([see below](#user-views)), I considered that users might appreciate a more declarative means of confirming that they have undertaken an action, much like the success messages that trigger when they add or update a review. I hence ported over much of the code for implementing messages from the walkthrough project, modifying the Bootstrap positioning classes for improved responsivity. I also have the container div absolute positioning so that it does not interfere with the review cards of the landing page. Without absolute positioning, the review cards 'jump' upward when the messages div is closed, since Bootstrap removes the messages element from the DOM when closed. To prevent the messages element from overlapping the review cards, I gave the review cards container a top padding of 3em. This does not meaningfully influence the positioning of the review cards.
+
+I noted that, for some reason, the close button for the alert message is not positioned to the right-hand-side, as might be expected, instead appearing directly next to the text. Setting the messages div element to have `position-relative` and the close button to have `position-absolute` and the using the `top-25 end-0` classes solved this.
+
 ## 404 and 500 error pages
 
-At the urging of my Mentor, I created custom 404 and 500 error pages. These are simple pages, designed to be humourous so as to reassure the user that they have not irreversibly broken BeerGate. Both pages provide links back to the landing page. 
+At the urging of my Mentor, I created custom 404 and 500 error pages. These are simple pages, designed to be humourous so as to reassure the user that they have not irreversibly broken BeerGate. Both pages provide links back to the landing page.
 
 # Function
 
-This section is discusses the code used in the project, and explains any particularly note-worthy or obscure features. 
+This section is discusses the code used in the project, and explains any particularly note-worthy or obscure features.
 
 ## Reviews app
 
-The Reviews app is where the bulk of the project's development took place, and holds most of the back-end code. 
+The Reviews app is where the bulk of the project's development took place, and holds most of the back-end code.
 
 ### Reviews Models
 
-BeerGate uses two data models - Review and Comment. A validation function called `validate_within_limits` has also been written to validation inputs for the Review model's aroma, appearance, taste and aftertaste fields. These are IntegerFields, but the values must be between 1 and 10
+BeerGate uses two data models - Review and Comment. A validation function called `validate_within_limits` has also been written to validate inputs for the Review model's aroma, appearance, taste and aftertaste fields. These are IntegerFields, but the values must be between 1 and 10. Testing of this function is dealt with in the [testing section](#testing)
 
 #### Review class
 
-Review is the primary data model for BeerGate. As of the end of the project's development cycle, it contains 18 fields. The name, brewery, type, colour and keywords fields are all standard character fields. The image field is a CloudinaryField, as uploaded images are saved to the Cloudinary CDN.
+Review is the primary data model for BeerGate. As of the end of the project's development cycle, it contains 18 fields. The name, brewery, type, colour and keywords fields are all standard character fields. The image field is a CloudinaryField, as uploaded images are saved to my account on the Cloudinary CDN.
 
-The content field is a TextField, but this was not always the case. As noted elsewhere, I initially used the django-summernote package to apply the Summernote Rich Text Editor, but this caused a fatal error that required the project to be restarted. When the project was restarted, I used the CK-editor package, which supplies a custom field type called RichTextField. When this package did not work on the deployed app, I switched to using the django-tinymce package in hopes of using the TinyMCE Rich Text Editor, which supplies a custom field type called HTMLField. Again, this did not work on the deployed app, so I went back to using the django-summernote package. Unlike the other two, the django-summernote package merely requires a widget called SummernoteWidget to be applied to a standard TextField in the corresponding forms file. 
+The content field is a TextField, but this was not always the case. As noted elsewhere, I initially used the django-summernote package to apply the Summernote Rich Text Editor, but this caused a fatal error that required the project to be restarted. When the project was restarted, I used the CK-editor package, which supplies a custom field type called RichTextField. When this package did not work on the deployed app, I switched to using the django-tinymce package in hopes of using the TinyMCE Rich Text Editor, which supplies a custom field type called HTMLField. Again, this did not work on the deployed app, so I went back to using the django-summernote package. Unlike the other two, the django-summernote package merely requires a widget called SummernoteWidget to be applied to a standard TextField in the corresponding forms file.
 
-A late addition to the Review model was the served_as field, which is an IntegerField. It operates similarly to the status field of the Django Blog walkthrough project, in that the served_as field takes values defined within an external global variable, which is in this case called SERVED_AS. The served_as field determines whether the beer was served bottled or on draught, as the same beer can taste differently depending on how it is served. 
+A late addition to the Review model was the served_as field, which is an IntegerField. It operates similarly to the status field of the Django Blog walkthrough project, in that the served_as field takes values defined within an external global variable, which is in this case called SERVED_AS. The served_as field determines whether the beer was served bottled or on draught, as the same beer can taste differently depending on how it is served.
 
 The upvotes and downvotes fields are ManyToMany fields linked to the standard Django User model, since many users can upvote and downvote many reviews. I decided early on to include separate upvotes and downvotes fields since I am an avid user of Reddit, but I dislike Reddit's choice to combine upvotes and downvotes into a single number, as a user cannot see the total number of upvotes and downvotes. With separate upvote and downvote counts, both numbers can be displayed, so that users can see how many people agree with a review, and how many people disagree, so as to be as well-informed as possible.
 
-The author field is a standard ForegignKey field linked to the Django User model. It has the `ondelete=models.CASCADE` instruction so that if a user is deleted from the database then all of that user's reviews are deleted as well. 
+The author field is a standard ForegignKey field linked to the Django User model. It has the `ondelete=models.CASCADE` instruction so that if a user is deleted from the database then all of that user's reviews are deleted as well.
 
-The timestamp field is standard DateTimeField with the `auto_now_add=True` instruction so that the exact date and time that a review was submitted is captured. 
+The timestamp field is standard DateTimeField with the `auto_now_add=True` instruction so that the exact date and time that a review was submitted is captured.
 
 The approved field is a BooleanField with a default value of False. This field palys a considerable role in the security and defensive programming of BeerGate. As discussed below, reviews that are not approved are not displayed to users, and must be manually approved by an administrator. This field ensures that malicious users cannot post inappropriate or offensive reviews.
 
@@ -579,6 +585,8 @@ It should be noted that I created forms and views for all of the AllAuth functio
 As noted above, the only views in user/views.py that are in active used by BeerGate are UserSignInView, UserSignUpView and UserPasswordChangeView. There is no custom view for the user signout functionality because while that template has a form, it only consists of a submit button and hence has no need of the `form-control` class.
 
 The active views are very simple, only using the form_class and template_name variables to designate the form and template to be used. The UserSignInView extends the AllAuth LoginView, the UserSignUpView extends the SignupView and the UserPasswordChangeView extends the PasswordChangeView.
+
+The UserPasswordChangeView is somewhat notable because it specifies a `success_url`, which redirects the user back to the homepage. This is not necessary for the other views because the redirection URL is specified in the settings file as `LOGIN_REDIRECT_URL = '/'` and `LOGOUT_REDIRECT_URL = '/'`.
 
 ### User Forms
 

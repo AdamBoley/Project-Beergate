@@ -27,10 +27,12 @@ class UserPasswordChangeView(PasswordChangeView):
     Custom view for changing user account password
     Extends AllAuth PasswordChangeView
     sets form_class to custom UserChangePasswordForm
+    success_url specifies redirection to landing page
     """
 
     form_class = UserChangePasswordForm
     template_name = 'account/password_change.html'
+    success_url = '/'
 
 
 class UserAddEmailView(EmailView):
