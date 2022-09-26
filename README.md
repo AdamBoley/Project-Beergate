@@ -1352,79 +1352,111 @@ HTML validation was carried out by pointing the [Official W3 validator](https://
 
 #### Index
 
-For the sake of completeness, the landing page rendered from index.html was validated 12 times - once for each of the sorting and filtering criteria applied by the different views. In addition, at time of validation, the Amber Beers filtering criteria returned no matching reviews, which triggered the empty tag of the templating language. As this tag contains HTML code, it bears validating.
+For the sake of completeness, the landing page rendered from index.html was validated 12 times - once for each of the sorting and filtering criteria applied by the different views. In addition, at time of validation, the Amber Beers and Lagers filtering criteria returned no matching reviews, which triggered the empty tag of the templating language. As this tag contains HTML code, it bears validating. All index page validation was carried out by URL input. 
 
 ##### Default - reviews sorted by Newest
 
 Validation initially returned many errors about the use of the `aria-labelledby` attribute, warning that the value had to point to another element. I noted that I had selected the incorrect aria attribute. I changed the image elements to use the `aria-label` attribute instead. After this correction, validation returned no errors.
 
+![screenshot of index default validation](screenshots/index-default-validation.PNG)
+
 ##### Reviews sorted by Most Upvotes
 
 Validation returned no errors.
+
+![screenshot of index most upvotes validation](screenshots/index-most-upvotes-validation.PNG)
 
 ##### Reviews sorted by Oldest
 
 Validation returned no errors.
 
+![screenshot of index oldest validation](screenshots/index-oldest-validation.PNG)
+
 ##### Reviews filtered by Ale type
 
 Validation returned no errors.
+
+![screenshot of index ale type validation](screenshots/index-ales-validation.PNG)
 
 ##### Reviews filtered by Stout type
 
 Validation returned no errors.
 
+![screenshot of index stout type validation](screenshots/index-stouts-validation.PNG)
+
 ##### Reviews filtered by Lager type
 
 Validation returned no errors.
+
+![screenshot of index lager type validation](screenshots/index-lager-type-validation.PNG)
 
 ##### Reviews filtered by Pale colour
 
 Validation returned no errors.
 
+![screenshot of index pale colour validation](screenshots/index-pale-beers-validation.PNG)
+
 ##### Reviews filtered by Golden colour
 
 Validation returned no errors.
+
+![screenshot of index golden colour validation](screenshots/index-golden-beers-validation.PNG)
 
 ##### Reviews filtered by Amber colour
 
 Validation returned no errors.
 
+![screenshot of index amber colour validation](screenshots/index-amber-beers-validation.PNG)
+
 ##### Reviews filtered by Dark colour
 
 Validation returned no errors.
+
+![screenshot of index dark colour validation](screenshots/index-dark-beers-validation.PNG)
 
 ##### Reviews filtered by Bottled beers
 
 Validation returned no errors.
 
+![screenshot of index bottled beers validation](screenshots/index-bottled-beers-validation.PNG)
+
 ##### Reviews filtered by Draught beers
 
 Validation returned no errors.
 
+![screenshot of index draught beers validation](screenshots/index-draught-beers-validation.PNG)
+
 #### Review
 
-The review page was validated twice - once for when the page has just been loaded, and once for when a use has submitted a comment, and hence the comment submission success message is rendered. 
+The review page was validated twice - once for when the page has just been loaded, and once for when a use has submitted a comment, and hence the comment submission success message is rendered. Validation was carried out by page source upload. Screenshots were added, with the input box centered on a unique feature to prove that that page was validated. 
 
 ##### Review page standard
 
 Validation returned no errors
 
+![screenshot of review-standard-validation](screenshots/review-standard-validation.PNG)
+
 ##### Review page after comment submission
 
 Validation returned no errors
 
+![screenshot of review-comment-submitted-validation](screenshots/review-comment-submitted-validation.PNG)
+
 #### Search Results
 
-The search_results page was validated twice - once for when a search was performed for `ale`, which returned several results, and once for when a search was performed for `cider`, which returned no results, as none of the reviews in the database match that search. This is because the search_results.html template has templating language that handles an empty queryset.
+The search_results page was validated twice - once for when a search was performed for `ale`, which returned several results, and once for when a search was performed for `cider`, which returned no results, as none of the reviews in the database match that search. This is because the search_results.html template has templating language that handles an empty queryset. Validation was carried out by page source upload. Screenshots were added, with the input box centered on a unique feature to prove that that page was validated. 
 
 ##### Search Results page with returned reviews
 
 Validation returned no errors
 
+![screenshot of search-results-reviews-returned-validation](screenshots/search-results-reviews-returned-validation.PNG)
+
 ##### Search Results with no reviews returned
 
 Validation returned no errors
+
+![screenshot of search-results-no-reviews-returned-validation](screenshots/search-results-no-reviews-returned-validation.PNG)
 
 #### User Reviews
 
@@ -1438,23 +1470,33 @@ When validating this page, I signed-in as a newly-created user with username 'Ki
 
 After apply the fixes documented directly below, validation returned no errors.
 
+![screenshot of user-reviews-use-case-1-validation](screenshots/user-reviews-use-case-1-validation.PNG)
+
 ##### Use case 2 - user has one review awaiting approval
 
 When validating this page, I transferred a single review to the 'Kieran' account and disapproved it. When I navigated to the user_reviews page, two text boxes displayed - one informing me that, as expected, a review had been written and was awating approval, and another informing me that I had no written any reviews. This was problematic, and I determined that I could not rely on the `{% empty %}` tag in the templating language, and hence that I needed to rework the UserReview view to explicitly handle this case and the above use-case 1. I reworked those files to more explicitly handle these use cases and redeployed to Heroku.
 
 After this fix, validation returned no errors
 
+![screenshot of user-reviews-use-case-2-validation](screenshots/user-reviews-use-case-2-validation.PNG)
+
 ##### Use case 3 - user has all reviews awaiting approval
 
-When validating this page, I assigned two reviews to the 'Adam' superuser account and disapproved both. When I navigated to the user_reviews page, the expected message that I had written some reviews but that they were awaiting approval was displayed. Validation of this page returned no errors
+When validating this page, I assigned two reviews to the 'Adam' superuser account and disapproved both. When I navigated to the user_reviews page, the expected message that I had written some reviews but that they were awaiting approval was displayed. Validation of this page returned no errors.
+
+![screenshot of user-reviews-use-case-3-validation](screenshots/user-reviews-use-case-3-validation.PNG)
 
 ##### Use case 4 - user has some reviews approved and some awaiting approval
 
 When validating this page, I assigned two reviews to the 'Adam' superuser account and approved one of them. When I navigated to the user_reviews page, the expected message that I had some of my reviews approved was displayed, along with the single displayed review. Validation of this page returned no errors.
 
+![screenshot of user-reviews-use-case-4-validation](screenshots/user-reviews-use-case-4-validation.PNG)
+
 ##### Use case 5 - user has all reviews approved
 
 When validating this page, I assigned two reviews to the 'Adam' superuser account and approved both of them. When I navigated to the user_reviews page, the expected message that I all of my reviews were approved was displayed, along with both reviews displayed. Validation of this page returned no errors.
+
+![screenshot of user-reviews-use-case-5-validation](screenshots/user-reviews-use-case-5-validation.PNG)
 
 #### Add Review
 
