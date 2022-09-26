@@ -1508,13 +1508,21 @@ As the content of this page can change based on user actions without modifying t
 
 When this page was validated, 10 errors were returned. Closer examination of the results reveals that these errors are all due to the formatting of the injected form, which I can do little to resolve.
 
+![screenshot of add-review-fresh-form-upper-validation](screenshots/add-review-fresh-form-upper-validation.PNG)
+
+![screenshot of add-review-fresh-form-lower-validation](screenshots/add-review-fresh-form-lower-validation.PNG)
+
 ##### Add Review Form submitted
 
-When validating this page, I submitted a beer review using the form. I expected the success message to be displayed, but I actually got the 500 server error page. Submitting the same beer review via the local version with debug on revealed the issue - I had purposely left the `hops` field empty, as it is optional. However, the post method in AddReview uses the `title()` method on the `hops` field. Since the field is empty, the `title()` method fails. At time of writing, I could not find a way of checking to see if the `hops` field has a value, and if so, apply the `title()` method. This will go into the Future Work section to be tackled at a later date. For the moment, the code to apply the `title()` method to the `hops` field has been removed. When this fix was applied, the the form was filled out and submitted. Once submitted, the confirmation message displayed as expected. Validation by page source code returned no errors.  
+When validating this page, I submitted a beer review using the form. I expected the success message to be displayed, but I actually got the 500 server error page. Submitting the same beer review via the local version with debug on revealed the issue - I had purposely left the `hops` field empty, as it is optional. However, the post method in AddReview uses the `title()` method on the `hops` field. Since the field is empty, the `title()` method fails. At time of writing, I could not find a way of checking to see if the `hops` field has a value, and if so, apply the `title()` method. This will go into the Future Work section to be tackled at a later date. For the moment, the code to apply the `title()` method to the `hops` field has been removed. When this fix was applied, the the form was filled out and submitted. Once submitted, the confirmation message displayed as expected. Validation by page source code returned no errors.
+
+![screenshot of add-review-submitted-validation](screenshots/add-review-submitted-validation.PNG)
 
 ##### Add_review page when signed out
 
 The tab-duplication trick was used to generate this page. Validation of this page returned no errors. It did not trigger a 500 server error as the user_reviews page does when the same trick is applied, but this is acceptable, since the templating language handles this.
+
+![screenshot of add-review-signed-out-validation](screenshots/add-review-signed-out-validation.PNG)
 
 #### Update Review
 
@@ -1524,15 +1532,23 @@ Prior to validation, I modified the UpdateReview view to remove the code that ap
 
 ##### Pre-populated update_review form
 
-Validation of this page returned 10 errors. Closer inspection revealed that these errors were the same errors as those noted in the add_review page validation, and are related to formatting. As in that section, I can do little to resolve these errors, as I cannot directly control the layout. 
+Validation of this page returned 10 errors. Closer inspection revealed that these errors were the same errors as those noted in the add_review page validation, and are related to formatting. As in that section, I can do little to resolve these errors, as I cannot directly control the layout.
+
+![screenshot of update-review-fresh-form-upper-validation](screenshots/update-review-prepopulated-form-upper-validation.PNG)
+
+![screenshot of update-review-fresh-form-lower-validation](screenshots/update-review-prepopulated-form-lower-validation.PNG)
 
 ##### Update Review Form submiited
 
 Validation of this page returned no errors, and no errors were encountered when submitting. I suspect that my preventative bug fixing above allowed this.
 
+![screenshot of update-review-submitted-validation](screenshots/update-review-submitted-validation.PNG)
+
 ##### Update_review page when signed out
 
 The tab-duplication trick was used to generate this page. Validation of this page returned no errors. It did not trigger a 500 server error as the user_reviews page does when the same trick is applied, but this is acceptable, since the templating language handles this.
+
+![screenshot of update-review-signed-out-validation](screenshots/update-review-signed-out-validation.PNG)
 
 #### Delete Review
 
@@ -1542,29 +1558,43 @@ The delete_review page was validated 3 times - once for when the page has just b
 
 This page was validated by direct source code checking. Validation returned no errors.
 
+![screenshot of delete-review-modal-inactive-validation](screenshots/delete-review-modal-inactive-validation.PNG)
+
 ##### Modal active
 
 This page was validated by direct source code checking. Validation returned no errors. Interestingly, to access the menu to generate the page source code, you must right-click inside the modal, since right-clicking outside closes the modal.
+
+![screenshot of delete-review-modal-active-validation](screenshots/delete-review-modal-active-validation.PNG)
 
 ##### Delete_review when signed out
 
 The tab-duplication trick was used to generate this page. Validation of this page returned no errors. It did not trigger a 500 server error as the user_reviews page does when the same trick is applied, but this is acceptable, since the templating language handles this.
 
+![screenshot of delete-review-signed-out](screenshots/delete-review-signed-out-validation.PNG)
+
 #### Account Sign-in
 
 The sign_in page was validated once by URL. Validation returned no errors.
 
+![screenshot of account-sign-in](screenshots/account-sign-in-validation.PNG)
+
 #### Account Sign-out
 
-The sign_out page was validated once by direct source code checking. Initially validation returned 3 errors related to element formatting. I thought to put these down to the formatting of the form, was has been noted as problematic above, but then noted that the form for the sign-out page is simple. Close inspection of the source code revealed improper placement of the elements. Once fixed, validation was re-run and returned no errors. 
+The sign_out page was validated once by direct source code checking. Initially validation returned 3 errors related to element formatting. I thought to put these down to the formatting of the form, was has been noted as problematic above, but then noted that the form for the sign-out page is simple. Close inspection of the source code revealed improper placement of the elements. Once fixed, validation was re-run and returned no errors.
+
+![screenshot of account-sign-out](screenshots/account-sign-out-validation.PNG)
 
 #### Account Sign-up
 
-The sign_up page was validated once by URL. Initially validation returned 3 errors related to element formatting, similar to those noted directly above. Inspection of the source code revealed similarly improper formatting. Once fixed, validation was re-run and returned no errors. 
+The sign_up page was validated once by URL. Initially validation returned 3 errors related to element formatting, similar to those noted directly above. Inspection of the source code revealed similarly improper formatting. Once fixed, validation was re-run and returned no errors.
+
+![screenshot of account-sign-up](screenshots/account-sign-up-validation.PNG)
 
 #### Account Password Change
 
 The password_change page was validated once by direct source code checking. Validation returned no errors.
+
+![screenshot of account-password-change](screenshots/account-change-password-validation.PNG)
 
 ### CSS Validation
 
