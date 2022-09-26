@@ -1,11 +1,11 @@
 
-# Beergate
+# **Beergate**
 
 ## Code Institute Portfolio Project 4 - a Full Stack website using the Django framework and a database
 
 Am I response image here
 
-# Table of Contents
+# **Table of Contents**
 
 - [Scope](#scope)
 - [Background](#background)
@@ -164,7 +164,7 @@ Am I response image here
 - [Other Notes](#other-notes)
 - [Credits](#credits)
 
-# Scope
+# **Scope**
 
 The scope of this project is to create a website using the Python Django framework. The website will function as a review site for people who like beer, similar to [RateBeer](https://www.ratebeer.com/). 
 <br><br>
@@ -173,7 +173,7 @@ The project will use the Django AllAuth library to allow users to create account
 The project will also feature several mechanisms for searching, sorting and filtering database entries.
 <br><br>
 
-# Background
+# **Background**
 
 This project is inspired by the Code Institute Whiskey Drop walkthrough project that was used to demonstrate the power and responsiveness of Bootstrap. Since I am more of a beer drinker than a whiskey drinker, I made my own variation that I called Beergate. [This is the repository](https://github.com/AdamBoley/bootstrap-experimentation), and [this is the deployed site on Github Pages](https://adamboley.github.io/bootstrap-experimentation/).
 <br><br>
@@ -183,15 +183,15 @@ Whilst this makes the UK a gold-mine for beer drinkers, it presents a problem fo
 <br><br>
 This is where this project comes in. If a user finds and drinks a good beer, they can use this project to write a review, recommending (or not) that beer to the wider beer-drinking community. Similarly, users who wish to expand their range of beers can use this project to find recommendations, or know what beers to avoid. 
 
-# Audience / Users
+# **Audience / Users**
 
 This project is aimed at the large community of beer drinkers in the UK who want to read reviews of different beers so that they can find more beers that they may want to try. 
 
-# User Stories
+# **User Stories**
 
 Below are the User Stories used to guide the development of BeerGate.
 
-## Admin user User Stories
+## **Admin user User Stories**
 
 The Admin user User Stories were used to determine what Admin Superusers who have access to the Admin panel should be able to do. 
 
@@ -213,7 +213,7 @@ The Admin user User Stories were used to determine what Admin Superusers who hav
     - Delete any number of extant users
     - View login attempts from dummy admin honeypot page
 
-## Generic user User Stories 
+## **Generic user User Stories**
 
 These user stories were used to determine what all users should be able to do, regardless of authentication status.
 
@@ -230,14 +230,14 @@ These user stories were used to determine what all users should be able to do, r
     - If an error occurs, be reassured that it has not broken the website
     - If an error occurs, have a means of resetting the website or getting out of the error
 
-### Rejected Generic user User Stories
+### **Rejected Generic user User Stories**
 
 These user stories were rejected as the features that would fulfil them were too difficult to implement.
 
 - As a generic user I can ...
     - Chain multiple sorting and filtering criteria together on the landing page to more precisely control the review I can see
     
-## Unregistered user User Stories
+## **Unregistered user User Stories**
 
 These user stories were used to determine what unregistered users specifically should be able to do.
 
@@ -245,7 +245,7 @@ These user stories were used to determine what unregistered users specifically s
     - Sign-up and create an account
     - Sign-in to that created account
 
-## Registered user User Stories
+## **Registered user User Stories**
 
 These user stories were used to determine what registered users specifically should be able to do. 
 
@@ -271,7 +271,7 @@ These user stories were used to determine what registered users specifically sho
     - When viewing a single beer review, upvote it if I like it
     - When viewing a single beer review, downvote it if I do not like it
 
-### Rejected Registered user User Stories
+### **Rejected Registered user User Stories**
 
 These user stories were rejected as the features that would fulfil them were too difficult to implement.
 
@@ -282,17 +282,17 @@ These user stories were rejected as the features that would fulfil them were too
     - Be able to access the delete_review page from within the user_reviews page
 
 
-# Features
+# **Features**
 
 This section discusses the features and pages of BeerGate and the design choices made. Where appropriate, there is discussion of the HTML and CSS. The views and forms used to render those pages are also mentioned. 
 
-## Base
+## **Base**
 
 BeerGate uses a single base template file that is applied to every page. This provides a consistent user experience. The base template contains a Bootstrap navbar and a small footer. The HTML code from the other templates is injected into a central `main` element. The background image used is one of a tall glass of beer, the same image used in the [first Beergate project](https://adamboley.github.io/bootstrap-experimentation/). A 50% opacity dark background has been applied over this image to darken it off. This is because the unmodified image is particularly bright and eye-catching. The unmodified image is below:
 
 (undarkened background image)
 
-## Header and Navbar
+## **Header and Navbar**
 
 The navbar provides navigation to the other pages of BeerGate. The navbar was created using a standard Bootstrap navbar, so as to make it smoothly responsive on smaller screen sizes. Each list item in the navbar has been given the Bootstrap `btn` class to turn it into a button. Functionally, this has been used to apply a nice rounded border when the button is hovered over, and custom CSS has been written to turn the button white and keep the text black when this happens. This provides clear user feedback so that the user knows that they are about to click a button and be redirected to another page.
 
@@ -304,19 +304,19 @@ If the user is signed-in, they have more navigation options. The user may click 
 
 Final navbar screenshot:
 
-## Footer
+## **Footer**
 
 The footer contains standard copyright information that identifies BeerGate as my intellectual property. 
 
 Final footer screenshot:
 
-## Landing page
+## **Landing page**
 
 The landing page is the first template rendered to the user when they visit the deployed project - [Beergate](https://beergate.herokuapp.com/). The landing page is rendered from `templates/index.html` using the `ReviewList` view. The main content of the landing page are 3 'review cards', so called because each holds a link to a particular review, and because each is created using a Bootstrap card. 
 
 Final Landing page screenshot:
 
-### Review cards
+### **Review cards**
 
 Each review card provides a brief overview snippet of a particular beer review. Each card provides quick information to a user that helps them decide which review to visit, such as the type and colour of the beer, when it was reviewed and the number of upvotes and downvotes. A user may click anywhere on the card to be directed to the associated review. I initially had only the name of the beer wrapped in the anchor element, however user testing on a mobile device indicated that it was sometimes difficult to tap the hyperlink, and too-small hyperlinks are a particular bugbear of mine. Modifying the template so that the entire card in within the anchor element allows a user with a mobile device to tap anywhere on the card to visit the review page.
 
@@ -324,7 +324,7 @@ The review page is discussed in more detail [below](#review-page).
 
 Single review card screenshot:
 
-### Pagination
+### **Pagination**
 
 The landing page is set to display review cards in batches of 3. Further reviews are paginated. The pagination element offers users a wide range of navigation options. They may be redirected to the first and last pagination pages by clicking the buttons labelled `first` and `last`. Users may also access the pagination pages directly prior to and directly after their current page with the buttons labelled `previous` and `next`. Finally users may access any particular pagination page by clicking on the appropriate numbered square. If any of the `first`, `last`, `previous` or `last` options are not available, then the button still displays, but is greyed-out and has no active href attribute. This was implemented to provide a consistent style as the user navigates the paginated pages. The original code that was used to provide these pagination options did not have these features and hence inactive buttons disappeared, which led to an inconsistent style. 
 
@@ -332,7 +332,7 @@ Pagination was implemented to save mobile users from having to endlessly scroll 
 
 Screenshot of pagination bar:
 
-### Sorting and Filtering
+### **Sorting and Filtering**
 
 Aside from the search function, I considered that users might want to view particular categories of reviews, such as only viewing ales or golden beers. Hence, I implemented some functionality that allows a user to sort and filter the reviews displayed on the landing page. By default, records are displayed in descending timestamp order, i.e. with the newest records first. A user may sort the reviews in two other ways - by descending upvote count, with the reviews with the highest number of upvotes displayed first, and  also by ascending timestamp order, with the oldest reviews displayed first. 
 
@@ -350,7 +350,7 @@ These options, particularly the filtering options are necessarily broad and henc
 
 Final screenshot of sorting and filtering bar:
 
-## Review page
+## **Review page**
 
 The review page is used to display a single beer review in its entirety. It is rendered using the review template and the ReviewSingle view. The review is held in a standard Bootstrap card. All the relevant fields in a record are displayed within this card, including the beer's name, brewery, image, content and scores. The output of the short_description and description methods are also displayed. Notably, the hops field is specifically missing, as I decided to make this field optional when a user submits a review, as the hops a beer is brewed with may not be readily available to the reviewer.
 
@@ -368,7 +368,7 @@ Final screenshot of lower review page:
 
 Final screenshot of comment submission message:
 
-## Add Review page
+## **Add Review page**
 
 The add_review page is rendered using the add_review template and the AddReview view. 
 
@@ -382,7 +382,7 @@ Final screenshot of lower add review page:
 
 Final screenshot of review submission message
 
-## Update Review page
+## **Update Review page**
 
 The update_review page is rendered using the update_review template and the UpdateReview view. It functions similarly to the add_review template as the form uses the same form template and fields, except that the form fields are pre-populated with the extant records. A user may update any of the review's information, including the image. When submitted, the record is automatically disapproved, and a text box displays informing the user of this. This is to ensure that a user is not using the update functionality, which by default does not automatically disapprove a review, to post malicious, offensive or inappropriate content.
 
@@ -392,7 +392,7 @@ Final screenshot of lower update review page:
 
 Final screenshot of review update message
 
-## Delete Review page
+## **Delete Review page**
 
 The delete_review page is rendered using the delete_review template and the DeleteReview view. It is a simple template, and allows a user to delete a particular review. Rather than having a simple button to do this, I considered that placing the actual delete button inside a modal would provide a superior user experience, to prevent a review being deleted by accident. In this way, a user must actively seek to delete a review. When a review is deleted, the review no longer exists in the database, so the user is redirected back to the homepage. 
 
@@ -400,7 +400,7 @@ Final screenshot of delete review page:
 
 Final screenshot of delete review page with confirmation modal active:
 
-## Search Results page
+## **Search Results page**
 
 The search_results page is rendered using the search_results template and the SearchResults view. The page consists of a Bootstrap card which contains all of the reviews returned by the search query. Similarly to the landing page, the entirety of each search result is contained within an anchor element linking to the particular review. Due to the particular structure and intended look of this page, I had some difficulty making it responsive to smaller screen sizes. In particular, the images proved troublesome. To overcome this issue, I set the images to be hidden on these smaller screen sizes. As each search result is placed within an anchor element, the text within each search result card is given anchor element styling - namely a blue colour and underline text decoration. I removed this native styling for most of the text elements, but kept it for the beer name, with the intention being to mimic the Google search results page, where the clickable links have unmodified anchor element styling. 
 
@@ -412,7 +412,7 @@ Final screenshot of upper search results page:
 
 Final screenshot of lower search results page:
 
-## User Reviews page
+## **User Reviews page**
 
 The user_reviews page is rendered using the user_reviews template and the UserReviews view. The design is intentionally very similar to that of the search_results page, including the lack of images on smaller screen sizes, as I view both pages as a means of listing some collection of reviews, though obviously the difference lies in *how* that collection is assembled - this is dicussed in more detail in the Function section. The only noticable difference is that the user_reviews page's search results do not display the author of the reviews. As the author of the review is the user themselves, I considered this to be redundant.
 
@@ -424,7 +424,7 @@ Final screenshot of upper user_reviews page:
 
 Final screenshot of lower user_reviews page:
 
-## Sign In, Sign Out, Sign Up and Change Password pages
+## **Sign In, Sign Out, Sign Up and Change Password pages**
 
 These pages are modified versions of the standard AllAuth templates that can be copied over from the site-packages directory with the `cp -r ../.pip-modules/lib/python3.8/site-packages/allauth/templates/* ./templates` command. A new app called 'user' was started to hold the views, forms and urls that control these templates, primarily to apply the Bootstrap `form-control` class that makes the input elements smooth and nice to use with user feedback.
 
@@ -436,29 +436,29 @@ Final screenshot of Sign Up page:
 
 Final screenshot of Change Password page:
 
-## Messages
+## **Messages**
 
 Late in development, I noted that when a user changes their password, they are not redirected to the landing page as they are when they create an account, sign-in or sign-out. Whilst this proved eacy to achieve ([see below](#user-views)), I considered that users might appreciate a more declarative means of confirming that they have undertaken an action, much like the success messages that trigger when they add or update a review. I hence ported over much of the code for implementing messages from the walkthrough project, modifying the Bootstrap positioning classes for improved responsivity. I also have the container div absolute positioning so that it does not interfere with the review cards of the landing page. Without absolute positioning, the review cards 'jump' upward when the messages div is closed, since Bootstrap removes the messages element from the DOM when closed. To prevent the messages element from overlapping the review cards, I gave the review cards container a top padding of 3em. This does not meaningfully influence the positioning of the review cards.
 
 I noted that, for some reason, the close button for the alert message is not positioned to the right-hand-side, as might be expected, instead appearing directly next to the text. Setting the messages div element to have `position-relative` and the close button to have `position-absolute` and the using the `top-25 end-0` classes solved this.
 
-## 404 and 500 error pages
+## **404 and 500 error pages**
 
 At the urging of my Mentor, I created custom 404 and 500 error pages. These are simple pages, designed to be humourous so as to reassure the user that they have not irreversibly broken BeerGate. Both pages provide links back to the landing page.
 
-# Function
+# **Function**
 
 This section is discusses the code used in the project, and explains any particularly note-worthy or obscure features.
 
-## Reviews app
+## **Reviews app**
 
 The Reviews app is where the bulk of the project's development took place, and holds most of the back-end code.
 
-### Reviews Models
+### **Reviews Models**
 
 BeerGate uses two data models - Review and Comment. A validation function called `validate_within_limits` has also been written to validate inputs for the Review model's aroma, appearance, taste and aftertaste fields. These are IntegerFields, but the values must be between 1 and 10. Testing of this function is dealt with in the [testing section](#testing)
 
-#### Review class
+#### **Review class**
 
 Review is the primary data model for BeerGate. As of the end of the project's development cycle, it contains 18 fields. The name, brewery, type, colour and keywords fields are all standard character fields. The image field is a CloudinaryField, as uploaded images are saved to my account on the Cloudinary CDN.
 
@@ -478,7 +478,7 @@ The aroma, appearance, taste and aftertaste fields are standard IntegerFields, w
 
 Early versions of the Review model used a slug field with the SlugField type, which was used to generate custom URLs, much as like in the Django Blog walkthrough project. However, this proved to be an obstacle to mass-approval of reviews in the admin panel. As in the walkthrough project, the slug field was set to be pre-populated, but I discovered that this pre-population only occurred when each individual record was accessed. Should users collectively submit hundreds of reviews, an administrator would need to access each record to pre-populate the slug field, which would be a huge time-sink. When this was discovered, the slug field was removed and the project converted to use the primary_key of each Review instead.
 
-##### Review class methods
+##### **Review class methods**
 
 The Review model contains a number of methods. The first of these is a standard Meta class, which supplies the verbose name and ordering of the reviews.
 
@@ -494,7 +494,7 @@ The review_upvotes and review_downvotes methods are quite simple and return tota
 
 The average_score method averages the values of the aroma, appearance, taste and aftertaste fields to provide a single overall score for a beer.
 
-#### Comment class
+#### **Comment class**
 
 The Comment model is a secondary data model for BeerGate. It provides the functionality for users to comment on Reviews.
 
@@ -508,15 +508,15 @@ The timestamp and approved fields function identically to those fields of the sa
 
 The upvotes and downvotes fields function identically to those fields of the same name in the Review model. However, at the time of writing, I was unable to implement upvoting and downvoting of comments, as Reddit allows a user to do, primarily because the voting function for Reviews reloads the page, using the primary key of the review as the redirection URL. Nonetheless, I have decided to keep these fields in the model with a view to implementing such functionality at a later date. The total numbers of upvotes and downvotes are never displayed on the front-end, so a user will never know that the model contains those fields.
 
-##### Comment class methods
+##### **Comment class methods**
 
 As with the Review model, the Comment model contains a Meta child class that supplies a verbose name and ordering. In contrast to the Review model, comments are ordered in ascending timestamp order, so that the oldest comments appear first. As in the walkthrough project, the intention is to mimic a conversation around the review and the beer. 
 
 The Comment model also contains a magic string method that returns a string of text containing the author and the content of the comment. It returns something like "Robert said: Nice review!"
 
-### Reviews Views
+### **Reviews Views**
 
-#### Index views
+#### **Index views**
 
 I have written a large number of views that render various versions of the the landing page using the index.html template. A view called LandingPage acts as a base. LandingPage is not used to render a page directly. Instead, the other index views inherit from it. LandingPage sets the model, template_name and pagination factor, but leaves the queryset to be defined by the inheriting views.
 
@@ -524,11 +524,11 @@ In previous builds, each index view defined the model, template_name, pagination
 
 The justification for these various index views is [here](#ordering).
 
-##### Default view
+##### **Default view**
 
 The default view is called ReviewList, and the queryset filters the reviews to include only those that have their approved field set to True, and orders these in descending timestamp order, so that the newest reviews are displayed first.
 
-##### Sorting views
+##### **Sorting views**
 
 There are two other views which apply different sorting instructions.
 
@@ -536,7 +536,7 @@ ReviewListMostUpvotes uses the annotate method to get the total number of upvote
 
 ReviewListOldest is nearly identical to the default ReviewList view, except that it orders Reviews in ascending timestamp order, so that the oldest reviews are displayed first.
 
-##### Filtering views - type
+##### **Filtering views - type**
 
 The ReviewListAleType, ReviewListStoutType and ReviewListLagerType function similarly to the default ReviewList view, filtering out those reviews that are not approved and ordering by descending timestamp order. These views also filter by the Review model type field.
 
@@ -546,7 +546,7 @@ ReviewListStoutType filters out beers that do not have Stout as their type.
 
 ReviewListLagerType filters out beers that do not have Lager as their type.
 
-##### Filtering views - colour
+##### **Filtering views - colour**
 
 These views are called ReviewListPaleColour, ReviewListGoldenColour, ReviewListAmberColour and ReviewListDarkColour. These function similarly to the default ReviewList view, filtering out those reviews that are not approved and ordering by descending timestamp order. These views also filter by the Review model colour field.
 
@@ -558,7 +558,7 @@ ReviewListAmberColour filters out beers that do not have Amber as their colour.
 
 ReviewListDarkColour filters out beers that do not have Dark as their colour.
 
-##### Filtering views - served_as
+##### **Filtering views - served_as**
 
 These views are called ReviewListBottled and ReviewListDraught These function similarly to the default ReviewList view, filtering out those reviews that are not approved and ordering by descending timestamp order. These views also filter by the Review model served_as field.
 
@@ -566,7 +566,7 @@ ReviewListBottled filters out beers that do not have 1 (meaning bottled, since s
 
 ReviewListDraught filters out beers that do not have 2 (meaning draught, since served_as is an IntegerField) as the served_as value.
 
-#### Review view
+#### **Review view**
 
 The view that renders the entirety of a single review using the review.html page is called ReviewSingle.
 
@@ -576,11 +576,11 @@ The get method defines a queryset containing all approved Reviews, and then retr
 
 The post method functions similarly, except that it has additional code to handle the submission of the CommentForm. If the submitted CommentForm is valid, the user and the current review are attached to the comment submission, so that the comment 'belongs' to that particular user and that review. In the context, commented is set to True, which triggers some templating language code to display a submission confirmation textbox to the user.
 
-#### Search Results view
+#### **Search Results view**
 
 The SearchResults view renders the search_results page using the search_results.html page. The object_list, which holds the reviews that are displayed, is constructed using the get_queryset method, which retrieves the search term used in the navbar's search box input element as a variable called query. The object_list is then constructed using a standard filter method that uses [Q Objects](https://docs.djangoproject.com/en/4.0/topics/db/queries/#complex-lookups-with-q-objects) to chain filters together. The code in this view was written using [this tutorial](https://learndjango.com/tutorials/django-search-tutorial), authored by known Django expert Will Vincent. The object_list is the returned for use within the template using templating language.
 
-#### User Reviews view
+#### **User Reviews view**
 
 The UserReviews view renders the user_reviews page using the user_reviews template. Previous builds were relatively simple, using get method to construct a queryset consisting of all reviews belonging to a particular user that have been approved. 
 
@@ -598,7 +598,7 @@ Use case 5 triggers if all of the user's review have been approved. All of the u
 
 This logic was implemented to more finely control the content displayed to the user. 
 
-#### Add Review view
+#### **Add Review view**
 
 The AddReview view renders the add_review page using the add_review template. This is, if you will, the meat of the project, as it allows a user to upload a beer review using a form. The form itself is rendered using the form_class variable set to the imported UserReviewForm. In previous versions of the project, as in the walkthrough project, a get method was used to render this form. Using the form_class variable reduces the amount of code required considerably, and thereby reduces complexity. The UserReviewForm is discussed in more detail [here](#userreviewform).
 
@@ -608,7 +608,7 @@ This is necessary to ensure that the sorting and filtering views work properly, 
 
 A context variable is then defined and a return statement renders the template again, this time with the reviewed key set to True, which triggers some templating language to display a textbox informing the user that their review has been submitted and is awaiting approval. 
 
-#### Update Review view
+#### **Update Review view**
 
 The UpdateReview view renders the update_review page using the update_review.html template. This a necessary companion to the AddReview view, as it allows a user to update their reviews. As with the AddReview, a form_class variable specifies that the UserReviewForm is to be used. The view uses 3 methods - a get method, a post method and a form_valid method. These methods are necessary because I wanted this view to automatically disapprove reviews when they are updated. As discussed in the [bugs section](#bugs), this is a prudent security measure and part of the defensive programming employed in BeerGate. I found that without these methods, when the form is submitted, the review instantly and automatically holds the updated information. This is a vulnerability that a malicious user could exploit, first by submitting a seemingly-genuine review, getting it approved and then updating it with malicious, inappropriate or offensive content.
 
@@ -618,33 +618,33 @@ The get method retrieves the particular review that is being updated and the for
 
 Within the post method is code similar to that employed in the AddReview view which variously titles and capitalises the `name`, `brewery`, `hops`, `type` and `colour` field inputs, and lowercases the `keywords` input. This is to ensure that a user cannot accidentally update a review so that the filtering methods stop catching it, and to ensure that the user cannot damage the user experience for other users by de-capitalising these fields (or uppercasing/capitalising the keywords field).
 
-#### Delete Review view
+#### **Delete Review view**
 
 The DeleteReview view renders the delete_review page using the delete_review.html template. This view uses the generic Django DeleteView which allows easy deletion of records. Once the review has been deleted, the success_url variable redirects the user back to the landing page.
 
-#### Review Upvote and Review Downvote
+#### **Review Upvote and Review Downvote**
 
 The ReviewUpvote and ReviewDownvote views handle upvoting and downvoting of reviews. They are essentially identical, and the core code borrows heavily from the walkthrough project's PostLike view. I have made my own additions inside the ELSE blocks of the post methods which makes upvotes and downvotes mutually exclusive - that is, a user may either upvote or downvote a review, not both, and if a user has previously upvoted a review, then downvoting it will remove the extant upvote, and vice versa. Once a vote has been applied, the user is redirected back to the review they were voting on.
 
-### Reviews Forms
+### **Reviews Forms**
 
 The forms file contains two form classes - CommentForm and UserReviewForm. As is the case in the walkthrough project, these forms are explicitly defined because I wanted to specifically control which fields were displayed. In addition, I wanted to apply the Bootstrap `form-control` class to makes the forms nicer to use. I was able to use the widgets variable to apply the `form-control` class. Later on, the widgets variable helped get the django-summernote Rich Text Editor working by way of the SummernoteWidget. I was also able to use the labels variable to modify the labels of the form input elements.
 
-#### CommentForm
+#### **CommentForm**
 
 The CommentForm class is quite simple - it sets that the only field to be displayed is the content field, which is made into a Rich Text Editor by way of the SummernoteWidget. The label is also modified to 'Your comment'.
 
-#### UserReviewForm
+#### **UserReviewForm**
 
 The UserReviewForm class appears to be more complex, but is functionally similar to the CommentForm. It restricts the fields that are displayed and applies the `form-control` class to those fields, with the exception of the content field, which is turned into a Rich Text Editor using the SummernoteWidget. The widget object also allowed me to add the placeholder attribute to several fields which meant that I could add assistive placeholder text.
 
-### Reviews URLS
+### **Reviews URLS**
 
 The urls file holds the urlpatterns for the reviews app. Most of the paths apply to the previously-mentioned sorting and filtering views that render various versions of the landing page. After these comes the add_review, search and user_review pages. Lastly come the paths which render the review pages and the pages for updating and deleting records, as well as the upvote and downvote paths. As previously mentioned, reviews are not listed by their slug but instead by their primary key, so for paths that deal with specific records, `<int:pk>` is used instead of `<slug:slug>` as in the walkthrough project.
 
 I learned early on in development that paths that take in arguments are considered more general, and must hence be placed below more specific paths. Prior to learning this, an error would occur whenever I tried to naviagte to the add_review page. Thankfully Tutor Support were able to teach me this. As it turned out, I had all of the pieces in place, and the ordering of the urlpatterns was the only barrier.
 
-### Reviews Admin
+### **Reviews Admin**
 
 The admin file controls the layout of, and actions available in, the Django admin panel. Functionally, it is little different to the admin file of the walkthrough project. There are two classes - BeerReviewAdmin and CommentAdmin - thanks to my going back to using the django-summernote package, both admin classes extend the SummernoteModelAdmin class.
 
@@ -652,13 +652,13 @@ Both admin classes are also similar in construction, as both have the same contr
 
 Both admin classes have the same two methods - approve_beer_review / approve_comment and disapprove_beer_review / disapprove_comment. The approve methods are used for mass approval of all selected reviews whilst the disapprove methods are used for mass disapproval (i.e. mass withdrawal) of all selected reviews.
 
-## User app
+## **User app**
 
 The user app was started purely to achieve better control over the rendering of the signin.html, signout.html, signup.html and password_change.html templates. Primarily, the goal was to apply the Bootstrap `form-control` class to the forms. After doing this with the CommentForm and UserReviewForm in the reviews app, this proved quite easy, however in order to use the custom forms, I had to create custom views.
 
 It should be noted that I created forms and views for all of the AllAuth functions, not just signing in, signing out, signing up and changing passwords. After doing so, I tested these and noted that only those named functions worked out-of-the-box. The others, such as resetting a password, required an email service. After speaking with my Mentor about this, he suggested keeping the views and forms and then removing the paths from the urls.py file, thus disabling them and ensuring that they could not be accessed accidentally. Getting this functionality working will be something to work on in the future after project submission.
 
-### User Views
+### **User Views**
 
 As noted above, the only views in user/views.py that are in active used by BeerGate are UserSignInView, UserSignUpView and UserPasswordChangeView. There is no custom view for the user signout functionality because while that template has a form, it only consists of a submit button and hence has no need of the `form-control` class.
 
@@ -666,7 +666,7 @@ The active views are very simple, only using the form_class and template_name va
 
 The UserPasswordChangeView is somewhat notable because it specifies a `success_url`, which redirects the user back to the homepage. This is not necessary for the other views because the redirection URL is specified in the settings file as `LOGIN_REDIRECT_URL = '/'` and `LOGOUT_REDIRECT_URL = '/'`.
 
-### User Forms
+### **User Forms**
 
 As with the views, only the UserSignInForm, UserSignupForm and UserPasswordChangeForm are actively used by BeerGate, with the others dormant until their corresponding views can be put into use.
 
@@ -674,15 +674,15 @@ Initially I tried using the widgets method shown in reviews/forms.py to apply th
 
 The UserSignupForm and UserChangePasswordForm use a for loop to apply a `form-control` widget to each form field. However, this approach failed with the UserLoginForm, since this form has a 'remember me' checkbox, which, when given the `form-control` class, becomes an input field that cannot accept any input. To overcome this, I used another technique from that article to apply the `form-control` class to only the username and password input elements. This itself proved difficult, since the name of the username field is unhelpfully called 'login' rather than 'username', as might be expected.
 
-### User URLS
+### **User URLS**
 
 As noted above, the user/urls.py file's urlpatterns list only contains 3 paths. These are for the signin, signup and password_change pages. In the future, as I get the remaining AllAuth functionality working, corresponding paths will be added to allow these templates to be accessed.
 
-# Database Models
+# **Database Models**
 
 As a Full Stack project that uses Django, this project uses models to create the database tables. These are below, and include the column headers, examples of what might be in that column and other relevant notes.
 
-## Beer
+## **Beer**
 
 The Beer model is used to create a table that holds all of the data to make a beer review post.
 
@@ -715,12 +715,9 @@ The Beer model is used to create a table that holds all of the data to make a be
 
 The Beer model will have a Meta class that orders reviews by created_on in descending order, so that the newest reviews are displayed first
 
-The Beer model will also have a magic string method to return the name of the beer, and two methods that deal with the numbers of upvotes and downvotes, one for each. These methods will return a count of these numbers so that they can be displayed. 
+The Beer model will also have a magic string method to return the name of the beer, and two methods that deal with the numbers of upvotes and downvotes, one for each. These methods will return a count of these numbers so that they can be displayed.
 
-### Discussion
-
-
-## Comment
+## **Comment**
 
 The Comment model is used to create a table that holds all of the information to display a comment on a beer review post. 
 
@@ -737,15 +734,14 @@ The Comment model will have a Meta class that orders comments by created_on in a
 
 The Comment model will also have a magic string method to return the comment itself followed by the name of the commenter. The Comment model will also have two other methods that deal with the numbers of upvotes and downvotes, one for each. These methods will return a count of these numbers so that they can be displayed.
 
-### Discussion
+### **Discussion**
 
 The post and author fields will both be Foreign Keys, and will have on_delete=models.CASCADE. This means that the comment will be removed if the parent review is deleted, or if the author's account is deleted. As above, this is intended as a defensive measure, so comments made by malicious users are deleted if that malicious user's account is deleted. 
 <br>
-<br>
-The Meta class that orders comments by created_on date so that the oldest comments are displated first is intended to simulate a conversation, so that other users can follow any discussion in the comments of a post. 
+The Meta class that orders comments by created_on date so that the oldest comments are displated first is intended to simulate a conversation, so that other users can follow any discussion in the comments of a post.
 
 
-# Tasks
+# **Tasks**
 
 Done:
 - implement upvotes / downvotes feature for Beer Reviews - done 
@@ -942,7 +938,7 @@ Rejected:
 
 - Move sorting menu from universal navbar to its own navbar only on the index page - perhaps use a def get method to render a custom context that informs/reminds the user of the criteria they are filtering/sorting by - rejected because this is too difficult
 
-# Future Work
+# **Future Work**
 
 Future work:
 - implement upvotes / downvotes feature for Comments
@@ -957,17 +953,17 @@ Future work:
 
 
 
-# Bugs
+# **Bugs**
 
 Given the complexity of Django, it was inevitable that many bugs were encountered. To assist navigation, each bug has been given its own heading. Each is also separated by horizontal rules. 
 
-### Initial deployment bug
+### **Initial deployment bug**
 
 When trying to deploy an initial blank version of the project to Heroku, I ran into an error, with Heroku logging the error `unable to build wheel for backports.zoneinfo`. Some Googling revealed that the problem could be to do with the version of Python that Heroku uses, and that a possible fix could be to add a `runtime.txt` file to the repository to specify the exact version of Python that should be used. Said file was added with `python-3.8.13`. In the end, I noted that this was extraneous, since INSTALLED_APPS was missing a comma. Once added, Heroku was able to build and deploy the app properly. The `runtime.txt` file was removed. 
 
 <hr>
 
-### Superuser Login bug
+### **Superuser Login bug**
 
 After creating a superuser to access the Django backend, I ran into a 403 error when trying to login using that superuser via the admin login page. Some Googling found [this StackOverflow page](https://stackoverflow.com/questions/70285834/forbidden-403-csrf-verification-failed-request-aborted-reason-given-for-fail/70326426#70326426). Though this should apply only to Django v4.x.x , where I specifically installed Django v3, as per the walkthrough videos. 
 
@@ -983,7 +979,7 @@ This ceased to be an issue when I downgraded to Django 3.2, so the code was remo
 
 <hr>
 
-### Object List bug
+### **Object List bug**
 
 When attempting to render an BeerReview database entry, I initially could not get a Bootstrap card holding the various fields to display. I thought that this may have been a problem with my views. Where the Django Blog uses a status field to mark a post as either draft or published, I am merely using an approved field, and then filtering posts to display by the boolean value in the approved field. Removing this stipulation did not work. 
 
@@ -991,7 +987,7 @@ I then viewed the index.html page in the Dev Tools and found that the card was n
 
 <hr>
 
-### Username bug
+### **Username bug**
 
 When adding the code to allow a user to post a comment on a beer_review_single page, I encountered a ValueError - `Cannot assign "<username>": "Comment.author" must be a "User" instance`.
 
@@ -1002,13 +998,13 @@ Some Googling revealed that another developer had encountered a similar issue wh
 
 <hr>
 
-### AddReview URL bug
+### **AddReview URL bug**
 
 When adding a form that would allow users to post beer reviews, I encountered a 404 error where the user_review.html page could not be located, despite being present. Tutor support were eventually able to find the problem - the AddReview url path had to be above the ReviewSingle path, per the [URL dispatcher documentation](https://docs.djangoproject.com/en/4.1/topics/http/urls/). Once this had been implemented, the page displayed as expected. However, the form did not display. This proved easy to diagnose - in views.py I had `"user_review": UserReviewForm()` in the dictionary of the return render, whereas I was using `user_review_form` in the templating language of `user_review.html`. Changing the view code to `user_review_form` caused the form entry fields to be displayed as expected. A quick test using a beer called Surrey Nirvana from the Hogsback brewery confirmed that the form was working and had been submitted to the backend. Logging in as the superuser allowed me to approve this entry, and it was then displayed as expected.
 
 <hr>
 
-### Slug field bug
+### **Slug field bug**
 
 After designing and implementing the functionality to allow a user to submit a review, a bug was noted that did not allow more than one review to exist in the admin area without being reviewed. The reason is that a review's slug is generated in-situ when viewed in the admin area, and the slug is used to generate urls. The slug field in the Review model is set to be unique, the reasoning being that urls should be unique. I reason that even an empty slug field, is considered by the admin as being valid, so therefore there cannot be more than 1 review with an empty slug field, and an empty slug field is by itself unique. 
 Two solutions present themselves:
@@ -1023,7 +1019,7 @@ Ultimately I went with the second solution, though this did require some major r
 
 <hr>
 
-### IMPORTANT - Project Fatal Error and Restart
+### **IMPORTANT - Project Fatal Error and Restart**
 
 When I decided to implement the solution to the bug above, I decided to remove the slug field from the Review Model. When migrating this change, an error occured with django summernote needing to make a migration as well. Why summernote needed to do so I cannot say, but this presented a major obstacle that i was unable to find a work-around for. Ultimately, I decided to restart the project using a fresh repository, workspace, database and Heroku app. This repository - Project Beergate - should be viewed as a continuation of the old project - [Beergate](#https://github.com/AdamBoley/Beergate). Whilst annoying, I took the opportunity to redesign parts of the project, changing some Model and field names for increased clarity and ease-of-use, and using the Django CKeditor library instead of Summernote to provide rich text fields. Commit #4, made at 14.27 on 18/8/22, added many files and changes that might normally have been added over several commits. This is because these files were merely copied over from the old project, with those changes as described above. The changes are:
 <br>
@@ -1041,13 +1037,13 @@ Within Comment(unchanged):
 
 <hr>
 
-### Cloudinary Image Upload bug 
+### **Cloudinary Image Upload bug**
 
 When designing the user review form that allows users to submit their own beer reviews, and implementing the backend code to handle this, I noted that the form was not uploading images that had been attached in the image field. A Django blog walkthrough video on Youtube suggested using an ImageField, and then storing images directly in the repository. Whilst I considered that this might be an acceptable work-around, I concluded that it would not for extensibility reasons. Many users uploading many images would bloat that directory. I then found [Cloudinary's documentation on image uploading](https://cloudinary.com/documentation/django_image_and_video_upload). I determined that I already had most of the pieces in place, though their code snippets pre-suppose the use of function-based views. Merely adding `{% load cloudinary %}` to the HTML file, and adding `request.FILES` to the post method of the AddReview view was sufficient to get this working. A database entry with name `image upload test` is testament to this - this entry's image was uploaded using the form, not via the admin backend, though I have disapproved it since the image is poorly-sized.
 
 <hr>
 
-### Tab duplication bug
+### **Tab duplication bug**
 
 After implementing the functionality to update and delete posts, I was researching ways to limit only the user of a post to edit or delete it. In doing so, I came across a potential vulnerability - a logged in user may duplicate their tab and then using that second tab, navigate to the user_review, update_review and delete_review pages. If they then log out using the first tab and refresh the second tab, that second tab remains on those pages, effectively giving a logged-out user continued access to functionality that only logged in users should have. Fortunately, I already had `{% if user.is_authenticated %}` control statements in these pages, so that if a user tries the above work-around, the content will not display. It is possible that a user might do this accidentally, so I added text and links to the login page if the user is not authenticated. This is also a safeguard against malicious users.
 
@@ -1057,38 +1053,38 @@ In some cases, attempting this trick triggers a HTTP server error. In other case
 
 <hr>
 
-### Upvote - Downvote Mutual Exclusivity bug
+### **Upvote - Downvote Mutual Exclusivity bug**
 
 When I implemented the upvote and downvote features, they were independent of each other. This allowed a user to both upvote and downvote a beer review, which is plainly non-sensical. To rectify this, I considered removing the views and urls that control upvoting and downvoting, and replacing them with a single view for both actions. I then realised that I could simply modify the existing views so that if a user's upvote is added and if a downvote by that same user exists, then the downvote is removed, and vice-versa - if a user's downvote is added and an upvote by that same user exists, then the upvote is removed. These modifications proved remarkably easy to implement - requiring a single IF conditional within the extant ELSE block. Simple testing confirmed that the modifications worked as intended - a vote was extant, clicking the button for the opposite vote removed the extant vote when the opposite vote was added.
 
 <hr>
 
-### AllAuth Email Server bug
+### **AllAuth Email Server bug**
 
 When I added the AllAuth functionality for resetting passwords and adding email addresses, testing revealed that these functions did not work, with a Django error page being generated. Research revealed that these AllAuth functions require an email server to function. I determined that an email server was outside of the project's scope, so links to those AllAuth templates were removed from the navbar, as were the corresponding paths in the user app urls file. The views and forms remain, as part of BeerGate's future work would be to get these functions working. 
 
 <hr>
 
-### Image Sizing bug
+### **Image Sizing bug**
 
 A noted bug with uploaded images was that they were neither centered nor had a uniform size. This was eventually solved by using the max-height and max-width CSS style rules. 
 Further investigation on different viewport sizes proved that this had been the wrong approach - I had been fighting against Bootstap, rather than using it. I solved this by implementing a container and row arrangement within each Review card within which to place the images. This proved effective, as it centered and sized the images appropriately for all viewport sizes.
 
 <hr>
 
-### Background and Placeholder image serving bug
+### **Background and Placeholder image serving bug**
 
 In previous builds, the background image for the application and the placeholder image had been served from the local repository. When DEBUG flag was set to True, and running the project locally, this worked fine. However, with DEBUG set to False and viewing the deployed app on Heroku, the background image and placeholder image failed to display. I noted from the Django Blog walkthrough videos that Django is designed to serve images via a CDN, not locally. At this point, I realised that Cloudinary is a CDN, and hence that I could use it to serve my background and placeholder images for the deployed app. When DEBUG was turned off and the app was deployed, the background and placeholder images displayed as expected.
 
 <hr>
 
-### Mobile device layout bug
+### **Mobile device layout bug**
 
 The main background image caused problems when the app was viewed on mobile devices, with all of the first review and most of the second hidden. I determined that this was due to the main background image being applied to the `<main>` element in base.html. When changed to apply to the body element, the navbar moved. I determined that this was because the ruleset included the `display: flex` and `align-items: center` style rules which govern the layout of each page. Separating the ruleset out so that the `display` and `align-items` rules were applied to the `main` element and the background image style rules were applied to the `body` element solved this problem. I also removed the previously-applied `opaque-overlay` class selector, instead folding the style rules contained therein into the `main` selector. These changes solved the problem, allowing all of the reviews to be displayed on mobile devices with a fully-darkened background image as intended. 
 
 <hr>
 
-### Update review automatic disapproval bug
+### **Update review automatic disapproval bug**
 
 When I initially implemented the UpdateReview to enable a user to update their own Reviews on the front-end, it occurred to me that a malicious user could exploit the fact that when a review is updated, it is not automatically disapproved. In order to do so, a malicious user would need to pose as a normal user and submit a seemingly-genuine beer review that would likely be approved without issue. Then, said malicious user could simply update their review with their malicious content, and it would be unlikely that an administrator would see this in order to remove it. I ran this past both my Mentor and an experienced software developer friend of mine, and both agreed that this was a potential vulnerability.
 
@@ -1098,7 +1094,7 @@ I spent a long time searching for a solution, and I found several StackOverflow 
 
 <hr>
 
-### Rich Text Editor bug
+### **Rich Text Editor bug**
 
 Whilst using the deployed app using the Chrome browser of my Android mobile device, I noted with some alarm that the CK-Editor rich text fields for the add_review page and the add-comment section of the review page was not displaying. Further investigation revealed that this bug extended to the deployed version on my PC as well, indicating that the problem lay with the deployed site.
 
@@ -1126,37 +1122,37 @@ Whilst the note about [RateBeer](https://www.ratebeer.com/) above still stands, 
 
 <hr>
 
-### Navbar collapse bug
+### **Navbar collapse bug**
 
 Whilst testing responsiveness to smaller screen sizes, I noted that the navbar nav-items became misaligned at between the LG and XXL breakpoints (992px to 1400px), before collapsing behind the burger icon at less than 992px. I changed the navbar collapse breakpoint to XXL to stop this happening. I should note however that this was only an issue when signed-in, due to the greater number of nav-item links.
 
 <hr>
 
-### Review magic string method bug
+### **Review magic string method bug**
 
 I noted that the review field of the admin comments page was displaying the output of the Review model magic string method. Since the magic string method appears to be used only here, I modified the output of said method to return only the name of the review. This made the the admin comments page clearer.
 
 <hr>
 
-### Explicit context declaration bug
+### **Explicit context declaration bug**
 
 Whilst the `return render` method used in the walkthrough videos is perfectly functional, I personally do not find it overly clear, especially since it is placed over multiple lines and contains a object. I have since learned that the object is called a context. I found it clearer and more pythonic to explicitly declare the context dictionary as the value of a variable called `context`, and also to declare the HTML template file to be used as the value of a variable called template_name. I then called the context and template_name variables in the return render method with the request. I feel that this made the return statement clearer, since it occupied only a single line.
 
 <hr>
 
-### Review Card float bug
+### **Review Card float bug**
 
 On smaller screen sizes, I noted that the supplementary beer review information - author, timestamp, brewery, etc - became misaligned on smaller screen sizes. I solved this by removing the float classes I had previously applied, as I considered that it would be very possible for authors, beers and breweries to have long names, and for the keywords field to have many words as well. I also reduced the pagination number to 3 so that only 3 reviews display per page. This has created a cleaner, less busy landing page.
 
 <hr>
 
-### Supplementary information bug
+### **Supplementary information bug**
 
 I noted that the user_reviews and search_results pages were quite bare, so I added the same supplementary information that had been added to the index page - type, colour, brewery, etc. I had also planned to insert quick links to the update_review and delete_review pages, so that a user could quickly update and delete these reviews from the search_results and user_reviews pages. Whilst technically possible, it disrupted my styling and element placement, presumably because each search result card rendered on those pages is contained within an anchor element. I could have removed this parent anchor element, but chose not to because it makes tapping on a mobile device much easier.
 
 <hr>
 
-### User Reviews bug
+### **User Reviews bug**
 
 When testing the user_reviews page, I noted that all of the reviews belonging to a particular user were displayed, whether they had been approved or not. When I clicked on these, I got Django error pages. This was the result of not using `filter(approved=True)` in the UserReviews. In solving this, I greatly expanded the functionality of that views, so that it checks whether a user has unapproved reviews. The reasoning behind this was that I had some text set to display if the object_list was empty that merely said that the user had not written any reviews. If indeed the user *had* written a review, but that review was not yet approved, it could cause the user to doubt that the add_review page was working properly. The UserReviews now considers 5 cases:
 
@@ -1177,25 +1173,25 @@ When testing the user_reviews page, I noted that all of the reviews belonging to
 
 <hr>
 
-### Search Results pagination bug
+### **Search Results pagination bug**
 
 I considered that a search could return potentially dozens of results to the search_results page. In that case, scrolling through those records could be tiresome to a user. To resolve this, I implemented pagaination. This proved difficult, but ultimately surmountable, with help from [this StackOverflow Question](https://stackoverflow.com/questions/71124344/use-q-object-and-paginator-together-in-django). The first answer to that question provided the code snippets that allowed me to construct the SearchResults view get_querystring method, and the reference the output of that method in the anchor elements to modify the URLs.
 
 <hr>
 
-### Too many navbar items bug
+### **Too many navbar items bug**
 
 I considered that the navbar was too busy. Previously, the number of navbar items had caused rendering and sizing issues. Whilst this had been dealt with by increasing the breakpoint at which the navbar collapsed, significantly expanding the size and scope of the project in future, such as by enabling all AllAuth account functionality, could prove problematic. Hence, I moved the My Reviews, Sign-out and Change Password links into a dropdown menu. This makes the navbar much cleaner.
 
 <hr>
 
-### Landing page pagination bug
+### **Landing page pagination bug**
 
 Much like the search_results page, I considered that the queryset used to populate the index page could contain hundreds of records. Whilst perfectly sufficient for basic navigation, the extant pagination method provided by the walkthrough project would not work well for hundreds of records. Hence, I implemented the improved pagination feature designed for the search_results page, which provides links to each paginated page. This also helps to maintain a consistent pagination style.
 
 <hr>
 
-### Random Review bug
+### **Random Review bug**
 
 Should BeerGate become an active beer review site, the size of the database could quickly expand. Since the extant sorting, filtering and search functions order the constructed queryset by timestamp, this means that older reviews would quickly become 'buried' in the database, so to speak, as they would be so far along the pagination track that they would be rarely, if ever, accessed. This might be referred to as the 'Google Search Problem', as it commonly acknowledged that when doing a Google Search, few people ever go beyond the first page when looking for a viable search result. To overcome this, I wanted to implement a randomiser feature that would take the user to a random review. This proved difficult, but ultimately surmountable. 
 
@@ -1212,13 +1208,13 @@ The documentation does note that this method of returning a random record from a
 
 <hr>
 
-### Comments HTML display bug
+### **Comments HTML display bug**
 
 When coding the above solution, I submitted several comments to the admin panel. In doing so, I noted that when comments were displayed, their HTML element tags were displaying as well. This had been caused by improper use of `|safe` filter in the templating language of `review.html`. Once fixed, the comments displayed properly, without their HTML tags.
 
 <hr>
 
-### Navbar text responsiveness bug
+### **Navbar text responsiveness bug**
 
 To inform the user of their sign-in status and username, I had implemented some span elements with the Bootstrap navbar-text class to hold this text. Whilst these displayed perfectly acceptably when the navbar was expanded, they became misaligned when the navbar was collapsed, like so:
 
@@ -1226,7 +1222,7 @@ To inform the user of their sign-in status and username, I had implemented some 
 
 To recify this, I changed the account actions dropdown menu text to hold the user's username. The dropdown arrow indicates to the user that this button expands a dropdown menu of account actions.
 
-# Development Choices
+# **Development Choices**
 
 When formatting the admin panel, I decided to allow filtering by 5 of the Review model's fields - `approved`, `timestamp`, `brewery`, `type` and `author`. When the `served_as` field was added later on in development, I decided to add this to the admin files' list_filter. Filtering by `approved` allows a superuser to see reviews that have not yet been approved. Filtering by `timestamp` allows superusers to see what reviews have been submitted in the last periods of time. Filtering by `brewery` and `type` allows superusers to see reviews of beers brewed by certain breweries and of beers of a certain type. Filtering by `author` allows superusers to see posts by certain users, which may allow them to find users who are particularly prolific.
 
@@ -1251,17 +1247,17 @@ To provide better security for the project, my Mentor provided several settings 
 
 Before adding these, I researched them:
 
-The `SECURE_BROWSER_XSS_FILTER = True` setting is deprecated per [this page](https://code.djangoproject.com/ticket/32678), so it was not added
+- The `SECURE_BROWSER_XSS_FILTER = True` setting is deprecated per [this page](https://code.djangoproject.com/ticket/32678), so it was not added
 
-The `X_FRAME_OPTIONS` setting already existed
+- The `X_FRAME_OPTIONS` setting already existed
 
-The `SECURE_SSL_REDIRECT` redirects all HTTP requests to HTTPS requests. Per [this Cloudflare article](https://www.cloudflare.com/learning/ssl/why-is-http-not-secure/#:~:text=HTTPS%3A%20What%20are%20the%20differences,far%20more%20secure%20than%20HTTP.), HTTPS is a more secure request method, so adding this setting seemed like a good idea.
+- The `SECURE_SSL_REDIRECT` redirects all HTTP requests to HTTPS requests. Per [this Cloudflare article](https://www.cloudflare.com/learning/ssl/why-is-http-not-secure/#:~:text=HTTPS%3A%20What%20are%20the%20differences,far%20more%20secure%20than%20HTTP.), HTTPS is a more secure request method, so adding this setting seemed like a good idea.
 
-The `SECURE_HSTS_SECONDS` setting initially caused some consternation, thanks to the warning that could temporarily break the project. Per the [Django documentation on this setting](https://docs.djangoproject.com/en/4.1/ref/settings/#std-setting-SECURE_HSTS_SECONDS), a low initial value of 60 seconds was used for testing purposes.
+- The `SECURE_HSTS_SECONDS` setting initially caused some consternation, thanks to the warning that could temporarily break the project. Per the [Django documentation on this setting](https://docs.djangoproject.com/en/4.1/ref/settings/#std-setting-SECURE_HSTS_SECONDS), a low initial value of 60 seconds was used for testing purposes.
 
-The `CSRF_COOKIE_SECURE` marks the CSRF cookie as secure, so that it may only be sent over an HTTPS connection. This seems to have no downsides, so it was added.
+- The `CSRF_COOKIE_SECURE` marks the CSRF cookie as secure, so that it may only be sent over an HTTPS connection. This seems to have no downsides, so it was added.
 
-The `SESSION_COOKIE_SECURE` setting marks session cookies as secure, so they may only be sent over an HTTPS connection. Django specifically recommends adding this setting, so I did so.
+- The `SESSION_COOKIE_SECURE` setting marks session cookies as secure, so they may only be sent over an HTTPS connection. Django specifically recommends adding this setting, so I did so.
 
 When the `SECURE_SSL_REDIRECT` and `SECURE_HSTS_SECONDS` were added, I was unable to access the localhost development server. To resume development, I was forced to build a new workspace, install all dependencies again and reconstruct the env.py file. Hence, only the `CSRF_COOKIE_SECURE` and `SECURE_HSTS_SECONDS` settings were retained.
 
@@ -1297,11 +1293,11 @@ The necessary imports are:
 
 After successfully implememting the Summernote editor for the add_review form, I noted that it had a fixed size of 720px. This caused the editor to overflow horizontally when viewed on a device with a screen size of less than 720px. I tried various options before I turned to [the documentation](https://github.com/summernote/django-summernote) and the [Summernote website](https://summernote.org/deep-dive/#disable-drag-and-drop), where I thankfully noted that the Summernote editor could be extensively customised in the settings file by way of the SUMMERNOTE_CONFIG variable. Simply setting the width to be 100% was sufficient to make the editor responsive to screen size. At this point I noted that the editor ships as standard with many options. I decided to cut these down considerably because a large number of options causes the toolbar to become absurdly large in proportion to the editor field when viewed on smaller screen sizes, and limiting the number of options removes this. I also decided to remove the ability to upload pictures and videos, as I was concerned about how Cloudinary would handle these when I already had a CloudinaryField in the Review Model. If a user tries to upload an image or video, a new tab with it will open instead. To avoid damaging the user experience, the label for the editor has been modified to inform users that the editor does not accept images.
 
-## Favicon
+## **Favicon**
 
 I decided to apply a pair of beer glasses as this app's favicon. Beer is the main theme of the app so this favicon seemed appropriate. The favicon was generated using the Clinking Beer Mugs emoji from the [Favicon.io](https://favicon.io/emoji-favicons/) favicon generator.
  
-# Local Clone / How you can use this code
+# **Local Clone / How you can use this code**
 
 BeerGate uses a large number of packages to enable all of its functionality. These are listed in the `requirements.txt` file, and hence can be installed with the terminal command:
 `pip3 install -r requirements.txt`
@@ -1310,21 +1306,21 @@ You will also need a Cloudinary account to store and serve images and static fil
 
 If developing a clone of BeerGate locally, you will need an `env.py` file to contain the local environment variables. These would be the CLOUDINARY_URL, SECRET_KEY, and DATABASE_URL. The CLOUDINARY_URL can be obtained from your Cloudinary account, whilst the DATABASE_URL is provided by Heroku when a postgres database is attached to the Heroku app. The SECRET_KEY is a password of your own making. These will need to be added to your Heroku app Config Vars in the settings tab.
 
-# Testing
+# **Testing**
 
 All testing was carried out on the deployed version of BeerGate.
 
-## Manual User Story testing
+## **Manual User Story testing**
 
-### Admin user User Story testing
+### **Admin user User Story testing**
 
-### Generic user User Story testing
+### **Generic user User Story testing**
 
-### Unregistered user User Story testing
+### **Unregistered user User Story testing**
 
-### Registered user User Story testing
+### **Registered user User Story testing**
 
-## Other manual testing
+## **Other manual testing**
 
 What happens when a login attempt is made via the dummy admin sign-in page?
 
@@ -1344,127 +1340,127 @@ Are registered users unable to edit and delete reviews that do not belong to the
 
 What happens when the tab duplication trick is used and the user attempts to add a review, update a review or delete a review?
 
-## Validation testing
+## **Validation testing**
 
-### HTML Validation
+### **HTML Validation**
 
-HTML validation was carried out by pointing the [Official W3 validator](https://validator.w3.org/) at the various URLs of the deployed site. Previous projects were validated by copying and pasting in the raw HTML code, but BeerGate uses Django templating language in its HTML files, which would interfere with this validation method.
+HTML validation was carried out by pointing the [Official W3 validator](https://validator.w3.org/) at the various URLs of the deployed site where possible, and by use the Chrome Dev Tools to generate source code for the page where URL validation was not possible. Those files validated by direct source code upload are typically those that require a user to be signed-in to access, such as the add_review page. Previous projects were validated by copying and pasting in the raw HTML code, but BeerGate uses Django templating language in its HTML files, which would interfere with this validation method.
 
-#### Index
+#### **Index**
 
 For the sake of completeness, the landing page rendered from index.html was validated 12 times - once for each of the sorting and filtering criteria applied by the different views. In addition, at time of validation, the Amber Beers and Lagers filtering criteria returned no matching reviews, which triggered the empty tag of the templating language. As this tag contains HTML code, it bears validating. All index page validation was carried out by URL input. 
 
-##### Default - reviews sorted by Newest
+##### **Default - reviews sorted by Newest**
 
 Validation initially returned many errors about the use of the `aria-labelledby` attribute, warning that the value had to point to another element. I noted that I had selected the incorrect aria attribute. I changed the image elements to use the `aria-label` attribute instead. After this correction, validation returned no errors.
 
 ![screenshot of index default validation](screenshots/index-default-validation.PNG)
 
-##### Reviews sorted by Most Upvotes
+##### **Reviews sorted by Most Upvotes**
 
 Validation returned no errors.
 
 ![screenshot of index most upvotes validation](screenshots/index-most-upvotes-validation.PNG)
 
-##### Reviews sorted by Oldest
+##### **Reviews sorted by Oldest**
 
 Validation returned no errors.
 
 ![screenshot of index oldest validation](screenshots/index-oldest-validation.PNG)
 
-##### Reviews filtered by Ale type
+##### **Reviews filtered by Ale type**
 
 Validation returned no errors.
 
 ![screenshot of index ale type validation](screenshots/index-ales-validation.PNG)
 
-##### Reviews filtered by Stout type
+##### **Reviews filtered by Stout type**
 
 Validation returned no errors.
 
 ![screenshot of index stout type validation](screenshots/index-stouts-validation.PNG)
 
-##### Reviews filtered by Lager type
+##### **Reviews filtered by Lager type**
 
 Validation returned no errors.
 
 ![screenshot of index lager type validation](screenshots/index-lager-type-validation.PNG)
 
-##### Reviews filtered by Pale colour
+##### **Reviews filtered by Pale colour**
 
 Validation returned no errors.
 
 ![screenshot of index pale colour validation](screenshots/index-pale-beers-validation.PNG)
 
-##### Reviews filtered by Golden colour
+##### **Reviews filtered by Golden colour**
 
 Validation returned no errors.
 
 ![screenshot of index golden colour validation](screenshots/index-golden-beers-validation.PNG)
 
-##### Reviews filtered by Amber colour
+##### **Reviews filtered by Amber colour**
 
 Validation returned no errors.
 
 ![screenshot of index amber colour validation](screenshots/index-amber-beers-validation.PNG)
 
-##### Reviews filtered by Dark colour
+##### **Reviews filtered by Dark colour**
 
 Validation returned no errors.
 
 ![screenshot of index dark colour validation](screenshots/index-dark-beers-validation.PNG)
 
-##### Reviews filtered by Bottled beers
+##### **Reviews filtered by Bottled beers**
 
 Validation returned no errors.
 
 ![screenshot of index bottled beers validation](screenshots/index-bottled-beers-validation.PNG)
 
-##### Reviews filtered by Draught beers
+##### **Reviews filtered by Draught beers**
 
 Validation returned no errors.
 
 ![screenshot of index draught beers validation](screenshots/index-draught-beers-validation.PNG)
 
-#### Review
+#### **Review**
 
 The review page was validated twice - once for when the page has just been loaded, and once for when a use has submitted a comment, and hence the comment submission success message is rendered. Validation was carried out by page source upload. Screenshots were added, with the input box centered on a unique feature to prove that that page was validated. 
 
-##### Review page standard
+##### **Review page standard**
 
 Validation returned no errors
 
 ![screenshot of review-standard-validation](screenshots/review-standard-validation.PNG)
 
-##### Review page after comment submission
+##### **Review page after comment submission**
 
 Validation returned no errors
 
 ![screenshot of review-comment-submitted-validation](screenshots/review-comment-submitted-validation.PNG)
 
-#### Search Results
+#### S**earch Results**
 
 The search_results page was validated twice - once for when a search was performed for `ale`, which returned several results, and once for when a search was performed for `cider`, which returned no results, as none of the reviews in the database match that search. This is because the search_results.html template has templating language that handles an empty queryset. Validation was carried out by page source upload. Screenshots were added, with the input box centered on a unique feature to prove that that page was validated. 
 
-##### Search Results page with returned reviews
+##### **Search Results page with returned reviews**
 
 Validation returned no errors
 
 ![screenshot of search-results-reviews-returned-validation](screenshots/search-results-reviews-returned-validation.PNG)
 
-##### Search Results with no reviews returned
+##### **Search Results with no reviews returned**
 
 Validation returned no errors
 
 ![screenshot of search-results-no-reviews-returned-validation](screenshots/search-results-no-reviews-returned-validation.PNG)
 
-#### User Reviews
+#### **User Reviews**
 
 The user_reviews page was validated 5 times - once for each of the use cases as documented in the [User Reviews view](#user-reviews-view) section in the docstring of the UserReviews class in views.py.
 
 When validating the user_reviews page by URL, the Validator returned a HTTP 500 error, possibly because this page may only be accessed by signed-in users. Some quick testing with the aforementioned tab-duplication trick reveals that this triggers a server error and displays the custom 500 error page. To get around this, I used the View Page Source functionality of the Chrome Developer Tools, then copy-pasted the resulting source code into the Validator direct input box. This returned one error - a duplicate `href` attribute in the code of the base template. This was removed.
 
-##### Use case 1 - user has no reviews
+##### **Use case 1 - user has no reviews**
 
 When validating this page, I signed-in as a newly-created user with username 'Kieran'. When I navigated to the user_reviews page, no content was displayed. After examining the code of the template and the view, I determined that this was due to a misplaced `endif` control statement. After fixing this, the expected message that the user has not written any reviews displayed as expected.
 
@@ -1472,7 +1468,7 @@ After apply the fixes documented directly below, validation returned no errors.
 
 ![screenshot of user-reviews-use-case-1-validation](screenshots/user-reviews-use-case-1-validation.PNG)
 
-##### Use case 2 - user has one review awaiting approval
+##### U**se case 2 - user has one review awaiting approval**
 
 When validating this page, I transferred a single review to the 'Kieran' account and disapproved it. When I navigated to the user_reviews page, two text boxes displayed - one informing me that, as expected, a review had been written and was awating approval, and another informing me that I had no written any reviews. This was problematic, and I determined that I could not rely on the `{% empty %}` tag in the templating language, and hence that I needed to rework the UserReview view to explicitly handle this case and the above use-case 1. I reworked those files to more explicitly handle these use cases and redeployed to Heroku.
 
@@ -1480,31 +1476,31 @@ After this fix, validation returned no errors
 
 ![screenshot of user-reviews-use-case-2-validation](screenshots/user-reviews-use-case-2-validation.PNG)
 
-##### Use case 3 - user has all reviews awaiting approval
+##### **Use case 3 - user has all reviews awaiting approval**
 
 When validating this page, I assigned two reviews to the 'Adam' superuser account and disapproved both. When I navigated to the user_reviews page, the expected message that I had written some reviews but that they were awaiting approval was displayed. Validation of this page returned no errors.
 
 ![screenshot of user-reviews-use-case-3-validation](screenshots/user-reviews-use-case-3-validation.PNG)
 
-##### Use case 4 - user has some reviews approved and some awaiting approval
+##### U**se case 4 - user has some reviews approved and some awaiting approval**
 
 When validating this page, I assigned two reviews to the 'Adam' superuser account and approved one of them. When I navigated to the user_reviews page, the expected message that I had some of my reviews approved was displayed, along with the single displayed review. Validation of this page returned no errors.
 
 ![screenshot of user-reviews-use-case-4-validation](screenshots/user-reviews-use-case-4-validation.PNG)
 
-##### Use case 5 - user has all reviews approved
+##### **Use case 5 - user has all reviews approved**
 
 When validating this page, I assigned two reviews to the 'Adam' superuser account and approved both of them. When I navigated to the user_reviews page, the expected message that I all of my reviews were approved was displayed, along with both reviews displayed. Validation of this page returned no errors.
 
 ![screenshot of user-reviews-use-case-5-validation](screenshots/user-reviews-use-case-5-validation.PNG)
 
-#### Add Review
+#### **Add Review**
 
 The add_review page was validated 3 times - once for when the page has just been navigated to and hence an empty form is presented to the user, once for when the user has submitted a review and sees the success message as triggered by the templating language, and finally for when a user has managed to navigate to the page whilst signed-out. Though the final use-case should be impossible to achieve in the normal operation of BeerGate, it is technically possible to achieve via the tab-duplication trick, as documented [here](#tab-duplication-bug).
 
 As the content of this page can change based on user actions without modifying the URL, direct validation by page source code was used.
 
-##### Fresh add_review form
+##### **Fresh add_review form**
 
 When this page was validated, 10 errors were returned. Closer examination of the results reveals that these errors are all due to the formatting of the injected form, which I can do little to resolve.
 
@@ -1512,25 +1508,25 @@ When this page was validated, 10 errors were returned. Closer examination of the
 
 ![screenshot of add-review-fresh-form-lower-validation](screenshots/add-review-fresh-form-lower-validation.PNG)
 
-##### Add Review Form submitted
+##### **Add Review Form submitted**
 
 When validating this page, I submitted a beer review using the form. I expected the success message to be displayed, but I actually got the 500 server error page. Submitting the same beer review via the local version with debug on revealed the issue - I had purposely left the `hops` field empty, as it is optional. However, the post method in AddReview uses the `title()` method on the `hops` field. Since the field is empty, the `title()` method fails. At time of writing, I could not find a way of checking to see if the `hops` field has a value, and if so, apply the `title()` method. This will go into the Future Work section to be tackled at a later date. For the moment, the code to apply the `title()` method to the `hops` field has been removed. When this fix was applied, the the form was filled out and submitted. Once submitted, the confirmation message displayed as expected. Validation by page source code returned no errors.
 
 ![screenshot of add-review-submitted-validation](screenshots/add-review-submitted-validation.PNG)
 
-##### Add_review page when signed out
+##### **Add_review page when signed out**
 
 The tab-duplication trick was used to generate this page. Validation of this page returned no errors. It did not trigger a 500 server error as the user_reviews page does when the same trick is applied, but this is acceptable, since the templating language handles this.
 
 ![screenshot of add-review-signed-out-validation](screenshots/add-review-signed-out-validation.PNG)
 
-#### Update Review
+#### **Update Review**
 
 The update_review page was validated 3 times - once for when the page has just been loaded and hence contains a pre-populated form, once for when a user has submitted an updated review via the form and see the success message as triggered by the templating language, and finally for when the user has managed to navigate to the page when signed-out. As above, this should be impossible to achieve in the normal operation of BeerGate, but it is technically possible to achieve, as documented [here](#tab-duplication-bug).
 
 Prior to validation, I modified the UpdateReview view to remove the code that applies the `title()` method to the `hops` field, as I anticipated the same problem.
 
-##### Pre-populated update_review form
+##### **Pre-populated update_review form**
 
 Validation of this page returned 10 errors. Closer inspection revealed that these errors were the same errors as those noted in the add_review page validation, and are related to formatting. As in that section, I can do little to resolve these errors, as I cannot directly control the layout.
 
@@ -1538,75 +1534,75 @@ Validation of this page returned 10 errors. Closer inspection revealed that thes
 
 ![screenshot of update-review-fresh-form-lower-validation](screenshots/update-review-prepopulated-form-lower-validation.PNG)
 
-##### Update Review Form submiited
+##### **Update Review Form submiited**
 
 Validation of this page returned no errors, and no errors were encountered when submitting. I suspect that my preventative bug fixing above allowed this.
 
 ![screenshot of update-review-submitted-validation](screenshots/update-review-submitted-validation.PNG)
 
-##### Update_review page when signed out
+##### U**pdate_review page when signed out**
 
 The tab-duplication trick was used to generate this page. Validation of this page returned no errors. It did not trigger a 500 server error as the user_reviews page does when the same trick is applied, but this is acceptable, since the templating language handles this.
 
 ![screenshot of update-review-signed-out-validation](screenshots/update-review-signed-out-validation.PNG)
 
-#### Delete Review
+#### **Delete Review**
 
 The delete_review page was validated 3 times - once for when the page has just been loaded, once for when the Confirm Deletion modal has been activated, and finally for when the user has managed to navigate to the page when signed-out. As above, this should be impossible to achieve in the normal operation of BeerGate, but it is technically possible to achieve, as documented [here](#tab-duplication-bug).
 
-##### Modal inactive
+##### **Modal inactive**
 
 This page was validated by direct source code checking. Validation returned no errors.
 
 ![screenshot of delete-review-modal-inactive-validation](screenshots/delete-review-modal-inactive-validation.PNG)
 
-##### Modal active
+##### **Modal active**
 
 This page was validated by direct source code checking. Validation returned no errors. Interestingly, to access the menu to generate the page source code, you must right-click inside the modal, since right-clicking outside closes the modal.
 
 ![screenshot of delete-review-modal-active-validation](screenshots/delete-review-modal-active-validation.PNG)
 
-##### Delete_review when signed out
+##### D**elete_review when signed out**
 
 The tab-duplication trick was used to generate this page. Validation of this page returned no errors. It did not trigger a 500 server error as the user_reviews page does when the same trick is applied, but this is acceptable, since the templating language handles this.
 
 ![screenshot of delete-review-signed-out](screenshots/delete-review-signed-out-validation.PNG)
 
-#### Account Sign-in
+#### **Account Sign-in**
 
 The sign_in page was validated once by URL. Validation returned no errors.
 
 ![screenshot of account-sign-in](screenshots/account-sign-in-validation.PNG)
 
-#### Account Sign-out
+#### **Account Sign-out**
 
 The sign_out page was validated once by direct source code checking. Initially validation returned 3 errors related to element formatting. I thought to put these down to the formatting of the form, was has been noted as problematic above, but then noted that the form for the sign-out page is simple. Close inspection of the source code revealed improper placement of the elements. Once fixed, validation was re-run and returned no errors.
 
 ![screenshot of account-sign-out](screenshots/account-sign-out-validation.PNG)
 
-#### Account Sign-up
+#### **Account Sign-up**
 
 The sign_up page was validated once by URL. Initially validation returned 3 errors related to element formatting, similar to those noted directly above. Inspection of the source code revealed similarly improper formatting. Once fixed, validation was re-run and returned no errors.
 
 ![screenshot of account-sign-up](screenshots/account-sign-up-validation.PNG)
 
-#### Account Password Change
+#### **Account Password Change**
 
 The password_change page was validated once by direct source code checking. Validation returned no errors.
 
 ![screenshot of account-password-change](screenshots/account-change-password-validation.PNG)
 
-### CSS Validation
+### **CSS Validation**
 
 All custom CSS is contained within static/css/styles.css. This file was validated by [the official W3 CSS validator](https://jigsaw.w3.org/css-validator/). Direct source code checking was used. No errors were returned, but 7 warnings related to the use of vendor extensions and vender pseudo-elements were returned. These warnings relate to the `webkit` style rules used to modify the appearance of the scroll bar. 
 
 ![screenshot of css validation](screenshots/css-validation.PNG)
 
-### JS Validation
+### **JS Validation**
 
 There is no custom JS, though a JS file exists for future work. It is contained with static/js/script.js. As it is empty, it was not validated. 
 
-### Python Validation
+### **Python Validation**
 
 BeerGate's python files are contained within 3 directories - beergate, reviews and user
 
@@ -1630,7 +1626,7 @@ Validation returned no errors.
 
 ![screenshot of beergate/urls.py validation](screenshots/beergate-urls-validation.PNG)
 
-#### Reviews admin.py
+#### **Reviews admin.py**
 
 Validation returned 3 Line Too Long errors, relating to overly-long lists and tuples as values of the list_display, list_filter and search_fields variables. Instead of spliting these over 2 lines, which I feel damages readability, I split them so that each item is on its own line, thus stacking the lists and tuples vertically like so:
 
@@ -1640,25 +1636,25 @@ After this reformatting, validation returned no errors.
 
 ![screenshot of reviews/admin.py validation](screenshots/reviews-admin-validation.PNG)
 
-#### Reviews forms.py
+#### R**eviews forms.py**
 
 Validation returned 5 Line Too Long errors. These mostly related to too-long strings. These were either cut down or split using line-breaks via the `\` character. After this reformatting, validation returned no errors.
 
 ![screenshot of reviews/forms.py validation](screenshots/reviews-forms-validation.PNG)
 
-#### Reviews models.py
+#### **Reviews models.py**
 
 Validation returned 6 Line Too Long errors. These were related to the field parameters inside the brackets being too long. These were reformatted onto new lines. After this reformatting, validation returned no errors. The Python linter itself returns 4 errors where ManyToMany fields have no count method, however in practice this works as intended. 
 
 ![screenshot of reviews/models.py validation](screenshots/reviews-models-validation.PNG)
 
-#### Reviews urls.py
+#### **Reviews urls.py**
 
 Validation returned 6 Line Too Long errors. These were related to overly-long path parameters. To solve this, I split these so that each comma-separated path parameter is on its own line. To maintain consistent formatting, this was applied to all paths, not just the paths that had too-long lines. After this reformatting, validation returned no errors.
 
 ![screenshot of reviews/urls.py validation](screenshots/reviews-urls-validation.PNG)
 
-#### Reviews views.py
+#### **Reviews views.py**
 
 Validation returned 28 Line Too Long errors and 5 Line Break Before Binary Operator errors. The Line Break Before Binary Operator errors relate to the line breaks between the Q methods used to construct the queryset in the SearchResults view.
 
@@ -1668,7 +1664,7 @@ After this reformatting, validation returned no errors.
 
 ![screenshot of reviews/views.py validation](screenshots/reviews-views-validation.PNG)
 
-#### User forms.py
+#### **User forms.py**
 
 Validation returned 1 Line Too Long error. This was from the very long import statement at the top of the file. Since the project does not currently make use of the AddEmailForm, SetPasswordForm, ResetPasswordForm or ResetPasswordKeyForm, I considered removing those imports, but then realised that this would break the extant, but unused, custom forms that extend these imported forms. I then settled on reformatting the imports by wrapping them inside brackets and stacking them vertically, so that each import is on a new line.
 
@@ -1676,7 +1672,7 @@ After this reformatting, validation returned no errors.
 
 ![screenshot of user/forms.py validation](screenshots/user-forms-validation.PNG)
 
-#### User views.py
+#### U**ser views.py**
 
 Validation returned 4 Line Too Long errors. 2 of these were from overly-long doc-strings, which were easily corrected. The other 2 were from very long import statements at the top of the file. A similar fix to that employed directly above was used - stacking the imports vertically within brackets so that each has a new line.
 
@@ -1684,7 +1680,7 @@ After this reformatting, validation returned no errors.
 
 ![screenshot of user/views.py validation](screenshots/user-views-validation.PNG)
 
-#### User urls.py
+#### **User urls.py**
 
 Validation returned 1 Line Too Long error. This was due to an overly-long path parameter. To solve this, I split the comma-separated path parameters vertically so that each parameter is on its own line. To maintain consistency, I applied this to all of the paths, not just the one identified by validation.
 
@@ -1692,11 +1688,11 @@ After this reformatting, validation returned no errors.
 
 ![screenshot of user/urls.py validation](screenshots/user-urls-validation.PNG)
 
-## Automated testing
+## **Automated testing**
 
 When first developing the project, I had planned to implementing automated testing. However, as BeerGate's development progressed, I identified little need for automated testing. The models file does contain a function called `validate_within_limits` that checks if the `aroma`, `appearance`, `taste` and `aftertaste` fields have been given integers between 1 and 10. This function could have some automated testing written for it. However, the function's operation is small enough that extensive manual testing should be sufficient to determine if it works as intended. This is documented in the User Story Testing section.
 
-# Technologies
+# **Technologies**
 
 The following technologies were used in the development of BeerGate. This also includes the various packages used as well.
 
@@ -1717,7 +1713,7 @@ Packages:
 - The [Django Cloudinary Storage](https://pypi.org/project/django-cloudinary-storage/) was used to facilitate interactions with the Cloudinary CDN
 - The [Bootstrap CSS](https://getbootstrap.com/) library was used to design the front-end look of BeerGate
 
-# Other notes
+# **Other notes**
 
 The most important note that must be made is that on 18/8/22, when attempting to migrate a change in the Review model into the database, the project encountered a fatal error. During this migration, the Django Summernote editor needed to make a migration as well, but could not due to an error. This stopped the migration from happening. I was unable to find a work-around for this error despite extensive research. I determined that the only way to continue with development was to begin again, setting up a new repository, workspace, Heroku app and Postgres database. When doing so, I found it easier to simply copy over the files I had already constructed. This made the first commit to the new repository rather large, as those files and changes might normally have been added over several commits. This may be considered a violation of good version control practice, though the commits made to the old repository - [BeerGate](https://github.com/AdamBoley/Beergate) - should be considered part of the current repository - [Project BeerGate](https://github.com/AdamBoley/Project-Beergate) - since they were all working toward the finished project. This is noted in the [bugs section](#bugs), but the seriousness of the issue means that it bears explicitly repeating here.
 
@@ -1729,7 +1725,7 @@ The large number of commits made between 8/9/22 to 9/9/22 were made with the int
 
 These commits ultimately achieved nothing, except for some documentation regarding learning about how Django and Cloudinary work, and a minor fix to the AddReview that updated the name of the template being used. I considered deleting or reverting these commits but decided against this. Commit deletion is considered bad practice and commit reversion would achieve nothing, since the last commit made on 9/9/22 essentially restored the project to its last working state, except that the Review model's content field now uses a standard TextField instead of CK-editor's RichTextField or TinyMCE's HTMLField.
 
-# Credits
+# **Credits**
 
 In contrast to my previous projects, where I was able to write most of the code myself, BeerGate owes its much of its development to many external articles, guides, tutorials and so on, as well as the official documentation of the packages used. Making sense of these was often difficult, as was applying the code and solutions they offered, but in the end valuable lessons were learnt.
 
