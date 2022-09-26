@@ -1352,7 +1352,7 @@ HTML validation was carried out by pointing the [Official W3 validator](https://
 
 #### Index
 
-For the sake of completeness, the landing page rendered from index.html was validated 12 times - once for each of the sorting and filtering criteria applied by the different views. In addition, at time of validation, the Amber Beers filtering criteria returned no matching reviews, which triggered the empty tag of the templating language. As this tag contains HTML code, it bears validating. 
+For the sake of completeness, the landing page rendered from index.html was validated 12 times - once for each of the sorting and filtering criteria applied by the different views. In addition, at time of validation, the Amber Beers filtering criteria returned no matching reviews, which triggered the empty tag of the templating language. As this tag contains HTML code, it bears validating.
 
 ##### Default - reviews sorted by Newest
 
@@ -1526,7 +1526,9 @@ The password_change page was validated once by direct source code checking. Vali
 
 ### CSS Validation
 
-All custom CSS is contained within static/css/styles.css. This file was validated by [the official W3 CSS validator](https://jigsaw.w3.org/css-validator/). Direct source code checking was used. No errors were returned. 
+All custom CSS is contained within static/css/styles.css. This file was validated by [the official W3 CSS validator](https://jigsaw.w3.org/css-validator/). Direct source code checking was used. No errors were returned, but 7 warnings related to the use of vendor extensions and vender pseudo-elements were returned. These warnings relate to the `webkit` style rules used to modify the appearance of the scroll bar. 
+
+![screenshot of css validation](screenshots/css-validation.PNG)
 
 ### JS Validation
 
@@ -1542,45 +1544,47 @@ All Python files in the project were validated.
 
 Validation was carried out by direct source code checking.
 
-#### Beergate settings.py
+I was advised in the results email containing my Project 3 results to include screenshots of validation. Hence, each section below contains a screenshot of the validation outcomes.
+
+#### **Beergate settings.py**
 
 Validation returned 5 'Line Too Long' errors. These related to long value names in the AUTH_PASSWORD_VALIDATORS dictionary, and a long value for the STATICFILES_STORAGE. I initially considered leaving these errors uncorrected for fear that the application of strict formatting might damage the project, but careful use of the `\` character produced no breaking errors. 
 
-(screenshot of beergate settings validation)
+![screenshot of beergate/settings.py validation](screenshots/beergate-settings-validation.PNG)
 
-#### Beergate urls.py
+#### **Beergate urls.py**
 
 Validation returned no errors.
 
-(screenshot of beergate urls validation)
+![screenshot of beergate/urls.py validation](screenshots/beergate-urls-validation.PNG)
 
 #### Reviews admin.py
 
 Validation returned 3 Line Too Long errors, relating to overly-long lists and tuples as values of the list_display, list_filter and search_fields variables. Instead of spliting these over 2 lines, which I feel damages readability, I split them so that each item is on its own line, thus stacking the lists and tuples vertically like so:
 
-(vertical-stacking screenshot)
+![vertical stacking screenshot](screenshots/vertical-stacking.PNG)
 
 After this reformatting, validation returned no errors.
 
-(screenshot of reviews admin validation)
+![screenshot of reviews/admin.py validation](screenshots/reviews-admin-validation.PNG)
 
 #### Reviews forms.py
 
 Validation returned 5 Line Too Long errors. These mostly related to too-long strings. These were either cut down or split using line-breaks via the `\` character. After this reformatting, validation returned no errors.
 
-(screenshot of reviews forms validation)
+![screenshot of reviews/forms.py validation](screenshots/reviews-forms-validation.PNG)
 
 #### Reviews models.py
 
 Validation returned 6 Line Too Long errors. These were related to the field parameters inside the brackets being too long. These were reformatted onto new lines. After this reformatting, validation returned no errors. The Python linter itself returns 4 errors where ManyToMany fields have no count method, however in practice this works as intended. 
 
-(screenshot of reviews models validation)
+![screenshot of reviews/models.py validation](screenshots/reviews-models-validation.PNG)
 
 #### Reviews urls.py
 
 Validation returned 6 Line Too Long errors. These were related to overly-long path parameters. To solve this, I split these so that each comma-separated path parameter is on its own line. To maintain consistent formatting, this was applied to all paths, not just the paths that had too-long lines. After this reformatting, validation returned no errors.
 
-(screenshot of reviews urls validation)
+![screenshot of reviews/urls.py validation](screenshots/reviews-urls-validation.PNG)
 
 #### Reviews views.py
 
@@ -1590,7 +1594,7 @@ The Line Too Long errors were easily corrected by reformatting and splitting too
 
 After this reformatting, validation returned no errors.
 
-(screenshot of reviews views validation)
+![screenshot of reviews/views.py validation](screenshots/reviews-views-validation.PNG)
 
 #### User forms.py
 
@@ -1598,7 +1602,7 @@ Validation returned 1 Line Too Long error. This was from the very long import st
 
 After this reformatting, validation returned no errors.
 
-(screenshot of user forms validation)
+![screenshot of user/forms.py validation](screenshots/user-forms-validation.PNG)
 
 #### User views.py
 
@@ -1606,7 +1610,7 @@ Validation returned 4 Line Too Long errors. 2 of these were from overly-long doc
 
 After this reformatting, validation returned no errors.
 
-(screenshot of user views validation)
+![screenshot of user/views.py validation](screenshots/user-views-validation.PNG)
 
 #### User urls.py
 
@@ -1614,7 +1618,7 @@ Validation returned 1 Line Too Long error. This was due to an overly-long path p
 
 After this reformatting, validation returned no errors.
 
-(screenshot of user urls validation)
+![screenshot of user/urls.py validation](screenshots/user-urls-validation.PNG)
 
 ## Automated testing
 
