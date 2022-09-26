@@ -1,5 +1,21 @@
-from allauth.account.views import LoginView, SignupView, PasswordChangeView, EmailView, PasswordSetView, PasswordResetView, PasswordResetFromKeyView
-from .forms import UserLoginForm, UserSignupForm, UserChangePasswordForm, UserAddEmailForm, UserSetPasswordForm, UserResetPasswordForm, UserResetPasswordKeyForm
+from allauth.account.views import (
+    LoginView,
+    SignupView,
+    PasswordChangeView,
+    EmailView,
+    PasswordSetView,
+    PasswordResetView,
+    PasswordResetFromKeyView
+    )
+from .forms import (
+    UserLoginForm,
+    UserSignupForm,
+    UserChangePasswordForm,
+    UserAddEmailForm,
+    UserSetPasswordForm,
+    UserResetPasswordForm,
+    UserResetPasswordKeyForm
+    )
 
 
 class UserLoginView(LoginView):
@@ -51,7 +67,8 @@ class UserAddEmailView(EmailView):
 class UserPasswordSetView(PasswordSetView):
     """
     Custom view for adding a password to a user account
-    Used if an account has been created through AllAuth Social Account functionality
+    Used if an account has been created through -
+    - AllAuth Social Account functionality
     Extends AllAuth PasswordSetView
     sets form_class to custom UserPasswordSetForm
     IMPORTANT - currently inactive due to requiring an email server
@@ -77,7 +94,8 @@ class UserPasswordResetView(PasswordResetView):
 
 class UserPasswordResetFromKeyView(PasswordResetFromKeyView):
     """
-    Custom view for resetting the password of a user account from an emailed key
+    Custom view for resetting the password of a user -
+    - account from an emailed key
     Extends AllAuth PasswordResetFromKeyView
     sets form_class to custom UserPasswordResetFromKeyView
     IMPORTANT - currently inactive due to requiring an email server

@@ -34,7 +34,8 @@ class ReviewListMostUpvotes(LandingPage):
     A sorting view that populates the landing page
     sorts reviews by upvote count using annotate method
     """
-    queryset = Review.objects.filter(approved=True).annotate(upvote_count=Count('upvotes')).order_by('-upvote_count')
+    queryset = Review.objects.filter(approved=True).annotate(
+        upvote_count=Count('upvotes')).order_by('-upvote_count')
 
 
 class ReviewListOldest(LandingPage):
@@ -51,7 +52,8 @@ class ReviewListAleType(LandingPage):
     A filtering view that populates the landing page
     Filters out reviews that do not have a type of Ale
     """
-    queryset = Review.objects.filter(approved=True).filter(type='Ale').order_by('timestamp')
+    queryset = Review.objects.filter(approved=True).filter(
+        type='Ale').order_by('timestamp')
 
 
 class ReviewListStoutType(LandingPage):
@@ -59,7 +61,8 @@ class ReviewListStoutType(LandingPage):
     A filtering view that populates the landing page
     Filters out reviews that do not have a type of Stout
     """
-    queryset = Review.objects.filter(approved=True).filter(type='Stout').order_by('timestamp')
+    queryset = Review.objects.filter(approved=True).filter(
+        type='Stout').order_by('timestamp')
 
 
 class ReviewListLagerType(LandingPage):
@@ -67,7 +70,8 @@ class ReviewListLagerType(LandingPage):
     A filtering view that populates the landing page
     Filters out reviews that do not have a type of Lager
     """
-    queryset = Review.objects.filter(approved=True).filter(type='Lager').order_by('timestamp')
+    queryset = Review.objects.filter(approved=True).filter(
+        type='Lager').order_by('timestamp')
 
 
 class ReviewListPaleColour(LandingPage):
@@ -75,7 +79,8 @@ class ReviewListPaleColour(LandingPage):
     A filtering view that populates the landing page
     Filters out reviews that do not have a colour of Pale
     """
-    queryset = Review.objects.filter(approved=True).filter(colour='Pale').order_by('timestamp')
+    queryset = Review.objects.filter(approved=True).filter(
+        colour='Pale').order_by('timestamp')
 
 
 class ReviewListGoldenColour(LandingPage):
@@ -83,7 +88,8 @@ class ReviewListGoldenColour(LandingPage):
     A filtering view that populates the landing page
     Filters out reviews that do not have a colour of Golden
     """
-    queryset = Review.objects.filter(approved=True).filter(colour='Golden').order_by('timestamp')
+    queryset = Review.objects.filter(approved=True).filter(
+        colour='Golden').order_by('timestamp')
 
 
 class ReviewListAmberColour(LandingPage):
@@ -91,7 +97,8 @@ class ReviewListAmberColour(LandingPage):
     A filtering view that populates the landing page
     Filters out reviews that do not have a colour of Amber
     """
-    queryset = Review.objects.filter(approved=True).filter(colour='Amber').order_by('timestamp')
+    queryset = Review.objects.filter(approved=True).filter(
+        colour='Amber').order_by('timestamp')
 
 
 class ReviewListDarkColour(LandingPage):
@@ -99,7 +106,8 @@ class ReviewListDarkColour(LandingPage):
     A filtering view that populates the landing page
     Filters out reviews that do not have a colour of Dark
     """
-    queryset = Review.objects.filter(approved=True).filter(colour='Dark').order_by('timestamp')
+    queryset = Review.objects.filter(approved=True).filter(
+        colour='Dark').order_by('timestamp')
 
 
 class ReviewListBottled(LandingPage):
@@ -107,7 +115,8 @@ class ReviewListBottled(LandingPage):
     A filtering view that populates the landing page
     Filters out reviews that were not served as bottled beers
     """
-    queryset = Review.objects.filter(approved=True).filter(served_as=1).order_by('timestamp')
+    queryset = Review.objects.filter(approved=True).filter(
+        served_as=1).order_by('timestamp')
 
 
 class ReviewListDraught(LandingPage):
@@ -115,7 +124,8 @@ class ReviewListDraught(LandingPage):
     A filtering view that populates the landing page
     Filters out reviews that were not served as draught beers
     """
-    queryset = Review.objects.filter(approved=True).filter(served_as=2).order_by('timestamp')
+    queryset = Review.objects.filter(approved=True).filter(
+        served_as=2).order_by('timestamp')
 
 
 class ReviewSingle(View):
@@ -241,7 +251,8 @@ class RandomReview(View):
         Takes in class variables as assigned by the Get method to render the -
         - same review when a comment is submitted
         """
-        review = get_object_or_404(RandomReview.queryset, pk=RandomReview.primary_key)
+        review = get_object_or_404(
+            RandomReview.queryset, pk=RandomReview.primary_key)
         comments = review.comments.filter(approved=True).order_by('timestamp')
         upvoted = False
         downvoted = False
@@ -301,12 +312,12 @@ class SearchResults(generic.ListView):
         """
         query = self.request.GET.get('search')
         object_list = Review.objects.filter(
-            Q(name__icontains=query)
-            | Q(brewery__icontains=query)
-            | Q(type__icontains=query)
-            | Q(colour__icontains=query)
-            | Q(hops__icontains=query)
-            | Q(keywords__icontains=query)
+            Q(name__icontains=query) |
+            Q(brewery__icontains=query) |
+            Q(type__icontains=query) |
+            Q(colour__icontains=query) |
+            Q(hops__icontains=query) |
+            Q(keywords__icontains=query)
             ).filter(approved=True)
         return object_list
 
@@ -321,18 +332,31 @@ class UserReviews(generic.ListView):
     def get(self, request, *args, **kwargs):
         """
         Get method that constructs two querysets
-        user_queryset_all retrieves all of a user's reviews, regardless of approval status
+        user_queryset_all retrieves all of a user's reviews, regardless -
+        - of approval status
         user_queryset_approves retrieves only a user's approved reviews
         The method then considers 5 use cases:
-        1 - user has written no reviews, hence len(user_queryset_all) == 0
-        2 - user has written one review, and it is awaiting approval, hence len(user_queryset_all) == 1 and len(user_queryset_approved) == 0
-        3 - user has written one or more reviews, but they all are awaiting approval, hence len(user_queryset_approved) == 0
-        4 - user has written one or more reviews, but some are awaiting approval hence len(user_queryset_all) > len(user_queryset_approved)
+
+        1 - user has written no reviews, -
+        - hence len(user_queryset_all) == 0
+
+        2 - user has written one review, and it is awaiting approval, hence -
+        - len(user_queryset_all) == 1 and len(user_queryset_approved) == 0
+
+        3 - user has written one or more reviews, but they all are -
+        - awaiting approval, hence len(user_queryset_approved) == 0
+
+        4 - user has written one or more reviews, but some are awaiting -
+        - approval hence len(user_queryset_all) > len(user_queryset_approved)
+
         5 - user has written one or more reviews, and all are approved
-        A context is constructed for each use case, and a return statment renders the page
+
+        A context is constructed for each use case, -
+        - and a return statment renders the page
         """
         user_queryset_all = Review.objects.filter(author=request.user)
-        user_queryset_approved = Review.objects.filter(author=request.user).filter(approved=True)
+        user_queryset_approved = Review.objects.filter(
+            author=request.user).filter(approved=True)
 
         template_name = 'user_reviews.html'
 
@@ -394,11 +418,16 @@ class AddReview(generic.CreateView):
         user_review_form = UserReviewForm(request.POST, request.FILES)
 
         if user_review_form.is_valid():
-            user_review_form.instance.name = user_review_form.instance.name.title()
-            user_review_form.instance.brewery = user_review_form.instance.brewery.title()
-            user_review_form.instance.type = user_review_form.instance.type.capitalize()
-            user_review_form.instance.colour = user_review_form.instance.colour.capitalize()
-            user_review_form.instance.keywords = user_review_form.instance.keywords.lower()
+            user_review_form.instance.name = (
+                user_review_form.instance.name.title())
+            user_review_form.instance.brewery = (
+                user_review_form.instance.brewery.title())
+            user_review_form.instance.type = (
+                user_review_form.instance.type.capitalize())
+            user_review_form.instance.colour = (
+                user_review_form.instance.colour.capitalize())
+            user_review_form.instance.keywords = (
+                user_review_form.instance.keywords.lower())
             user_review_form.instance.author = request.user
             user_review = user_review_form.save(commit=False)
             user_review.save()
@@ -434,7 +463,8 @@ class UpdateReview(generic.UpdateView):
         self.object = self.get_object()
         form_class = self.get_form_class()
         user_update_form = self.get_form(form_class)
-        return self.render_to_response(self.get_context_data(form=user_update_form))
+        return self.render_to_response(
+            self.get_context_data(form=user_update_form))
 
     def post(self, request, *args, **kwargs):
         """
@@ -446,11 +476,16 @@ class UpdateReview(generic.UpdateView):
         user_update_form = self.get_form(form_class)
 
         if user_update_form.is_valid():
-            user_update_form.instance.name = user_update_form.instance.name.title()
-            user_update_form.instance.brewery = user_update_form.instance.brewery.title()
-            user_update_form.instance.type = user_update_form.instance.type.capitalize()
-            user_update_form.instance.colour = user_update_form.instance.colour.capitalize()
-            user_update_form.instance.keywords = user_update_form.instance.keywords.lower()
+            user_update_form.instance.name = (
+                user_update_form.instance.name.title())
+            user_update_form.instance.brewery = (
+                user_update_form.instance.brewery.title())
+            user_update_form.instance.type = (
+                user_update_form.instance.type.capitalize())
+            user_update_form.instance.colour = (
+                user_update_form.instance.colour.capitalize())
+            user_update_form.instance.keywords = (
+                user_update_form.instance.keywords.lower())
             user_update_form.instance.approved = False
             return self.form_valid(user_update_form, request)
         return self.form_invalid(user_update_form)

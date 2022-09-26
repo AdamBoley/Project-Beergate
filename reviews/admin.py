@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import Review, Comment
 from django_summernote.admin import SummernoteModelAdmin
+from .models import Review, Comment
 
 
 @admin.register(Review)
@@ -14,9 +14,34 @@ class BeerReviewAdmin(SummernoteModelAdmin):
     Sets the content field to be a Summernote Rich Text Editor
     """
 
-    list_filter = ('approved', 'timestamp', 'brewery', 'type', 'author', 'served_as')
-    list_display = ('name', 'pk', 'type', 'colour', 'brewery', 'served_as', 'author', 'timestamp', 'approved')
-    search_fields = ['name', 'brewery', 'type', 'colour', 'hops', 'alcohol', 'content']
+    list_filter = (
+        'approved',
+        'timestamp',
+        'brewery',
+        'type',
+        'author',
+        'served_as')
+
+    list_display = (
+        'name',
+        'pk',
+        'type',
+        'colour',
+        'brewery',
+        'served_as',
+        'author',
+        'timestamp',
+        'approved')
+
+    search_fields = [
+        'name',
+        'brewery',
+        'type',
+        'colour',
+        'hops',
+        'alcohol',
+        'content']
+
     actions = ['approve_beer_review', 'disapprove_beer_review']
 
     summernote_fields = ('content',)
@@ -48,9 +73,24 @@ class CommentAdmin(SummernoteModelAdmin):
     Determines what actions are allowed in actions
     Sets the content field to be a Summernote Rich Text Editor
     """
-    list_filter = ('approved', 'timestamp', 'review', 'author')
-    list_display = ('review', 'author', 'content', 'timestamp', 'approved')
-    search_fields = ['review', 'author', 'approved']
+    list_filter = (
+        'approved',
+        'timestamp',
+        'review',
+        'author')
+
+    list_display = (
+        'review',
+        'author',
+        'content',
+        'timestamp',
+        'approved')
+
+    search_fields = [
+        'review',
+        'author',
+        'approved']
+
     actions = ['approve_comment', 'disapprove_comment']
 
     summernote_fields = ('content',)

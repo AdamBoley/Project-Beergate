@@ -4,9 +4,6 @@ from cloudinary.models import CloudinaryField
 from django.urls import reverse
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
-# last two are for validation - see Django documentation on valudation
-
-# Create your models here.
 
 
 def validate_within_limits(value):
@@ -44,9 +41,12 @@ class Review(models.Model):
     keywords = models.CharField(max_length=200)
     content = models.TextField()
     served_as = models.IntegerField(choices=SERVED_AS, default=1)
-    upvotes = models.ManyToManyField(User, related_name='review_upvotes', blank=True)
-    downvotes = models.ManyToManyField(User, related_name='review_downvotes', blank=True)
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="beer_review")
+    upvotes = models.ManyToManyField(
+        User, related_name='review_upvotes', blank=True)
+    downvotes = models.ManyToManyField(
+        User, related_name='review_downvotes', blank=True)
+    author = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="beer_review")
     timestamp = models.DateTimeField(auto_now_add=True)
     approved = models.BooleanField(default=False)
     aroma = models.IntegerField(validators=[validate_within_limits])
@@ -120,12 +120,15 @@ class Comment(models.Model):
     """
     A model for comments that can be made on beer review posts
     """
-    review = models.ForeignKey(Review, on_delete=models.CASCADE, related_name="comments")
+    review = models.ForeignKey(
+        Review, on_delete=models.CASCADE, related_name="comments")
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
-    upvotes = models.ManyToManyField(User, related_name='comment_upvotes', blank=True)
-    downvotes = models.ManyToManyField(User, related_name='comment_downvotes', blank=True)
+    upvotes = models.ManyToManyField(
+        User, related_name='comment_upvotes', blank=True)
+    downvotes = models.ManyToManyField(
+        User, related_name='comment_downvotes', blank=True)
     approved = models.BooleanField(default=False)
 
     class Meta:
@@ -157,4 +160,3 @@ class Comment(models.Model):
         These may then be displayed
         """
         return self.downvotes.count()
-

@@ -862,7 +862,57 @@ Done:
 - ensure all templating language is properly indented - done
 - implement messages
 - On search results page, invite user to perform another search if theirs returns no reviews - done
+- Landing page with no reviews needs pagination bar pushed down - done
+- Rework early part of Bugs section, esp. parts that deal with old project - done
 
+
+In progress:
+
+- Review and update Bootstrap card structure for non-AllAuth templates:
+    - base / navbar - logged-in note for collapsed navbars
+    - index
+    - review 
+        - main image is rather large so reduce size - done
+        - centre comment rich-text field - more difficult
+    - add_review - try to centre the rich-text editor box
+    - update_review - increase width, use same layout as add_review - done
+    - delete_review - add link to update the review - done
+    - user_reviews - in progress
+    - search_results - in progress
+- Style AllAuth templates - sign-in, sign-up, login, logout, email, password, etc - 
+
+- Testing section for exhaustive manual testing - outline in place
+
+- Exhaustive manual testing
+
+
+
+To do:
+
+- Explictly state the number of reviews the user has vs how many are approved on the user_reviews page. Define in context using len? or use templating count?
+
+- Consider using a new method for UpdateView: https://docs.djangoproject.com/en/3.2/topics/forms/modelforms/#the-save-method - override save method?
+
+- The SECURE_SSL_REDIRECT and SECURE_HSTS_SECONDS security settings provided last session caused localhost to fail
+    - Is it acceptable to not include these?
+    - Use a conditional - if working in deployment, apply these settings
+
+- How to create a view to order by the output of a class method
+    - average_score method 
+    - Ronan will look into this
+
+- give bugs section titles for each bug
+
+- Modify Reviews so that they have realistic content, not just Lorem Ipsum bulk text
+
+- Have enough records in the database so that all sorting and filtering views work and can be demostrated
+
+
+Readme:
+
+- Add screenshots of all pages to Readme
+- Upload wireframes to readme
+- add line-breaks for clearer structure
 
 
 
@@ -891,61 +941,6 @@ Rejected:
 - Display the total number of comments on the index, search_results, user_reviews pages using a context - rejected as too difficult
 
 - Move sorting menu from universal navbar to its own navbar only on the index page - perhaps use a def get method to render a custom context that informs/reminds the user of the criteria they are filtering/sorting by - rejected because this is too difficult
-
-
-
-In progress:
-
-- Review and update Bootstrap card structure for non-AllAuth templates:
-    - base / navbar - logged-in note for collapsed navbars
-    - index
-    - review 
-        - main image is rather large so reduce size - done
-        - centre comment rich-text field - more difficult
-    - add_review - try to centre the rich-text editor box
-    - update_review - increase width, use same layout as add_review - done
-    - delete_review - add link to update the review - done
-    - user_reviews - in progress
-    - search_results - in progress
-- Style AllAuth templates - sign-in, sign-up, login, logout, email, password, etc - 
-
-- Testing section for exhaustive manual testing - outline in place
-
-- Exhaustive manual testing
-
-
-
-To do:
-
-- message close button is a bit too close to edge - move in with absolute positioning or give div some padding
-
-- Landing page with no reviews needs pagination bar pushed down
-
-- Explictly state the number of reviews the user has vs how many are approved on the user_reviews page. Define in context using len? or use templating count?
-
-- Consider using a new method for UpdateView: https://docs.djangoproject.com/en/3.2/topics/forms/modelforms/#the-save-method - override save method?
-
-- The SECURE_SSL_REDIRECT and SECURE_HSTS_SECONDS security settings provided last session caused localhost to fail
-    - Is it acceptable to not include these?
-    - Use a conditional - if working in deployment, apply these settings
-
-- How to create a view to order by the output of a class method
-    - average_score method 
-    - Ronan will look into this
-
-- give bugs section titles for each bug
-
-- Modify Reviews so that they have realistic content, not just Lorem Ipsum bulk text
-
-- Have enough records in the database so that all sorting and filtering views work and can be demostrated
-
-
-Readme:
-
-- Add screenshots of all pages to Readme
-- Upload wireframes to readme
-- Rework early part of Bugs section, esp. parts that deal with old project
-- add line-breaks for clearer structure
 
 # Future Work
 
@@ -1545,47 +1540,81 @@ All Python validation was carried out with the [PEP8 Validator](http://pep8onlin
 
 All Python files in the project were validated.
 
-Validation was carried out by direct source code checking
+Validation was carried out by direct source code checking.
 
 #### Beergate settings.py
 
-Validation returned 5 'Line Too Long' errors. These relate to long value names in the AUTH_PASSWORD_VALIDATORS dictionary, and a long value for the STATICFILES_STORAGE. Since this is the settings file, applying strictly correct formatting could damage the project, so they were left uncorrected.
+Validation returned 5 'Line Too Long' errors. These related to long value names in the AUTH_PASSWORD_VALIDATORS dictionary, and a long value for the STATICFILES_STORAGE. I initially considered leaving these errors uncorrected for fear that the application of strict formatting might damage the project, but careful use of the `\` character produced no breaking errors. 
+
+(screenshot of beergate settings validation)
 
 #### Beergate urls.py
 
-Validation returned no errors. 
+Validation returned no errors.
+
+(screenshot of beergate urls validation)
 
 #### Reviews admin.py
 
-Validation returned 3 Line Too Long errors.
+Validation returned 3 Line Too Long errors, relating to overly-long lists and tuples as values of the list_display, list_filter and search_fields variables. Instead of spliting these over 2 lines, which I feel damages readability, I split them so that each item is on its own line, thus stacking the lists and tuples vertically like so:
+
+(vertical-stacking screenshot)
+
+After this reformatting, validation returned no errors.
+
+(screenshot of reviews admin validation)
 
 #### Reviews forms.py
 
-Validation returned 5 Line Too Long errors.
+Validation returned 5 Line Too Long errors. These mostly related to too-long strings. These were either cut down or split using line-breaks via the `\` character. After this reformatting, validation returned no errors.
+
+(screenshot of reviews forms validation)
 
 #### Reviews models.py
 
-Validation returned 6 Line Too Long errors. 
+Validation returned 6 Line Too Long errors. These were related to the field parameters inside the brackets being too long. These were reformatted onto new lines. After this reformatting, validation returned no errors. The Python linter itself returns 4 errors where ManyToMany fields have no count method, however in practice this works as intended. 
+
+(screenshot of reviews models validation)
 
 #### Reviews urls.py
 
-Validation returned 6 Line Too Long errors.
+Validation returned 6 Line Too Long errors. These were related to overly-long path parameters. To solve this, I split these so that each comma-separated path parameter is on its own line. To maintain consistent formatting, this was applied to all paths, not just the paths that had too-long lines. After this reformatting, validation returned no errors.
+
+(screenshot of reviews urls validation)
 
 #### Reviews views.py
 
-Validation returned 28 Line Too Long errors and 5 Line Break Before Binary Operator errors. The Line Break Before Binary Operator errors relate to the line breaks between the Q methods used to construct the queryset in the SearchResults view. Placing the Q methods on one line would degrade readability, so I have left this code as-is.
+Validation returned 28 Line Too Long errors and 5 Line Break Before Binary Operator errors. The Line Break Before Binary Operator errors relate to the line breaks between the Q methods used to construct the queryset in the SearchResults view.
+
+The Line Too Long errors were easily corrected by reformatting and splitting too-long lines over multiple lines. The Line Break Before Binary Operator errors were corrected by placing the `|` pipe separator operator on the same line as the preceeding Q method.
+
+After this reformatting, validation returned no errors.
+
+(screenshot of reviews views validation)
 
 #### User forms.py
 
-Validation returned 1 Line Too Long error.
+Validation returned 1 Line Too Long error. This was from the very long import statement at the top of the file. Since the project does not currently make use of the AddEmailForm, SetPasswordForm, ResetPasswordForm or ResetPasswordKeyForm, I considered removing those imports, but then realised that this would break the extant, but unused, custom forms that extend these imported forms. I then settled on reformatting the imports by wrapping them inside brackets and stacking them vertically, so that each import is on a new line.
+
+After this reformatting, validation returned no errors.
+
+(screenshot of user forms validation)
 
 #### User views.py
 
-Validation returned 4 Line Too Long errors.
+Validation returned 4 Line Too Long errors. 2 of these were from overly-long doc-strings, which were easily corrected. The other 2 were from very long import statements at the top of the file. A similar fix to that employed directly above was used - stacking the imports vertically within brackets so that each has a new line.
+
+After this reformatting, validation returned no errors.
+
+(screenshot of user views validation)
 
 #### User urls.py
 
-Validation returned 1 Line Too Long error.
+Validation returned 1 Line Too Long error. This was due to an overly-long path parameter. To solve this, I split the comma-separated path parameters vertically so that each parameter is on its own line. To maintain consistency, I applied this to all of the paths, not just the one identified by validation.
+
+After this reformatting, validation returned no errors.
+
+(screenshot of user urls validation)
 
 ## Automated testing
 

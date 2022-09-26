@@ -1,4 +1,12 @@
-from allauth.account.forms import LoginForm, SignupForm, ChangePasswordForm, AddEmailForm, SetPasswordForm, ResetPasswordForm, ResetPasswordKeyForm
+from allauth.account.forms import (
+    LoginForm,
+    SignupForm,
+    ChangePasswordForm,
+    AddEmailForm,
+    SetPasswordForm,
+    ResetPasswordForm,
+    ResetPasswordKeyForm
+    )
 
 
 class UserLoginForm(LoginForm):
