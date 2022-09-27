@@ -193,42 +193,43 @@ Below are the User Stories used to guide the development of BeerGate.
 
 ## **Admin user User Stories**
 
-The Admin user User Stories were used to determine what Admin Superusers who have access to the Admin panel should be able to do. 
+The Admin user User Stories were used to determine what Admin Superusers who have access to the Admin panel should be able to do.
 
 - As an Admin user I can...
-    - Navigate to the admin sign-in page
-    - Use the admin sign-in page to access the admin panel
-    - View all beer reviews submitted by users
-    - Filter and sort all beer reviews easily
+    - Navigate to the admin sign-in page, so that I can sign in to the admin panel
+    - Sign-in via the admin sign-in page so that I can access the admin panel
+    - View all beer reviews submitted by users, so that I can see how many beer reviews exist in the database
+    - Filter and sort all beer reviews easily, so that I can see all of the reviews that fulfil certain criteria
     - Quickly approve any number of selected beer reviews so that they become visible on the site
     - Quickly disapprove any number of selected beer reviews so that they stop being visible on the site
-    - Quickly delete any number of selected beer reviews
-    - Fully edit a beer review, including rich text and images
-    - View all comments submitted by users
-    - Filter and sort all comments easily
+    - Quickly delete any number of selected beer reviews, so that they no longer take up memory in the database
+    - Fully edit a beer review, including rich text and images, so that I can improve the quality of poorly-written reviews
+    - Add a beer review of my own, so that I do not have to use the add_review page on the front-end
+    - View all comments submitted by users, so that I can see how the community is reacting to certain reviews
+    - Filter and sort all comments easily, so that I can see all of the reviews that fulfil certain criteria
     - Quickly approve any number of selected comments so that they become visible on their parent review page
     - Quickly disapprove any number of selected comments so that they stop being visible on their parent review page
-    - Fully edit a comment, including rich text
-    - View all extant users
-    - Delete any number of extant users
-    - View login attempts from dummy admin honeypot page
+    - Quickly delete any number of selected comments so that they no longer take up memory in the database
+    - Fully edit a comment, including rich text, so that I can improve the quality of poorly-written comments
+    - View all extant users, so that I can see how many people have signed-up to use BeerGate
+    - Delete any number of extant users, so that I can stop malicious users from submitting comments and reviews
+    - View login attempts from dummy admin honeypot page, so that I can see if BeerGate is being attacked by malicious users
 
 ## **Generic user User Stories**
 
 These user stories were used to determine what all users should be able to do, regardless of authentication status.
 
 - As a generic user I can ...
-    - Immediately determine the purpose of the application when first visiting
-    - Access the application from any web-enabled device and have a positive user experience
-    - View all beer reviews
-        - At the same, not be overwhelmed by reviews
+    - Immediately determine the purpose of the application when first visiting, so that I can quickly decide whether to stay or leave
+    - Access the application from any web-enabled device, so that I can have a positive user experience regardless of how I am accessing the application
+    - View all beer reviews so that I can choose one to read in full
+        - At the same, not be overwhelmed by reviews so that I have a bad experience and cannot make a decision
     - Sort and filter all beer reviews so that I can see only the beer reviews that appeal to me
-    - Have my sorting or filtering criteria reflected back to me so that I know which criteria I have applied
-    - View any single beer review in its entirety so that I can read the content
-    - Use a search function to search for beer reviews using keyword terms
-        - If my search returned no results, have that reflected back to me
-    - If an error occurs, be reassured that it has not broken the website
-    - If an error occurs, have a means of resetting the website or getting out of the error
+    - View any single beer review in its entirety so that I can read the full content
+    - Use a search function to search for beer reviews using keyword terms so that I can get a collection of reviews to read
+        - If my search returned no results, have that reflected back to me, so that I can search by different parameters
+    - If an error occurs, be reassured that it has not broken the website, so that I do not have a poor user experience
+    - If an error occurs, have a means of resetting the website or getting out of the error, so that I can continue using the site
 
 ### **Rejected Generic user User Stories**
 
@@ -236,50 +237,50 @@ These user stories were rejected as the features that would fulfil them were too
 
 - As a generic user I can ...
     - Chain multiple sorting and filtering criteria together on the landing page to more precisely control the review I can see
-    
+    - Have my sorting or filtering criteria reflected back to me so that I know which criteria I have applied
+
 ## **Unregistered user User Stories**
 
 These user stories were used to determine what unregistered users specifically should be able to do.
 
 - As an unregistered user I can ...
-    - Sign-up and create an account
-    - Sign-in to that created account
+    - Sign-up and create an account, so that I can access the full functionality of the application
+    - Sign-in to that created account, so that I can access the full functionality of the application
 
 ## **Registered user User Stories**
 
-These user stories were used to determine what registered users specifically should be able to do. 
+These user stories were used to determine what registered users specifically should be able to do.
 
 - As a registered user I can ...
-    - Sign in to a previously created account
-    - Change the password for that account
-    - Sign-out easily, when I am already signed-in
-    - Have my sign-in status reflected back to me
-    - Write a beer review easily
-        - Apply rich text formatting to the content of my review
-        - upload an image to my review
-    - If signed in, easily access all of the reviews that I have written
-        - If I have written no reviews, have that reflected back to me
-    - Easily update any beer reviews that I have written
-    - Easily delete any beer reviews that I have written
-        - At the same time, ensure that I cannot accidentally delete any beer reviews
-    - Be informed when I have undertaken an interaction with the site:
-        - Posted a comment
-        - Posted a review
-        - Updated a review
-        - Deleted a review
-    - When viewing a single beer review, post a comment
-    - When viewing a single beer review, upvote it if I like it
-    - When viewing a single beer review, downvote it if I do not like it
+    - Sign in to a previously created account, so that I can access the full functionality of the application
+    - Change the password for that account, so that it becomes more memorable
+    - Sign-out easily, when I am already signed-in, so that I can be sure that I have closed my session securely
+    - Have my sign-in status reflected back to me, so that I can be sure that I have signed-in
+    - Write a beer review easily, so that I can share my thoughts on a beer with the community
+        - Apply rich text formatting to the content of my review, so that I can better express myself and provide additional structure to my review
+        - upload an image to my review, so that I can show other users what the beer looks like
+    - If signed in, easily list all of the reviews that I have written, so that I can see how many I have written and easily access them
+        - If I have written no reviews, have that reflected back to me, that I know that I have not written any
+    - Easily update any beer reviews that I have written, so that I can improve or modify the content
+    - Easily delete any beer reviews that I have written, so that I can delete a review that I am not happy with
+        - At the same time, require some effort to be put in to the deletion process, so that I cannot accidentally delete any beer reviews
+    - Be informed when I have posted a comment, so that I can be assured that I have submitted the comment
+    - Be informed when I have posted a review, so that I can be assured that I have submitted the review
+    - Be informed when I have updated a review, so that I can be assured that I have updated the review
+    - Be informed when I have deleted a review, so that I can be assured that I have deleted the review
+    - When viewing a single beer review, post a comment, so that I can share my thoughts on the beer and review
+    - When viewing a single beer review, upvote it, so that I show my approval of the review if I like it
+    - When viewing a single beer review, downvote it, so that I can show my disapproval of the review if I do not like it
 
 ### **Rejected Registered user User Stories**
 
 These user stories were rejected as the features that would fulfil them were too difficult to implement.
 
 - Rejected user stories:
-    - Be able to upvote comments
-    - Be able to downvote comments
-    - Be able to access the update_review page from within the user_reviews page
-    - Be able to access the delete_review page from within the user_reviews page
+    - Be able to upvote comments, so that I can show my approval of comments I agree with
+    - Be able to downvote comments, so that I can show my disapproval of comments I disagree with
+    - Be able to access the update_review page from within the user_reviews page, so that I can easily navigate to the update form 
+    - Be able to access the delete_review page from within the user_reviews page, so that I can easily navigate to the deletion form
 
 
 # **Features**
@@ -445,6 +446,10 @@ I noted that, for some reason, the close button for the alert message is not pos
 ## **404 and 500 error pages**
 
 At the urging of my Mentor, I created custom 404 and 500 error pages. These are simple pages, designed to be humourous so as to reassure the user that they have not irreversibly broken BeerGate. Both pages provide links back to the landing page.
+
+## **Admin Panel**
+
+Discussion of admin panel featires + screenshots
 
 # **Function**
 
@@ -1314,11 +1319,414 @@ All testing was carried out on the deployed version of BeerGate.
 
 ### **Admin user User Story testing**
 
+**User Story:**
+Navigate to the admin sign-in page, so that I can sign in to the admin panel
+
+**Fulfilment**
+The proper admin sign-in page may be accessed by either appending `/beergate-admin` to the base URL, so navigating directly via `https://beergate.herokuapp.com/beergate-admin/login/?next=/beergate-admin/`
+
+![screenshot](screenshots/user_stories/admin/admin-sign-in.PNG)
+
+**User Story:**
+Sign-in via the admin sign-in page so that I can access the admin panel
+
+**Fulfilment**
+A superuser account with username `Adam` has been created. The password is supplied separately for security reasons. 
+
+![screenshot](screenshots/user_stories/admin/admin-credentials.PNG)
+
+![screenshot](screenshots/user_stories/admin/admin-panel.PNG)
+
+**User Story:**
+View all beer reviews submitted by users, so that I can see how many beer reviews exist in the database
+
+**Fulfilment**
+Beer reviews may be accessed by clicking the `Beer reviews` tab under `REVIEWS` on the left-hand-side of the admin panel
+
+![screenshot](screenshots/user_stories/admin/admin-all-reviews.PNG)
+
+**User Story:**
+Filter and sort all beer reviews easily, so that I can see all of the reviews that fulfil certain criteria
+
+**Fulfilment**
+Filtering has been specified in the ReviewAdmin class of reviews/admin.py via the `list_filter` variable. This creates a Filtering panel on the right-hand-side of the page that allows filtering by the following fields - approved, timestamp, brewery, type, author and served_as
+
+![screenshot](screenshots/user_stories/admin/admin-review-filters.PNG)
+
+![screenshot](screenshots/user_stories/admin/admin-review-filter-ale.PNG)
+
+**User Story:**
+Quickly approve any number of selected beer reviews so that they become visible on the site
+
+**Fulfilment**
+A method called `approve_beer_review` in the ReviewAdmin class of reviews/admin.py allows mass approval. In the admin panel, this may be used by selecting any number of beer reviews, selecting `approve beer review` from the dropdown menu and clicking `Go`.
+
+![screenshot](screenshots/user_stories/admin/admin-before-mass-approval.PNG)
+
+![screenshot](screenshots/user_stories/admin/admin-after-mass-approval.PNG)
+
+
+**User Story:**
+Quickly disapprove any number of selected beer reviews so that they stop being visible on the site
+
+**Fulfilment**
+
+A method called `disapprove_beer_review` in the ReviewAdmin class of reviews/admin.py allows mass disapproval. In the admin panel, this may be used by selecting any number of beer reviews, selecting `disapprove beer review` from the dropdown menu and clicking `Go`
+
+![screenshot](screenshots/user_stories/admin/admin-before-mass-disapproval.PNG)
+
+![screenshot](screenshots/user_stories/admin/admin-after-mass-disapproval.PNG)
+
+**User Story:**
+Quickly delete any number of selected beer reviews, so that they no longer take up memory in the database
+
+**Fulfilment**
+Django's admin panel ships as standard with a mass deletion function. In the admin panel, this may be used by selecting any number of beer reviews, selecting `delete selected beer reviews` from the dropdown menu and clicking `Go`. A warning-confirmation page will ask the user to confirm deletion, which can be done by clicking the red Yes button.
+
+![screenshot](screenshots/user_stories/admin/admin-before-mass-deletion.PNG)
+
+![screenshot](screenshots/user_stories/admin/admin-during-mass-deletion.PNG)
+
+![screenshot](screenshots/user_stories/admin/admin-after-mass-deletion.PNG)
+
+**User Story:**
+Fully edit a beer review, including rich text and images, so that I can improve the quality of poorly-written reviews
+
+**Fulfilment**
+In reviews/admin.py, the content field of the Review model has been given a rich text editor by way of the `summernote_fields` variable. By default, the admin superuser can edit and delete all reviews and comments. Note that in the screenshots, the rich text editor already has some content which can be altered, and already has an image file attached via Cloudinary. The second screenshot shows this altered content and that a different image has been attached.
+
+
+![screenshot](screenshots/user_stories/admin/admin-edit-content-and-image.PNG)
+
+![screenshot](screenshots/user_stories/admin/admin-edit-content-and-image-after.PNG)
+
+**User Story:**
+Add a beer review of my own, so that I do not have to use the add_review page on the front-end
+
+**Fulfilment**
+By default, the admin superuser has full Create, Read, Update, Delete (CRUD) priviledges. The admin user can create a beer review of their own by clicking the `ADD BEER REVIEW` button in the top-right of the admin panel when in the beer reviews section. This brings up an altered version of the form displayed to normal users on the add_review page. Unlike the front-end form, the admin version allows the admin user to assign upvotes and downvotes, the author and set its approval status. Once filled out, this review may be published by clicking the `SAVE` button
+
+![screenshot](screenshots/user_stories/admin/admin-add-review.PNG)
+
+![screenshot](screenshots/user_stories/admin/admin-add-review-empty-form.PNG)
+
+![screenshot](screenshots/user_stories/admin/admin-save-button.PNG)
+
+**User Story:**
+View all comments submitted by users, so that I can see how the community is reacting to certain reviews
+
+**Fulfilment**
+All of the comments submitted by users may be viewed by navigating to the `Review comments` page on the left-hand-side of the admin panel. Since comments are related to parent reviews, the review that is associated with a particular comment is displayed in addition to other information. Do note that the `content` field shows HTML elements. This is, I believe, and artefact of using a rich text editor
+
+![screenshot](screenshots/user_stories/admin/admin-comments.PNG)
+
+**User Story:**
+Filter and sort all comments easily, so that I can see all of the reviews that fulfil certain criteria
+
+**Fulfilment**
+Much as with the Reviews page, filtering criteria have been specified in the CommentAdmin class of reviews/admin.py file. This allows the admin user to filter comments by approval status, timestamp, their parent review and the comment's author.
+
+![screenshot](screenshots/user_stories/admin/admin-comment-filtering.PNG)
+
+**User Story:**
+Quickly approve any number of selected comments so that they become visible on their parent review page
+
+**Fulfilment**
+Much as in the ReviewAdmin class, CommentAdmin has a method for mass approval called `approve_comment`. In the admin panel, this may be used by selecting any number of comments, selecting `Approve comment` in the dropdown menu and clicking `Go`.
+
+![screenshot](screenshots/user_stories/admin/admin-before-mass-comment-approval.PNG)
+
+![screenshot](screenshots/user_stories/admin/admin-after-mass-comment-approval.PNG)
+
+**User Story:**
+Quickly disapprove any number of selected comments so that they stop being visible on their parent review page
+
+**Fulfilment**
+Much as in the ReviewAdmin class, CommentAdmin has a method for mass disapproval called `disapprove_comment`. In the admin panel, this may be used by selecting any number of comments, selecting `Disapprove comment` in the dropdown menu and clicking `Go`.
+
+
+![screenshot](screenshots/user_stories/admin/admin-before-mass-comment-disapproval.PNG)
+
+![screenshot](screenshots/user_stories/admin/admin-after-mass-comment-disapproval.PNG)
+
+**User Story:**
+Fully edit a comment, including rich text, so that I can improve the quality of poorly-written comments
+
+**Fulfilment**
+By default, admin users have full CRUD priviledges for comments as well as reviews. A comment may be edited by clicking on it, changing any fields and clicking save.
+
+![screenshot](screenshots/user_stories/admin/admin-before-comment-edit.PNG)
+
+![screenshot](screenshots/user_stories/admin/admin-after-comment-edit.PNG)
+
+**User Story**
+Quickly delete any number of selected comments so that they no longer take up memory in the database
+
+**Fulfilment**
+Django's admin panel ships as standard with a mass deletion function. In the admin panel, this may be used by selecting any number of comments, selecting `delete selected beer reviews` from the dropdown menu and clicking `Go`. A warning-confirmation page will ask the user to confirm deletion, which can be done by clicking the red Yes button.
+
+![screenshot](screenshots/user_stories/admin/admin-before-comment-deletion.PNG)
+
+![screenshot](screenshots/user_stories/admin/admin-during-comment-deletion.PNG
+
+![screenshot](screenshots/user_stories/admin/admin-after-comment-deletion.PNG)
+
+**User Story:**
+View all extant users, so that I can see how many people have signed-up to use BeerGate
+
+**Fulfilment**
+The application's users can be displayed by clicking the `Users` tab under `AUTHENTICATION AND AUTHORIZATION` on the left-hand-side of the admin panel. 
+
+![screenshot](screenshots/user_stories/admin/admin-users.PNG)
+
+**User Story:**
+Delete any number of extant users, so that I can stop malicious users from submitting comments and reviews
+
+**Fulfilment**
+By default, Django allows the superuser to delete any user. This can be done by selecting any number of users, selecting `Delete selected user` from the dropdown and clicking `Go`. Thanks to how the Review and Comment models have been set up, deleting a user also deletes any reviews and comments they have written, as well as any upvotes and downvotes they have made. Note that in the demonstration of this, I deleted the user `Martin`. Before doing so, I assigned a review of the beer Golden Champion (pk = 31) to that account. When I deleted `Martin`, I checked the reviews tab and noted that the Golden Champion review of pk 31 has been deleted as well. This can be seen in the screenshots.
+
+![screenshot](screenshots/user_stories/admin/admin-before-user-deletion.PNG)
+
+![screenshot](screenshots/user_stories/admin/admin-user-deletion-confirmation.PNG)
+
+![screenshot](screenshots/user_stories/admin/admin-after-user-deletion.PNG)
+
+![screenshot](screenshots/user_stories/admin/admin-before-user-deletion-cascade.PNG)
+
+![screenshot](screenshots/user_stories/admin/admin-after-user-deletion-cascade.PNG)
+
+**User Story:**
+View login attempts from dummy admin honeypot page, so that I can see if BeerGate is being attacked by malicious users
+
+**Fulfilment**
+A record of all attempts made to login via the dummy admin honeypot page can be viewed by clicking the `Login attempts` tab under `ADMIN_HONEYPOT` on the left hand side of the admin panel. This lists the username, IP address, sessiom, timestamp and URL used during the attempt. Note that in the demonstration of this, I had already made one attempt on 4/9/22 when I initially implemented the honeypot feature. I made another attempt to demonstrate this. I then viewed the log and noted that this second attempt had been logged.
+
+![screenshot](screenshots/user_stories/admin/admin-honeypot-log-before.PNG)
+
+![screenshot](screenshots/user_stories/admin/admin-honeypot-page-before.PNG)
+
+![screenshot](screenshots/user_stories/admin/admin-honeypot-page-after.PNG)
+
+![screenshot](screenshots/user_stories/admin/admin-honeypot-log-after.PNG)
+
 ### **Generic user User Story testing**
+
+**User Story:**
+Immediately determine the purpose of the application when first visiting, so that I can quickly decide whether to stay or leave
+
+**Fulfilment**
+
+**User Story:**
+Access the application from any web-enabled device, so that I can have a positive user experience regardless of how I am accessing the application
+
+**Fulfilment**
+
+**User Story:**
+View all beer reviews so that I can choose one to read in full
+
+Sub-story: At the same, not be overwhelmed by reviews so that I have a bad experience and cannot make a decision
+
+**Fulfilment**
+
+Sub-story fulfilment:
+
+
+**User Story:**
+Sort and filter all beer reviews so that I can see only the beer reviews that appeal to me
+
+**Fulfilment**
+
+
+**User Story:**
+View any single beer review in its entirety so that I can read the full content
+
+**Fulfilment**
+
+
+**User Story:**
+Use a search function to search for beer reviews using keyword terms so that I can get a collection of reviews to read
+
+Sub-story: If my search returned no results, have that reflected back to me, so that I can search by different parameters
+
+**Fulfilment**
+
+Sub-story fulfilment
+
+**User Story:**
+If an error occurs, be reassured that it has not broken the website, so that I do not have a poor user experience
+
+**Fulfilment**
+
+
+**User Story:**
+If an error occurs, have a means of resetting the website or getting out of the error, so that I can continue using the site
+
+**Fulfilment**
+
+
+#### **Rejected Generic user User Story explanations**
+
+**User Story:**
+Chain multiple sorting and filtering criteria together on the landing page to more precisely control the review I can see
+
+**Explanation**
+
+**User Story:**
+Have my sorting or filtering criteria reflected back to me so that I know which criteria I have applied
+
+**Explanation**
+
 
 ### **Unregistered user User Story testing**
 
+**User Story:**
+Sign-up and create an account, so that I can access the full functionality of the application
+
+**Fulfilment**
+
+
+**User Story:**
+Sign-in to that created account, so that I can access the full functionality of the application
+
+**Fulfilment**
+
 ### **Registered user User Story testing**
+
+**User Story:**
+Sign in to a previously created account, so that I can access the full functionality of the application
+
+**Fulfilment**
+
+
+**User Story:**
+Change the password for that account, so that I can make it more memorable, or if the account has been compromised
+
+**Fulfilment**
+
+
+**User Story:**
+Sign-out easily, when I am already signed-in, so that I can be sure that I have closed my session securely
+
+**Fulfilment**
+
+
+**User Story:**
+Have my sign-in status reflected back to me, so that I can be sure that I have signed-in
+
+**Fulfilment**
+
+
+**User Story:**
+Write a beer review easily, so that I can share my thoughts on a beer with the community
+
+Sub-story 1: Apply rich text formatting to the content of my review, so that I can better express myself and provide additional structure to my review
+Sub-story 2: upload an image to my review, so that I can show other users what the beer looks like
+
+**Fulfilment**
+
+Sub-story 1 fulfilment:
+
+Sub-story 2 fulfilment:
+
+
+**User Story:**
+If signed in, easily list all of the reviews that I have written, so that I can see how many I have written and easily access them
+
+Sub-story: If I have written no reviews, have that reflected back to me, that I know that I have not written any
+
+**Fulfilment**
+
+Sub-story fulfilment:
+
+**User Story:**
+Easily update any beer reviews that I have written, so that I can improve or modify the content
+
+**Fulfilment**
+
+
+**User Story:**
+Easily delete any beer reviews that I have written, so that I can delete a review that I am not happy with
+
+Sub-story: At the same time, require some effort to be put in to the deletion process, so that I cannot accidentally delete any beer reviews
+
+**Fulfilment**
+
+Sub-story fulfilment:
+
+**User Story:**
+Be informed when I have posted a comment, so that I can be assured that I have submitted the comment
+
+**Fulfilment**
+
+
+**User Story:**
+Be informed when I have posted a review, so that I can be assured that I have submitted the review
+
+**Fulfilment**
+
+
+
+
+**User Story:**
+Be informed when I have updated a review, so that I can be assured that I have updated the review
+
+**Fulfilment**
+
+
+
+
+**User Story:**
+Be informed when I have deleted a review, so that I can be assured that I have deleted the review
+
+**Fulfilment**
+
+
+
+
+**User Story:**
+When viewing a single beer review, post a comment, so that I can share my thoughts on the beer and review
+
+**Fulfilment**
+
+
+**User Story:**
+When viewing a single beer review, upvote it, so that I show my approval of the review if I like it
+
+**Fulfilment**
+
+
+**User Story:**
+When viewing a single beer review, downvote it, so that I can show my disapproval of the review if I do not like it
+
+**Fulfilment**
+
+
+
+#### **Rejected Registered user User Story explanations**
+
+**User Story:**
+Be able to upvote comments, so that I can show my approval of comments I agree with
+
+**Explanation**
+
+
+**User Story:**
+Be able to downvote comments, so that I can show my disapproval of comments I disagree with
+
+**Explanation**
+
+
+**User Story:**
+Be able to access the update_review page from within the user_reviews page, so that I can easily navigate to the update form 
+
+**Explanation**
+
+
+**User Story:**
+Be able to access the delete_review page from within the user_reviews page, so that I can easily navigate to the deletion form
+
+**Explanation**
+
 
 ## **Other manual testing**
 
@@ -1672,7 +2080,7 @@ After this reformatting, validation returned no errors.
 
 ![screenshot of user/forms.py validation](screenshots/user-forms-validation.PNG)
 
-#### U**ser views.py**
+#### **User views.py**
 
 Validation returned 4 Line Too Long errors. 2 of these were from overly-long doc-strings, which were easily corrected. The other 2 were from very long import statements at the top of the file. A similar fix to that employed directly above was used - stacking the imports vertically within brackets so that each has a new line.
 
