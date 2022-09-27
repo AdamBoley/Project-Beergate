@@ -221,7 +221,7 @@ These user stories were used to determine what all users should be able to do, r
 
 - As a generic user I can ...
     - Immediately determine the purpose of the application when first visiting, so that I can quickly decide whether to stay or leave
-    - Access the application from any web-enabled device, so that I can have a positive user experience regardless of how I am accessing the application
+    - Have a positive user experience regardless of how I am accessing the application, so that I can access the application from any web-enabled device
     - View all beer reviews so that I can choose one to read in full
         - At the same, not be overwhelmed by reviews so that I have a bad experience and cannot make a decision
     - Sort and filter all beer reviews so that I can see only the beer reviews that appeal to me
@@ -1515,11 +1515,30 @@ A record of all attempts made to login via the dummy admin honeypot page can be 
 Immediately determine the purpose of the application when first visiting, so that I can quickly decide whether to stay or leave
 
 **Fulfilment**
+The application's name of BeerGate, as well as the large images of 3 reviews of beers make it immediately obvious that this website concerns beer. The inclusion of meta-data about a beer, such as its brewery and alcohol content should indicate that this is a website for beer reviews. 
+
+screenshot - first-visit
+screenshot - first-visit-meta-data
 
 **User Story:**
-Access the application from any web-enabled device, so that I can have a positive user experience regardless of how I am accessing the application
+Have a positive user experience regardless of how I am accessing the application, so that I can access the application from any web-enabled device
 
 **Fulfilment**
+The Bootstrap CSS library has been used to provide responsivity across all device sizes. Screenshots of the default landing page and a review page on a PC, a tablet and a mobile device have been provided to illustrate this. I consider that additional screenshots at all three sizes for all pages would be unncessary. 
+
+
+![](screenshots/user_stories/generic/responsive-full-screen.PNG)
+
+![](screenshots/user_stories/generic/responsive-tablet.PNG)
+
+![](screenshots/user_stories/generic/responsive-mobile.PNG)
+
+![](screenshots/user_stories/generic/responsive-full-screen-review.PNG)
+
+![](screenshots/user_stories/generic/responsive-tablet-review.PNG)
+
+![](screenshots/user_stories/generic/responsive-mobile-review.PNG)
+
 
 **User Story:**
 View all beer reviews so that I can choose one to read in full
@@ -1527,21 +1546,38 @@ View all beer reviews so that I can choose one to read in full
 Sub-story: At the same, not be overwhelmed by reviews so that I have a bad experience and cannot make a decision
 
 **Fulfilment**
+All reviews can be accessed from the landing page. Initially, 3 are displayed, with more accessible via pagination.
+
+
+![](screenshots/user_stories/generic/index-reviews.PNG)
 
 Sub-story fulfilment:
+Pagination prevents the user from being swamped with reviews, so that they can be viewed in bite-size chunks.
 
+
+![](screenshots/user_stories/generic/index-reviews-pagination.PNG)
 
 **User Story:**
 Sort and filter all beer reviews so that I can see only the beer reviews that appeal to me
 
 **Fulfilment**
+12 pre-made sorting and filtering options are provided. A user may sort reviews so that those with the most upvotes or those with the oldest timestamp appear first. A user may also sort by type, displaying ales, stouts or lagers. They may also sort by colour, displaying pale, golden, amber or dark beers. Finally, they may sort by how the beer was served - bottled or on draught. 2 screenshots are provided showing this - 1 for sorting by the highest number of upvotes and another for filtering by the ale type. 
 
+
+![](screenshots/user_stories/generic/index-ales.PNG)
+
+![](screenshots/user_stories/generic/index-most-upvotes.PNG)
 
 **User Story:**
 View any single beer review in its entirety so that I can read the full content
 
 **Fulfilment**
+The entirety of each review card is a link to the full review of that beer. This is designed to aid tapping on a mobile device. Navigating to a full beer review allows the user to view all of the particulars of the review such as brewery, keyword descriptors, the review date and so on. The user may also the full review content, placed under the review heading. At the top of the review the image is prominently displayed, which indicates to the user that they are viewing a single review.
 
+
+![](screenshots/user_stories/generic/review-upper.PNG)
+
+![](screenshots/user_stories/generic/review-lower.PNG)
 
 **User Story:**
 Use a search function to search for beer reviews using keyword terms so that I can get a collection of reviews to read
@@ -1550,31 +1586,50 @@ Sub-story: If my search returned no results, have that reflected back to me, so 
 
 **Fulfilment**
 
-Sub-story fulfilment
+A search bar has been implemented to allow the user to search the database. This may be done by entering a search term into the bar and clicking search. When a search is performed, all of the reviews that are returned by the search function are displayed in a list, stacked vertically. The difference in design is intended to show that the search has executed properly.
+
+
+![](screenshots/user_stories/generic/search-bar-ale.PNG)
+
+![](screenshots/user_stories/generic/search-results-ale.PNG)
+
+Sub-story fulfilment:
+If the search returns no results, a message will be shown to the user in a text box informing them of this.
+
+
+![](screenshots/user_stories/generic/search-results-none.PNG)
+
 
 **User Story:**
-If an error occurs, be reassured that it has not broken the website, so that I do not have a poor user experience
+If an error occurs, be reassured that it has not broken the website, so that I do not have a poor user experience.
 
 **Fulfilment**
+The 500 error and 404 error pages are designed to be humourous, referencing either the (presumed) inebriated state of the user or of the application. This should reassure the user. Further reassurance should come from the mere fact that custom error pages are being displayed, which indicates to users that such errors are being handled bythe application. 
+
+![](screenshots/500_error.PNG)
+![](screenshots/404_error.PNG)
 
 
 **User Story:**
 If an error occurs, have a means of resetting the website or getting out of the error, so that I can continue using the site
 
 **Fulfilment**
+Both the 404 and 500 error pages contain links to go back to the landing page. In addition, both extend the base template, so the full navbar can be used to continue using the application.
 
 
 #### **Rejected Generic user User Story explanations**
 
 **User Story:**
-Chain multiple sorting and filtering criteria together on the landing page to more precisely control the review I can see
+Chain multiple sorting and filtering criteria together on the landing page to more precisely control the review I can see.
 
 **Explanation**
+Chaining multiple sorting and filtering criteria together requires building querysets dynamically. This is currently beyond my skills, but it has been identified as a piece of future work. In any case, the search bar exists to handle sorting and filtering beyond the pre-defined options. 
 
 **User Story:**
-Have my sorting or filtering criteria reflected back to me so that I know which criteria I have applied
+Have my sorting or filtering criteria reflected back to me so that I know which criteria I have applied.
 
 **Explanation**
+Echoing the sorting and filtering criteria back to the user requires, as far as I understand it, defining a custom context within a get method, as several views in reviews/views.py have. However, since the sorting and filtering views do not use get methods, I was unable to implement this. Nonetheless, this has been identified as piece of future work.
 
 
 ### **Unregistered user User Story testing**
@@ -1583,12 +1638,15 @@ Have my sorting or filtering criteria reflected back to me so that I know which 
 Sign-up and create an account, so that I can access the full functionality of the application
 
 **Fulfilment**
+Sign-up and account creation is provided by the Django AllAuth library. Signing up is easily achieved by clicking on the Sign Up button on the navbar. This takes the user to the sign-up page. There, all the user need do is provide a username and a password, which they must provide twice. The default password strength checking of 8 characters is in place. Providing an email is optional. There are no additional account verification proceedures in place. 
 
+![](screenshots/user_stories/unregistered/sign-up.PNG)
 
 **User Story:**
 Sign-in to that created account, so that I can access the full functionality of the application
 
 **Fulfilment**
+By default, once a user has created an account, they are signed into it automatically, since there is no requirement to verify that account.
 
 ### **Registered user User Story testing**
 
@@ -1948,7 +2006,7 @@ Validation of this page returned no errors, and no errors were encountered when 
 
 ![screenshot of update-review-submitted-validation](screenshots/update-review-submitted-validation.PNG)
 
-##### U**pdate_review page when signed out**
+##### **Update_review page when signed out**
 
 The tab-duplication trick was used to generate this page. Validation of this page returned no errors. It did not trigger a 500 server error as the user_reviews page does when the same trick is applied, but this is acceptable, since the templating language handles this.
 
