@@ -291,7 +291,7 @@ This section discusses the features and pages of BeerGate and the design choices
 
 BeerGate uses a single base template file that is applied to every page. This provides a consistent user experience. The base template contains a Bootstrap navbar and a small footer. The HTML code from the other templates is injected into a central `main` element. The background image used is one of a tall glass of beer, the same image used in the [first Beergate project](https://adamboley.github.io/bootstrap-experimentation/). A 50% opacity dark background has been applied over this image to darken it off. This is because the unmodified image is particularly bright and eye-catching. The unmodified image is below:
 
-(undarkened background image)
+![](screenshots/bg2.jpg)
 
 ## **Header and Navbar**
 
@@ -301,21 +301,24 @@ All users, regardless of authentication status, may view the default landing pag
 
 If the user is signed out or has not yet created an account, their navigation options beyond those above are limited to either signing-in to an extant account or creating a new account. A user may create an account by clicking on the `Sign Up` button, or sign in to an existing account by clicking the `Sign In` button.
 
-If the user is signed-in, they have more navigation options. The user may click on the `Add a review` button to be taken to a page where they may create and upload a beer review of their own. The `Signed in as <username>` button works like the `account actions` or `your profile` buttons of other websites. This button has two functions - firstly it displays the user's username, letting them know that they are signed in, and secondly it is a dropdown menu that contains account options. There are three account options. Firstly, users may access all of the reviews that they have authored and that have been approved by clicking the `My reviews` option. Secondly, users may change their account password by clicking the `Change password` option. Thirdly, users may sign out by clicking the `Sign Out` option. 
+If the user is signed-in, they have more navigation options. The user may click on the `Add a review` button to be taken to a page where they may create and upload a beer review of their own. The `Signed in as <username>` button works like the `account actions` or `your profile` buttons of other websites. This button has two functions - firstly it displays the user's username, letting them know that they are signed in, and secondly it is a dropdown menu that contains account options. There are three account options. Firstly, users may access all of the reviews that they have authored and that have been approved by clicking the `My reviews` option. Secondly, users may change their account password by clicking the `Change password` option. Thirdly, users may sign out by clicking the `Sign Out` option.
 
-Final navbar screenshot:
+![](screenshots/features/navbar.PNG)
+![](screenshots/features/navbar-collapsed.PNG)
 
 ## **Footer**
 
 The footer contains standard copyright information that identifies BeerGate as my intellectual property. 
 
-Final footer screenshot:
+![](screenshots/features/)
 
 ## **Landing page**
 
 The landing page is the first template rendered to the user when they visit the deployed project - [Beergate](https://beergate.herokuapp.com/). The landing page is rendered from `templates/index.html` using the `ReviewList` view. The main content of the landing page are 3 'review cards', so called because each holds a link to a particular review, and because each is created using a Bootstrap card. 
 
 Final Landing page screenshot:
+![](screenshots/features/landing-page.PNG)
+![](screenshots/features/landing-page-mobile.PNG)
 
 ### **Review cards**
 
@@ -324,6 +327,7 @@ Each review card provides a brief overview snippet of a particular beer review. 
 The review page is discussed in more detail [below](#review-page).
 
 Single review card screenshot:
+![](screenshots/features/review-card.PNG)
 
 ### **Pagination**
 
@@ -332,6 +336,7 @@ The landing page is set to display review cards in batches of 3. Further reviews
 Pagination was implemented to save mobile users from having to endlessly scroll through reviews. 
 
 Screenshot of pagination bar:
+![](screenshots/features/index-pagination.PNG)
 
 ### **Sorting and Filtering**
 
@@ -350,6 +355,7 @@ Each of these sorting and filtering functions is rendered using its own view usi
 These options, particularly the filtering options are necessarily broad and hence will not catch every review, as reviews submitted with a type or colour that does not match these filters will not be displayed. The intention is to provide broad, common filters to users. The search bar acts as a necessary companion, as it allows more specific and targetted searches. 
 
 Final screenshot of sorting and filtering bar:
+![](screenshots/features/sorting-filtering.PNG)
 
 ## **Review page**
 
@@ -364,42 +370,51 @@ Additionally, at the bottom of the card, there is a back button that directs the
 If the the user is signed-in, and if the user is the author of that review, then they may update their review or delete it using the named buttons
 
 Final screenshot of upper review page:
+![](screenshots/features/review-upper.PNG)
 
 Final screenshot of lower review page:
+![](screenshots/features/review-lower.PNG)
 
 Final screenshot of comment submission message:
+![](screenshots/user_stories/registered/add-comment-success.PNG)
 
 ## **Add Review page**
 
-The add_review page is rendered using the add_review template and the AddReview view. 
+The add_review page is rendered using the add_review template and the AddReview view.
 
 The add_review page allows a user to write and submit a beer review of their own. This is done via a form. The user must enter all of the necessary information about the beer - the name, brewery, type, colour, alcohol content, some keyword descriptors, their full review, and then their score in each of 4 categories - aroma, appearance, taste and aftertaste. The hops field is optional, as I considered that a user may not have ready access to this information. The user may also upload an image, though this is optional. If no image is uploaded, the review will display a placeholder image. The user must select whether the beer was served bottled or on draught, defaulting to bottled.
 
 As with review comments, reviews are not automatically displayed, as they must be approved by an administrator. When submitted, a message will display informing the user of this. This is to ensure that a user is not using the add_review page to post malicious, offensive or inappropriate content.
 
-Final screenshot of upper add review page:
+Final screenshots of add review page:
+![](screenshots/features/add-review-upper.PNG)
+![](screenshots/features/add-review-mid.PNG)
+![](screenshots/features/add-review-lower.PNG)
 
-Final screenshot of lower add review page:
-
-Final screenshot of review submission message
+Final screenshot of review submission message:
+![](screenshots/user_stories/registered/add-review-success.PNG)
 
 ## **Update Review page**
 
 The update_review page is rendered using the update_review template and the UpdateReview view. It functions similarly to the add_review template as the form uses the same form template and fields, except that the form fields are pre-populated with the extant records. A user may update any of the review's information, including the image. When submitted, the record is automatically disapproved, and a text box displays informing the user of this. This is to ensure that a user is not using the update functionality, which by default does not automatically disapprove a review, to post malicious, offensive or inappropriate content.
 
-Final screenshot of upper update review page:
+Final screenshots of update review page:
+![](screenshots/features/update-review-upper.PNG)
+![](screenshots/features/update-review-mid.PNG)
+![](screenshots/features/update-review-lower.PNG)
 
-Final screenshot of lower update review page:
-
-Final screenshot of review update message
+Final screenshot of review update message:
+![](screenshots/user_stories/registered/update-review-success.PNG)
 
 ## **Delete Review page**
 
 The delete_review page is rendered using the delete_review template and the DeleteReview view. It is a simple template, and allows a user to delete a particular review. Rather than having a simple button to do this, I considered that placing the actual delete button inside a modal would provide a superior user experience, to prevent a review being deleted by accident. In this way, a user must actively seek to delete a review. When a review is deleted, the review no longer exists in the database, so the user is redirected back to the homepage. 
 
 Final screenshot of delete review page:
+![](screenshots/user_stories/registered/delete-review.PNG)
 
 Final screenshot of delete review page with confirmation modal active:
+![](screenshots/user_stories/registered/delete-review-modal.PNG)
 
 ## **Search Results page**
 
@@ -410,8 +425,13 @@ The reasoning for placing the entirety of each search result within an anchor el
 The search_results page supports pagination, as a search could return dozens of records.
 
 Final screenshot of upper search results page:
+![](screenshots/features/search-results-upper.PNG)
 
 Final screenshot of lower search results page:
+![](screenshots/features/search-results-upper.PNG)
+
+Final screenshot of search results pagination:
+![](screenshots/features/search-results-pagination.PNG)
 
 ## **User Reviews page**
 
@@ -421,21 +441,24 @@ The idea behind the implementation of this page is to allow a user to quickly se
 
 The current build of the UserReviews view does not allow for pagination. I recognise that this is an area of potential improvement.
 
-Final screenshot of upper user_reviews page:
-
-Final screenshot of lower user_reviews page:
+Final screenshot of user_reviews page:
+![](screenshots/features/user-reviews.PNG)
 
 ## **Sign In, Sign Out, Sign Up and Change Password pages**
 
 These pages are modified versions of the standard AllAuth templates that can be copied over from the site-packages directory with the `cp -r ../.pip-modules/lib/python3.8/site-packages/allauth/templates/* ./templates` command. A new app called 'user' was started to hold the views, forms and urls that control these templates, primarily to apply the Bootstrap `form-control` class that makes the input elements smooth and nice to use with user feedback.
 
 Final screenshot of Sign In page:
+![](screenshots/user_stories/registered/sign-in.PNG)
 
 Final screenshot of Sign Out page:
+![](screenshots/user_stories/registered/sign-out.PNG)
 
 Final screenshot of Sign Up page:
+![](screenshots/user_stories/unregistered/sign-up.PNG)
 
 Final screenshot of Change Password page:
+![](screenshots/user_stories/registered/change-password.PNG)
 
 ## **Messages**
 
@@ -443,13 +466,45 @@ Late in development, I noted that when a user changes their password, they are n
 
 I noted that, for some reason, the close button for the alert message is not positioned to the right-hand-side, as might be expected, instead appearing directly next to the text. Setting the messages div element to have `position-relative` and the close button to have `position-absolute` and the using the `top-25 end-0` classes solved this.
 
+Sign in success message:
+![](screenshots/user_stories/registered/sign-in-success.PNG)
+
+Sign out success message:
+![](screenshots/user_stories/registered/sign-out-success.PNG)
+
+Sign up success message:
+![](screenshots/user_stories/unregistered/sign-up.PNG)
+
+Change password success message:
+![](screenshots/user_stories/registered/change-password-success.PNG)
+
+
 ## **404 and 500 error pages**
 
 At the urging of my Mentor, I created custom 404 and 500 error pages. These are simple pages, designed to be humourous so as to reassure the user that they have not irreversibly broken BeerGate. Both pages provide links back to the landing page.
 
+404 page:
+![](screenshots/404_error.PNG)
+
+500 page:
+![](screenshots/500_error.PNG)
+
 ## **Admin Panel**
 
-Discussion of admin panel featires + screenshots
+As a Django project, BeerGate has an admin panel that is only accessible to superusers. Once they have accessed the admin panel, superusers may:
+- List all submitted beer reviews
+- Update and delete any submitted review
+- Change the approval status of a review so that it will appear on the main application
+- List all submitted comments
+- Update and delete and submitted comment
+- Change the approval status of a comment so that it will appear on the review page of its parent beer review
+- List all authenticated users
+- Delete any user
+- Edit the information of any user
+- Promote any user to staff or superuser status
+- Review any attempts to sign in to admin panel via the dummy admin honeypot page
+
+Screenshots of the various featurs of the admin panel are available in the [validation section](#admin-user-user-story-testing)
 
 # **Function**
 
@@ -946,7 +1001,8 @@ Rejected:
 # **Future Work**
 
 Future work:
-- implement upvotes / downvotes feature for Comments
+- Implement upvotes / downvotes feature for Comments, possibly by using asynchronous upload
+
 - Display number of approved comments attached to each review on the index, search_results and user_reviews pages. [This article](https://stackoverflow.com/questions/50365624/display-total-number-of-comments-related-to-each-object-in-a-list-view) may assist
 
 - Extend User model to include a profile picture and other information - display this on the navbar and below each beer review
@@ -954,8 +1010,6 @@ Future work:
 - Add higher-level AllAuth functionality - social media sign in, password complexity, confirmation emails, etc
 
 - Modify UserSignUpForm in user/forms.py to include additional first_name and last_name fields
-
-
 
 
 # **Bugs**
