@@ -1654,13 +1654,19 @@ By default, once a user has created an account, they are signed into it automati
 Sign in to a previously created account, so that I can access the full functionality of the application
 
 **Fulfilment**
+If the user has previously created an account, they may sign in to that account by clicking the `Sign In` button on the navbar. This brings the user to the Sign In page. All they need do is provide their username and password, and then click the Sign In button. Once signed in, the user is redirected back to the default landing page, where a flash message will display informing them that they have successfully signed in. 
 
+sign-in
+sign-in-success
 
 **User Story:**
 Change the password for that account, so that I can make it more memorable, or if the account has been compromised
 
 **Fulfilment**
+A user may change their password by clicking on the `Signed in as <username>` button on the navbar. This opens a dropdown menu. The user may then select the Change Password option. This brings the user to the Change Password page. There, they must enter their old password, and a new password twice. The new password must be sufficiently different in order to be valid. The user must then click the Change Password button. Once their password has been changed, the user is redirected back to the default landing page, where a flash message will diplay informing them that they have successfully changed their password.
 
+change-password
+change-password-success
 
 **User Story:**
 Sign-out easily, when I am already signed-in, so that I can be sure that I have closed my session securely
