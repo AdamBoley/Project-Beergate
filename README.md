@@ -259,8 +259,8 @@ These user stories were used to determine what registered users specifically sho
     - Write a beer review easily, so that I can share my thoughts on a beer with the community
         - Apply rich text formatting to the content of my review, so that I can better express myself and provide additional structure to my review
         - upload an image to my review, so that I can show other users what the beer looks like
-    - If signed in, easily list all of the reviews that I have written, so that I can see how many I have written and easily access them
-        - If I have written no reviews, have that reflected back to me, that I know that I have not written any
+    - If signed in, easily list all of the reviews that I have written, so that I can easily access them
+        - If I have written no reviews, have that reflected back to me, so that I know that I have not written any
     - Easily update any beer reviews that I have written, so that I can improve or modify the content
     - Easily delete any beer reviews that I have written, so that I can delete a review that I am not happy with
         - At the same time, require some effort to be put in to the deletion process, so that I cannot accidentally delete any beer reviews
@@ -1656,8 +1656,8 @@ Sign in to a previously created account, so that I can access the full functiona
 **Fulfilment**
 If the user has previously created an account, they may sign in to that account by clicking the `Sign In` button on the navbar. This brings the user to the Sign In page. All they need do is provide their username and password, and then click the Sign In button. Once signed in, the user is redirected back to the default landing page, where a flash message will display informing them that they have successfully signed in. 
 
-sign-in
-sign-in-success
+![](screenshots/user_stories/registered/sign-in.PNG)
+![](screenshots/user_stories/registered/sign-in-success.PNG)
 
 **User Story:**
 Change the password for that account, so that I can make it more memorable, or if the account has been compromised
@@ -1665,19 +1665,27 @@ Change the password for that account, so that I can make it more memorable, or i
 **Fulfilment**
 A user may change their password by clicking on the `Signed in as <username>` button on the navbar. This opens a dropdown menu. The user may then select the Change Password option. This brings the user to the Change Password page. There, they must enter their old password, and a new password twice. The new password must be sufficiently different in order to be valid. The user must then click the Change Password button. Once their password has been changed, the user is redirected back to the default landing page, where a flash message will diplay informing them that they have successfully changed their password.
 
-change-password
-change-password-success
+![](screenshots/user_stories/registered/change-password.PNG)
+![](screenshots/user_stories/registered/change-password-success.PNG)
 
 **User Story:**
 Sign-out easily, when I am already signed-in, so that I can be sure that I have closed my session securely
 
 **Fulfilment**
+A user may sign out by opening the `Signed in as <username>` dropdown menu and selecting the Sign Out option. This brings them to the Sign Out page. To sign out, the user must merely click the Sign Out button. Once signed out, the user will be redirected back to the default landing page where a flash message will display informing them that they have successfully signed out. 
+
+![](screenshots/user_stories/registered/sign-out.PNG)
+![](screenshots/user_stories/registered/sign-out-success.PNG)
 
 
 **User Story:**
 Have my sign-in status reflected back to me, so that I can be sure that I have signed-in
 
 **Fulfilment**
+When a user is signed in, a dropdown menu item is injected into the navbar. The title of this dropdown menu holds the text `Signed in as <username>`, with the user's actual username taking the place of `<username>`. If a user has several accounts, such as I made when developing BeerGate, this informs which account they are using. When the user is signed out, this dropdown menu disappears and is replaced by two buttons that allow the user to sign-in or sign-up, thus making it clear that they are not signed in.
+
+![](screenshots/user_stories/registered/dropdown-menu-adam.PNG)
+![](screenshots/user_stories/registered/dropdown-menu-robert.PNG)
 
 
 **User Story:**
@@ -1687,25 +1695,43 @@ Sub-story 1: Apply rich text formatting to the content of my review, so that I c
 Sub-story 2: upload an image to my review, so that I can show other users what the beer looks like
 
 **Fulfilment**
+A beer review may be written by signing in to a previously created account or creating a new account, and then clicking the `Add a review` button on the navbar. This brings the user to the add_review page. The main content of this page is a form that the user must fill out with the pertinent information about the beer, such as its name, brewery, alcohol content and so on. The image and hops fields are optional, since I considered that the user may not be able to source an image of the beer, and may not be able to determine the hops of the beer. Once all mandatory fields have been filled out, the user may submit their review by clicking the submit button. Once they have done so, the page reloads with a success message that informs the user that their review requires approval.
 
-Sub-story 1 fulfilment:
+*Sub-story 1 fulfilment:*
+The add_review form contains rich text editor for the content field. This is, if you will, the meat of the review. As I wanted the content to be formattable, I specifically chose to use a rich text editor. The standard rich text editor ships with many options, which have been cut down considerably in order to simplify the process. The user may apply **bold**, *italics*, <u>underlines</u> and ~~strikethroughs~~ to their text, as well as remove those styles. The user may also add ordered and unordered lists to their review, as well as links. Finally, they may expand the rich text editor to full-screen size and activate a help menu.
 
-Sub-story 2 fulfilment:
+*Sub-story 2 fulfilment:*
+The add_review form contains an image upload field. Using this, the user may upload an image from their device. This image is then saved to Cloudinary. By default, the rich text editor accepts images. However, to simplify matters, I have diabled this option - the user may only upload one image using the image upload field.
 
+![](screenshots/user_stories/registered/add-review.PNG)
+![](screenshots/user_stories/registered/add-review-image.PNG)
+![](screenshots/user_stories/registered/add-review-rich-text-editor.PNG)
 
 **User Story:**
-If signed in, easily list all of the reviews that I have written, so that I can see how many I have written and easily access them
+If signed in, easily list all of the reviews that I have written, so that I can easily access them
 
-Sub-story: If I have written no reviews, have that reflected back to me, that I know that I have not written any
+Sub-story: If I have written no reviews, have that reflected back to me, so that I know that I have not written any
 
 **Fulfilment**
+A user can list all of the reviews that they have written by signing-in, opening the `Signed in as <username>` dropdown menu and selecting the My Reviews option. This brings the user to the user_reviews page. If the user has written any reviews and if any of those have been approved, they will be listed here. As with the landing page review cards, the entirety of each card is an anchor element linked to that review, so the user can click or tap anywhere to be redirected to that review.
 
-Sub-story fulfilment:
+*Sub-story fulfilment:*
+The view for the user_reviews page has a comprehensive IF/ ELIF statement inside its get method. This IF / ELIF statement checks to see if the user has written no reviews, and so if renders the page with a custom context. This context triggers some templating language to display a text box that informs the user of this.
+
+![](screenshots/user_stories/registered/use-case-1.PNG)
+![](screenshots/user_stories/registered/use-case-2.PNG)
+![](screenshots/user_stories/registered/use-case-3.PNG)
+![](screenshots/user_stories/registered/use-case-4.PNG)
+![](screenshots/user_stories/registered/use-case-5.PNG)
 
 **User Story:**
 Easily update any beer reviews that I have written, so that I can improve or modify the content
 
 **Fulfilment**
+If the user navigates to a review that they have written and that has been approved, and finds that they do not like any of its content, they may update it by clicking the `Edit` button at the bottom of the review. This brings them to the update_review page. This page is similar to the add_review page since it uses the same form. However, this page is rendered by the UpdateReview view, which extends the generic UpdateView. This pre-populates the form with extant data, allowing the user to update any or all of the fields without having to re-add any data. Once the user has updated the form to their liking, they can submit it by clicking the Update button. This reloads the page and displays a text box informing the user that their review has been updated successfully and must be re-approved by an administrator.
+
+
+![](screenshots/user_stories/registered/update-review.PNG)
 
 
 **User Story:**
@@ -1714,57 +1740,76 @@ Easily delete any beer reviews that I have written, so that I can delete a revie
 Sub-story: At the same time, require some effort to be put in to the deletion process, so that I cannot accidentally delete any beer reviews
 
 **Fulfilment**
+If the user navigates to a review that they have written and that has been approved, and finds that they do not like it and also that they do not wish to update it, they may delete it by clicking the Delete button at the bottom of the page. This brings them to the delete_review page. The user may delete their review by clicking the Delete review button. This opens a modal where the user must confirm deletion of the their review.
 
-Sub-story fulfilment:
+*Sub-story fulfilment:*
+The use of the modal ensures that the user cannot accidentally delete their review and must put some effort into the process.
+
+![](screenshots/user_stories/registered/delete-review.PNG)
+![](screenshots/user_stories/registered/delete-review-modal.PNG)
+
 
 **User Story:**
 Be informed when I have posted a comment, so that I can be assured that I have submitted the comment
 
 **Fulfilment**
+When a user posts a comment on a review by pressing the Submit button, the review page reloads with a new context. The rich text editor for adding a comment is removed and a text box is added in its place informing the user that their comment has been submitted and that it requires approval.
 
+add-comment-success
+![](screenshots/user_stories/registered/add-comment-success.PNG)
 
 **User Story:**
 Be informed when I have posted a review, so that I can be assured that I have submitted the review
 
 **Fulfilment**
+When the user has submitted a review, the add_review page reloads and displays a success message that informs that their review must be approved by an administrator
 
-
-
+add-review-success
+![](screenshots/user_stories/registered/add-review-success.PNG)
 
 **User Story:**
 Be informed when I have updated a review, so that I can be assured that I have updated the review
 
 **Fulfilment**
+When the user has updated a review, the update_review page reloads and displays a success message that informs that their review must be re-approved by an administrator
 
 
-
+![](screenshots/user_stories/registered/update-review-success.PNG)
 
 **User Story:**
 Be informed when I have deleted a review, so that I can be assured that I have deleted the review
 
 **Fulfilment**
-
-
-
+Because the delete_review page deletes a review, that review no longer exists in the database, so the user cannot be redirected back to it with a success message displayed. Instead, the user is redirected back to the default landing page. The user can check to see if their review has been deleted by navigating to the My Reviews page via the dropdown menu. There, they should note that their review no longer exists.
 
 **User Story:**
 When viewing a single beer review, post a comment, so that I can share my thoughts on the beer and review
 
 **Fulfilment**
+The review page includes a rich text editor that allows a user to submit a comment if they are signed in.
+
+![](screenshots/user_stories/registered/review-comment.PNG)
 
 
 **User Story:**
 When viewing a single beer review, upvote it, so that I show my approval of the review if I like it
 
 **Fulfilment**
+Signed-in users may upvote a review by clicking on the `thumbs-up` icon. They may remove this upvote by clicking on it again or by clicking on the `thumbs-down` icon to add a downvote.
+
+![](screenshots/user_stories/registered/upvote-none.PNG)
+![](screenshots/user_stories/registered/upvote-added.PNG)
+
 
 
 **User Story:**
 When viewing a single beer review, downvote it, so that I can show my disapproval of the review if I do not like it
 
 **Fulfilment**
+Signed-in user may downvote a review by clicking on the `thumbs-down` icon. They may remove this upvote by clicking on it again or by clicking on the `thumbs-up` icon to add an upvote.
 
-
+![](screenshots/user_stories/registered/downvote-none.PNG)
+![](screenshots/user_stories/registered/downvote-added.PNG)
 
 #### **Rejected Registered user User Story explanations**
 
@@ -1772,24 +1817,28 @@ When viewing a single beer review, downvote it, so that I can show my disapprova
 Be able to upvote comments, so that I can show my approval of comments I agree with
 
 **Explanation**
+The current model of upvoting and downvoting reloads the page using the HttpResponseRedirect method, supplying the primary key of the review so that the browser knows which review to render. Though comments are related to parent reviews, I was unable to retrieve the primary key of the review that a particular comment is related to. I looked into asynchronous form submission using AJAX but did not get anywhere. This item has been added to the list of features to develop in future.
 
 
 **User Story:**
 Be able to downvote comments, so that I can show my disapproval of comments I disagree with
 
 **Explanation**
+See above - the same logic applies.
 
 
 **User Story:**
 Be able to access the update_review page from within the user_reviews page, so that I can easily navigate to the update form 
 
 **Explanation**
+Technically speaking, this is very easy to do, since the primary key of each review is accessible within each review injected into the user_reviews page. However, since each review is contained within an anchor element, which makes the entire card clickable, further anchor elements cannot be added. I could have removed the card-level anchor element to enable this feature, but chose not to so as to make this page easier to use from a mobile device.
 
 
 **User Story:**
 Be able to access the delete_review page from within the user_reviews page, so that I can easily navigate to the deletion form
 
 **Explanation**
+See above - the same logic applies
 
 
 ## **Other manual testing**
@@ -1940,7 +1989,7 @@ After apply the fixes documented directly below, validation returned no errors.
 
 ![screenshot of user-reviews-use-case-1-validation](screenshots/user-reviews-use-case-1-validation.PNG)
 
-##### U**se case 2 - user has one review awaiting approval**
+##### **Use case 2 - user has one review awaiting approval**
 
 When validating this page, I transferred a single review to the 'Kieran' account and disapproved it. When I navigated to the user_reviews page, two text boxes displayed - one informing me that, as expected, a review had been written and was awating approval, and another informing me that I had no written any reviews. This was problematic, and I determined that I could not rely on the `{% empty %}` tag in the templating language, and hence that I needed to rework the UserReview view to explicitly handle this case and the above use-case 1. I reworked those files to more explicitly handle these use cases and redeployed to Heroku.
 
@@ -1954,7 +2003,7 @@ When validating this page, I assigned two reviews to the 'Adam' superuser accoun
 
 ![screenshot of user-reviews-use-case-3-validation](screenshots/user-reviews-use-case-3-validation.PNG)
 
-##### U**se case 4 - user has some reviews approved and some awaiting approval**
+##### **Use case 4 - user has some reviews approved and some awaiting approval**
 
 When validating this page, I assigned two reviews to the 'Adam' superuser account and approved one of them. When I navigated to the user_reviews page, the expected message that I had some of my reviews approved was displayed, along with the single displayed review. Validation of this page returned no errors.
 

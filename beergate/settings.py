@@ -206,8 +206,7 @@ SUMMERNOTE_CONFIG = {
         'toolbar': [
             ['style', ['bold', 'italic', 'underline', 'clear']],
             ['font', ['strikethrough']],
-            ['para', ['ul', 'ol', 'paragraph']],
-            ['table', ['table']],
+            ['para', ['ul', 'ol']],
             ['insert', ['link']],
             ['view', ['fullscreen', 'help']],
         ],
