@@ -103,6 +103,9 @@ Am I response image here
         - [Unregistered user User Story testing](#unregistered-user-user-story-testing)
         - [Registered user User Story testing](#registered-user-user-story-testing)
     - [Other Manual testing](#other-manual-testing)
+        - [Superuser adds a review in the admin panel](#superuser-adds-a-review-in-the-admin-panel)
+        - [Superuser edits a review in the admin panel](#superuser-edits-a-review-in-the-admin-panel)
+        - [Superuser adds or edits a comment in the admin panel](#superuser-adds-or-edits-a-comment-in-the-admin-panel)
     - [Validation testing](#validation-testing)
         - [HTML validation](#html-validation)
             - [Index](#index)
@@ -1894,26 +1897,44 @@ Be able to access the delete_review page from within the user_reviews page, so t
 **Explanation**
 See above - the same logic applies
 
+## Other Manual Testing
 
-## **Other manual testing**
 
-What happens when a login attempt is made via the dummy admin sign-in page?
+### Superuser adds a review in the admin panel
 
-Are these attempts viewable in the real admin panel?
+If the superuser adds Aroma, Appearance, Taste or Aftertaste scores that are above 10 or less than 1, then the review will not be created. This proves that the `validate_within_linits` function is working as intended. See screenshot below:
 
-What happens when the tab duplication trick is used?
+![](screenshots/other-testing/admin-number-fields-invalid.PNG)
 
-404 error testing - does 404 page display?
+If, when creating a review, the superuser fails to fill out any of the mandatory fields, the review will not be created. See screenshot below:
 
-500 error testing - does 500 page display?
+![](screenshots/other-testing/admin-mandatory-fields-not-filled.PNG)
 
-I was unable to find a way of deliberately triggering a 500 error. However, one of my goals was to automatically add an upvote to a review when it is submitted. I tried this with `user_review_form.instance.author = request.user` added to AddReview's `if user_review_form.is_valid()` block. When I filled out and submitted the form, a 500 error triggered, rendering the 500.html template. This is a somewhat roundabout way of tiggering a 500 error, but a valid one for testing purposes. 
 
-Are unregistered users unable to edit and delete reviews?
+### Superuser edits a review in the admin panel
 
-Are registered users unable to edit and delete reviews that do not belong to them?
+If the superuser edits a reviews' Aroma, Appearance, Taste or Aftertaste scores so that they are above 10 or less than 1, then the review will not be updated. This proves that the `validate_within_linits` function is working as intended. See screenshot below:
 
-What happens when the tab duplication trick is used and the user attempts to add a review, update a review or delete a review?
+![](screenshots/other-testing/admin-edit-number-fields-invalid-1.PNG)
+![](screenshots/other-testing/admin-edit-number-fields-invalid-2.PNG)
+
+
+If, when editng a review, the superuser delete data from any of the mandatory fields, the review will not be edited. See screenshot below:
+
+![](screenshots/other-testing/admin-edit-mandatory-fields-invalid.PNG)
+
+### Superuser adds or edits a comment in the admin panel
+
+If, when creating a comment, the superuser fails to fill out any of the mandatory fields, the comment will not be created. See screenshot below:
+
+![](screenshots/other-testing/admin-comment-invalid.PNG)
+
+If, when editing a comment, the superuser deletes data from any of the mandatory fields, the comment will not be edited. See screenshot below:
+
+![](screenshots/other-testing/admin-edit-comment-invalid.PNG)
+
+
+
 
 ## **Validation testing**
 
@@ -2013,7 +2034,7 @@ Validation returned no errors
 
 ![screenshot of review-comment-submitted-validation](screenshots/review-comment-submitted-validation.PNG)
 
-#### S**earch Results**
+#### **Search Results**
 
 The search_results page was validated twice - once for when a search was performed for `ale`, which returned several results, and once for when a search was performed for `cider`, which returned no results, as none of the reviews in the database match that search. This is because the search_results.html template has templating language that handles an empty queryset. Validation was carried out by page source upload. Screenshots were added, with the input box centered on a unique feature to prove that that page was validated. 
 
@@ -2137,7 +2158,7 @@ This page was validated by direct source code checking. Validation returned no e
 
 ![screenshot of delete-review-modal-active-validation](screenshots/delete-review-modal-active-validation.PNG)
 
-##### D**elete_review when signed out**
+##### **Delete_review when signed out**
 
 The tab-duplication trick was used to generate this page. Validation of this page returned no errors. It did not trigger a 500 server error as the user_reviews page does when the same trick is applied, but this is acceptable, since the templating language handles this.
 
@@ -2299,6 +2320,8 @@ This project was deployed to Heroku early on, as per the Django Blog walkthrough
 The large number of commits made between 8/9/22 to 9/9/22 were made with the intention of getting the CK editor and TinyMCE rich text editors working. Full commits were required because these editors failed to render only on the deployed version of BeerGate, whereas they worked perfectly on the local development server.
 
 These commits ultimately achieved nothing, except for some documentation regarding learning about how Django and Cloudinary work, and a minor fix to the AddReview that updated the name of the template being used. I considered deleting or reverting these commits but decided against this. Commit deletion is considered bad practice and commit reversion would achieve nothing, since the last commit made on 9/9/22 essentially restored the project to its last working state, except that the Review model's content field now uses a standard TextField instead of CK-editor's RichTextField or TinyMCE's HTMLField.
+
+BeerGate uses the Django Admin Honeypot library, which provides a dummy admin login page at `/admin/`. The actual admin login page is located at the URL ending in `/beergate-admin`.
 
 # **Credits**
 
