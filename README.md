@@ -106,6 +106,10 @@ Am I response image here
         - [Superuser adds a review in the admin panel](#superuser-adds-a-review-in-the-admin-panel)
         - [Superuser edits a review in the admin panel](#superuser-edits-a-review-in-the-admin-panel)
         - [Superuser adds or edits a comment in the admin panel](#superuser-adds-or-edits-a-comment-in-the-admin-panel)
+        - [Normal user adds a review without filling in mandatory field](#normal-user-adds-a-review-without-filling-in-mandatory-fields)
+        - [Normal user edits a review and deletes data in mandatory fields](#normal-user-edits-a-review-and-deletes-data-in-mandatory-fields)
+        - [Normal user submits an empty comment](#normal-user-submits-an-empty-comment-from-a-review-page)
+        - [Normal user adds a review with invalid integer values](#normal-user-adds-a-review-and-supplies-values-of-1-or-10-to-last-4-fields)
     - [Validation testing](#validation-testing)
         - [HTML validation](#html-validation)
             - [Index](#index)
@@ -1933,6 +1937,21 @@ If, when editing a comment, the superuser deletes data from any of the mandatory
 
 ![](screenshots/other-testing/admin-edit-comment-invalid.PNG)
 
+### Normal user adds a review without filling in mandatory fields
+
+![](screenshots/other-testing/frontend-add-review-mandatory-fields.PNG)
+
+### Normal user edits a review and deletes data in mandatory fields
+
+![](screenshots/other-testing/frontend-edit-review-mandatory-fields.PNG)
+
+### Normal user submits an empty comment from a review page
+
+If a user declines to enter any text in the rich text editor, then the page will reload and the user will get the comment submission success message, but no comment will appear in the admin panel. Whilst perhaps not ideal, it prevents users from spamming empty comments. The page will reload each time they press the submit button, presenting the success message. Malicious users will have to reload the page again to submit another empty comment.
+
+### Normal user adds a review and supplies values of <1 or >10 to last 4 fields
+
+The user add values of <1 or >10 to the Aroma, Appearance, Taste or Aftertaste fields, then the review will still appear to submit. However, it will not be valid and hence will not appear in the admin panel for approval. This is not ideal.
 
 
 
