@@ -10,6 +10,7 @@ Am I response image here
 - [Scope](#scope)
 - [Background](#background)
 - [Audience](#audience--users)
+- [Wireframes](#wireframes)
 - [User Stories](#user-stories)
     - [Admin user User Stories](#admin-user-user-stories)
     - [Generic user User Stories](#generic-user-user-stories)
@@ -198,6 +199,27 @@ This is where this project comes in. If a user finds and drinks a good beer, the
 # **Audience / Users**
 
 This project is aimed at the large community of beer drinkers in the UK who want to read reviews of different beers so that they can find more beers that they may want to try. 
+
+# **Wireframes**
+
+The original plan for BeerGate was for a much smaller and much less extensive site. Hence, the following wireframes are barely representative of the current iteration. However, for the sake of completeness, they are provided to show how BeerGate evolved over time.
+
+Index desktop:<br>
+
+![](wireframes/index%20-%20desktop.png)
+
+Index mobile: <br>
+
+![](wireframes/reviews%20-%20mobile.png)
+
+Review desktop: <br>
+
+![](wireframes/review-single%20-%20desktop.png)
+
+Review mobile: <br>
+
+![](wireframes/review-single%20-%20mobile.png)
+
 
 # **User Stories**
 
@@ -891,18 +913,12 @@ This section lists the tasks I assigned myself during development. Some are equi
 - Exhaustive manual testing - done
 - Give bugs section titles for each bug
 - Modify Reviews so that they have realistic content, not just Lorem Ipsum bulk text - done
-- Add screenshots of all pages to Readme
+- Add screenshots of all pages to Readme - done
+- Upload wireframes to readme - done
+- Have enough approved reviews in the database so that all sorting and filtering views work and can be demostrated - done
 
 
-To do:
 
-- Have enough approved reviews in the database so that all sorting and filtering views work and can be demostrated
-
-- Add a request to users to upvote or downvote reviews - "this helps push good reviews up the rankings"
-
-Readme:
-
-- Upload wireframes to readme
 - add line-breaks for clearer structure
 
 
@@ -2370,3 +2386,13 @@ The official [django-summernote](https://github.com/summernote/django-summernote
 - [The breakpoints documentation](https://getbootstrap.com/docs/5.2/layout/breakpoints/) was invaluable with enabling responsivity
 - [The spacing documemation](https://getbootstrap.com/docs/5.2/utilities/spacing/) was useful when setting margins and padding
 - [The cards documentation](https://getbootstrap.com/docs/5.2/components/card/) was very useful generally, as cards are used heavily in BeerGate to hold reviews and content
+
+Finally, in an effort to provide proper beer reviews for the content fields of the database records, I copied reviews written by fellow beer enthusiasts. Full credit for writing these goes to:
+- Fursty Ferret - https://hywelsbiglog.wordpress.com/2008/12/30/beer-review-badger-fursty-ferret/
+- Proper Job - https://beerwithus1.wordpress.com/2020/05/13/proper-job/
+- East Coast Pale Ale - https://lorenzobeerreviews.com/2021/02/02/beer-review-east-coast-ipa-pretty-decent-beer-co/#:~:text=A%20fantastic%20aroma%20packed%20with,with%20a%20nice%20soft%20mouthfeel
+- Tanglefoot - https://hywelsbiglog.wordpress.com/2009/01/03/beer-review-badger-tangle-foot/
+- Hopping Hare - http://consensus-beowulf.blogspot.com/2014/04/beer-review-hopping-hare.html
+- Golden Champion - https://hywelsbiglog.wordpress.com/2008/01/27/beer-review-badger-golden-champion-ale/
+
+Credit to these original reviews is also provided inside the corresponding BeerGate reviews.
