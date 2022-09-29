@@ -18,7 +18,7 @@ Am I response image here
     - [Registered user User Stories](#registered-user-user-stories)
         - [Rejected Registered user User Stories](#rejected-registered-user-user-stories)
 - [Features](#features)
-    - [Based](#base)
+    - [Base](#base)
     - [Header and navbar](#header-and-navbar)
     - [Footer](#footer)
     - [Landing Page](#landing-page)
@@ -47,7 +47,7 @@ Am I response image here
                 - [Sorting Views](#sorting-views)
                 - [Filtering Views - type](#filtering-views---type)
                 - [Filtering Views - colour](#filtering-views---colour)
-                - [Filtering Views - served as](#filtering-views---servedas)
+                - [Filtering Views - served as](#filtering-views---served-as)
             - [Review View](#review-view)
             - [Search Results View](#search-results-view)
             - [User Reviews View](#user-reviews-view)
@@ -64,7 +64,6 @@ Am I response image here
         - [User Views](#user-views)
         - [User Forms](#user-forms)
         - [User URLs](#user-urls)
-- [Deployment](#deployment)
 - [Tasks](#tasks)
 - [Future Work](#future-work)
 - [Bugs](#bugs)
@@ -110,10 +109,13 @@ Am I response image here
         - [Normal user edits a review and deletes data in mandatory fields](#normal-user-edits-a-review-and-deletes-data-in-mandatory-fields)
         - [Normal user submits an empty comment](#normal-user-submits-an-empty-comment-from-a-review-page)
         - [Normal user adds a review with invalid integer values](#normal-user-adds-a-review-and-supplies-values-of-1-or-10-to-last-4-fields)
+        - [Does the 500 error page trigger properly](#does-the-500-error-page-trigger-properly)
+        - [Does the 404 error page trigger properly](#does-the-404-error-page-trigger-properly)
+        - [What happens when the user tries to upload an image from a mobile device](#what-happens-when-the-user-tries-to-upload-an-image-to-the-add-review-form-from-a-mobile-device)
     - [Validation testing](#validation-testing)
         - [HTML validation](#html-validation)
             - [Index](#index)
-                - [# Default - reviews sorted by newest](#default---reviews-sorted-by-newest)
+                - [Default - reviews sorted by newest](#default---reviews-sorted-by-newest)
                 - [Reviews sorted by most upvotes](#reviews-sorted-by-most-upvotes)
                 - [Reviews sorted by oldest](#reviews-sorted-by-oldest)
                 - [Reviews filtered by Ale type](#reviews-filtered-by-ale-type)
@@ -138,20 +140,20 @@ Am I response image here
                 - [Use case 4 - user has some reviews approved and some awaiting approval](#use-case-4---user-has-some-reviews-approved-and-some-awaiting-approval)
                 - [Use case 5 - user has all reviews approved](#use-case-5---user-has-all-reviews-approved)
             - [Add Review](#add-review)
-                - [Fresh Add Review form](#fresh-addreview-form)
+                - [Fresh Add Review form](#fresh-add-review-form)
                 - [Add Review form submitted](#add-review-form-submitted)
-                - [Add Review page when signed out](#addreview-page-when-signed-out)
+                - [Add Review page when signed out](#add-review-page-when-signed-out)
             - [Update Review](#update-review)
-                - [Prepopulated Update Review form](#pre-populated-updatereview-form)
+                - [Prepopulated Update Review form](#pre-populated-update-review-form)
                 - [Update Review form submitted](#update-review-form-submiited)
-                - [Update Review page when signed out](#updatereview-page-when-signed-out)
+                - [Update Review page when signed out](#update-review-page-when-signed-out)
             - [Delete Review](#delete-review)
                 - [Modal inactive](#modal-inactive)
                 - [Modal active](#modal-active)
             - [Account Sign In](#account-sign-in)
             - [Account Sign Out](#account-sign-out)
             - [Account Sign Up](#account-sign-up)
-            - [#Account Password Change](#account-password-change)
+            - [Account Password Change](#account-password-change)
         - [CSS validation](#css-validation)
         - [JS validation](#js-validation)
         - [Python validation](#python-validation)
@@ -164,7 +166,7 @@ Am I response image here
             - [Reviews urls.py](#reviews-urlspy)
             - [Reviews views.py](#reviews-viewspy)
             - [User forms.py](#user-formspy)
-            - [User view.py](#user-viewspy)
+            - [User views.py](#user-viewspy)
             - [User urls.py](#user-urlspy)
     - [Automated testing](#automated-testing)
 - [Technologies](#technologies)
@@ -479,8 +481,7 @@ Sign in success message:
 Sign out success message:
 ![](screenshots/user_stories/registered/sign-out-success.PNG)
 
-Sign up success message:
-![](screenshots/user_stories/unregistered/sign-up.PNG)
+Note that there is no message for signalling a successful sign-up, since the user is signed in automatically. When an account is created successsfully, the standard sign-in-success message is displayed.
 
 Change password success message:
 ![](screenshots/user_stories/registered/change-password-success.PNG)
@@ -625,7 +626,7 @@ ReviewListAmberColour filters out beers that do not have Amber as their colour.
 
 ReviewListDarkColour filters out beers that do not have Dark as their colour.
 
-##### **Filtering views - served_as**
+##### **Filtering views - served-as**
 
 These views are called ReviewListBottled and ReviewListDraught These function similarly to the default ReviewList view, filtering out those reviews that are not approved and ordering by descending timestamp order. These views also filter by the Review model served_as field.
 
@@ -1578,8 +1579,12 @@ Immediately determine the purpose of the application when first visiting, so tha
 **Fulfilment**
 The application's name of BeerGate, as well as the large images of 3 reviews of beers make it immediately obvious that this website concerns beer. The inclusion of meta-data about a beer, such as its brewery and alcohol content should indicate that this is a website for beer reviews. 
 
-screenshot - first-visit
-screenshot - first-visit-meta-data
+First visit review cards:<br>
+![](screenshots/user_stories/generic/first-visit.PNG)
+
+Review cards meta-data:<br>
+![](screenshots/user_stories/generic/first-visit-meta-data.PNG)
+
 
 **User Story:**
 Have a positive user experience regardless of how I am accessing the application, so that I can access the application from any web-enabled device
@@ -1753,6 +1758,7 @@ When a user is signed in, a dropdown menu item is injected into the navbar. The 
 Write a beer review easily, so that I can share my thoughts on a beer with the community
 
 Sub-story 1: Apply rich text formatting to the content of my review, so that I can better express myself and provide additional structure to my review
+<br>
 Sub-story 2: upload an image to my review, so that I can show other users what the beer looks like
 
 **Fulfilment**
@@ -1760,7 +1766,7 @@ A beer review may be written by signing in to a previously created account or cr
 
 *Sub-story 1 fulfilment:*
 The add_review form contains rich text editor for the content field. This is, if you will, the meat of the review. As I wanted the content to be formattable, I specifically chose to use a rich text editor. The standard rich text editor ships with many options, which have been cut down considerably in order to simplify the process. The user may apply **bold**, *italics*, <u>underlines</u> and ~~strikethroughs~~ to their text, as well as remove those styles. The user may also add ordered and unordered lists to their review, as well as links. Finally, they may expand the rich text editor to full-screen size and activate a help menu.
-
+<br>
 *Sub-story 2 fulfilment:*
 The add_review form contains an image upload field. Using this, the user may upload an image from their device. This image is then saved to Cloudinary. By default, the rich text editor accepts images. However, to simplify matters, I have diabled this option - the user may only upload one image using the image upload field.
 
@@ -1953,7 +1959,17 @@ If a user declines to enter any text in the rich text editor, then the page will
 
 The user add values of <1 or >10 to the Aroma, Appearance, Taste or Aftertaste fields, then the review will still appear to submit. However, it will not be valid and hence will not appear in the admin panel for approval. This is not ideal.
 
+### Does the 500 error page trigger properly
 
+A 500 error can be triggered by using the tab-duplication trick on the user-reviews page. To do this, sign in as any user, navigate to the user reviews page and duplicate the tab. Then sign out on the first tab and reload the second tab. The 500 error page should display. 
+
+### Does the 404 error page trigger properly
+
+A 404 error can be triggered by intentionally mistyping a URL. For example, click on the URL bar and then append `/revews/1/`, mimicking an attempt to navigate to the first review in the database. This triggers a 404 error and the 404 error page displays. 
+
+### What happens when the user tries to upload an image to the add review form from a mobile device
+
+This was easily tested using my personal mobile device. When the image upload field is tapped, the device opened its own file explorer system, allowing me to upload an image.
 
 ## **Validation testing**
 
@@ -2115,7 +2131,7 @@ The add_review page was validated 3 times - once for when the page has just been
 
 As the content of this page can change based on user actions without modifying the URL, direct validation by page source code was used.
 
-##### **Fresh add_review form**
+##### **Fresh add review form**
 
 When this page was validated, 10 errors were returned. Closer examination of the results reveals that these errors are all due to the formatting of the injected form, which I can do little to resolve.
 
@@ -2129,7 +2145,7 @@ When validating this page, I submitted a beer review using the form. I expected 
 
 ![screenshot of add-review-submitted-validation](screenshots/add-review-submitted-validation.PNG)
 
-##### **Add_review page when signed out**
+##### **Add review page when signed out**
 
 The tab-duplication trick was used to generate this page. Validation of this page returned no errors. It did not trigger a 500 server error as the user_reviews page does when the same trick is applied, but this is acceptable, since the templating language handles this.
 
@@ -2141,7 +2157,7 @@ The update_review page was validated 3 times - once for when the page has just b
 
 Prior to validation, I modified the UpdateReview view to remove the code that applies the `title()` method to the `hops` field, as I anticipated the same problem.
 
-##### **Pre-populated update_review form**
+##### **Pre-populated update review form**
 
 Validation of this page returned 10 errors. Closer inspection revealed that these errors were the same errors as those noted in the add_review page validation, and are related to formatting. As in that section, I can do little to resolve these errors, as I cannot directly control the layout.
 
@@ -2155,7 +2171,7 @@ Validation of this page returned no errors, and no errors were encountered when 
 
 ![screenshot of update-review-submitted-validation](screenshots/update-review-submitted-validation.PNG)
 
-##### **Update_review page when signed out**
+##### **Update review page when signed out**
 
 The tab-duplication trick was used to generate this page. Validation of this page returned no errors. It did not trigger a 500 server error as the user_reviews page does when the same trick is applied, but this is acceptable, since the templating language handles this.
 
@@ -2251,7 +2267,7 @@ After this reformatting, validation returned no errors.
 
 ![screenshot of reviews/admin.py validation](screenshots/reviews-admin-validation.PNG)
 
-#### R**eviews forms.py**
+#### **Reviews forms.py**
 
 Validation returned 5 Line Too Long errors. These mostly related to too-long strings. These were either cut down or split using line-breaks via the `\` character. After this reformatting, validation returned no errors.
 
@@ -2266,6 +2282,9 @@ Validation returned 6 Line Too Long errors. These were related to the field para
 #### **Reviews urls.py**
 
 Validation returned 6 Line Too Long errors. These were related to overly-long path parameters. To solve this, I split these so that each comma-separated path parameter is on its own line. To maintain consistent formatting, this was applied to all paths, not just the paths that had too-long lines. After this reformatting, validation returned no errors.
+
+Vertical stacking of path parameters:<br>
+![](screenshots/urls-vertical-stacking.PNG)
 
 ![screenshot of reviews/urls.py validation](screenshots/reviews-urls-validation.PNG)
 
