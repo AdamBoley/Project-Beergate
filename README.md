@@ -3,8 +3,6 @@
 
 ## Code Institute Portfolio Project 4 - a Full Stack website using the Django framework and a database
 
-Am I response image here
-
 # **Table of Contents**
 
 - [Scope](#scope)
@@ -351,6 +349,8 @@ The footer contains standard copyright information that identifies BeerGate as m
 The landing page is the first template rendered to the user when they visit the deployed project - [Beergate](https://beergate.herokuapp.com/). The landing page is rendered from `templates/index.html` using the `ReviewList` view. The main content of the landing page are 3 'review cards', so called because each holds a link to a particular review, and because each is created using a Bootstrap card. 
 
 Final Landing page screenshot:
+<br>
+
 ![](screenshots/features/landing-page.PNG)
 ![](screenshots/features/landing-page-mobile.PNG)
 
@@ -361,6 +361,7 @@ Each review card provides a brief overview snippet of a particular beer review. 
 The review page is discussed in more detail [below](#review-page).
 
 Single review card screenshot:
+<br>
 ![](screenshots/features/review-card.PNG)
 
 ### **Pagination**
@@ -370,6 +371,7 @@ The landing page is set to display review cards in batches of 3. Further reviews
 Pagination was implemented to save mobile users from having to endlessly scroll through reviews. 
 
 Screenshot of pagination bar:
+<br>
 ![](screenshots/features/index-pagination.PNG)
 
 ### **Sorting and Filtering**
@@ -389,6 +391,7 @@ Each of these sorting and filtering functions is rendered using its own view usi
 These options, particularly the filtering options are necessarily broad and hence will not catch every review, as reviews submitted with a type or colour that does not match these filters will not be displayed. The intention is to provide broad, common filters to users. The search bar acts as a necessary companion, as it allows more specific and targetted searches. 
 
 Final screenshot of sorting and filtering bar:
+<br>
 ![](screenshots/features/sorting-filtering.PNG)
 
 ## **Review page**
@@ -404,12 +407,15 @@ Additionally, at the bottom of the card, there is a back button that directs the
 If the the user is signed-in, and if the user is the author of that review, then they may update their review or delete it using the named buttons
 
 Final screenshot of upper review page:
+<br>
 ![](screenshots/features/review-upper.PNG)
 
 Final screenshot of lower review page:
+<br>
 ![](screenshots/features/review-lower.PNG)
 
 Final screenshot of comment submission message:
+<br>
 ![](screenshots/user_stories/registered/add-comment-success.PNG)
 
 ## **Add Review page**
@@ -421,11 +427,16 @@ The add_review page allows a user to write and submit a beer review of their own
 As with review comments, reviews are not automatically displayed, as they must be approved by an administrator. When submitted, a message will display informing the user of this. This is to ensure that a user is not using the add_review page to post malicious, offensive or inappropriate content.
 
 Final screenshots of add review page:
+<br>
 ![](screenshots/features/add-review-upper.PNG)
+<br>
 ![](screenshots/features/add-review-mid.PNG)
+<br>
 ![](screenshots/features/add-review-lower.PNG)
+<br>
 
 Final screenshot of review submission message:
+<br>
 ![](screenshots/user_stories/registered/add-review-success.PNG)
 
 ## **Update Review page**
@@ -433,11 +444,16 @@ Final screenshot of review submission message:
 The update_review page is rendered using the update_review template and the UpdateReview view. It functions similarly to the add_review template as the form uses the same form template and fields, except that the form fields are pre-populated with the extant records. A user may update any of the review's information, including the image. When submitted, the record is automatically disapproved, and a text box displays informing the user of this. This is to ensure that a user is not using the update functionality, which by default does not automatically disapprove a review, to post malicious, offensive or inappropriate content.
 
 Final screenshots of update review page:
+<br>
 ![](screenshots/features/update-review-upper.PNG)
+<br>
 ![](screenshots/features/update-review-mid.PNG)
+<br>
 ![](screenshots/features/update-review-lower.PNG)
+<br>
 
 Final screenshot of review update message:
+<br>
 ![](screenshots/user_stories/registered/update-review-success.PNG)
 
 ## **Delete Review page**
@@ -445,10 +461,14 @@ Final screenshot of review update message:
 The delete_review page is rendered using the delete_review template and the DeleteReview view. It is a simple template, and allows a user to delete a particular review. Rather than having a simple button to do this, I considered that placing the actual delete button inside a modal would provide a superior user experience, to prevent a review being deleted by accident. In this way, a user must actively seek to delete a review. When a review is deleted, the review no longer exists in the database, so the user is redirected back to the homepage. 
 
 Final screenshot of delete review page:
+<br>
 ![](screenshots/user_stories/registered/delete-review.PNG)
+<br>
 
 Final screenshot of delete review page with confirmation modal active:
+<br>
 ![](screenshots/user_stories/registered/delete-review-modal.PNG)
+<br>
 
 ## **Search Results page**
 
@@ -459,12 +479,15 @@ The reasoning for placing the entirety of each search result within an anchor el
 The search_results page supports pagination, as a search could return dozens of records.
 
 Final screenshot of upper search results page:
+<br>
 ![](screenshots/features/search-results-upper.PNG)
-
+<br>
 Final screenshot of lower search results page:
+<br>
 ![](screenshots/features/search-results-upper.PNG)
-
+<br>
 Final screenshot of search results pagination:
+<br>
 ![](screenshots/features/search-results-pagination.PNG)
 
 ## **User Reviews page**
@@ -476,6 +499,7 @@ The idea behind the implementation of this page is to allow a user to quickly se
 The current build of the UserReviews view does not allow for pagination. I recognise that this is an area of potential improvement.
 
 Final screenshot of user_reviews page:
+<br>
 ![](screenshots/features/user-reviews.PNG)
 
 ## **Sign In, Sign Out, Sign Up and Change Password pages**
@@ -483,15 +507,19 @@ Final screenshot of user_reviews page:
 These pages are modified versions of the standard AllAuth templates that can be copied over from the site-packages directory with the `cp -r ../.pip-modules/lib/python3.8/site-packages/allauth/templates/* ./templates` command. A new app called 'user' was started to hold the views, forms and urls that control these templates, primarily to apply the Bootstrap `form-control` class that makes the input elements smooth and nice to use with user feedback.
 
 Final screenshot of Sign In page:
+<br>
 ![](screenshots/user_stories/registered/sign-in.PNG)
-
+<br>
 Final screenshot of Sign Out page:
+<br>
 ![](screenshots/user_stories/registered/sign-out.PNG)
-
+<br>
 Final screenshot of Sign Up page:
+<br>
 ![](screenshots/user_stories/unregistered/sign-up.PNG)
-
+<br>
 Final screenshot of Change Password page:
+<br>
 ![](screenshots/user_stories/registered/change-password.PNG)
 
 ## **Messages**
@@ -501,14 +529,17 @@ Late in development, I noted that when a user changes their password, they are n
 I noted that, for some reason, the close button for the alert message is not positioned to the right-hand-side, as might be expected, instead appearing directly next to the text. Setting the messages div element to have `position-relative` and the close button to have `position-absolute` and the using the `top-25 end-0` classes solved this.
 
 Sign in success message:
+<br>
 ![](screenshots/user_stories/registered/sign-in-success.PNG)
-
+<br>
 Sign out success message:
+<br>
 ![](screenshots/user_stories/registered/sign-out-success.PNG)
 
 Note that there is no message for signalling a successful sign-up, since the user is signed in automatically. When an account is created successsfully, the standard sign-in-success message is displayed.
-
+<br>
 Change password success message:
+<br>
 ![](screenshots/user_stories/registered/change-password-success.PNG)
 
 
@@ -517,9 +548,11 @@ Change password success message:
 At the urging of my Mentor, I created custom 404 and 500 error pages. These are simple pages, designed to be humourous so as to reassure the user that they have not irreversibly broken BeerGate. Both pages provide links back to the landing page.
 
 404 page:
+<br>
 ![](screenshots/404_error.PNG)
-
+<br>
 500 page:
+<br>
 ![](screenshots/500_error.PNG)
 
 ## **Admin Panel**
@@ -916,11 +949,7 @@ This section lists the tasks I assigned myself during development. Some are equi
 - Add screenshots of all pages to Readme - done
 - Upload wireframes to readme - done
 - Have enough approved reviews in the database so that all sorting and filtering views work and can be demostrated - done
-
-
-
-- add line-breaks for clearer structure
-
+- add line-breaks for clearer structure - done
 
 
 ## **Rejected:**
@@ -1483,7 +1512,7 @@ Django's admin panel ships as standard with a mass deletion function. In the adm
 
 ![screenshot](screenshots/user_stories/admin/admin-before-comment-deletion.PNG)
 
-![screenshot](screenshots/user_stories/admin/admin-during-comment-deletion.PNG
+![screenshot](screenshots/user_stories/admin/admin-during-comment-deletion.PNG)
 
 ![screenshot](screenshots/user_stories/admin/admin-after-comment-deletion.PNG)
 
@@ -2366,9 +2395,9 @@ The idea of darkening off the main background image is not original and was take
 
 A custom scrollbar was applied with [this W3Schools page](https://www.w3schools.com/howto/howto_css_custom_scrollbar.asp)
 
-[Favicon.io](https://favicon.io/) was used to generate a favicon
+[Favicon.io](https://favicon.io/) was used to generate a favicon.
 
-[This Reddit post](https://www.reddit.com/r/django/comments/8jkh5t/updateview_creates_new_items_in_the_db_instead_of/), specifically the answer the questioner themselves added, provided the basis of the solution to the problem of automatically disapproving updated reviews in the UpdateReview view.
+[This Reddit post](https://www.reddit.com/r/django/comments/8jkh5t/updateview_creates_new_items_in_the_db_instead_of/), specifically the answer the questioner themselves added, provided the basis of the solution to the problem of automatically disapproving updated reviews in the UpdateReview view. I have since extended and modified this view, but this post should be given full credit for enabling that in the first place.
 
 The official [django-summernote](https://github.com/summernote/django-summernote) documentation and [this article](https://djangocentral.com/integrating-summernote-in-django/) were collectively invaluable in implementing the Summernote editor to both the admin panel and front-end UserReviewForm. Django Summernote itself should be credited for its ease of use and clarity of documentation. After the trials and travails encountered when working with the CK Editor and TinyMCE editors, this was very welcome.
 
@@ -2378,7 +2407,7 @@ The official [django-summernote](https://github.com/summernote/django-summernote
 
 [This article](https://teamtreehouse.com/community/length-of-queryset-in-a-django-response) taught me how to get the length of a queryset, which is used to great effect in the UserReviews view.
 
-[This article](https://thispointer.com/python-capitalize-the-first-letter-of-each-word-in-a-string/#:~:text=Use%20title()%20to%20capitalize,of%20word%20to%20lower%20case.) taught me how to title and capitalise Python strings, which were put to use in the AddReview and UpdateReview views.
+[This article](https://thispointer.com/python-capitalize-the-first-letter-of-each-word-in-a-string/#:~:text=Use%20title()%20to%20capitalize,of%20word%20to%20lower%20case.) taught me how to capitalise and lowercase Python strings, which were put to use in the AddReview and UpdateReview views.
 
 [Bootstrap 5.2](https://getbootstrap.com/docs/5.2/getting-started/introduction/) was used in BeerGate. I particularly enjoyed experimenting with Bootstrap to enable proper responsivity. Particular pages of note are:
 - [The navbar documentation](https://getbootstrap.com/docs/5.2/components/navbar/) provided the code snippets used to design the navbar
