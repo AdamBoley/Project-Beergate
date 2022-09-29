@@ -414,6 +414,7 @@ class AddReview(generic.CreateView):
         If the form is valid, the add_review page is rendered again with -
         - the context, which is used to display a success message
         """
+        template_name = 'add_review.html'
 
         user_review_form = UserReviewForm(request.POST, request.FILES)
 
@@ -431,16 +432,24 @@ class AddReview(generic.CreateView):
             user_review_form.instance.author = request.user
             user_review = user_review_form.save(commit=False)
             user_review.save()
+
+            context = {
+                "user_review_form": UserReviewForm(),
+                "reviewed": True
+            }
+
+            return render(request, template_name, context)
+
         else:
             user_review_form = UserReviewForm()
 
-        context = {
-            "user_review_form": UserReviewForm(),
-            "reviewed": True
-        }
-        template_name = 'add_review.html'
+            context = {
+                "user_review_form": UserReviewForm(),
+                "reviewed": False,
+                "failure": True
+            }
 
-        return render(request, template_name, context)
+            return render(request, template_name, context)
 
 
 class UpdateReview(generic.UpdateView):
@@ -488,7 +497,8 @@ class UpdateReview(generic.UpdateView):
                 user_update_form.instance.keywords.lower())
             user_update_form.instance.approved = False
             return self.form_valid(user_update_form, request)
-        return self.form_invalid(user_update_form)
+        else:
+            return self.form_invalid(request)
 
     def form_valid(self, user_update_form, request):
         """
@@ -497,12 +507,25 @@ class UpdateReview(generic.UpdateView):
         The context is used to display a success message
         """
         self.object = user_update_form.save()
-        template_name = "update_review.html"
+        template_name = self.template_name
         context = {
             "update_review_form": UserReviewForm(),
             "updated": True
         }
 
+        return render(request, template_name, context)
+
+    def form_invalid(self, request):
+        """
+        Handles invalid forms, such as when alcohol content is <0
+        or when aroma, appearance, taste and aftertaste are <1 or >10
+        """
+        template_name = self.template_name
+        context = {
+            "update_review_form": UserReviewForm(),
+            "updated": False,
+            "failure": True
+        }
         return render(request, template_name, context)
 
 

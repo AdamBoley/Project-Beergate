@@ -938,6 +938,8 @@ Readme:
 
 This section lists all of the future work that I would like to implement to improve the project. These were not implemented initially due to time constraints and a lack of skill. Some of the more achievable items in the Rejected Tasks section could be implemented as well
 
+- Implement full, asynchronous front-end form validation such as with the [FourDigits library](https://www.fourdigits.nl/blog/sharing-form-validation-rules-between-frontend-and-backend/) or the [Django Front End Validators library](https://johnfraney.github.io/django-front-end-validators/)
+
 - Implement upvotes / downvotes feature for Comments, possibly by using asynchronous upload
 
 - Display number of approved comments attached to each review on the index, search_results and user_reviews pages. [This article](https://stackoverflow.com/questions/50365624/display-total-number-of-comments-related-to-each-object-in-a-list-view) may assist
@@ -1767,7 +1769,6 @@ Be informed when I have posted a review, so that I can be assured that I have su
 **Fulfilment**
 When the user has submitted a review, the add_review page reloads and displays a success message that informs that their review must be approved by an administrator
 
-add-review-success
 ![](screenshots/user_stories/registered/add-review-success.PNG)
 
 **User Story:**
@@ -1775,7 +1776,6 @@ Be informed when I have updated a review, so that I can be assured that I have u
 
 **Fulfilment**
 When the user has updated a review, the update_review page reloads and displays a success message that informs that their review must be re-approved by an administrator
-
 
 ![](screenshots/user_stories/registered/update-review-success.PNG)
 
@@ -1845,6 +1845,7 @@ See above - the same logic applies
 
 ## Other Manual Testing
 
+This section covers manual testing not related to user stories
 
 ### Superuser adds a review in the admin panel
 
@@ -1893,11 +1894,19 @@ If a user declines to enter any text in the rich text editor, then the page will
 
 ### Normal user adds a review and supplies values of <1 or >10 to last 4 fields
 
-If the user adds values of <1 or >10 to the Aroma, Appearance, Taste or Aftertaste fields, then the review will still appear to submit. However, it will not be valid and hence will not appear in the admin panel for approval. Validation was applied to the Review model, but currently this only works in the admin panel. This has been identified as an area of improvement.
+If the user adds values of <1 or >10 to the Aroma, Appearance, Taste or Aftertaste fields, then the review will still appear to submit. However, it will not be valid and hence will not appear in the admin panel for approval. Validation was applied to the Review model, but currently this only works in the admin panel. See the section directly below for the solution.
 
 ### Normal user adds a review and supplies a negative value for the alcohol content
 
-If the user adds values of <0 to the Alcohol field, then the review will still appear to submit as the submission success message displays. However, it will not be valid and hence will not appear in the admin panel for approval. Validation was applied to the Review model, but currently this only works in the admin panel. This has been identified as an area of improvement. As a slight upside, the form will submit properly if an alcohol value of 0 is supplied, meaning that users can submit reviews of non-alcoholic beers.
+Previously, if the user adds values of less than 0 to the Alcohol field, then the review still appeared to submit as the submission success message displayed after the page reloaded. However, the form would not be valid and hence would not appear in the admin panel for approval. Validation was applied to the Review model, but currently this only works in the admin panel. A somewhat clumsy fix was applied to the AddReview and UpdateReview views.
+
+For the AddReview view, I moved the return render statements into the IF statement blocks that trigger if the form is valid. Then I defined a different context variable, and wrote a separate return render statement for the ELSE block that takes in this context. This ELSE context has a flag called `failure` set to True, which triggers a templating language control statement in the add_review template to display a different text box. This text box is coloured red and supplies a failure message to the user, and invites them to try again.
+
+For the UpdateReview view, applying a similar fix was harder due to the different construction of the view. In the ELSE block of the IF statement that checks form validity, I called the standard form_invalid method, and then overrode this method. This method defines a failure context similar that defined in AddReview view, and then calls a return render statement. The failure context triggers a control statement that supplies a similar failure message to the add_review template. I did try to add an anchor element link to reload the page, but this failed and I could not figure out a solution. 
+
+Do note that I consider this to be an inspired if clumsy solution to the problem, but it does at least inform the user that their form submission has failed and that they should try again, whereas the previous version informed them of success when the upload had not been successful.
+
+Obviously, part of the Future Work on BeerGate will include full front-end form validation that works identically to the validation that works as intended in the admin panel.
 
 ### Does the 500 error page trigger properly
 

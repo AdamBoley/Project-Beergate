@@ -18,6 +18,14 @@
                                 <p>Click <a href="{% url 'home' %}">here</a> to go back to the landing page</p>
                                 <p>Or click <a href="{% url 'add_review' %}">here</a> to submit another review</p>
                             </div>
+                        {% elif failure %}
+                            <div class="alert alert-danger" role="alert">
+                                <h3 class="text-center">OOPS!</h3>
+                                <p>Your review was not submitted. This is likely because it was not filled out correctly</p>
+                                <p>Please ensure that the alcohol content is not less than 0% and that your aroma, appearance, taste and aftertaste scores are between 1 and 10</p>
+                                <p>Click <a href="{% url 'home' %}">here</a> to go back to the landing page</p>
+                                <p>Or click <a href="{% url 'add_review' %}">here</a> to submit your review again</p>
+                            </div>
                         {% else %}
                             {% if user.is_authenticated %}
                                 <h3>
