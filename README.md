@@ -65,6 +65,8 @@ Am I response image here
         - [User Forms](#user-forms)
         - [User URLs](#user-urls)
 - [Tasks](#tasks)
+    - [Completed Tasks](#done)
+    - [Rejected Tasks](#rejected)
 - [Future Work](#future-work)
 - [Bugs](#bugs)
     - [Initial Deployment bug](#initial-deployment-bug)
@@ -109,6 +111,7 @@ Am I response image here
         - [Normal user edits a review and deletes data in mandatory fields](#normal-user-edits-a-review-and-deletes-data-in-mandatory-fields)
         - [Normal user submits an empty comment](#normal-user-submits-an-empty-comment-from-a-review-page)
         - [Normal user adds a review with invalid integer values](#normal-user-adds-a-review-and-supplies-values-of-1-or-10-to-last-4-fields)
+        - [Normal user adds a review with negative alcohol content value](#normal-user-adds-a-review-and-supplies-a-negative-value-for-the-alcohol-content)
         - [Does the 500 error page trigger properly](#does-the-500-error-page-trigger-properly)
         - [Does the 404 error page trigger properly](#does-the-404-error-page-trigger-properly)
         - [What happens when the user tries to upload an image from a mobile device](#what-happens-when-the-user-tries-to-upload-an-image-to-the-add-review-form-from-a-mobile-device)
@@ -528,6 +531,28 @@ BeerGate uses two data models - Review and Comment. A validation function called
 
 #### **Review class**
 
+| Column Header      | Example             | Other notes                                                      |
+| -------------------|---------------------|------------------------------------------------------------------|
+| name               | Golden Champion     | Unique(?), CharField, primary key?                               |
+| brewery            | Hogsback            | CharField, One to Many since one brewery can make multiple beers |
+| type               | Lager / Stout / Ale | CharField                                                        |
+| colour             | Amber / Pale / Dark | CharField                                                        |
+| alcohol_content    | 4 / 5.5             | DecimalField(max_digits=3, decimal_places=1)                     |
+| image              | an image            | Cloudinary image                                                 |
+| slug               | golden-champion     | SlugField, generated from name to create unique URLs             |
+| content            | This beer is a beer | TextField, forms main content of post                            |
+| keywords           | Hoppy / Malty       | CharField                                                        |
+| hops               | American / Indian   | CharField, the hops used in the beer                             |
+| upvotes            | 112                 | ManyToManyField, since many users can upvote many posts          |
+| downvotes          | 21                  | ManyToManyField, since many users can downvote many posts        |
+| author             | John Smith          | ForeignKey, from User table, on delete cascade                   |
+| created_on         | 32nd of January     | DateTimeField                                                    |
+| approved           | boolean yes/no      | BooleanField, I approve as admin superuser                       |
+| aroma              | 8                   | IntegerField, with validation to accept values between 1 and 10  |
+| appearance         | 5                   | IntegerField, with validation to accept values between 1 and 10  |
+| taste              | 10                  | IntegerField, with validation to accept values between 1 and 10  |
+| aftertaste         | 4                   | IntegerField, with validation to accept values between 1 and 10  |
+
 Review is the primary data model for BeerGate. As of the end of the project's development cycle, it contains 18 fields. The name, brewery, type, colour and keywords fields are all standard character fields. The image field is a CloudinaryField, as uploaded images are saved to my account on the Cloudinary CDN.
 
 The content field is a TextField, but this was not always the case. As noted elsewhere, I initially used the django-summernote package to apply the Summernote Rich Text Editor, but this caused a fatal error that required the project to be restarted. When the project was restarted, I used the CK-editor package, which supplies a custom field type called RichTextField. When this package did not work on the deployed app, I switched to using the django-tinymce package in hopes of using the TinyMCE Rich Text Editor, which supplies a custom field type called HTMLField. Again, this did not work on the deployed app, so I went back to using the django-summernote package. Unlike the other two, the django-summernote package merely requires a widget called SummernoteWidget to be applied to a standard TextField in the corresponding forms file.
@@ -563,6 +588,15 @@ The review_upvotes and review_downvotes methods are quite simple and return tota
 The average_score method averages the values of the aroma, appearance, taste and aftertaste fields to provide a single overall score for a beer.
 
 #### **Comment class**
+
+| Column Header      | Example             | Other notes                                                      |
+| -------------------|---------------------|------------------------------------------------------------------|
+| post               | Guinness            | ForeignKey(Beer), on delete cascade                              |
+| author             | Bob Smith           | ForeignKey(User), on delete cascade                              |
+| body               | I agree with this   | TextField                                                        |
+| created_on         | 33rd of February    | DateTimeField                                                    |
+| upvotes            | 54                  | ManyToManyField, since many users can upvote many comments       |
+| downvotes          | 67                  | ManyToManyField, since many users can downvote many comments     |
 
 The Comment model is a secondary data model for BeerGate. It provides the functionality for users to comment on Reviews.
 
@@ -746,80 +780,18 @@ The UserSignupForm and UserChangePasswordForm use a for loop to apply a `form-co
 
 As noted above, the user/urls.py file's urlpatterns list only contains 3 paths. These are for the signin, signup and password_change pages. In the future, as I get the remaining AllAuth functionality working, corresponding paths will be added to allow these templates to be accessed.
 
-# **Database Models**
-
-As a Full Stack project that uses Django, this project uses models to create the database tables. These are below, and include the column headers, examples of what might be in that column and other relevant notes.
-
-## **Beer**
-
-The Beer model is used to create a table that holds all of the data to make a beer review post.
-
-| Column Header      | Example             | Other notes                                                      |
-| -------------------|---------------------|------------------------------------------------------------------|
-| name               | Golden Champion     | Unique(?), CharField, primary key?                               |
-| brewery            | Hogsback            | CharField, One to Many since one brewery can make multiple beers |
-| type               | Lager / Stout / Ale | CharField                                                        |
-| colour             | Amber / Pale / Dark | CharField                                                        |
-| alcohol_content    | 4 / 5.5             | DecimalField(max_digits=3, decimal_places=1)                     |
-| image              | an image            | Cloudinary image                                                 |
-| slug               | golden-champion     | SlugField, generated from name to create unique URLs             |
-| content            | This beer is a beer | TextField, forms main content of post                            |
-| keywords           | Hoppy / Malty       | CharField                                                        |
-| hops               | American / Indian   | CharField, the hops used in the beer                             |
-| upvotes            | 112                 | ManyToManyField, since many users can upvote many posts          |
-| downvotes          | 21                  | ManyToManyField, since many users can downvote many posts        |
-| author             | John Smith          | ForeignKey, from User table, on delete cascade                   |
-| created_on         | 32nd of January     | DateTimeField                                                    |
-| approved           | boolean yes/no      | BooleanField, I approve as admin superuser                       |
-| aroma              | 8                   | IntegerField, with validation to accept values between 1 and 10  |
-| appearance         | 5                   | IntegerField, with validation to accept values between 1 and 10  |
-| taste              | 10                  | IntegerField, with validation to accept values between 1 and 10  |
-| aftertaste         | 4                   | IntegerField, with validation to accept values between 1 and 10  |
-| Aroma              |                     | The smell of the beer - does it smell good or bad                |
-| Appearance         |                     | Colour, clarity, head and visual carbonation                     |
-| Taste              |                     | How does it taste - is it overly bitter, too weak or just right? |
-| Aftertaste         |                     | How the taste lingers in the mouth                               |
-
-
-The Beer model will have a Meta class that orders reviews by created_on in descending order, so that the newest reviews are displayed first
-
-The Beer model will also have a magic string method to return the name of the beer, and two methods that deal with the numbers of upvotes and downvotes, one for each. These methods will return a count of these numbers so that they can be displayed.
-
-## **Comment**
-
-The Comment model is used to create a table that holds all of the information to display a comment on a beer review post. 
-
-| Column Header      | Example             | Other notes                                                      |
-| -------------------|---------------------|------------------------------------------------------------------|
-| post               | Guinness            | ForeignKey(Beer), on delete cascade                              |
-| author             | Bob Smith           | ForeignKey(User), on delete cascade                              |
-| body               | I agree with this   | TextField                                                        |
-| created_on         | 33rd of February    | DateTimeField                                                    |
-| upvotes            | 54                  | ManyToManyField, since many users can upvote many comments       |
-| downvotes          | 67                  | ManyToManyField, since many users can downvote many comments     |
-
-The Comment model will have a Meta class that orders comments by created_on in ascending order, so that the oldest comments are displayed first. 
-
-The Comment model will also have a magic string method to return the comment itself followed by the name of the commenter. The Comment model will also have two other methods that deal with the numbers of upvotes and downvotes, one for each. These methods will return a count of these numbers so that they can be displayed.
-
-### **Discussion**
-
-The post and author fields will both be Foreign Keys, and will have on_delete=models.CASCADE. This means that the comment will be removed if the parent review is deleted, or if the author's account is deleted. As above, this is intended as a defensive measure, so comments made by malicious users are deleted if that malicious user's account is deleted. 
-<br>
-The Meta class that orders comments by created_on date so that the oldest comments are displated first is intended to simulate a conversation, so that other users can follow any discussion in the comments of a post.
-
-
 # **Tasks**
 
-Done:
+This section lists the tasks I assigned myself during development. Some are equivalent to User Stories, whilst others note bugs and issues that were encountered and fixed. For those tasks dealing with particularly large and complex features such as applying Bootstrap to the AllAuth forms or designing the form for users to upload their own reviews, I found it useful to document individual steps. Whilst this should perhaps have been more properly done using the Github Project Board, I found it easier to note these tasks in the Readme itself, so that I could refer back and update them as necessary. Nonetheless, toward the end of development, these tasks were added to the Project Board as as to formalise them.
+
+# **Done:**
 - implement upvotes / downvotes feature for Beer Reviews - done 
-- Implement a Summernote content field or other rich text editor for user-generated posts - done using CKeditor
-- Look into an error displayed when creating a new account. Account appeared to be created successfully (I was able to log in with it), but got a Django error page with Error 111 Connection Refused - No longer a problem
+- Implement a rich text editor for user-generated posts - done using Summernote Editor
 - If a user attempts to submit a duplicate review - i.e same author and same beer name, an error is thrown. Need something to handle this - done thanks to move to display by primary key
-- It does appear that when uploading a post from the site that a slug is not automatically generated - no longer an issue as slug removed
+- It appears that when uploading a post from the site that a slug is not automatically generated - no longer an issue as slug removed
 - Find fix to the problem on images not uploading - use cloudinary image upload(https://cloudinary.com/documentation/django_image_and_video_upload) - fixed and documented
-- implement functionality to allow users to update, and delete their posts - both done, full CRUD functionality
-- For the admin backend, add a disapprove method, so that several previously-approved reviews can be made inactive at the same time, much like several unapproved reviews can be approved at the same time.
+- Implement functionality to allow users to update, and delete their posts - both done, full CRUD functionality
+- For the admin backend, add a disapprove method, so that several previously-approved reviews can be made inactive at the same time, much like several unapproved reviews can be approved at the same time
 - implement an exclusivity feature - if a user upvotes, remove their downvote, if user downvotes, remove their upvote so that they cannot do both at the same time
 
 - Style AllAuth forms with Bootstrap - done
@@ -836,17 +808,9 @@ Done:
         - assign these views the relevant form_class and template_name, being sure to prefix the template with account/, since the templates are located in the account directory
         - create paths in user/urls.py, importing the necessary views
 
-- Style additional AllAuth forms with Bootstrap - done
-    - email
-    - password_reset_from_key
-    - password_reset
-    - password_set
-    - plus AllAuth templates without forms
-
 - Implement modal for delete_review.html so that a user must manually confirm deletion - done
 - [Implement a search bar function](https://learndjango.com/tutorials/django-search-tutorial) - done
 - add `logged in as: {{ user.username }}` to base.html somewhere, so the user can confirm that they are logged in
-- Implement functionality to allow a user to see their own reviews - done
 - use `{% block title %}{% endblock %}` control statements to provide custom titles for html pages - done
 - Find a way to list all of a particular user's posts for easy access - done
 - Background image not displaying on deployed site - done, documented in bugs section
@@ -855,21 +819,18 @@ Done:
 - Not all cards displaying on mobile devices - done by reworking html structure and css rules
 - Fix bug related to UpdateReview creating a new record - done
 - Implement Django HoneyPot - done
-- Add settings.py booleans to enhance security - done
+- Add settings.py flags to enhance security - done
 - Apply bootstrap to search results and user reviews page - done
-- Larger, bolder, more prominent font on navbar - done
-- CKeditor rich text field not displaying on deployed site, including mobile devices- done by implementing Summernote
+- Overhaul navbar to be bolder and more prominent - done
 
 - For a user-written beer review form:
-    - need a completed BeerReviewForm in forms.py - done
+    - need a completed UserReviewForm in forms.py - done
     - need a new view in views.py - done
     - need a context in the return render of the view - done
     - need a template and front-end links to that - done
     - need a path in urls.py for that template - done
-    - Add some functionality to handle an improperly completed form. Apply this to the comment form as well (for example if a user tries to submit an empty form). 
-    - update admin.py with an approve beer review action - done
 
-- Offer an option of ordering reviews by the number of upvotes - use a dropdown menu or some type of selector (in navbar?) Then render different index views based on that selection
+- Offer an option of sorting and filtering reviews by various criteria - use a dropdown menu or some type of selector (in navbar?) Then render different index views based on that selection
 
 - Implement functionality to broadly sort reviews by type and colour
     - use index.html and ListView
@@ -894,7 +855,6 @@ Done:
 
 - Remove unused AllAuth URLS in urls.py, keep views and templates - done
 - add more content to index cards to better reflect any sorting that has been applied - done
-- comment disapproval method not working due to spelling error - done
 - Navbar fails to render properly on horizontal tablets - screen widths 992 to 1400px / lg to xxl breakpoints - done
 - review reviews/admin.py to see if more terms need to be added to the control variables - done
 - Footer - done
@@ -902,85 +862,53 @@ Done:
 - add return of average_score method to index card - done
 - Fix issue of floated card content becoming misaligned at smaller screen sizes - done
 - decreased number of cards on index page to 3 so that background image is less obscured - done
-- User_reviews does not filter out unapproved reviews - done
-- look into pagination for search_results and user_reviews pages - done for search_result page
-- add more content to search results and user reviews pages in the same vein as index
+- UserReviews view queryset does not filter out unapproved reviews - done
+- Apply pagination to search_results and user_reviews pages - done for search_result page
+- Add more content to search results and user reviews pages in the same vein as index
 - Place My Reviews, Sign-out and Change Password behind an 'Account actions' dropdown menu to make navbar less busy
 - Implement improved pagination model to index page - done
 - Implement a random 'surprise me' feature - done
-- Add a request to users to upvote or downvote reviews - "this helps push good reviews up the rankings" - done
 - Harmonise login, log out, signup to sign-in, sign-out and sign-up - done
 - Find and apply a favicon - done
 - Custom 404 and 500 error pages - done
 - add class and method docstrings - done
-- Capitalise or title AddReview `name`, `brewery`, `hops`, `type` and `colour` field inputs - done
-- Capitalise or title UpdateReview `name`, `brewery`, `hops`, `type` and `colour` field inputs - done
+- Capitalise AddReview `name`, `brewery`, `type` and `colour` field inputs - done
+- Capitalise UpdateReview `name`, `brewery`, `type` and `colour` field inputs - done
 - Lowercase AddReview and UpdateReview `keywords` field input - done
-- After submitting a User Review Form, add a link to submit a new review to the success text box - done
+- Add link to submit a new review to submission success textbox - done
 - Simplify views.py class names - done
 - Add blank and null to Hops field, modify input label to be specifically optional - done
 - Maintain consistent pagination style across all paginated pages
 - update image field label in add_review and update_review to explictly make it optional - done
-- Soundly note change to new repository thanks to summernote editor - done
+- Soundly document change to new repository thanks to summernote editor - done
 - Note removal of AllAuth Urls, and retention of views, forms and template for future work - done
 - ensure all templating language is properly indented - done
 - implement messages
 - On search results page, invite user to perform another search if theirs returns no reviews - done
 - Landing page with no reviews needs pagination bar pushed down - done
 - Rework early part of Bugs section, esp. parts that deal with old project - done
-
-
-In progress:
-
-- Review and update Bootstrap card structure for non-AllAuth templates:
-    - base / navbar - logged-in note for collapsed navbars
-    - index
-    - review 
-        - main image is rather large so reduce size - done
-        - centre comment rich-text field - more difficult
-    - add_review - try to centre the rich-text editor box
-    - update_review - increase width, use same layout as add_review - done
-    - delete_review - add link to update the review - done
-    - user_reviews - in progress
-    - search_results - in progress
-- Style AllAuth templates - sign-in, sign-up, login, logout, email, password, etc - 
-
-- Testing section for exhaustive manual testing - outline in place
-
-- Exhaustive manual testing
-
+- Testing section for exhaustive manual testing - done
+- Exhaustive manual testing - done
+- Give bugs section titles for each bug
+- Modify Reviews so that they have realistic content, not just Lorem Ipsum bulk text - done
+- Add screenshots of all pages to Readme
 
 
 To do:
 
-- Explictly state the number of reviews the user has vs how many are approved on the user_reviews page. Define in context using len? or use templating count?
+- Have enough approved reviews in the database so that all sorting and filtering views work and can be demostrated
 
-- Consider using a new method for UpdateView: https://docs.djangoproject.com/en/3.2/topics/forms/modelforms/#the-save-method - override save method?
-
-- The SECURE_SSL_REDIRECT and SECURE_HSTS_SECONDS security settings provided last session caused localhost to fail
-    - Is it acceptable to not include these?
-    - Use a conditional - if working in deployment, apply these settings
-
-- How to create a view to order by the output of a class method
-    - average_score method 
-    - Ronan will look into this
-
-- give bugs section titles for each bug
-
-- Modify Reviews so that they have realistic content, not just Lorem Ipsum bulk text
-
-- Have enough records in the database so that all sorting and filtering views work and can be demostrated
-
+- Add a request to users to upvote or downvote reviews - "this helps push good reviews up the rankings"
 
 Readme:
 
-- Add screenshots of all pages to Readme
 - Upload wireframes to readme
 - add line-breaks for clearer structure
 
 
 
-Rejected:
+## **Rejected:**
+
 - add update and delete buttons to user_reviews so that a user does not have to access each record individually - rejected as not possible, since the entire search result card is itself an anchor element, it cannot have other anchor elements as children
 
 - In UserReviewForm, apply bootstrap to RadioSelect widget with name, class, etc - rejected as unnecessary, since the extant radio buttons are clear enough
@@ -997,7 +925,7 @@ Rejected:
         - The security concern is valid, since I have a 2-layered defence
         - It is also a violation of DRY, since Django ships with a admin panel
 
-- Use the checking thing to check if a user is the post's author - if so, remove/disable the upvote button, or trigger it automatically - rejected as too difficult
+- Use the checking control statement to check if a user is the post's author and if so, remove/disable the upvote button, or trigger it automatically - rejected as too difficult
     - adding an upvote automatically is difficult, since the add_review function does not allow an upvote to be assigned during the upload/save process
 
 - Optional purchased_from CharField in Review - rejected as unncessary. The beer name and brewery should be sufficient if a user wishes to search for a place to buy the beer from, plus it could prove confusing for users submitting reviews of draught ales
@@ -1008,7 +936,8 @@ Rejected:
 
 # **Future Work**
 
-Future work:
+This section lists all of the future work that I would like to implement to improve the project. These were not implemented initially due to time constraints and a lack of skill. Some of the more achievable items in the Rejected Tasks section could be implemented as well
+
 - Implement upvotes / downvotes feature for Comments, possibly by using asynchronous upload
 
 - Display number of approved comments attached to each review on the index, search_results and user_reviews pages. [This article](https://stackoverflow.com/questions/50365624/display-total-number-of-comments-related-to-each-object-in-a-list-view) may assist
@@ -1019,6 +948,13 @@ Future work:
 
 - Modify UserSignUpForm in user/forms.py to include additional first_name and last_name fields
 
+- Explictly state the number of reviews the user has vs how many are approved on the user_reviews page. Define in context using len? or use templating count?
+
+- Consider using a new method for UpdateView: https://docs.djangoproject.com/en/3.2/topics/forms/modelforms/#the-save-method - override save method?
+
+- The SECURE_SSL_REDIRECT and SECURE_HSTS_SECONDS security settings caused localhost to fail
+
+- Create a view to order by the output of average_score class method
 
 # **Bugs**
 
@@ -1957,7 +1893,11 @@ If a user declines to enter any text in the rich text editor, then the page will
 
 ### Normal user adds a review and supplies values of <1 or >10 to last 4 fields
 
-The user add values of <1 or >10 to the Aroma, Appearance, Taste or Aftertaste fields, then the review will still appear to submit. However, it will not be valid and hence will not appear in the admin panel for approval. This is not ideal.
+If the user adds values of <1 or >10 to the Aroma, Appearance, Taste or Aftertaste fields, then the review will still appear to submit. However, it will not be valid and hence will not appear in the admin panel for approval. Validation was applied to the Review model, but currently this only works in the admin panel. This has been identified as an area of improvement.
+
+### Normal user adds a review and supplies a negative value for the alcohol content
+
+If the user adds values of <0 to the Alcohol field, then the review will still appear to submit as the submission success message displays. However, it will not be valid and hence will not appear in the admin panel for approval. Validation was applied to the Review model, but currently this only works in the admin panel. This has been identified as an area of improvement. As a slight upside, the form will submit properly if an alcohol value of 0 is supplied, meaning that users can submit reviews of non-alcoholic beers.
 
 ### Does the 500 error page trigger properly
 

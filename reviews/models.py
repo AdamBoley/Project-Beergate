@@ -4,6 +4,8 @@ from cloudinary.models import CloudinaryField
 from django.urls import reverse
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
+from django.core.validators import MaxValueValidator, MinValueValidator
+from decimal import Decimal
 
 
 def validate_within_limits(value):
@@ -35,7 +37,8 @@ class Review(models.Model):
     brewery = models.CharField(max_length=200)
     type = models.CharField(max_length=50)
     colour = models.CharField(max_length=50)
-    alcohol = models.DecimalField(max_digits=3, decimal_places=1)
+    alcohol = models.DecimalField(max_digits=3, decimal_places=1, validators=[
+        MinValueValidator(Decimal('0.0'))])
     hops = models.CharField(max_length=100, blank=True, null=True)
     image = CloudinaryField('image', default='placeholder')
     keywords = models.CharField(max_length=200)
